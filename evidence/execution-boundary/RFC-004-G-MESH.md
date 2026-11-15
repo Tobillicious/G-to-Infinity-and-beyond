@@ -122,3 +122,35 @@ draft handshake fields in the user's earlier `g-mesh/1.0` sketch;
 no negotiation or automatic upgrade is offered. The RFC's proposed
 distributed quorum, TEE, network-isolation and original-six bridges
 remain pending.
+
+## 9. Two-node partition experiment and short signed leases
+
+`g_mesh_protocol.py` now optionally enables `require_fresh_lease=True`
+and accepts short, exactly scoped, controller-signed `lease` messages.
+The issuer public key cannot sign controller leases; each lease binds the
+protocol domain separator, intended target, deployment, pinned policy digest,
+generation, per-controller monotone sequence and absolute expiry. The local
+SQLite store atomically persists the lease and its signed sequence floor,
+and a durable last-observed-clock floor denies time rollback. Lease length
+is explicitly bounded by `max_lease_seconds` (10 seconds in tests;
+configurable 1–300 seconds). No path without a valid local lease can pass
+handshake admission when fresh-lease mode is enabled.
+
+`test_g_mesh_two_node.py` simulates two independent SQLite nodes, explicit
+delivery, dropped controls, reordered renewals, forged keys, replay after
+restart, clock rollback and bounded expiry. It **deliberately demonstrates**
+that a remote hold delivered to Alpha cannot instantly invalidate Beta
+while Beta is partitioned and still has an unexpired local lease. At expiry,
+Beta blocks new handshakes until it receives a fresh, separately authenticated
+lease; an old/reordered renewal cannot extend the deadline.
+
+**Limits:** this is offline simulation, not distributed consensus or a trusted
+global clock. Signed renewals are assumed to come from an uncompromised
+controller; an adversary controlling that key can authorize a new lease.
+The temporary interval before expiry is an **explicit residual revocation
+window**, not universal instantaneous guardianship. No actual external effects
+are exposed here, and a handshake itself is NOT enactment authorization. Any
+future real effect gateway must recheck the lease atomically at the local
+effect boundary, establish actual original-six X3 coverage and verify all
+alternative effect paths. Operator clocks, process privileges, TEE roots and
+true network timing remain independently unverified.
