@@ -1,5 +1,6 @@
 """G3 synthetic effect boundary tests. No external actuator, network or secrets."""
 import copy
+import sqlite3
 import tempfile
 import threading
 import unittest
@@ -106,6 +107,52 @@ class TestG3SyntheticEffectBoundary(unittest.TestCase):
         result = self.gate.dispatch_synthetic(self.event, now=20, permit=self.permit)
         self.assertEqual(result["code"], "already_dispatched")
         self.assertEqual(self.gate.effect_count(), 1)
+
+    def test_direct_effect_write_through_adapter_connection_denied(self):
+        # This adapter connection cannot bypass dispatch_synthetic.
+        with self.assertRaises(sqlite3.DatabaseError):
+            self.gate.db.execute(
+                "INSERT INTO synthetic_effects VALUES (?,?,?)",
+                ("forged", "a" * 64, "b" * 64))
+        self.assertEqual(self.gate.effect_count(), 0)
+        self.admit()
+        self.assertTrue(self.gate.dispatch_synthetic(
+            self.event, now=20, permit=self.permit)["ok"])
+        # Cached statements are disabled: the same SQL form must be denied
+        # after the legitimate write as well.
+        with self.assertRaises(sqlite3.DatabaseError):
+            self.gate.db.execute(
+                "INSERT INTO synthetic_effects VALUES (?,?,?)",
+                ("forged-again", "a" * 64, "b" * 64))
+        self.assertEqual(self.gate.effect_count(), 1)
+
+    def test_tampered_effect_record_detected_before_followup(self):
+        self.admit()
+        self.assertTrue(self.gate.dispatch_synthetic(
+            self.event, now=20, permit=self.permit)["ok"])
+        # Independent DB access (outside the protected adapter) remains a
+        # demonstrable bypass: complete mediation is NOT established yet.
+        with sqlite3.connect(self.path) as outsider:
+            outsider.execute("UPDATE synthetic_effects SET receipt=? WHERE event_id=?",
+                            ("0" * 64, self.event["event_id"]))
+        self.assertEqual(self.gate.audit()["code"], "synthetic_effect_integrity")
+        self.assertEqual(self.gate.dispatch_synthetic(
+            self.event, now=20, permit=self.permit)["code"],
+            "synthetic_effect_integrity")
+        self.assertEqual(self.gate.effect_count(), 1)
+
+    def test_direct_db_connection_still_bypasses_python_authorizer(self):
+        # A known hostile counterexample, deliberately kept as a test:
+        # another process/user with DB write permissions can inject an
+        # effect; filesystem/OS isolation is essential for full mediation.
+        with sqlite3.connect(self.path) as outsider:
+            outsider.execute(
+                "INSERT INTO synthetic_effects VALUES (?,?,?)",
+                ("unauthorized", "a" * 64, "b" * 64))
+        self.assertEqual(self.gate.audit()["code"], "synthetic_effect_integrity")
+        self.assertEqual(self.gate.dispatch_synthetic(
+            self.event, now=20, permit=self.permit)["code"],
+            "synthetic_effect_integrity")
 
     def test_unsigned_effect_mode_not_permitted(self):
         kwargs = dict(self.kwargs, ed25519_public_key=None)
