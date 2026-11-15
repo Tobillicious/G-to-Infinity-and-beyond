@@ -23,6 +23,11 @@ HANDSHAKE_FIELDS = frozenset((
     "event_digest", "policy_digest", "authority_ref", "generation",
     "sequence", "not_after", "attestation_ref",
 ))
+LEASE_FIELDS = frozenset((
+    "protocol", "type", "source_node_id", "target_node_id",
+    "deployment_id", "policy_digest", "generation", "sequence",
+    "not_after",
+))
 REVOCATION_FIELDS = frozenset((
     "protocol", "type", "source_node_id", "target_node_id",
     "deployment_id", "authority_ref", "generation", "sequence",
@@ -82,6 +87,17 @@ def _valid_revocation(data, node_id, deployment):
     )
 
 
+def _valid_lease(data, node_id, deployment, policy):
+    return (type(data) is dict and set(data) == LEASE_FIELDS and
+            data["protocol"] == PROTOCOL and data["type"] == "lease" and
+            _nonempty(data["source_node_id"]) and
+            data["target_node_id"] == node_id and
+            data["deployment_id"] == deployment and
+            data["policy_digest"] == policy and
+            _positive(data["generation"]) and _positive(data["sequence"]) and
+            _positive(data["not_after"]))
+
+
 class GMeshProtocolHandler:
     """Durable, local-only source-scoped sequence and controller hold.
 
@@ -91,7 +107,8 @@ class GMeshProtocolHandler:
     """
 
     def __init__(self, db_path, *, node_id, deployment_id, policy_digest,
-                 issuer_keys, controller_keys, clock=None):
+                 issuer_keys, controller_keys, clock=None,
+                 require_fresh_lease=False, max_lease_seconds=30):
         if (not _nonempty(node_id) or not _nonempty(deployment_id) or
                 type(policy_digest) is not str or
                 not DIGEST.fullmatch(policy_digest)):
@@ -102,6 +119,12 @@ class GMeshProtocolHandler:
                     for roster in (issuer_keys, controller_keys)
                     for k, v in roster.items())):
             raise ValueError("explicit pinned public-key rosters required")
+        if type(require_fresh_lease) is not bool or (
+                type(max_lease_seconds) is not int or
+                max_lease_seconds < 1 or max_lease_seconds > 300):
+            raise ValueError("bounded fresh-lease configuration required")
+        self.require_fresh_lease = require_fresh_lease
+        self.max_lease_seconds = max_lease_seconds
         self.node_id = node_id
         self.deployment_id = deployment_id
         self.policy_digest = policy_digest
@@ -127,6 +150,18 @@ class GMeshProtocolHandler:
         self.db.execute(
             "CREATE TABLE IF NOT EXISTS control_sequence "
             "(controller TEXT PRIMARY KEY, last_seq INTEGER NOT NULL)")
+        self.db.execute(
+            "CREATE TABLE IF NOT EXISTS lease_state "
+            "(id INTEGER PRIMARY KEY CHECK(id=1), generation INTEGER NOT NULL, "
+            "not_after INTEGER NOT NULL, controller TEXT NOT NULL, "
+            "last_seq INTEGER NOT NULL)")
+        self.db.execute(
+            "CREATE TABLE IF NOT EXISTS lease_sequence "
+            "(controller TEXT PRIMARY KEY, last_seq INTEGER NOT NULL)")
+        self.db.execute(
+            "CREATE TABLE IF NOT EXISTS time_floor "
+            "(id INTEGER PRIMARY KEY CHECK(id=1), last_seen INTEGER NOT NULL)")
+        self.db.execute("INSERT OR IGNORE INTO time_floor VALUES (1,0)")
 
     @property
     def state(self):
@@ -161,6 +196,74 @@ class GMeshProtocolHandler:
                 UnicodeError, RecursionError):
             return False
 
+    def _observe_clock_locked(self, now):
+        """Persist a local clock floor even when a permit/lease is expired.
+
+        This only protects against rollback below previously observed local
+        timestamps, not forged forward time, trusted UTC or host compromise.
+        """
+        prior = self.db.execute(
+            "SELECT last_seen FROM time_floor WHERE id=1").fetchone()
+        if prior is None or type(prior[0]) is not int or prior[0] < 0:
+            return False, "clock_state_invalid"
+        if now < prior[0]:
+            return False, "clock_rollback"
+        self.db.execute("UPDATE time_floor SET last_seen=? WHERE id=1", (now,))
+        return True, "clock_current"
+
+    def install_authority_lease(self, payload, signature, canonical=None):
+        """Locally install a short-lived signed controller heartbeat/lease.
+
+        This is NOT network consensus or consent. A partition or dropped
+        renewal forces future handshakes to fail after local expiry.
+        """
+        if not _valid_lease(
+                payload, self.node_id, self.deployment_id, self.policy_digest):
+            return False, "invalid_lease_schema"
+        key = self.controller_keys.get(payload["source_node_id"])
+        if key is None or not self._verify_signature(
+                key, payload, signature, canonical):
+            return False, "invalid_controller_signature"
+        try:
+            now = self.clock()
+            if type(now) is not int or now < 0 or now >= 2**63:
+                return False, "clock_unavailable"
+        except (TypeError, ValueError, OverflowError):
+            return False, "clock_unavailable"
+
+        def accept():
+            clock_status = self._observe_clock_locked(now)
+            if not clock_status[0]:
+                return clock_status
+            state = self.db.execute(
+                "SELECT halted,generation FROM gmesh_state WHERE id=1"
+            ).fetchone()
+            if state is None or state[0]:
+                return False, "FAIL_CLOSED_local_hold"
+            if payload["generation"] != state[1]:
+                return False, "stale_generation"
+            if (payload["not_after"] <= now or
+                    payload["not_after"] - now > self.max_lease_seconds):
+                return False, "lease_expired_or_too_long"
+            prior = self.db.execute(
+                "SELECT last_seq FROM lease_sequence WHERE controller=?",
+                (payload["source_node_id"],)).fetchone()
+            if prior is not None and payload["sequence"] <= prior[0]:
+                return False, "lease_replay"
+            self.db.execute(
+                "INSERT INTO lease_sequence VALUES (?,?) "
+                "ON CONFLICT(controller) DO UPDATE SET last_seq=excluded.last_seq",
+                (payload["source_node_id"], payload["sequence"]))
+            self.db.execute(
+                "INSERT INTO lease_state VALUES (1,?,?,?,?) "
+                "ON CONFLICT(id) DO UPDATE SET generation=excluded.generation,"
+                "not_after=excluded.not_after,controller=excluded.controller,"
+                "last_seq=excluded.last_seq",
+                (payload["generation"], payload["not_after"],
+                 payload["source_node_id"], payload["sequence"]))
+            return True, "local_lease_installed"
+        return self._transaction(accept)
+
     def process_handshake(self, payload, signature, canonical=None):
         if not _valid_handshake(
                 payload, self.node_id, self.deployment_id, self.policy_digest):
@@ -177,6 +280,9 @@ class GMeshProtocolHandler:
             return False, "clock_unavailable"
 
         def accept():
+            clock_status = self._observe_clock_locked(now)
+            if not clock_status[0]:
+                return clock_status
             state = self.db.execute(
                 "SELECT halted,generation FROM gmesh_state WHERE id=1"
             ).fetchone()
@@ -184,6 +290,13 @@ class GMeshProtocolHandler:
                 return False, "FAIL_CLOSED_local_hold"
             if payload["generation"] != state[1]:
                 return False, "stale_generation"
+            if self.require_fresh_lease:
+                lease = self.db.execute(
+                    "SELECT generation,not_after FROM lease_state "
+                    "WHERE id=1").fetchone()
+                if (lease is None or lease[0] != state[1] or
+                        now >= lease[1]):
+                    return False, "FAIL_CLOSED_lease_unavailable"
             if now >= payload["not_after"]:
                 return False, "expired"
             if self.db.execute(
