@@ -113,7 +113,14 @@ class ThreePrincipalGatewayTests(unittest.TestCase):
             effect_dir.mkdir(mode=0o700)
             os.chown(effect_dir, writer_uid, controller_uid)
             effect_dir.chmod(0o700)
-            public_socket = str(parent / "public.sock")
+            # Only writer can create/remove the public socket inode.
+            # Guest and controller may traverse its directory but cannot
+            # replace or unlink it; SO_PEERCRED still gates requests.
+            public_dir = parent / "public-transport"
+            public_dir.mkdir(mode=0o755)
+            os.chown(public_dir, writer_uid, controller_uid)
+            public_dir.chmod(0o755)
+            public_socket = str(public_dir / "public.sock")
             control_socket = str(private / "controller.sock")
             db = str(private / "state.sqlite")
 
