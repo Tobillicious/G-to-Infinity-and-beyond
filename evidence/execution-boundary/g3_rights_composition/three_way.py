@@ -10,7 +10,7 @@ from g3_rights_veto.external_checkpoint import verify_checkpoint
 def inspect_three_way(packet, *, record_ref, public_keys, revoked_serials,
                       trusted_records, current_generation, now, subject, action,
                       effect_digest, scope, purpose, emergency_hold,
-                      veto_journal, checkpoint_packet, pinned_checkpoint_key,
+                      veto_journal, veto_db_path, checkpoint_packet, pinned_checkpoint_key,
                       deployment, trusted_generation_floor):
     """Require independently witnessed withdrawal state for same exact event.
 
@@ -37,7 +37,7 @@ def inspect_three_way(packet, *, record_ref, public_keys, revoked_serials,
     # Require EXACT generation equality between the signed externally
     # witnessed journal and the rights/claim view, not merely >= a floor.
     check = verify_checkpoint(
-        veto_journal.db_path, checkpoint_packet,
+        veto_db_path, checkpoint_packet,
         pinned_public_key=pinned_checkpoint_key, deployment=deployment,
         minimum_generation=trusted_generation_floor)
     if not check["checkpoint_matches"]:
@@ -64,7 +64,7 @@ def inspect_three_way(packet, *, record_ref, public_keys, revoked_serials,
     # Catch state advancing during the three separate evidence reads.
     # This does NOT create an atomic decision or protect the eventual writer.
     again = verify_checkpoint(
-        veto_journal.db_path, checkpoint_packet,
+        veto_db_path, checkpoint_packet,
         pinned_public_key=pinned_checkpoint_key, deployment=deployment,
         minimum_generation=trusted_generation_floor)
     if not again["checkpoint_matches"]:
