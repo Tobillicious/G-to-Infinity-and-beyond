@@ -68,6 +68,41 @@ class PublishedInodePermissionsTests(unittest.TestCase):
             os.close(fd)
         self.assertEqual(target.read_text(), 'safe')
 
+    def test_owner_write_bit_restoration_is_detected_before_new_effect(self):
+        self.assertEqual(
+            self.store.write({'op':'write','id':'first','html':'safe',
+                              'epoch':self.epoch})['code'], 'committed')
+        target = next(self.output.iterdir())
+        original = target.read_bytes()
+        self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o400)
+        # A trusted owner (or compromised service owner) can change DAC
+        # without altering the content hash. This must be an integrity alert,
+        # not accepted as a safe unchanged artifact.
+        target.chmod(0o600)
+        self.assertEqual(target.read_bytes(), original)
+        self.assertEqual(self.store.inventory()['code'], 'integrity_failure')
+        denied = self.store.write({'op':'write','id':'second','html':'other',
+                                   'epoch':self.epoch})
+        self.assertEqual(denied['code'], 'integrity_failure')
+        self.assertEqual(len(list(self.output.iterdir())), 1)
+        self.assertEqual(self.store.db.execute(
+            'SELECT COUNT(*) FROM effect').fetchone()[0], 1)
+        # Recovery is not permission to publish a different event.
+        target.chmod(0o400)
+        self.assertTrue(self.store.inventory()['ok'])
+        self.assertEqual(self.store.inventory()['committed'], 1)
+
+    def test_world_readability_relaxation_is_integrity_failure(self):
+        self.assertEqual(
+            self.store.write({'op':'write','id':'first','html':'safe',
+                              'epoch':self.epoch})['code'], 'committed')
+        target = next(self.output.iterdir())
+        target.chmod(0o444)
+        self.assertEqual(self.store.inventory()['code'], 'integrity_failure')
+        self.assertEqual(self.store.write(
+            {'op':'write','id':'second','html':'other',
+             'epoch':self.epoch})['code'], 'integrity_failure')
+
     def test_denied_or_unpublished_intent_never_becomes_visible(self):
         self.store.hold()
         self.assertEqual(

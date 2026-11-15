@@ -136,7 +136,9 @@ class Store:
             return False
         try:
             st = os.fstat(fd)
-            if not stat.S_ISREG(st.st_mode) or st.st_nlink != 1 or st.st_uid != os.geteuid() or st.st_mode & 0o077:
+            if (not stat.S_ISREG(st.st_mode) or st.st_nlink != 1 or
+                    st.st_uid != os.geteuid() or
+                    stat.S_IMODE(st.st_mode) != 0o400):
                 return False
             h=hashlib.sha256()
             while True:
