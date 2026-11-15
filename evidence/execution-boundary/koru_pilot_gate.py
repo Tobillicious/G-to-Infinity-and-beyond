@@ -72,12 +72,44 @@ class PilotGate:
             self.db.execute("UPDATE gate_state SET generation=?, halted=0 WHERE id=1", (generation,))
         self._transaction(act)
 
+    def _audit_locked(self):
+        """Local consistency check; SHA-256 receipts are NOT authenticated MACs."""
+        row = self.db.execute("PRAGMA quick_check").fetchone()
+        if row is None or row[0] != "ok":
+            return {"ok": False, "code": "database_integrity"}
+        ctx_hash = digest(self.contexts[self.context_ref])
+        context = self.contexts[self.context_ref]
+        state = self.db.execute(
+            "SELECT context_version, context_digest, predecessor_ref "
+            "FROM gate_state WHERE id=1").fetchone()
+        if state != (context["version"], ctx_hash, context["predecessor_ref"]):
+            return {"ok": False, "code": "trusted_context_mismatch"}
+        for event_id, key, payload_hash, record_ctx, predecessor, receipt in self.db.execute(
+                "SELECT event_id, idempotency_key, payload_digest, "
+                "context_digest, predecessor_ref, receipt FROM records"):
+            expected = digest(["koru-pilot-v1", event_id, payload_hash,
+                               record_ctx, predecessor])
+            if (type(event_id) is not str or not event_id or
+                    type(key) is not str or not key or
+                    type(payload_hash) is not str or len(payload_hash) != 64 or
+                    record_ctx != ctx_hash or predecessor != context["predecessor_ref"] or
+                    receipt != expected):
+                return {"ok": False, "code": "record_integrity"}
+        return {"ok": True, "code": "local_consistency_only"}
+
+    def audit(self):
+        """Audit the synthetic journal under the transaction lock."""
+        return self._transaction(self._audit_locked)
+
     def apply(self, event, *, now):
         """Check and persist together in ONE SQLite transaction; never enact external effects."""
         def act():
             generation, halted, version, context_hash, predecessor = self.db.execute(
                 "SELECT generation, halted, context_version, context_digest, predecessor_ref "
                 "FROM gate_state WHERE id=1").fetchone()
+            audit = self._audit_locked()
+            if not audit["ok"]:
+                return audit
             if halted:
                 return {"ok": False, "code": "held"}
             if not isinstance(event, dict):
