@@ -59,6 +59,22 @@ class SignedG3Writer(Store):
         with self.mesh.lock:
             with self.gate.lock:
                 with self.lock:
+                    # Reject uncommittable local effects BEFORE consuming
+                    # a signed mesh sequence or recording a G3 synthetic
+                    # dispatch. These local checks are re-run in Store.write.
+                    # All participating *in-process* handlers remain locked.
+                    inventory = self.inventory()
+                    if not inventory['ok']:
+                        return inventory
+                    if any(i != event_id for i in inventory['pending']):
+                        return {'ok':False,'code':'unresolved_previous_effect'}
+                    current_epoch, halted = self._authority()
+                    if halted or type(request['epoch']) is not int or current_epoch != request['epoch']:
+                        return {'ok':False,'code':'stale_or_halted'}
+                    prior=self.db.execute(
+                        'SELECT digest,epoch FROM effect WHERE id=?',(event_id,)).fetchone()
+                    if prior and prior != (self.manifest[event_id],current_epoch):
+                        return {'ok':False,'code':'collision'}
                     clock_floor=self.gate.accept_broker_time(now)
                     if not clock_floor['ok']:
                         return clock_floor
