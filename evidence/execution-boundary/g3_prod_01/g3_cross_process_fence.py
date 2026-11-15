@@ -99,7 +99,7 @@ class VetoBoundFencedSignedG3Writer(FencedSignedG3Writer):
     """
 
     def __init__(self, path, output_dir, *, fence_path, veto_journal,
-                 trusted_subjects, **kwargs):
+                 trusted_subjects, trusted_authority_refs, **kwargs):
         # Late import keeps the existing signed research writer usable in
         # isolated test harnesses that do not install rights modules.
         from g3_rights_veto.rights_veto import RightsVetoJournal
@@ -110,6 +110,11 @@ class VetoBoundFencedSignedG3Writer(FencedSignedG3Writer):
                     type(v) is not str or not v
                     for k, v in trusted_subjects.items())):
             raise ValueError("nonempty trusted event-to-subject mapping required")
+        if (type(trusted_authority_refs) is not dict or
+                set(trusted_authority_refs) != set(trusted_subjects) or
+                any(type(v) is not str or not v
+                    for v in trusted_authority_refs.values())):
+            raise ValueError("trusted event authority references required")
         guard = getattr(veto_journal, "publication_fence", None)
         if not isinstance(guard, FileFence):
             raise PermissionError("unbound rights journal cannot enforce publication")
@@ -123,6 +128,7 @@ class VetoBoundFencedSignedG3Writer(FencedSignedG3Writer):
                 raise PermissionError("subject mapping must cover every permitted event")
             self.veto_journal = veto_journal
             self.trusted_subjects = dict(trusted_subjects)
+            self.trusted_authority_refs = dict(trusted_authority_refs)
             self._verify_veto_binding()
         except BaseException:
             self.close()
@@ -164,10 +170,11 @@ class VetoBoundFencedSignedG3Writer(FencedSignedG3Writer):
                     return {"ok": False, "code": "signed_envelope_required"}
                 event_id = request["id"]
                 subject = self.trusted_subjects.get(event_id)
-                record_ref = request["event"].get("authority_ref")
+                record_ref = self.trusted_authority_refs.get(event_id)
                 output_digest = self.manifest.get(event_id)
-                if (subject is None or type(record_ref) is not str or
-                        not record_ref or output_digest is None):
+                if (subject is None or record_ref is None or
+                        request["event"].get("authority_ref") != record_ref or
+                        output_digest is None):
                     return {"ok": False, "code": "rights_event_mapping_unavailable"}
                 journal = self.veto_journal
                 with journal.lock:
