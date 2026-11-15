@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 from release_evidence import REQUIRED, inspect
 
-COMMIT = "a" * 64
+COMMIT = "b1910b23cb3c3bd4b8ad47f4e7e5b228cc94fae3"
 
 
 class InventoryTests(unittest.TestCase):
@@ -40,7 +40,7 @@ class InventoryTests(unittest.TestCase):
                       inspect(self.packet, self.root)["errors"])
 
     def test_stale_commit_denied(self):
-        self.packet["evidence"]["emergency_revocation"]["reviewed_commit"] = "b" * 64
+        self.packet["evidence"]["emergency_revocation"]["reviewed_commit"] = "b" * 40
         self.assertIn("emergency_revocation:unreviewed_or_stale",
                       inspect(self.packet, self.root)["errors"])
 
@@ -58,6 +58,26 @@ class InventoryTests(unittest.TestCase):
         a = self.packet["evidence"]["crash_recovery"]["path"]
         self.packet["evidence"]["emergency_revocation"]["path"] = a
         self.assertFalse(inspect(self.packet, self.root)["ready_for_independent_review"])
+
+    def test_actual_format_git_commit_and_sha256_are_separate(self):
+        self.assertEqual(len(COMMIT), 40)
+        self.assertTrue(inspect(self.packet, self.root)["ready_for_independent_review"])
+        self.packet["source_commit"] = "a" * 64
+        self.assertIn("source_commit_invalid",
+                      inspect(self.packet, self.root)["errors"])
+
+    def test_nested_symlink_alias_is_rejected(self):
+        real = self.root / "real"
+        real.mkdir()
+        (real / "document.txt").write_bytes(b"claimed")
+        alias = self.root / "alias"
+        alias.symlink_to(real, target_is_directory=True)
+        key = "signed_effect_boundary"
+        item = self.packet["evidence"][key]
+        item["path"] = "alias/document.txt"
+        item["sha256"] = hashlib.sha256(b"claimed").hexdigest()
+        self.assertIn(key + ":missing_or_unsafe_file",
+                      inspect(self.packet, self.root)["errors"])
 
     def test_bad_schema_denied(self):
         self.packet["evidence"]["crash_recovery"] = None
