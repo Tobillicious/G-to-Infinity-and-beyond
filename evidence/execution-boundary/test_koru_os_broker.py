@@ -24,13 +24,13 @@ _CHILD = r'''
 import json, os, socket, sys
 def send_request(path, op, event, permit, now):
     payload = json.dumps({"op":op,"event":event,"permit":permit,"now":now},
-                         separators=(",", ":")).encode() + b"\\n"
+                         separators=(",", ":")).encode() + b"\n"
     with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
         s.settimeout(5)
         s.connect(path)
         s.sendall(payload)
         buf = bytearray()
-        while not buf.endswith(b"\\n"):
+        while not buf.endswith(b"\n"):
             piece = s.recv(4096)
             if not piece or len(buf) + len(piece) > 32768:
                 raise ValueError("invalid broker response")
