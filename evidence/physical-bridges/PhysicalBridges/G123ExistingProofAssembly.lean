@@ -28,6 +28,7 @@ namespace PhysicalBridges.G123ExistingProofAssembly
 open PhysicalBridges.FencedOptimiserInstrument
 open PhysicalBridges.FullGuardianOrigin
 open PhysicalBridges.CathedralFullX3Assembly
+open PhysicalBridges.CathedralBridgeDischargeAssembly
 open PhysicalBridges.CathedralGuardianOnlyCapstone
 open PhysicalBridges.AllIsGActualityDischarge
 
