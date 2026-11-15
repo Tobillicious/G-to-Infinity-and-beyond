@@ -44,19 +44,59 @@ class TestKoruPilotGate(unittest.TestCase):
         self.assertEqual(self.gate.apply(self.event, now=20)["code"], "replay")
 
     def test_revoked_authority_cannot_commit(self):
-        self.trusted["authorities"]["auth-lesson"]["active"] = False
+        self.gate.revoke_authority("auth-lesson")
         result = self.gate.apply(self.event, now=20)
-        self.assertEqual(result["code"], "independent_authority")
+        self.assertEqual(result["code"], "authority_revoked")
         self.assertEqual(self.gate.record_count(), 0)
 
     def test_changed_whole_context_and_payload_cannot_commit(self):
         event = copy.deepcopy(self.event)
         event["action_expr"] = {"op": "identity", "args": [{"atom": "p1"}]}
         self.assertEqual(self.gate.apply(event, now=20)["code"], "trusted_witness")
+        # Caller-owned fixture tampering does not change the gate's trusted copy.
         context = self.trusted["contexts"]["ctx-one"]
         context["positions"][5]["value"] += 1
-        self.assertEqual(self.gate.apply(self.event, now=20)["code"], "whole_context_mismatch")
+        self.assertTrue(self.gate.apply(self.event, now=20)["ok"])
+        self.assertEqual(self.gate.record_count(), 1)
+
+    def test_revocation_survives_restart(self):
+        self.gate.revoke_authority("auth-lesson")
+        self.gate.close()
+        self.gate = PilotGate(self.db_path, contexts=self.trusted["contexts"],
+                              signatures=self.trusted["signatures"],
+                              witnesses=self.trusted["witnesses"],
+                              authorities=self.trusted["authorities"],
+                              provenances=self.trusted["provenances"],
+                              context_ref="ctx-one", generation=3)
+        self.assertEqual(self.gate.apply(self.event, now=20)["code"], "authority_revoked")
         self.assertEqual(self.gate.record_count(), 0)
+
+    def test_external_registry_mutation_does_not_grant_privilege(self):
+        self.gate.revoke_authority("auth-lesson")
+        self.trusted["authorities"]["auth-lesson"]["active"] = True
+        self.trusted["witnesses"].clear()
+        self.assertEqual(self.gate.apply(self.event, now=20)["code"], "authority_revoked")
+        self.assertEqual(self.gate.record_count(), 0)
+
+    def test_revoke_serializes_with_apply(self):
+        outcomes = []
+        barrier = threading.Barrier(2)
+        def apply():
+            barrier.wait()
+            outcomes.append(self.gate.apply(copy.deepcopy(self.event), now=20))
+        def revoke():
+            barrier.wait()
+            self.gate.revoke_authority("auth-lesson")
+        a = threading.Thread(target=apply)
+        b = threading.Thread(target=revoke)
+        a.start()
+        b.start()
+        a.join()
+        b.join()
+        # Both linearization orders are legitimate: applied-before-revoked
+        # or revoked-before-applied; after revocation, never admit again.
+        self.assertIn(outcomes[0]["code"], ("durable_synthetic_record", "authority_revoked"))
+        self.assertEqual(self.gate.apply(self.event, now=20)["code"], "authority_revoked")
 
     def test_hold_and_released_generation(self):
         self.gate.hold(4)
