@@ -23,7 +23,7 @@ from test_koru_shadow import fixtures
 _CHILD = r'''
 import json, os, socket, sys
 def send_request(path, op, event, permit, now):
-    payload = json.dumps({"op":op,"event":event,"permit":permit,"now":now},
+    payload = json.dumps({"op":op,"event":event,"permit":permit},
                          separators=(",", ":")).encode() + b"\n"
     with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
         s.settimeout(5)
@@ -47,8 +47,11 @@ except PermissionError:
 r1 = send_request(req["sock"], "admit", req["event"], req["permit"], 10)
 r2 = send_request(req["sock"], "dispatch", req["event"], req["permit"], 20)
 forbidden = send_request(req["sock"], "hold", req["event"], req["permit"], 20)
+repeat = send_request(req["sock"], "dispatch", req["event"], req["permit"], 0)
+expired = send_request(req["sock"], "dispatch", req["event"], req["expired"], 0)
 print(json.dumps({"db_denied": denied, "admit": r1["code"],
-                  "dispatch": r2["code"], "hold": forbidden["code"]}))
+                  "dispatch": r2["code"], "hold": forbidden["code"],
+                  "repeat": repeat["code"], "expired": expired["code"]}))
 '''
 
 
@@ -75,7 +78,12 @@ class TestLinuxOSPrincipalBoundary(unittest.TestCase):
                 provenances=trust["provenances"], context_ref="ctx-one",
                 generation=3, ed25519_public_key=signing_key.public_key(),
                 permit_issuer="offline-test-issuer")
-            broker = SyntheticBroker(socket_path, gate)
+            expired_permit = issue_ed25519(
+                signing_key, issuer="offline-test-issuer",
+                event=event, expires_at=15)
+            broker = SyntheticBroker(socket_path, gate,
+                                     allowed_client_uids={guest.pw_uid},
+                                     clock=lambda: 20)
             thread = threading.Thread(target=broker.serve_forever, daemon=True)
             thread.start()
             try:
@@ -85,7 +93,8 @@ class TestLinuxOSPrincipalBoundary(unittest.TestCase):
                     os.setgroups([])
                     os.setgid(guest.pw_gid)
                     os.setuid(guest.pw_uid)
-                request = dict(db=db, sock=socket_path, event=event, permit=permit)
+                request = dict(db=db, sock=socket_path, event=event,
+                               permit=permit, expired=expired_permit)
                 proc = subprocess.run(
                     [sys.executable, "-B", "-c", _CHILD],
                     input=json.dumps(request), text=True,
@@ -98,10 +107,14 @@ class TestLinuxOSPrincipalBoundary(unittest.TestCase):
                 self.assertEqual(result["admit"], "durable_synthetic_record")
                 self.assertEqual(result["dispatch"], "synthetic_effect_recorded")
                 self.assertEqual(result["hold"], "unsupported_operation")
+                self.assertEqual(result["repeat"], "already_dispatched")
+                self.assertEqual(result["expired"], "invalid_permit_at_effect")
                 self.assertEqual(gate.effect_count(), 1)
                 # The same valid signed event must not execute twice.
-                repeated = send_request(socket_path, "dispatch", event, permit, 20)
-                self.assertEqual(repeated["code"], "already_dispatched")
+                # Even a valid event/permit is refused if caller's Linux UID
+                # is not allowlisted. This root test process isn't trusted.
+                wrong_peer = send_request(socket_path, "dispatch", event, permit, 0)
+                self.assertEqual(wrong_peer["code"], "peer_denied")
                 self.assertEqual(gate.effect_count(), 1)
             finally:
                 broker.shutdown()
