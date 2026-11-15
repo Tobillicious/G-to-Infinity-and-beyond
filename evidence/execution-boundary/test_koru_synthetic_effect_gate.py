@@ -180,6 +180,38 @@ class TestG3SyntheticEffectBoundary(unittest.TestCase):
         self.assertEqual(self.gate.accept_broker_time(11)["code"],
                          "clock_advanced")
 
+    def test_stale_inflight_admission_cannot_bypass_advanced_floor(self):
+        # Simulates a broker request that saw t=10 before another caller
+        # durably advanced the floor to t=30.
+        self.assertTrue(self.gate.accept_broker_time(30)["ok"])
+        result = self.gate.apply(self.event, now=10, permit=self.permit)
+        self.assertEqual(result["code"], "clock_rollback")
+        self.assertEqual(self.gate.record_count(), 0)
+        self.assertTrue(self.gate.apply(self.event, now=30, permit=self.permit)["ok"])
+
+    def test_stale_inflight_effect_cannot_bypass_advanced_floor(self):
+        self.admit()
+        self.assertTrue(self.gate.accept_broker_time(30)["ok"])
+        rejected = self.gate.dispatch_synthetic(
+            self.event, now=20, permit=self.permit)
+        self.assertEqual(rejected["code"], "clock_rollback")
+        self.assertEqual(self.gate.effect_count(), 0)
+        self.assertTrue(self.gate.dispatch_synthetic(
+            self.event, now=30, permit=self.permit)["ok"])
+        self.assertEqual(self.gate.effect_count(), 1)
+
+    def test_clock_fence_persists_across_restart_for_both_operations(self):
+        self.assertTrue(self.gate.accept_broker_time(60)["ok"])
+        self.gate.close()
+        self.gate = SyntheticEffectGate(self.path, **self.kwargs)
+        self.assertEqual(self.gate.apply(
+            self.event, now=20, permit=self.permit)["code"], "clock_rollback")
+        self.assertTrue(self.gate.apply(
+            self.event, now=60, permit=self.permit)["ok"])
+        self.assertEqual(self.gate.dispatch_synthetic(
+            self.event, now=20, permit=self.permit)["code"], "clock_rollback")
+        self.assertEqual(self.gate.effect_count(), 0)
+
     def test_unsigned_effect_mode_not_permitted(self):
         kwargs = dict(self.kwargs, ed25519_public_key=None)
         with self.assertRaises(ValueError):
