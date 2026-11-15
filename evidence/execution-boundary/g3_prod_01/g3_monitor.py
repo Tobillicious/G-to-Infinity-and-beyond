@@ -131,7 +131,8 @@ class Store:
 
     def _verify(self, filename, digest):
         try:
-            fd = os.open(filename, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=self.dirfd)
+            fd = os.open(filename, os.O_RDONLY | os.O_NONBLOCK | os.O_CLOEXEC |
+                         os.O_NOFOLLOW, dir_fd=self.dirfd)
         except FileNotFoundError:
             return False
         try:
