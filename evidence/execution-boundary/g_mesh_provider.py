@@ -28,7 +28,7 @@ def offline_request_digest(prompt, config):
          "model": config.default_model, "prompt": prompt},
         sort_keys=True, separators=(",", ":"), ensure_ascii=True,
     ).encode("ascii")
-    return hashlib.sha256(b"g-mesh-offline-request-v0\\x00" + body).hexdigest()
+    return hashlib.sha256(b"g-mesh-offline-request-v0:" + body).hexdigest()
 
 
 class GMeshProviderAdapter:
