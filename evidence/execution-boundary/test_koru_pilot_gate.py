@@ -51,7 +51,7 @@ class TestKoruPilotGate(unittest.TestCase):
 
     def test_changed_whole_context_and_payload_cannot_commit(self):
         event = copy.deepcopy(self.event)
-        event["action_expr"] = {"atom": "p3"}
+        event["action_expr"] = {"op": "identity", "args": [{"atom": "p1"}]}
         self.assertEqual(self.gate.apply(event, now=20)["code"], "trusted_witness")
         context = self.trusted["contexts"]["ctx-one"]
         context["positions"][5]["value"] += 1
