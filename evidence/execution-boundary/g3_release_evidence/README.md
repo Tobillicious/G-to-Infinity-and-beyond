@@ -21,3 +21,7 @@ python3 -B release_evidence.py packet.json evidence-directory/
 Packet format: top-level `schema` (`g3-evidence-inventory-v1`), `source_commit` (64 lowercase hex), and `evidence` dictionary containing every category in `release_evidence.REQUIRED`. Each evidence entry has `path` (relative file), `sha256` (64 lowercase hex), `reviewer` (unverified informational label), and `reviewed_commit` (same commit as packet).
 
 A separate independently authenticated review and explicit deployment decision remain mandatory. Do not connect this tool to the write or control sockets; it has **no authorization role**.
+
+## Review fixes (current Git object identity and symlink aliases)
+
+The `source_commit` and each `reviewed_commit` refer to a **Git commit**. This repository currently uses the standard 40-hex Git SHA-1 object ID, whereas the file `sha256` remains exactly 64 lowercase hex characters. These are different fields with different algorithms. A structurally matching packet carries *unverified user-supplied metadata*; it is not evidence of actual review or an authentic signature. The inventory additionally rejects intermediate symlink aliases in relative evidence paths. This path preflight is vulnerable to concurrent path replacement and does not provide an `openat2`-pinned or independently attested secure file root. No evidence outcome mints a certification; live security assessment remains mandatory.
