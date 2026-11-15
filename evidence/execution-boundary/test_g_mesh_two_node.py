@@ -133,7 +133,10 @@ class TwoNodeAdversarialSimulation(unittest.TestCase):
         self.nodes["beta"] = GMeshProtocolHandler(
             str(self.root / "beta.sqlite"), **self.opts["beta"])
         self.assertEqual(self.deliver_lease("beta", 4)[1], "lease_replay")
-        self.assertEqual(self.deliver_request("beta", 1)[1], "nonce_replay")
+        # The former lease cannot authorize effects after a new process
+        # starts, even though its signed not_after is still in the future.
+        self.assertEqual(self.deliver_request("beta", 2)[1],
+                         "FAIL_CLOSED_lease_unavailable")
         self.assertTrue(self.deliver_hold("beta", 1)[0])
         self.nodes["beta"].close()
         self.nodes["beta"] = GMeshProtocolHandler(
@@ -141,6 +144,23 @@ class TwoNodeAdversarialSimulation(unittest.TestCase):
         self.assertEqual(self.nodes["beta"].state, GMeshState.REVOKED_HALTED)
         self.assertEqual(self.deliver_lease("beta", 5)[1],
                          "FAIL_CLOSED_local_hold")
+
+    def test_restart_requires_new_controller_lease_even_before_expiry(self):
+        self.assertTrue(self.deliver_lease("alpha", 1, deadline=28)[0])
+        self.assertTrue(self.deliver_request("alpha", 1)[0])
+        # Simulate abrupt writer loss by reopening the durable local state.
+        # No physical time has passed, so the old lease remains unexpired.
+        self.nodes["alpha"].close()
+        self.nodes["alpha"] = GMeshProtocolHandler(
+            str(self.root / "alpha.sqlite"), **self.opts["alpha"])
+        self.assertEqual(self.deliver_request("alpha", 2)[1],
+                         "FAIL_CLOSED_lease_unavailable")
+        # A replay cannot re-install pre-restart authority.
+        self.assertEqual(self.deliver_lease("alpha", 1, deadline=28)[1],
+                         "lease_replay")
+        # A fresh signed controller sequence restores bounded authority.
+        self.assertTrue(self.deliver_lease("alpha", 2, deadline=28)[0])
+        self.assertTrue(self.deliver_request("alpha", 2)[0])
 
     def test_clock_rollback_cannot_revive_expired_partition_lease(self):
         self.assertTrue(self.deliver_lease("alpha", 1, deadline=24)[0])
