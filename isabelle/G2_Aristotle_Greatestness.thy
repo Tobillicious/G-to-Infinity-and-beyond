@@ -72,7 +72,7 @@ end
 (* A countermodel: reciprocal physical signalling need not be consent. *)
 
 lemma physical_reciprocity_does_not_force_consent:
-  "\<not> (\<forall> (signal consent :: bool). signal \<longrightarrow> consent)"
+  "\<not> (\<forall>signal consent::bool. signal \<longrightarrow> consent)"
   by auto
 
 end
