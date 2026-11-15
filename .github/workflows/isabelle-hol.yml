@@ -31,4 +31,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          "$RUNNER_TEMP/isabelle-install/Isabelle2025-2/bin/isabelle" build -v -D isabelle
+          if ! "$RUNNER_TEMP/isabelle-install/Isabelle2025-2/bin/isabelle" build -v -D isabelle; then
+            "$RUNNER_TEMP/isabelle-install/Isabelle2025-2/bin/isabelle" build_log -H Error UPT_G2 || true
+            exit 1
+          fi
