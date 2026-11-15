@@ -51,7 +51,7 @@ repeat = send_request(req["sock"], "dispatch", req["event"], req["permit"], 0)
 expired = send_request(req["sock"], "dispatch", req["event"], req["expired"], 0)
 # Explicit attempted client-side timestamp override must be rejected.
 payload = json.dumps({"op": "dispatch", "event": req["event"],
-                      "permit": req["expired"], "now": 0}).encode() + b"\\n"
+                      "permit": req["expired"], "now": 0}).encode() + b"\n"
 with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
     s.settimeout(5)
     s.connect(req["sock"])
