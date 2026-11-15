@@ -114,6 +114,39 @@ class BoundedBrokerTests(unittest.TestCase):
     def test_privileged_control_broker_overload_and_slowloris_recovery(self):
         self.check_bounded_slow_client("control")
 
+    def check_slow_trickle_deadline(self, broker_type):
+        path = self.start(broker_type)
+        with self.connect(path) as client:
+            client.sendall(b"{")
+            started = time.monotonic()
+            # Keep trickling bytes faster than the 0.5-second per-read
+            # timeout. An absolute deadline MUST release this worker
+            # rather than accepting endless 0.15-second extensions.
+            for _ in range(5):
+                time.sleep(0.15)
+                try:
+                    client.sendall(b" ")
+                except (BrokenPipeError, ConnectionResetError):
+                    break
+            try:
+                data = client.recv(4096)
+            except (BrokenPipeError, ConnectionResetError):
+                data = b""
+            if data:
+                self.assertIn(b"request", data)
+            self.assertLess(time.monotonic() - started, 1.5)
+        until = time.monotonic() + 2
+        while (self.broker._connection_slots._value != 2 and
+               time.monotonic() < until):
+            time.sleep(0.01)
+        self.assertEqual(self.broker._connection_slots._value, 2)
+
+    def test_event_broker_slow_trickle_absolute_deadline(self):
+        self.check_slow_trickle_deadline("public")
+
+    def test_control_broker_slow_trickle_absolute_deadline(self):
+        self.check_slow_trickle_deadline("control")
+
     def test_invalid_resource_bounds_fail_before_socket_bind(self):
         if os.getuid() != 0:
             with self.assertRaises(ValueError):
