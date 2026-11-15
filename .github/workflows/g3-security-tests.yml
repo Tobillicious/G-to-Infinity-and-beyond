@@ -1,0 +1,36 @@
+name: G3 kernel identity threat-model tests
+
+# This is a separate, research-only negative-control workflow.
+# In particular, host root CAN bypass ordinary 0600 discretionary controls.
+on:
+  pull_request:
+  push:
+    branches: [main, 'g3/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  identity-negative-controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect Linux user-namespace availability (informational)
+        shell: bash
+        run: |
+          echo "Linux kernel: $(uname -r)"
+          if unshare --user --map-root-user id -u; then
+            echo "Unprivileged user-namespace creation is available on this runner."
+          else
+            echo "::notice::User-namespace creation denied on this runner; no namespace-isolation claim is made."
+          fi
+      - name: Prove distinct UID exclusion and demonstrate host-root / leaked-FD bypass
+        run: |
+          sudo -n "$(command -v python3)" -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_g3_kernel_uid_fence.py' -v
+      - name: Validate historical publication metadata and DOI syntax
+        run: |
+          python3 publication/verify_metadata_integrity.py
