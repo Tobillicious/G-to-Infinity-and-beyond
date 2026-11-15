@@ -3,6 +3,10 @@ on:
   pull_request:
     paths:
       - 'evidence/execution-boundary/g3_rights_composition/**'
+      - 'evidence/execution-boundary/g3_rights_veto/**'
+      - 'evidence/execution-boundary/g3_prod_01/g3_cross_process_fence.py'
+      - 'evidence/execution-boundary/g3_prod_01/g3_secure_socket.py'
+      - 'evidence/execution-boundary/g3_prod_01/g3_bound_host_server.py'
       - '.github/workflows/g3-three-way-triage.yml'
   workflow_dispatch:
 permissions:
@@ -21,4 +25,4 @@ jobs:
       - name: Exercise signed rights, veto and checkpoint negative controls
         run: |
           cd evidence/execution-boundary
-          python3 -B -m unittest -v g3_rights_composition.test_three_way
+          python3 -B -m unittest -v g3_rights_composition.test_three_way g3_rights_composition.test_effect_time_rights
