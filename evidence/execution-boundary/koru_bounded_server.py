@@ -5,6 +5,7 @@ unbounded Python thread per inbound connection. This is process-local load
 shedding only, not network-wide DDoS protection or deployment isolation.
 """
 import socketserver
+import time
 import threading
 
 
@@ -39,3 +40,32 @@ class BoundedThreadingMixIn(socketserver.ThreadingMixIn):
             super().process_request_thread(request, client_address)
         finally:
             self._connection_slots.release()
+
+
+def read_framed_request(sock, *, max_bytes, total_timeout):
+    """Read one newline-terminated envelope within an absolute deadline.
+
+    A malicious client cannot extend this deadline by sending one byte per
+    socket timeout. Fail closed for overlong, partial and multi-line input.
+    The caller MUST send no effect on None and close the connection.
+    """
+    deadline = time.monotonic() + total_timeout
+    body = bytearray()
+    while len(body) <= max_bytes:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return None
+        sock.settimeout(remaining)
+        try:
+            block = sock.recv(min(4096, max_bytes + 1 - len(body)))
+        except (TimeoutError, OSError):
+            return None
+        if not block:
+            return None
+        body.extend(block)
+        if b"\\n" in block:
+            if (len(body) > max_bytes or not body.endswith(b"\\n") or
+                    body.count(b"\\n") != 1):
+                return None
+            return bytes(body)
+    return None
