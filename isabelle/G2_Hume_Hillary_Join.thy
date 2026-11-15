@@ -2,10 +2,10 @@ theory G2_Hume_Hillary_Join
   imports Main
 begin
 
-text ‹Independent Isabelle/HOL research lane. This does not import or certify Lean.
+(* Independent Isabelle/HOL research lane. This does not import or certify Lean.
   Six X3 fields correspond by name to OriginalX3Full.lean. The meaning of
   these fields, actual-event coverage, and the Hume ethical bridge remain
-  separate proof obligations. Koru is not modelled as a numeric function.›
+  separate proof obligations. Koru is not modelled as a numeric function. *)
 
 locale g2_hume_hillary =
   fixes owed :: "'event ⇒ 'person ⇒ bool"
