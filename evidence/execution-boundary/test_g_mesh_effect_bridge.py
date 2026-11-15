@@ -165,6 +165,38 @@ class TestLeasedFilesystemBridge(unittest.TestCase):
                          "mesh_FAIL_CLOSED_lease_unavailable")
         self.assertFalse(self.marker_present())
 
+    def test_restart_rejects_unexpired_lease_at_actual_effect_boundary(self):
+        # Exercise the real protected marker sink, not only mesh admission.
+        # The old lease has not expired when this process-level restart occurs.
+        self.admit()
+        self.assertTrue(self.lease(seq=1, until=28)[0])
+        self.mesh.close()
+        self.mesh = GMeshProtocolHandler(self.mesh_path, **self.mesh_opts)
+        self.sink.mesh = self.mesh
+
+        # Old signed authority MUST NOT write a marker or even journal an
+        # effect after the writer restarts.
+        self.assertEqual(self.effect(seq=1)["code"],
+                         "mesh_FAIL_CLOSED_lease_unavailable")
+        self.assertFalse(self.marker_present())
+        self.assertEqual(self.g3.effect_count(), 0)
+
+        # Replaying the pre-restart controller lease is not a recovery path.
+        self.assertEqual(self.lease(seq=1, until=28)[1], "lease_replay")
+        self.assertEqual(self.effect(seq=1)["code"],
+                         "mesh_FAIL_CLOSED_lease_unavailable")
+        self.assertFalse(self.marker_present())
+        self.assertEqual(self.g3.effect_count(), 0)
+
+        # Only a newly signed controller lease with a higher sequence
+        # restores the bounded authorization to publish this exact marker.
+        self.assertTrue(self.lease(seq=2, until=28)[0])
+        self.assertEqual(self.effect(seq=1)["code"],
+                         "filesystem_marker_applied")
+        self.assertEqual(self.g3.effect_count(), 1)
+        self.assertEqual(len(list(self.directory.iterdir())), 1)
+        self.assertEqual(self.effect(seq=1)["code"], "mesh_nonce_replay")
+
     def test_broker_denies_missing_mesh_envelope_and_accepts_signed_one(self):
         self.admit()
         self.assertTrue(self.lease()[0])
