@@ -46,3 +46,25 @@ cannot directly mutate the effect directory or write the database.
 
 Neither publication CI nor this OS fixture establishes universal real-world
 guardianship. No production service is installed or started.
+
+## Integrated signed G-Mesh lease at the three-UID effect boundary
+
+A follow-up CI revision now provisions an **ephemeral signed G-Mesh
+controller lease** and independently signed event envelope, stores mesh
+state in a second writer-owned private SQLite DB, and runs
+`LeasedFilesystemEffect` inside the actual UID 10001 writer process.
+The separate UID 10003 guest must present **both** valid G3 and G-Mesh
+envelopes. Legacy requests missing the mesh envelope fail closed
+before any filesystem effect; properly signed requests create exactly
+one marker. A separate UID 10002 controller can then invoke a G3
+hold over the management socket, blocking the next mesh-signed effect.
+Both controller and guest are denied direct SQLite and marker writes.
+
+**No global mesh deployment is implied.** The signed lease is a
+short-lived offline fixture issued by the privileged test orchestrator,
+not remote consensus. The G-Mesh and G3 SQLite stores remain distinct
+durability domains; mesh revocations initiated by other processes are
+not automatically serialized with local G3 operations. Host root,
+kernel and inherited-FD bypasses remain unresolved. Actual-world
+consent and the original six duties still need evidence for the
+specific future protected application.
