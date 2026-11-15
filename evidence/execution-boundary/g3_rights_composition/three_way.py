@@ -3,7 +3,12 @@
 All checks are evidence-only. There is NO publish, authorization, or consent
 capability here; an authenticated controller and commit-time lock are absent.
 """
+import os
+import sqlite3
+from pathlib import Path
+
 from g3_rights_composition.same_event import inspect_same_event
+from g3_rights_veto.rights_veto import RightsVetoJournal
 from g3_rights_veto.external_checkpoint import verify_checkpoint
 
 
@@ -31,8 +36,23 @@ def inspect_three_way(packet, *, record_ref, public_keys, revoked_serials,
         return response("stale_rights_generation")
     if type(emergency_hold) is not bool or emergency_hold:
         return response("emergency_hold_or_invalid")
-    if veto_journal is None or type(deployment) is not str:
+    if type(veto_journal) is not RightsVetoJournal or type(deployment) is not str:
         return response("missing_trusted_veto_source")
+
+    # The checkpoint reader and local veto MUST inspect the *same* journal.
+    # Otherwise an attacker can check a signed snapshot of DB A (containing
+    # a withdrawal) while querying DB B (without that withdrawal).
+    # This is identity checking, not a cross-process lock or anti-swap proof.
+    try:
+        rows = veto_journal.db.execute("PRAGMA database_list").fetchall()
+        main = [row[2] for row in rows if row[1] == "main"]
+        if len(main) != 1 or not main[0]:
+            return response("veto_journal_identity_unknown")
+        path = Path(veto_db_path)
+        if path.is_symlink() or not path.is_file() or not os.path.samefile(main[0], path):
+            return response("veto_journal_identity_mismatch")
+    except (OSError, sqlite3.Error, TypeError, ValueError):
+        return response("veto_journal_identity_unknown")
 
     # Require EXACT generation equality between the signed externally
     # witnessed journal and the rights/claim view, not merely >= a floor.
@@ -69,4 +89,9 @@ def inspect_three_way(packet, *, record_ref, public_keys, revoked_serials,
         minimum_generation=trusted_generation_floor)
     if not again["checkpoint_matches"]:
         return response("postcheck_" + again["code"])
+    try:
+        if path.is_symlink() or not os.path.samefile(main[0], path):
+            return response("veto_journal_identity_mismatch")
+    except (OSError, TypeError, ValueError):
+        return response("veto_journal_identity_unknown")
     return response("three_way_consistent_for_independent_review_only", complete=True)
