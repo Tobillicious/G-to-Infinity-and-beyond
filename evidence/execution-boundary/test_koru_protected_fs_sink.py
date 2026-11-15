@@ -153,6 +153,58 @@ class ProtectedFilesystemTests(unittest.TestCase):
         self.assertEqual(report["pending_count"], 1)
         self.assertFalse(self.marker.exists())
 
+    def test_orphan_prevents_new_effect_before_journal_commit(self):
+        self.assertTrue(self.gate.apply(
+            self.event, now=20, permit=self.permit)["ok"])
+        (self.effects / "orphan.marker").touch(mode=0o600)
+        denied = self.sink.apply_marker(
+            self.event, now=20, permit=self.permit)
+        self.assertEqual(denied["code"], "effect_store_unaccounted_files")
+        self.assertEqual(self.gate.effect_count(), 0)
+        self.assertFalse(self.marker.exists())
+        (self.effects / "orphan.marker").unlink()
+        self.assertEqual(self.sink.apply_marker(
+            self.event, now=20, permit=self.permit)["code"],
+            "filesystem_marker_applied")
+        self.assertEqual(self.gate.effect_count(), 1)
+
+    def test_corrupt_prior_marker_prevents_attempted_replay(self):
+        self.assertTrue(self.gate.apply(
+            self.event, now=20, permit=self.permit)["ok"])
+        self.assertEqual(self.sink.apply_marker(
+            self.event, now=20, permit=self.permit)["code"],
+            "filesystem_marker_applied")
+        self.marker.write_text("tampered")
+        denied = self.sink.apply_marker(
+            self.event, now=20, permit=self.permit)
+        self.assertEqual(denied["code"], "effect_store_marker_integrity")
+        self.assertEqual(self.gate.effect_count(), 1)
+
+    def test_pending_from_other_event_blocks_followup_marker(self):
+        # A synthetic journaled effect with no filesystem marker is a
+        # recovery obligation. Later distinct effects must not leapfrog it.
+        self.assertTrue(self.gate.apply(
+            self.event, now=20, permit=self.permit)["ok"])
+        self.assertTrue(self.gate.dispatch_synthetic(
+            self.event, now=20, permit=self.permit)["ok"])
+        later = dict(self.event, event_id=self.event["event_id"] + "-later",
+                     idempotency_key=self.event["idempotency_key"] + "-later")
+        later_permit = issue_ed25519(
+            self.issuer, issuer="trusted-test-issuer",
+            event=later, expires_at=200)
+        self.assertTrue(self.gate.apply(
+            later, now=20, permit=later_permit)["ok"])
+        denied = self.sink.apply_marker(later, now=20, permit=later_permit)
+        self.assertEqual(denied["code"], "unresolved_prior_effect")
+        self.assertEqual(self.gate.effect_count(), 1)
+        self.assertEqual(self.sink.apply_marker(
+            self.event, now=20, permit=self.permit)["code"],
+            "filesystem_marker_applied")
+        self.assertEqual(self.sink.apply_marker(
+            later, now=20, permit=later_permit)["code"],
+            "filesystem_marker_applied")
+        self.assertEqual(self.gate.effect_count(), 2)
+
     def test_untrusted_os_identity_cannot_write_effect_directory(self):
         if sys.platform != "linux" or os.geteuid() != 0:
             self.skipTest("privileged Linux CI negative-control only")
