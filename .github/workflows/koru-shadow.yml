@@ -37,3 +37,9 @@ jobs:
           python3 -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_koru_ed25519_permit.py' -v
+
+      - name: Test G3 effect-time permit revalidation and exactly-once synthetic dispatch
+        run: |
+          python3 -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_synthetic_effect_gate.py' -v
