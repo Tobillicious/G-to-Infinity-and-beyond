@@ -26,6 +26,27 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def _reject_duplicate_fields(pairs):
+    """Reject ambiguous nested JSON objects before any signed dispatch."""
+    fields = {}
+    for key, value in pairs:
+        if key in fields:
+            raise ValueError("duplicate JSON field")
+        fields[key] = value
+    return fields
+
+
+def _reject_nonfinite_json(value):
+    """json.loads otherwise accepts NaN/Infinity, which are not valid JSON."""
+    raise ValueError("nonfinite JSON constant")
+
+
+def strict_request_json(data):
+    return json.loads(
+        data, object_pairs_hook=_reject_duplicate_fields,
+        parse_constant=_reject_nonfinite_json)
+
+
 def read_request_frame(sock, *, max_bytes=MAX_MSG, total_timeout=1.0):
     """Read a single newline frame under an absolute monotonic deadline.
 
@@ -233,7 +254,7 @@ class Handler(socketserver.BaseRequestHandler):
                     answer={'ok':False,'code':'invalid_frame'}
                 else:
                     try:
-                        msg=json.loads(data)
+                        msg=strict_request_json(data)
                         # Only the write method is exposed to application UIDs.
                         answer=self.server.store.write(msg)
                     except (ValueError,TypeError,UnicodeDecodeError):
