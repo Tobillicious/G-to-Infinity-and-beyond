@@ -154,10 +154,20 @@ class Store:
             present = set(os.listdir(self.dirfd))
             unexpected = present-set(expected)
             bad = [f for f in present & set(expected) if not self._verify(f,expected[f][1])]
-            pending = [i for f,(i,d,s) in expected.items() if f not in present]
-            if unexpected or bad:
-                return {'ok':False,'code':'integrity_failure','unknown':len(unexpected),'invalid':len(bad)}
-            return {'ok':True,'pending':pending,'committed':len(present)}
+            # A visible output does not settle an uncommitted durable
+            # intention. A crash after link but before journal completion
+            # must prevent unrelated publications.
+            invalid_state = [i for _,(i,_,state) in expected.items()
+                             if state not in ('INTENT', 'COMMITTED')]
+            pending = [i for f,(i,d,state) in expected.items()
+                       if f not in present or state != 'COMMITTED']
+            if unexpected or bad or invalid_state:
+                return {'ok':False,'code':'integrity_failure',
+                        'unknown':len(unexpected),'invalid':len(bad),
+                        'invalid_state':len(invalid_state)}
+            committed = sum(f in present and state == 'COMMITTED'
+                            for f,(i,d,state) in expected.items())
+            return {'ok':True,'pending':pending,'committed':committed}
 
     def write(self, msg, *, pre_publish=None):
         """Authorized *prototype* command; currently only UID + epoch checked.
