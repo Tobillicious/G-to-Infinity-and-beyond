@@ -52,7 +52,7 @@ class TestKernelUidBoundary(unittest.TestCase):
         self.writer_uid = 10001
         self.controller_uid = 10002
         self.untrusted_uid = 10003
-        self.effect_dir.chown(self.writer_uid, self.writer_uid)
+        os.chown(self.effect_dir, self.writer_uid, self.writer_uid)
         self.marker = self.effect_dir / "g3-only.marker"
 
     def tearDown(self):
