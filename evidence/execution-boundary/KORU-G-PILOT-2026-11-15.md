@@ -67,6 +67,16 @@ The prototype now uses a SQLite statement authorizer to refuse direct `synthetic
 
 Therefore a real effect boundary must move the durable sink behind OS-enforced isolation (separate principal, file and socket permission boundaries, no delegated writable handles), with an authenticated narrow IPC interface to the trusted gate, trusted signed revocation, and no secondary writable path. Only then can complete mediation be tested for that precisely enumerated deployment; do not claim universal real-world G3 from this adapter.
 
+## G3 OS-principal protected broker — privileged Linux negative-control proof-of-concept
+
+**Verified:** [GitHub Actions run 43692118085](https://github.com/Tobillicious/universal-protection-theory/actions/runs/43692118085) passed the Linux distinct-UID OS-boundary test and inherited synthetic tests.
+
+`koru_broker.py` exposes only two untrusted operations over a local UNIX socket: `admit` and `dispatch`. Those forward to the already-proved-in-tests signed synthetic gate; no `hold`, `release`, `revoke`, or raw SQL command exists on the client interface. The front end limits request length, rejects unknown fields and unknown operations, and keeps the public verification key rather than any signing key.
+
+`test_koru_os_broker.py` runs on a privileged Linux CI worker with ephemeral assets only, setting a root-owned private SQLite directory to mode `0700` and using a distinct unprivileged UID (`nobody`) as the test client. The socket is reachable through a separate directory, but a direct `O_RDWR` attempt against the database is rejected by operating-system permissions. The untrusted user can submit an **independently test-signed** event through the broker and have exactly one **synthetic SQLite effect** recorded; attempts to send the `hold` control command over the untrusted socket are refused. Replay returns `already_dispatched`.
+
+This is **more than a Python authorizer check**, because the negative control crosses an actual OS UID boundary. It is **not** a proof of complete mediation beyond the enumerated test path. The broker still executes prototype Python code from the CI checkout, the socket is intentionally reachable by all local users in the fixture (so authentication is carried by signed event permits rather than socket identity), and the test does not cover network transport, inherited descriptors, privileged process compromise, service restart during partial operations, OS mandatory access control, hardware actuators or external sinks. Do not deploy a privileged service from mutable/untrusted source code or claim all local OS principals, root, compromised broker processes or real-world effects are protected. A production design needs locked trusted artifacts, minimal privilege, tightly authenticated IPC, OS confinement, key rotation, recovery and comprehensive capability inventory.
+
 ## Why this is not yet the enforcement release
 
 The pilot is **synthetic and append-only**. It is not a proof verifier, independent human consent authenticator, cultural authority, cryptographic signing service, external-world effect router, or general implementation of the original six X3 duties. Its `ShadowVerifier` understands a toy six-position integer world and one `synthetic_refinement` kind. The code does not mutate actual world state or send externally effective actions.
