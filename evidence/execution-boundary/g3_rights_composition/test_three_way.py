@@ -135,6 +135,25 @@ class ThreeWayTests(unittest.TestCase):
         result = self.check(veto_db_path=alias)
         self.assertEqual(result["code"], "veto_journal_identity_mismatch")
 
+    def test_withdrawal_between_veto_read_and_postcheck_denied(self):
+        # Simulate a trusted controller recording a withdrawal right after
+        # the first local veto read but before checkpoint re-verification.
+        original = self.j.inspect
+        def inspect_then_withdraw(**kwargs):
+            result = original(**kwargs)
+            inserted = self.j.record_withdrawal(
+                record_ref="r1", subject="p1", action="publish",
+                effect_digest="a"*64, generation=1)
+            self.assertTrue(inserted["ok"])
+            return result
+        self.j.inspect = inspect_then_withdraw
+        self.addCleanup(lambda: setattr(self.j, "inspect", original))
+        result = self.check()
+        self.assertEqual(result["code"],
+                         "postcheck_journal_checkpoint_mismatch")
+        self.assertFalse(result["three_way_evidence_consistent"])
+        self.assertFalse(result["authorizes_effect"])
+
     def test_stale_floor_rejected(self):
         self.assertEqual(self.check(trusted_generation_floor=1)["code"],
                          "stale_rights_generation")
