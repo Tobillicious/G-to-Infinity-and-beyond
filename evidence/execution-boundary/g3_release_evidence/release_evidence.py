@@ -11,6 +11,7 @@ REQUIRED = frozenset((
     "rights_consent_review", "original_six_x3_correspondence",
     "independent_security_review", "rollback_recovery_review",
 ))
+GIT_SHA1 = re.compile(r"[0-9a-f]{40}\\Z")  # this repo currently uses SHA-1 object IDs
 HEX64 = re.compile(r"[0-9a-f]{64}\Z")
 
 
@@ -26,7 +27,7 @@ def inspect(packet, root):
     if packet["schema"] != "g3-evidence-inventory-v1":
         errors.append("schema_version")
     commit = packet["source_commit"]
-    if type(commit) is not str or not HEX64.fullmatch(commit):
+    if type(commit) is not str or not GIT_SHA1.fullmatch(commit):
         errors.append("source_commit_invalid")
     evidence = packet["evidence"]
     if type(evidence) is not dict or set(evidence) != REQUIRED:
@@ -55,8 +56,15 @@ def inspect(packet, root):
                 item["reviewed_commit"] != commit):
             errors.append(key + ":unreviewed_or_stale")
             continue
+        # Check every component for symlink aliases before opening.
+        # This remains non-atomic preflight, not openat2-resolved path pinning.
+        components = Path(rel).parts
+        if any(root.joinpath(*components[:i]).is_symlink()
+               for i in range(1, len(components) + 1)):
+            errors.append(key + ":missing_or_unsafe_file")
+            continue
         file = root / rel
-        if file.is_symlink() or not file.is_file() or not file.resolve().is_relative_to(root):
+        if not file.is_file() or not file.resolve().is_relative_to(root):
             errors.append(key + ":missing_or_unsafe_file")
             continue
         h = hashlib.sha256()
