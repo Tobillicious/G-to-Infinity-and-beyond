@@ -8,6 +8,7 @@ Does not provide immutable mounts, race-free path pinning throughout service
 lifetime, complete Linux capability mediation or actual-world X3 evidence.
 """
 import os
+import fcntl
 from pathlib import Path
 import stat
 
@@ -69,6 +70,49 @@ def _db_matches_open_connection(db, path):
     return os.path.samefile(source, target) and _process_holds_matching_fd(path)
 
 
+def _no_retained_writable_output_handles(writer):
+    """Bounded startup-only check for writable *same-process* output FDs.
+
+    Cross-check inode identity rather than only path text: a descriptor
+    opened through a hardlink to a published inode must still be rejected.
+    Includes open deleted staging descriptors with a /proc pathname under
+    the output root. Not a full process/host capability inventory.
+    """
+    root = Path('/proc/self/fd')
+    if not root.is_dir():
+        return False  # Linux /proc inspection unavailable: fail closed
+    try:
+        parent = os.fstat(writer.dirfd)
+        output_inodes = set()
+        for name in os.listdir(writer.dirfd):
+            st = os.stat(name, dir_fd=writer.dirfd,
+                         follow_symlinks=False)
+            output_inodes.add((st.st_dev, st.st_ino))
+        for entry in root.iterdir():
+            try:
+                fd = int(entry.name)
+                opened = os.fstat(fd)
+                flags = fcntl.fcntl(fd, fcntl.F_GETFL)
+            except (OSError, ValueError):
+                continue  # transient /proc enumerator FD
+            if (flags & os.O_ACCMODE) == os.O_RDONLY:
+                continue
+            if (opened.st_dev, opened.st_ino) in output_inodes:
+                return False
+            # Flag removed-but-still-writeable staging inodes. A deleted
+            # directory-relative entry is no longer enumerated above.
+            try:
+                target = os.readlink(entry)
+            except OSError:
+                continue
+            if (opened.st_dev == parent.st_dev and
+                    target.startswith(str(Path(writer.output).resolve()) + os.sep)):
+                return False
+        return True
+    except (OSError, ValueError, TypeError):
+        return False
+
+
 def verify_live_writer_host(writer, *, output_dir, writer_db, fence_file,
                             gate_db, mesh_db):
     """Check a non-root writer and binding to exactly the inspected resources."""
@@ -89,6 +133,8 @@ def verify_live_writer_host(writer, *, output_dir, writer_db, fence_file,
         return {'ok': False, 'code': 'live_writer_binding_unavailable'}
     if not bindings:
         return {'ok': False, 'code': 'live_writer_binding_mismatch'}
+    if not _no_retained_writable_output_handles(writer):
+        return {'ok': False, 'code': 'retained_writable_output_fd_or_unavailable'}
     return {'ok': True, 'code': 'bounded_host_binding_checked',
             'certified': False, 'all_capabilities_mediated': False}
 
