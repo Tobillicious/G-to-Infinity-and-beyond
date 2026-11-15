@@ -1,0 +1,25 @@
+name: G3 PROD-01 research monitor tests
+on:
+  pull_request:
+    paths:
+      - 'evidence/execution-boundary/g3_prod_01/**'
+      - '.github/workflows/g3-prod-01.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  monitor-unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run bounded local reference monitor tests (research only)
+        run: |
+          cd evidence/execution-boundary/g3_prod_01
+          python3 -B -m unittest -v test_g3_monitor.py test_g3_signed_bridge.py
+      - name: Probe separate OS UID bypass (disposable runner, research only)
+        run: |
+          cd evidence/execution-boundary/g3_prod_01
+          sudo python3 -B -m unittest -v test_g3_uid_isolation.py
