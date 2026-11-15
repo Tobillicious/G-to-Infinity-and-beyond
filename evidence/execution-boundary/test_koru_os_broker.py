@@ -49,9 +49,18 @@ r2 = send_request(req["sock"], "dispatch", req["event"], req["permit"], 20)
 forbidden = send_request(req["sock"], "hold", req["event"], req["permit"], 20)
 repeat = send_request(req["sock"], "dispatch", req["event"], req["permit"], 0)
 expired = send_request(req["sock"], "dispatch", req["event"], req["expired"], 0)
+# Explicit attempted client-side timestamp override must be rejected.
+payload = json.dumps({"op": "dispatch", "event": req["event"],
+                      "permit": req["expired"], "now": 0}).encode() + b"\\n"
+with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
+    s.settimeout(5)
+    s.connect(req["sock"])
+    s.sendall(payload)
+    spoofed = json.loads(s.recv(4096))
 print(json.dumps({"db_denied": denied, "admit": r1["code"],
                   "dispatch": r2["code"], "hold": forbidden["code"],
-                  "repeat": repeat["code"], "expired": expired["code"]}))
+                  "repeat": repeat["code"], "expired": expired["code"],
+                  "spoofed_time": spoofed["code"]}))
 '''
 
 
@@ -109,6 +118,7 @@ class TestLinuxOSPrincipalBoundary(unittest.TestCase):
                 self.assertEqual(result["hold"], "unsupported_operation")
                 self.assertEqual(result["repeat"], "already_dispatched")
                 self.assertEqual(result["expired"], "invalid_permit_at_effect")
+                self.assertEqual(result["spoofed_time"], "bad_request")
                 self.assertEqual(gate.effect_count(), 1)
                 # The same valid signed event must not execute twice.
                 # Even a valid event/permit is refused if caller's Linux UID
