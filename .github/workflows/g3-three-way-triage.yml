@@ -1,0 +1,24 @@
+name: G3 signed-rights-veto triage (non-authorizing)
+on:
+  pull_request:
+    paths:
+      - 'evidence/execution-boundary/g3_rights_composition/**'
+      - '.github/workflows/g3-three-way-triage.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned signature verifier
+        run: python -m pip install 'cryptography==46.0.4'
+      - name: Exercise signed rights, veto and checkpoint negative controls
+        run: |
+          cd evidence/execution-boundary
+          python3 -B -m unittest -v g3_rights_composition.test_three_way
