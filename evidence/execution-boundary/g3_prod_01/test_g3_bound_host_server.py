@@ -98,6 +98,57 @@ class LiveHostBindingTests(unittest.TestCase):
             self.writer,**self.config())['code'],
             'live_writer_binding_mismatch')
 
+    @unittest.skipIf(os.geteuid() == 0, 'requires nonroot writer')
+    def test_open_writable_output_fd_blocks_socket_startup(self):
+        self.private_resources()
+        artifact = self.out/'foreign-uncommitted.html'
+        artifact.write_bytes(b'untrusted')
+        artifact.chmod(0o600)
+        fd = os.open(artifact, os.O_WRONLY | os.O_CLOEXEC)
+        try:
+            self.assertEqual(verify_live_writer_host(
+                self.writer,**self.config())['code'],
+                'retained_writable_output_fd_or_unavailable')
+            sock=self.root/'denied-fd.sock'
+            with self.assertRaises(PermissionError):
+                PreflightedSignedFencedServer(
+                    str(sock),self.writer,{65534},**self.config())
+            self.assertFalse(sock.exists())
+        finally:
+            os.close(fd)
+            artifact.unlink()
+        self.assertTrue(verify_live_writer_host(
+            self.writer,**self.config())['ok'])
+
+    @unittest.skipIf(os.geteuid() == 0, 'requires nonroot writer')
+    def test_deleted_but_open_staging_writable_fd_blocks_startup(self):
+        self.private_resources()
+        stage=self.out/'.stage-test-left-open'
+        fd=os.open(stage,os.O_CREAT|os.O_EXCL|os.O_WRONLY|os.O_CLOEXEC,0o600)
+        stage.unlink()
+        try:
+            self.assertEqual(verify_live_writer_host(
+                self.writer,**self.config())['code'],
+                'retained_writable_output_fd_or_unavailable')
+        finally:
+            os.close(fd)
+        self.assertTrue(verify_live_writer_host(
+            self.writer,**self.config())['ok'])
+
+    @unittest.skipIf(os.geteuid() == 0, 'requires nonroot writer')
+    def test_readonly_output_fd_is_not_writable_capability(self):
+        self.private_resources()
+        artifact=self.out/'existing-readonly.html'
+        artifact.write_bytes(b'safe')
+        artifact.chmod(0o400)
+        fd=os.open(artifact,os.O_RDONLY|os.O_CLOEXEC)
+        try:
+            self.assertTrue(verify_live_writer_host(
+                self.writer,**self.config())['ok'])
+        finally:
+            os.close(fd)
+            artifact.unlink()
+
     def test_root_process_does_not_pass(self):
         if os.geteuid() == 0:
             self.assertEqual(verify_live_writer_host(
