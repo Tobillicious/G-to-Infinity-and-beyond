@@ -112,6 +112,22 @@ class SignedBridgeTests(unittest.TestCase):
         self.now[0]=25
         self.assertEqual(self.writer.write(self.request())['code'],
                          'mesh_FAIL_CLOSED_lease_unavailable')
+    def test_writer_hold_does_not_consume_mesh_or_record_g3_effect(self):
+        self.lease()
+        self.writer.hold()
+        request=self.request()
+        self.assertEqual(self.writer.write(request)['code'],'stale_or_halted')
+        self.assertEqual(self.gate.effect_count(),0)
+        self.assertFalse(list(self.out.iterdir()))
+    def test_pending_writer_intent_does_not_consume_mesh_sequence(self):
+        self.lease()
+        self.writer.db.execute(
+            'INSERT INTO effect VALUES(?,?,?,?)',
+            ('unrelated','0'*64,self.epoch,'INTENT'))
+        self.assertEqual(
+            self.writer.write(self.request())['code'],'unresolved_previous_effect')
+        self.assertEqual(self.gate.effect_count(),0)
+        self.assertFalse(list(self.out.iterdir()))
     def test_writer_epoch_fenced(self):
         self.lease()
         self.writer.hold()
