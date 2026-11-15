@@ -147,7 +147,8 @@ class VetoBoundFencedSignedG3Writer(FencedSignedG3Writer):
                 st.st_uid != os.geteuid() or
                 stat.S_IMODE(st.st_mode) != 0o600):
             raise PermissionError("rights journal not private")
-        if not os.path.samefile(main[0], p):
+        if (str(p.absolute()) != j.bound_db_path or
+                (st.st_dev, st.st_ino) != j.bound_db_identity):
             raise PermissionError("rights journal identity mismatch")
 
     def write(self, request):
