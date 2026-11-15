@@ -467,3 +467,6 @@ import PhysicalBridges.GuardianCreatorResponsibilityJoin
 
 -- Joker/Tree learned successor meets forward Time-Koru Genesis.
 import PhysicalBridges.JokerTimeKoruGenesisJoin
+
+-- Arbitrary adaptive optimiser histories preserve full six X3 in fenced model.
+import PhysicalBridges.AdaptiveGuardianHistories
