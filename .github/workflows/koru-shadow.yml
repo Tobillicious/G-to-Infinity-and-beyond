@@ -49,3 +49,9 @@ jobs:
           sudo -n -E "$(command -v python3)" -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_koru_os_broker.py' -v
+
+      - name: Test G3 broker restart and durable permit time rollback rejection
+        run: |
+          python3 -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_broker_restart.py' -v
