@@ -5,6 +5,7 @@ replacement for target.py. A trusted in-process controller supplies independent
 registries; the caller may NOT provide trusted evidence by placing it in an event.
 The durable record contains ONLY event identity, digest, lineage and receipt.
 """
+import copy
 import sqlite3
 import threading
 from koru_shadow import ShadowVerifier, digest
@@ -14,18 +15,20 @@ class PilotGate:
     def __init__(self, db_path, *, contexts, signatures, witnesses,
                  authorities, provenances, context_ref, generation=1):
         self.lock = threading.RLock()
-        self.contexts = contexts
-        self.signatures = signatures
-        self.witnesses = witnesses
-        self.authorities = authorities
-        self.provenances = provenances
+        # Freeze caller-supplied trust stores to prevent external mutation.
+        self.contexts = copy.deepcopy(contexts)
+        self.signatures = copy.deepcopy(signatures)
+        self.witnesses = copy.deepcopy(witnesses)
+        self.authorities = copy.deepcopy(authorities)
+        self.provenances = copy.deepcopy(provenances)
         self.context_ref = context_ref
         self.db = sqlite3.connect(db_path, isolation_level=None, check_same_thread=False)
         self.db.execute("PRAGMA journal_mode=WAL")
         self.db.execute("PRAGMA synchronous=FULL")
         self.db.execute("CREATE TABLE IF NOT EXISTS gate_state (id INTEGER PRIMARY KEY CHECK (id=1), generation INTEGER NOT NULL, halted INTEGER NOT NULL, context_version INTEGER NOT NULL, context_digest TEXT NOT NULL, predecessor_ref TEXT NOT NULL)")
         self.db.execute("CREATE TABLE IF NOT EXISTS records (event_id TEXT PRIMARY KEY, idempotency_key TEXT NOT NULL UNIQUE, payload_digest TEXT NOT NULL, context_digest TEXT NOT NULL, predecessor_ref TEXT NOT NULL, receipt TEXT NOT NULL UNIQUE)")
-        ctx = contexts[context_ref]
+        self.db.execute("CREATE TABLE IF NOT EXISTS revoked_authorities (authority_ref TEXT PRIMARY KEY)")
+        ctx = self.contexts[context_ref]
         self.db.execute("INSERT OR IGNORE INTO gate_state VALUES (1, ?, 0, ?, ?, ?)",
                         (generation, ctx["version"], digest(ctx), ctx["predecessor_ref"]))
 
@@ -39,6 +42,18 @@ class PilotGate:
             except BaseException:
                 self.db.execute("ROLLBACK")
                 raise
+
+    def revoke_authority(self, authority_ref):
+        """Trusted-controller-only durable revocation; serializes with apply.
+
+        This prototype has no remote authentication or grant issuance API.
+        """
+        if type(authority_ref) is not str or not authority_ref:
+            raise ValueError("invalid authority ref")
+        def act():
+            self.db.execute("INSERT OR IGNORE INTO revoked_authorities VALUES (?)",
+                            (authority_ref,))
+        self._transaction(act)
 
     def hold(self, minimum_generation):
         """Trusted-controller call only. No untrusted HTTP/RPC access is provided."""
@@ -77,6 +92,10 @@ class PilotGate:
             # All accesses and authority revocation must serialize on self.lock.
             ids = {row[0] for row in self.db.execute("SELECT event_id FROM records")}
             keys = {row[0] for row in self.db.execute("SELECT idempotency_key FROM records")}
+            if self.db.execute(
+                    "SELECT 1 FROM revoked_authorities WHERE authority_ref=?",
+                    (event.get("authority_ref"),)).fetchone():
+                return {"ok": False, "code": "authority_revoked"}
             verifier = ShadowVerifier(
                 contexts=self.contexts, signatures=self.signatures,
                 witnesses=self.witnesses, authorities=self.authorities,
