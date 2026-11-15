@@ -5,6 +5,7 @@ serialization demonstration, NOT cross-process atomicity or universal X3.
 """
 from g3_monitor import Store, sha
 from g_mesh_protocol import GMeshState
+from koru_ed25519_permit import verify_ed25519
 from koru_shadow import digest
 
 class SignedG3Writer(Store):
@@ -87,5 +88,64 @@ class SignedG3Writer(Store):
                         return grant
                     # Still a separate SQLite transaction from the G3 gate.
                     # Failure is never promoted into physical authorization.
+                    def commit_time_authority():
+                        # Called by Store under the same local mutexes just
+                        # before publishing (and before reporting completion).
+                        # No handshake replay consumption here.
+                        try:
+                            fresh_now = self.clock()
+                            mesh_now = self.mesh.clock()
+                            if (type(fresh_now) is not int or
+                                    type(mesh_now) is not int or
+                                    fresh_now < 0 or fresh_now != mesh_now):
+                                return {'ok':False,'code':'clock_unavailable_at_publish'}
+                        except (ValueError, TypeError, OverflowError):
+                            return {'ok':False,'code':'clock_unavailable_at_publish'}
+                        # Preserve the durable high-water mark even on
+                        # expiry/denial. Otherwise a trusted-clock rollback
+                        # could revive an apparently live controller lease.
+                        observed = self.mesh._transaction(
+                            lambda: self.mesh._observe_clock_locked(fresh_now))
+                        if not observed[0]:
+                            return {'ok':False,'code':'mesh_'+observed[1]}
+                        if (fresh_now >= packet['not_after'] or
+                                not verify_ed25519(
+                                    self.gate.ed25519_public_key,
+                                    request['permit'], issuer=self.gate.permit_issuer,
+                                    event=event, now=fresh_now)):
+                            return {'ok':False,'code':'authority_expired_at_publish'}
+                        state = self.mesh.db.execute(
+                            'SELECT halted,generation FROM gmesh_state WHERE id=1'
+                        ).fetchone()
+                        lease = self.mesh.db.execute(
+                            'SELECT generation,not_after FROM lease_state WHERE id=1'
+                        ).fetchone()
+                        floor = self.mesh.db.execute(
+                            'SELECT last_seen FROM time_floor WHERE id=1'
+                        ).fetchone()
+                        if (not state or state[0] or
+                                state[1] != packet['generation'] or
+                                not lease or lease[0] != state[1] or
+                                fresh_now >= lease[1] or
+                                not floor or fresh_now < floor[0] or
+                                self.mesh.db.execute(
+                                    'SELECT 1 FROM revoked_authority WHERE ref=?',
+                                    (event['authority_ref'],)).fetchone()):
+                            return {'ok':False,'code':'mesh_lease_unavailable_at_publish'}
+                        current=self.gate.db.execute(
+                            'SELECT halted FROM gate_state WHERE id=1'
+                        ).fetchone()
+                        if (not current or current[0] or
+                                self.gate.db.execute(
+                                    'SELECT 1 FROM revoked_authorities '
+                                    'WHERE authority_ref=?',
+                                    (event['authority_ref'],)).fetchone()):
+                            return {'ok':False,'code':'g3_authority_held_at_publish'}
+                        clock_guard=self.gate.accept_broker_time(fresh_now)
+                        if not clock_guard['ok']:
+                            return clock_guard
+                        return {'ok':True,'code':'locally_current_at_publish'}
+
                     minimal={k:request[k] for k in ('op','id','html','epoch')}
-                    return super().write(minimal)
+                    return super().write(minimal,
+                        pre_publish=commit_time_authority)

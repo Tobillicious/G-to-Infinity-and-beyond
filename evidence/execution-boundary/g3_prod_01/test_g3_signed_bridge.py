@@ -288,6 +288,53 @@ class SignedBridgeTests(unittest.TestCase):
                          'stale_or_halted')
         self.assertEqual(len(list(self.out.iterdir())),1)
 
+    def test_lease_expiry_during_staging_blocks_publication(self):
+        """Adversarial clock advancement after signed admission but before link."""
+        self.lease()
+        original=os.fsync
+        advanced=[False]
+        def expiry_before_link(fd):
+            result=original(fd)
+            if fd != self.writer.dirfd and not advanced[0]:
+                advanced[0]=True
+                self.now[0]=25  # signed controller lease expires at 25
+            return result
+        with patch('g3_monitor.os.fsync',side_effect=expiry_before_link):
+            result=self.writer.write(self.request())
+        self.assertTrue(advanced[0])
+        self.assertEqual(result['code'],'mesh_lease_unavailable_at_publish')
+        self.assertEqual(list(self.out.iterdir()),[])
+        self.assertEqual(self.writer.db.execute(
+            'SELECT state FROM effect WHERE id=?',
+            (self.event['event_id'],)).fetchone(),('INTENT',))
+        # Synthetic dispatch may have occurred before expiry; that is
+        # NOT evidence of an actual published filesystem effect.
+        self.assertEqual(self.gate.effect_count(),1)
+        # Never turn clock rollback into apparent lease renewal.
+        self.now[0]=20
+        self.assertNotEqual(self.writer.write(self.request(seq=2)).get('code'),
+                            'committed')
+        self.assertEqual(list(self.out.iterdir()),[])
+
+    def test_permit_expiry_during_staging_blocks_publication(self):
+        """Even with a live mesh lease, permit expiry denies before link."""
+        self.lease()
+        self.permit=issue_ed25519(
+            self.gkey,issuer='g3-test-issuer',event=self.event,expires_at=22)
+        original=os.fsync
+        moved=[False]
+        def expiry_before_link(fd):
+            result=original(fd)
+            if fd != self.writer.dirfd and not moved[0]:
+                moved[0]=True
+                self.now[0]=23
+            return result
+        with patch('g3_monitor.os.fsync',side_effect=expiry_before_link):
+            result=self.writer.write(self.request())
+        self.assertTrue(moved[0])
+        self.assertEqual(result['code'],'authority_expired_at_publish')
+        self.assertFalse(list(self.out.iterdir()))
+
     def test_writer_epoch_fenced(self):
         self.lease()
         self.writer.hold()
