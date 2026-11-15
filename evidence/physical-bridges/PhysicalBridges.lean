@@ -461,3 +461,6 @@ import PhysicalBridges.TimeKoruGenesisConservation
 import PhysicalBridges.GuardianPolicyStability
 
 import PhysicalBridges.WCoverageCycleObstructions
+
+-- Nonvacuous same-event owed protection and independently established author accountability.
+import PhysicalBridges.GuardianCreatorResponsibilityJoin
