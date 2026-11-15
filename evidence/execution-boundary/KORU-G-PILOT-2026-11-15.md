@@ -22,6 +22,14 @@ The pilot now exposes `audit()` and automatically runs the same local consistenc
 
 **Important:** These receipts are plain SHA-256 *consistency digests*, not keyed MACs, signed attestations, or external audit anchors. An actor with privileged database access can rewrite a record and recompute its digest. This check is **not** tamper-proof, does not authenticate real permission, and does not guarantee forensic completeness. A stronger release must use a separate trust root or protected signing key, authenticated controller, recovery procedures and independent audit receipts.
 
+## Opt-in authenticated event permits (synthetic)
+
+`koru_pilot_permit.py` adds an HMAC-SHA256 permit envelope binding the exact event digest, context digest, authority reference, trusted issuer label, and expiry. `PilotGate(..., permit_verification_key=..., permit_issuer=...)` activates fail-closed permit verification **at admission time**. The gate still separately checks independent fixture authority, persisted revocations, witnesses, generation and whole-context consistency. Tests cover absent permits, expired permits, modified contents/expiry, fabricated tags, wrong issuer, replay, and validly signed but later revoked authority.
+
+**This is a research prototype, not independently authenticated deployment.** The signing function `issue_permit` is a trusted-issuer-only development utility, not available to untrusted agents. Its 32-byte test keys are inert public fixtures. A live secret must not be stored in Git or provided to the agent; keep signing in a separate trusted process/HSM and isolate permit verification from the untrusted caller. Because this is symmetric HMAC, **any holder of the verifier secret can also issue permits**. The current gate holds that key in memory, so a process compromise defeats this separation; a future real release should use independent asymmetric signing (public key only at the gate), authenticated revocation, constrained issuer scopes, secure time, proper key rotation and verified key provenance. No claims of authentic real-human consent or universality follow from this change.
+
+`permit_verification_key=None` leaves legacy synthetic fixture behavior unchanged for backward compatibility. A protected deployment must explicitly enable verification and prevent access to any unprotected write path; opt-in protection alone is not complete mediation.
+
 ## Why this is not yet the enforcement release
 
 The pilot is **synthetic and append-only**. It is not a proof verifier, independent human consent authenticator, cultural authority, cryptographic signing service, external-world effect router, or general implementation of the original six X3 duties. Its `ShadowVerifier` understands a toy six-position integer world and one `synthetic_refinement` kind. The code does not mutate actual world state or send externally effective actions.
