@@ -73,3 +73,9 @@ jobs:
           sudo -n "$(command -v python3)" -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_koru_process_lock.py' -v
+
+      - name: Test G-Mesh v0 signed handshake, persistent replay and offline provider boundaries
+        run: |
+          python3 -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_g_mesh_protocol.py' -v
