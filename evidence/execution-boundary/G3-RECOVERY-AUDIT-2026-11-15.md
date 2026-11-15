@@ -19,3 +19,28 @@ The signed SQLite effect journal and the actual filesystem marker do not share o
 
 ## Verification
 GitHub Actions `.github/workflows/koru-shadow.yml` runs the updated filesystem suite; Lean physical bridges and full-law/publication checks run independently. Only report success after recording the final PR head SHA and successful jobs.
+
+## Mandatory effect-time integrity precondition
+
+`ProtectedFilesystemSink.apply_marker` now takes the gate lock and invokes
+`reconcile_report()` **before** appending its own synthetic effect or writing
+a marker. Unexpected filesystem entries, malformed or symlinked existing
+markers, or an inconsistent journal must fail closed. If any *different*
+journaled event is still missing its real marker, subsequent effect requests
+fail with `unresolved_prior_effect` until that earlier event has been
+individually reauthorized and recovered. No automatic replay is performed.
+
+This prevents a local gate operator from observing an integrity violation
+in the read-only audit yet continuing to create fresh markers through the
+normal sink. It is deliberately conservative; a revoked pending event may
+block subsequent writes until trusted review, rather than silently skipping
+the missing side effect. Manual recovery cannot waive current permit and
+revocation rules.
+
+**Residual boundary:** this is serialized by the trusted Python process and
+OS-private effect directory, not a system-wide transaction against privileged
+modification. Root or another privileged holder of the directory may modify
+its contents between verification and creation; such access must be eliminated
+or constrained independently for a real target. The SQLite-to-filesystem
+crash atomicity gap remains. These are marker-only tests, not proof of
+universal actual-world protection.

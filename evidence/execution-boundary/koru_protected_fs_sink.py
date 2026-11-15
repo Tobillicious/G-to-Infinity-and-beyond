@@ -95,6 +95,21 @@ class ProtectedFilesystemSink:
         is not equivalent to the marker: the file must be created/fsynced.
         """
         with self.gate.lock:
+            # The recovery inventory MUST be a precondition, not merely an
+            # optional diagnostic report. Hold the gate lock across inventory,
+            # authorization and filesystem creation to serialize controller
+            # holds/revocations and other effects inside this process.
+            inventory = self.reconcile_report()
+            if not inventory["ok"]:
+                return {"ok": False, "code": "effect_store_" + inventory["code"]}
+            # Any unrelated previously journaled effect whose real marker is
+            # absent must be explicitly recovered or reviewed first. Never
+            # silently proceed with another effect after a partial crash.
+            if type(event) is not dict or type(event.get("event_id")) is not str:
+                return {"ok": False, "code": "invalid_effect_identity"}
+            pending = inventory["pending_event_ids"]
+            if any(event_id != event["event_id"] for event_id in pending):
+                return {"ok": False, "code": "unresolved_prior_effect"}
             result = self.gate.dispatch_synthetic(event, now=now, permit=permit)
             if not result["ok"]:
                 return result
