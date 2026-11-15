@@ -8,8 +8,8 @@ begin
   can discharge any of these assumptions. *)
 
 locale g2_aristotle = g2_hume_hillary +
-  fixes admissible :: "'event \<Rightarrow> bool"
-    and dominates :: "'event \<Rightarrow> 'event \<Rightarrow> bool"
+  fixes admissible :: "'a \<Rightarrow> bool"
+    and dominates :: "'a \<Rightarrow> 'a \<Rightarrow> bool"
 begin
 
 definition universal_six where
