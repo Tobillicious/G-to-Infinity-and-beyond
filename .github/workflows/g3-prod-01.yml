@@ -18,4 +18,4 @@ jobs:
       - name: Run bounded local reference monitor tests (research only)
         run: |
           cd evidence/execution-boundary/g3_prod_01
-          python3 -B -m unittest -v test_g3_monitor.py
+          python3 -B -m unittest -v test_g3_monitor.py test_g3_signed_bridge.py
