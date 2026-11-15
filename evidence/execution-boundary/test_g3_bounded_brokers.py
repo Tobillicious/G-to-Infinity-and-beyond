@@ -80,10 +80,10 @@ class BoundedBrokerTests(unittest.TestCase):
         # Third client cannot create a third blocked worker.
         denied = self.connect(path)
         try:
-            denied.sendall(b'{"op":')
             try:
+                denied.sendall(b'{"op":')
                 self.assertEqual(denied.recv(256), b"")
-            except ConnectionResetError:
+            except (BrokenPipeError, ConnectionResetError):
                 # Linux may RST an overloaded Unix socket with unread data.
                 # RST and EOF both mean the request was rejected.
                 pass
