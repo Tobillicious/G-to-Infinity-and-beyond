@@ -1,17 +1,17 @@
 # G3-PROD-01 — bounded local writer / generation-fenced recovery prototype
 
-**Status: locally tested research-only engineering prototype. NOT production ready. NOT G3-integrated.**
+**Status: research-only integration candidate. NOT production ready.**
 
-This Linux Unix-socket reference-monitor experiment uses a local SQLite authority/effect-intent journal and a fixed private output directory. It is an **additive candidate** for review alongside the existing G3 architecture, **not** a replacement for PR #456's signed G3/G-Mesh checks.
+This Linux Unix-socket reference-monitor experiment uses a local SQLite authority/effect-intent journal and a fixed private output directory. An optional `SignedG3Writer` composition uses PR #456's G3 and G-Mesh verifier instances, plus a trusted event-id-to-output-digest manifest. It is an **additive research candidate**, not a replacement for PR #456 or a general-purpose deployable system.
 
 ## Run tests
 
 ```sh
 cd evidence/execution-boundary/g3_prod_01
-python3 -m unittest -v
+python3 -m unittest -v test_g3_monitor.py test_g3_signed_bridge.py
 ```
 
-Requires Linux, Python 3.9+, and private writable test directories. The original isolated harness passed eight local unit tests on 15 November 2026. The branch now has eleven tests and a dedicated GitHub Actions workflow; rely on exact-head CI for their results.
+Requires Linux, Python 3.9+, and private writable test directories. The original isolated harness passed eight local unit tests on 15 November 2026. The branch now contains eleven monitor tests and seven signed-bridge tests; rely on exact-head CI for results.
 
 ## Demonstrated in the limited test harness
 
@@ -24,13 +24,13 @@ Requires Linux, Python 3.9+, and private writable test directories. The original
 
 ## Release blockers: do not deploy
 
-1. **Missing real G3 authorization**: No Ed25519 G3 permit, signed fresh G-Mesh lease, six original X3 duties, authentic consent, or policy correspondence is checked by Store.write. An allowed UID knowing the current epoch can issue writes. Epoch is NOT a cryptographic capability.
+1. **Unsafe bare writer remains exposed as a research fixture**: `Store.write` does NOT enforce cryptographic authorization. Only `SignedG3Writer.write` reuses PR #456's G3 signed permit and current signed mesh handshake, and checks a trusted output manifest. Provisioning the bare `Store` as an application-facing server would be unsafe. These synthetic checks do not establish the original six real-world X3 duties, human consent, or external policy correctness.
 2. **Disarmed demonstration startup**: Store.arm is trusted in-process/test only. The CLI remains disarmed; never expose arm/revoke on the untrusted application socket.
 3. **No measured multi-UID isolation**: The tests emulate UID rejection but do not provision distinct system accounts, mount namespaces, MAC/seccomp, inherited-FD hygiene, or non-bypass guarantees. Host root or kernel can bypass.
 4. **Crash consistency gaps**: clean close/reopen is tested; SIGKILL, power loss, fsync boundaries, filesystem faults and atomic publication are not yet tested. Staging and publication crash points still require fault injection; orphan staging files fail closed.
 5. **Physical-domain gap**: No hazard analysis, real consent, actual-world six-X3 grounding, hardware interlocks, actuators, distributed consensus, or universally protective result.
 6. **Rollback and resource gaps**: Local SQLite is not anchored against privileged rollback; the socket directory must be securely provisioned. Additional process/resource exhaustion and race testing is required.
-7. **Broker/protocol constraints**: This reference monitor does not expose original PR #456 signed envelope interface. Do not connect an untrusted agent or external service to this prototype as if it were G3.
+7. **Broker/protocol and transaction constraints**: The signed bridge accepts PR #456's signed envelope only when instantiated by a trusted owner; it uses three separate SQLite stores and process-local locks, not distributed atomicity. Signed envelope revalidation cannot eliminate remote revocation races. No fully provisioned multi-UID runtime or live consent verification exists. Do not attach an untrusted agent or external service as if the system were production G3.
 
 ## Next exact engineering integration
 
@@ -42,3 +42,7 @@ Requires Linux, Python 3.9+, and private writable test directories. The original
 6. Exercise separate UIDs, namespaces, fd inheritance, symlink/hard-link, lock contention, hostile slow clients, exhausted resources, restart and revocation races. Independently review the resulting evidence.
 
 This addition is intentionally separate from Lean and the historical UPT proofs. No theorem, publication, DOI, or original proof chain is changed or weakened.
+
+## Signed bridge research path
+
+`g3_signed_bridge.py` defines `SignedG3Writer(Store)`, which requires a trusted provisioned PR #456 `SyntheticEffectGate`, a lease-enabled `GMeshProtocolHandler`, an integer trusted clock, and an immutable-by-copy digest manifest mapping admitted event identifiers to exact HTML bytes. The bridge demands the event ID, event digest, mesh authority, signed G-Mesh handshake and G3 permit to agree, then holds **these exact three in-process handler locks** while it journals and writes. The mesh handshake is consumed before the G3 and filesystem operation, so failures must be handled as terminal denial/retry with a fresh sequence. This demonstrates composition, **not a single transaction** or cross-process revocation safety. `Store.arm()` remains trusted-test-only; the demonstration CLI remains disarmed.
