@@ -459,3 +459,5 @@ import PhysicalBridges.KoruConservation
 import PhysicalBridges.KoruConservationPhysicalBridge
 import PhysicalBridges.TimeKoruGenesisConservation
 import PhysicalBridges.GuardianPolicyStability
+
+import PhysicalBridges.WCoverageCycleObstructions
