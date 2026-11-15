@@ -7,11 +7,11 @@ for every state: the initial case and step preservation are explicit. This
 does not identify the predicate with actual physical guardianship. *)
 
 theorem universal_six_at_every_finite_stage:
-  fixes step :: "'s ⇒ 's"
-    and universal_six :: "'s ⇒ bool"
+  fixes step :: "'s \<Rightarrow> 's"
+    and universal_six :: "'s \<Rightarrow> bool"
   assumes initial: "universal_six s0"
-    and preserved: "⋀s. universal_six s ⟹ universal_six (step s)"
-  shows "∀n::nat. universal_six ((step ^^ n) s0)"
+    and preserved: "\<And>s. universal_six s \<Longrightarrow> universal_six (step s)"
+  shows "\<forall>n::nat. universal_six ((step ^^ n) s0)"
 proof
   fix n :: nat
   show "universal_six ((step ^^ n) s0)"
