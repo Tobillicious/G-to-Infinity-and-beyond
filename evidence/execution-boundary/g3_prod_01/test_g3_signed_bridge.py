@@ -319,18 +319,20 @@ class SignedBridgeTests(unittest.TestCase):
     def test_permit_expiry_during_staging_blocks_publication(self):
         """Even with a live mesh lease, permit expiry denies before link."""
         self.lease()
+        self.permit=issue_ed25519(
+            self.gkey,issuer='g3-test-issuer',event=self.event,expires_at=22)
         original=os.fsync
         moved=[False]
         def expiry_before_link(fd):
             result=original(fd)
             if fd != self.writer.dirfd and not moved[0]:
                 moved[0]=True
-                self.now[0]=25
+                self.now[0]=23
             return result
         with patch('g3_monitor.os.fsync',side_effect=expiry_before_link):
             result=self.writer.write(self.request())
         self.assertTrue(moved[0])
-        self.assertNotEqual(result.get('code'),'committed')
+        self.assertEqual(result['code'],'authority_expired_at_publish')
         self.assertFalse(list(self.out.iterdir()))
 
     def test_writer_epoch_fenced(self):
