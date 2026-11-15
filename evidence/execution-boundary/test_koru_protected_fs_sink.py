@@ -95,6 +95,64 @@ class ProtectedFilesystemTests(unittest.TestCase):
         self.assertEqual(self.sink.apply_marker(
             self.event, now=20, permit=self.permit)["code"], "marker_already_applied")
 
+    def test_reconciliation_reports_missing_real_effect_without_replaying(self):
+        self.assertTrue(self.gate.apply(self.event, now=20, permit=self.permit)["ok"])
+        self.assertTrue(self.gate.dispatch_synthetic(
+            self.event, now=20, permit=self.permit)["ok"])
+        report = self.sink.reconcile_report()
+        self.assertTrue(report["ok"], report)
+        self.assertEqual(report["pending_count"], 1)
+        self.assertEqual(report["applied_count"], 0)
+        self.assertEqual(report["pending_event_ids"], [self.event["event_id"]])
+        self.assertFalse(self.marker.exists())
+        self.gate.revoke_authority("auth-lesson")
+        self.assertEqual(self.sink.apply_marker(
+            self.event, now=20, permit=self.permit)["code"],
+            "authority_revoked_at_effect")
+        self.assertFalse(self.marker.exists())
+        self.assertEqual(self.sink.reconcile_report()["pending_count"], 1)
+
+    def test_reconciliation_reports_applied_after_valid_recovery(self):
+        self.assertTrue(self.gate.apply(self.event, now=20, permit=self.permit)["ok"])
+        self.assertTrue(self.gate.dispatch_synthetic(
+            self.event, now=20, permit=self.permit)["ok"])
+        self.assertEqual(self.sink.reconcile_report()["pending_count"], 1)
+        self.assertEqual(self.sink.apply_marker(
+            self.event, now=20, permit=self.permit)["code"],
+            "filesystem_marker_applied")
+        report = self.sink.reconcile_report()
+        self.assertEqual(report["pending_count"], 0)
+        self.assertEqual(report["applied_count"], 1)
+
+    def test_reconciliation_detects_orphan_and_rejects_it(self):
+        (self.effects / "forged.marker").touch(mode=0o600)
+        report = self.sink.reconcile_report()
+        self.assertFalse(report["ok"])
+        self.assertEqual(report["code"], "unaccounted_files")
+        self.assertEqual(report["count"], 1)
+
+    def test_reconciliation_detects_tampered_and_symlinked_marker(self):
+        self.assertTrue(self.gate.apply(self.event, now=20, permit=self.permit)["ok"])
+        self.assertEqual(self.sink.apply_marker(
+            self.event, now=20, permit=self.permit)["code"], "filesystem_marker_applied")
+        self.marker.write_text("tampered")
+        self.assertEqual(self.sink.reconcile_report()["code"], "marker_integrity")
+        self.assertEqual(self.sink.apply_marker(
+            self.event, now=20, permit=self.permit)["code"], "marker_integrity")
+        self.marker.unlink()
+        self.marker.symlink_to("/dev/null")
+        self.assertEqual(self.sink.reconcile_report()["code"], "marker_integrity")
+
+    def test_reopened_sink_reconciles_without_automatic_effect(self):
+        self.assertTrue(self.gate.apply(self.event, now=20, permit=self.permit)["ok"])
+        self.assertTrue(self.gate.dispatch_synthetic(
+            self.event, now=20, permit=self.permit)["ok"])
+        self.sink.close()
+        self.sink = ProtectedFilesystemSink(self.gate, str(self.effects))
+        report = self.sink.reconcile_report()
+        self.assertEqual(report["pending_count"], 1)
+        self.assertFalse(self.marker.exists())
+
     def test_untrusted_os_identity_cannot_write_effect_directory(self):
         if sys.platform != "linux" or os.geteuid() != 0:
             self.skipTest("privileged Linux CI negative-control only")
