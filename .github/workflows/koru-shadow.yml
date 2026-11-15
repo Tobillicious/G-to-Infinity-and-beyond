@@ -55,3 +55,9 @@ jobs:
           python3 -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_koru_broker_restart.py' -v
+
+      - name: Test G3 separately privileged controller, emergency hold, release and persistent revocation
+        run: |
+          sudo -n "$(command -v python3)" -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_control_broker.py' -v
