@@ -3,3 +3,4 @@ session UPT_G2 = HOL +
   theories
     G2_Hume_Hillary_Join
     G2_Aristotle_Greatestness
+    Universal_G_Induction
