@@ -6,6 +6,7 @@ import sys
 import tempfile
 import threading
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
@@ -229,6 +230,63 @@ class SignedBridgeTests(unittest.TestCase):
             server.server_close()
             thread.join(timeout=5)
             self.assertFalse(thread.is_alive())
+
+    def test_real_signed_write_and_external_revoke_have_one_local_order(self):
+        """A concurrent local hold waits for a signed writer's actual publish.
+
+        Uses a separate process for revocation, not merely a manually held
+        lock. This tests cooperating processes sharing the same lock inode.
+        It does not simulate remote G-Mesh revocation or hardware power loss.
+        """
+        self.lease()
+        entered=threading.Event()
+        resume=threading.Event()
+        outcome=[]
+        real_link=os.link
+
+        def block_at_publish(*args, **kwargs):
+            entered.set()
+            if not resume.wait(timeout=8):
+                raise RuntimeError('race fixture publication release timed out')
+            return real_link(*args, **kwargs)
+
+        command=[
+            sys.executable, '-c',
+            'import sys; from g3_cross_process_fence import revoke_writer; '
+            'r=revoke_writer(sys.argv[1],sys.argv[2]); assert r["ok"]',
+            str(self.root/'writer.sqlite'),str(self.root/'fence.lock')]
+        env=dict(os.environ)
+        env['PYTHONPATH']=str(Path(__file__).resolve().parent.parent)+os.pathsep+env.get('PYTHONPATH','')
+
+        with patch('g3_monitor.os.link', side_effect=block_at_publish):
+            worker=threading.Thread(
+                target=lambda: outcome.append(self.writer.write(self.request())),
+                daemon=True)
+            worker.start()
+            self.assertTrue(entered.wait(timeout=5),'signed write did not reach publication')
+            child=subprocess.Popen(command, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, text=True,
+                cwd=str(Path(__file__).resolve().parent), env=env)
+            try:
+                time.sleep(0.2)
+                self.assertIsNone(child.poll(),
+                    'revoker must not pass while signed publication holds fence')
+            finally:
+                resume.set()
+            worker.join(timeout=10)
+            self.assertFalse(worker.is_alive())
+            out,err=child.communicate(timeout=10)
+            self.assertEqual(child.returncode,0,out+err)
+
+        self.assertEqual(len(outcome),1)
+        self.assertEqual(outcome[0]['code'],'committed')
+        self.assertEqual(self.gate.effect_count(),1)
+        self.assertEqual(len(list(self.out.iterdir())),1)
+        # The completed hold must reject subsequent attempts even when
+        # mesh source provides a distinct signed handshake sequence.
+        self.assertEqual(self.writer.write(self.request(seq=2))['code'],
+                         'stale_or_halted')
+        self.assertEqual(len(list(self.out.iterdir())),1)
 
     def test_writer_epoch_fenced(self):
         self.lease()
