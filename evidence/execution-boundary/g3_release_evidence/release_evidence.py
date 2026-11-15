@@ -11,7 +11,7 @@ REQUIRED = frozenset((
     "rights_consent_review", "original_six_x3_correspondence",
     "independent_security_review", "rollback_recovery_review",
 ))
-GIT_SHA1 = re.compile(r"[0-9a-f]{40}\\Z")  # this repo currently uses SHA-1 object IDs
+GIT_SHA1 = re.compile(r"[0-9a-f]{40}\Z")  # this repo currently uses SHA-1 object IDs
 HEX64 = re.compile(r"[0-9a-f]{64}\Z")
 
 
