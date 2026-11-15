@@ -1,0 +1,19 @@
+name: G3 rights evidence review negative controls
+on:
+  pull_request:
+    paths:
+      - 'evidence/execution-boundary/g3_rights_review/**'
+      - '.github/workflows/g3-rights-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  rights-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run fail-closed rights review fixtures
+        run: |
+          cd evidence/execution-boundary/g3_rights_review
+          python3 -B -m unittest -v test_rights_review.py
