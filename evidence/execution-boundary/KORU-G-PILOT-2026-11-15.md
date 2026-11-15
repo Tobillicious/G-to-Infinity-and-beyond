@@ -105,6 +105,16 @@ The earlier design advanced `broker_time_floor` in a separate transaction before
 
 The tests **do not** establish authenticated UTC, protect against privileged database modification, or stop compromise of the broker OS identity. Time-floor enforcement is not a proof of original-six universal physical coverage or real-world effect mediation. Proper secure time and hardened, independently verified recovery remain important release obligations.
 
+## G3 protected management controls — OS-verified hold/release/revocation
+
+**Verified:** [GitHub Actions run 43693695873](https://github.com/Tobillicious/universal-protection-theory/actions/runs/43693695873) passed the privileged Linux management-boundary regression and the earlier synthetic/OS suites.
+
+`koru_control_broker.py` adds a **separate UNIX socket** for controller-only `hold`, monotone `release`, and durable `revoke` commands. The server checks Linux `SO_PEERCRED` against an explicit controller UID allowlist before reading any request, enforces a narrow exact-field command schema, and sets socket permissions to `0600`. In the isolated root-runner test, the management socket is under a private `0700` directory, while the untrusted event socket remains reachable by a separate `nobody` UID.
+
+`test_koru_control_broker.py` demonstrates that the unprivileged caller cannot reach that private management socket or invoke `hold` through the public event API. It also exercises a trusted controller hold stopping dispatch, refusal to release without advancing the fence, release at a higher generation rendering the old event stale, revoked authority stopping later dispatch, rejection of unsupported authority issuance and invalid parameters, and persistence of the fence and revocation after process restart.
+
+**Boundary of this result:** The fixture broker and its management socket run in the same privileged Python service and thus trust the service code and OS root. The controller is **independently OS-identified at its socket**, not a separately supervised/reviewed root of trust. A compromised broker process or privileged code/OS account can still call internal gate methods or edit the protected SQLite store directly. This test does not establish universal G3, actual consent, real effects, production-grade administrative authentication, key rotation, independent emergency stop, or the original-six physical coverage assumptions. Production should minimize the service UID's capabilities, segregate control duties where appropriate, restrict socket ownership and path traversal, audit control decisions with external attestations, and test forced process termination and repair.
+
 ## Why this is not yet the enforcement release
 
 The pilot is **synthetic and append-only**. It is not a proof verifier, independent human consent authenticator, cultural authority, cryptographic signing service, external-world effect router, or general implementation of the original six X3 duties. Its `ShadowVerifier` understands a toy six-position integer world and one `synthetic_refinement` kind. The code does not mutate actual world state or send externally effective actions.
