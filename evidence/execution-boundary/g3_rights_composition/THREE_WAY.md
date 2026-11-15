@@ -21,3 +21,9 @@ Run (offline):
 cd evidence/execution-boundary
 python3 -B -m unittest -v g3_rights_composition.test_three_way
 ```
+
+## Split-journal negative control
+
+The verified checkpoint and the live veto reader must reference the **same opened SQLite database**, not merely two histories with the same generation. The adapter now checks the actual SQLite main-database path against the checkpoint path with file identity and refuses symlink substitution. A hostile fixture creates two independently valid generation-one journals: A withdraws the requested subject and B withdraws a different record. It verifies that checking A's signed checkpoint while querying B is rejected.
+
+This does **not** make the two separate reads atomic; inode replacement, privileged manipulation, cross-process writes between checks and the eventual publication step remain outside this research join. No matched result grants effect permission.
