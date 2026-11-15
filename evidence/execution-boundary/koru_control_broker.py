@@ -12,6 +12,8 @@ import socketserver
 import struct
 import sys
 
+from koru_bounded_server import BoundedThreadingMixIn
+
 MAX_CONTROL_REQUEST = 4096
 
 
@@ -20,6 +22,7 @@ class _ControlHandler(socketserver.StreamRequestHandler):
         self.wfile.write((json.dumps(payload, sort_keys=True) + "\n").encode("utf-8"))
 
     def handle(self):
+        self.request.settimeout(self.server.request_timeout)
         try:
             cred = self.request.getsockopt(
                 socket.SOL_SOCKET, socket.SO_PEERCRED, struct.calcsize("3i"))
@@ -30,7 +33,10 @@ class _ControlHandler(socketserver.StreamRequestHandler):
         if uid not in self.server.controller_uids:
             self._reply({"ok": False, "code": "controller_denied"})
             return
-        raw = self.rfile.readline(MAX_CONTROL_REQUEST + 1)
+        try:
+            raw = self.rfile.readline(MAX_CONTROL_REQUEST + 1)
+        except (TimeoutError, OSError):
+            return
         if not raw or len(raw) > MAX_CONTROL_REQUEST or not raw.endswith(b"\n"):
             self._reply({"ok": False, "code": "invalid_control_request"})
             return
@@ -69,17 +75,19 @@ class _ControlHandler(socketserver.StreamRequestHandler):
         self._reply(result)
 
 
-class TrustedControlBroker(socketserver.ThreadingMixIn, socketserver.UnixStreamServer):
+class TrustedControlBroker(BoundedThreadingMixIn, socketserver.UnixStreamServer):
     daemon_threads = True
     allow_reuse_address = False
 
-    def __init__(self, socket_path, gate, *, controller_uids):
+    def __init__(self, socket_path, gate, *, controller_uids,
+                 max_connections=8, request_timeout=2.0):
         if sys.platform != "linux" or not hasattr(socket, "SO_PEERCRED"):
             raise RuntimeError("control socket requires Linux peer credentials")
         if (type(controller_uids) not in (set, frozenset) or
                 not controller_uids or
                 any(type(uid) is not int or uid < 0 for uid in controller_uids)):
             raise ValueError("explicit controller UID allowlist required")
+        self.configure_bounds(max_connections=max_connections, request_timeout=request_timeout)
         self.controller_uids = frozenset(controller_uids)
         self.gate = gate
         super().__init__(socket_path, _ControlHandler)
