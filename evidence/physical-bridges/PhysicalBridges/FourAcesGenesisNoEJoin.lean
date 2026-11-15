@@ -54,12 +54,14 @@ The physical W coverage and authentic reflection are explicit premises. -/
 theorem four_aces_joker_genesis_protected_if_physically_reflected
     (J : JokerExperiment T FiniteObjectiveU H)
     (seed : Tree T H E)
-    (modeledStep : Tree T H E → Tree T H E → Prop)
+    (physicalStep modeledStep : Tree T H E → Tree T H E → Prop)
     (carrier : P → Index)
     (r : ParticularRelations (Tree T H E) P)
     (owed : P → Prop)
+    (hRealizes : ∀ n : Nat,
+      physicalStep (grow J seed n) (cultivate J (grow J seed n)))
     (hCoverage : CompleteWEventCoverage
-      (learnedBoundary J) modeledStep
+      physicalStep modeledStep
       (fun s => s.whole) (fun s => s.epoch) positiveWholeU)
     (hReflection : ForwardRealEventReflection
       modeledStep (fun s : Tree T H E => s.epoch)
@@ -76,7 +78,7 @@ theorem four_aces_joker_genesis_protected_if_physically_reflected
           r.restrained r.maximal r.provenanced s (cultivate J s) p) ∧
       (¬ ActualX3Violation
         (fun e : Tree T H E × Tree T H E =>
-          learnedBoundary J e.1 e.2)
+          physicalStep e.1 e.2)
         (fun (_ : Tree T H E × Tree T H E) p => owed p)
         (fun (e : Tree T H E × Tree T H E) p =>
           OriginalX3 r.continues r.authorized r.free
@@ -84,14 +86,14 @@ theorem four_aces_joker_genesis_protected_if_physically_reflected
         (s, cultivate J s)) ∧
       (¬ AbsoluteE
         (fun e : Tree T H E × Tree T H E =>
-          learnedBoundary J e.1 e.2)
+          physicalStep e.1 e.2)
         (s, cultivate J s)) := by
   intro n
   let s := grow J seed n
-  have hStep : learnedBoundary J s (cultivate J s) := rfl
+  have hStep : physicalStep s (cultivate J s) := hRealizes n
   have hAces :=
     every_physical_event_has_complete_koru_full_six_G_and_no_absolute_E
-      (learnedBoundary J) modeledStep
+      physicalStep modeledStep
       (fun x : Tree T H E => x.whole)
       (fun x : Tree T H E => x.epoch)
       carrier r owed hCoverage hReflection s (cultivate J s) hStep
@@ -100,7 +102,7 @@ theorem four_aces_joker_genesis_protected_if_physically_reflected
   have hNoViolation :
       ¬ ActualX3Violation
         (fun e : Tree T H E × Tree T H E =>
-          learnedBoundary J e.1 e.2)
+          physicalStep e.1 e.2)
         (fun (_ : Tree T H E × Tree T H E) p => owed p)
         (fun (e : Tree T H E × Tree T H E) p =>
           OriginalX3 r.continues r.authorized r.free
@@ -116,15 +118,16 @@ is NOT the W-successor of the currently enacted source cannot
 be covered by the existing positive-W universal theorem. -/
 theorem learned_genesis_non_W_change_refutes_canonical_coverage
     (J : JokerExperiment T FiniteObjectiveU H)
-    (modeledStep : Tree T H E → Tree T H E → Prop)
+    (physicalStep modeledStep : Tree T H E → Tree T H E → Prop)
     (s : Tree T H E)
+    (hRealizes : physicalStep s (cultivate J s))
     (hChange : (cultivate J s).whole ≠ objectiveStep s.whole) :
     ¬ CompleteWEventCoverage
-      (learnedBoundary J) modeledStep
+      physicalStep modeledStep
       (fun x => x.whole) (fun x => x.epoch) positiveWholeU := by
   intro hCoverage
   obtain ⟨_, hBefore, hAfter, hNext⟩ :=
-    hCoverage s (cultivate J s) rfl
+    hCoverage s (cultivate J s) hRealizes
   apply hChange
   calc
     (cultivate J s).whole =
