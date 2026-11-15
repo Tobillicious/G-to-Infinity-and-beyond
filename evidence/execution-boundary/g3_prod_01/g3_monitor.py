@@ -143,11 +143,27 @@ class Store:
             if not self._verify(filename,digest):
                 # Only an absent file may be newly created; malformed existing files fail.
                 if filename in os.listdir(self.dirfd):return {'ok':False,'code':'integrity_failure'}
-                fd=os.open(filename,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=self.dirfd)
+                # Write to an unpredictable private staging inode first.
+                # The final name is published only after ALL bytes and the
+                # staging inode have been fsynced. Link is no-overwrite.
+                stage = '.stage-' + os.urandom(16).hex()
+                fd = os.open(stage, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
+                             os.O_NOFOLLOW, 0o600, dir_fd=self.dirfd)
                 try:
-                    os.write(fd,content)
-                    os.fsync(fd)
-                finally:os.close(fd)
+                    with os.fdopen(fd, 'wb', closefd=True) as stream:
+                        stream.write(content)
+                        stream.flush()
+                        os.fsync(stream.fileno())
+                    os.link(stage, filename, src_dir_fd=self.dirfd,
+                            dst_dir_fd=self.dirfd, follow_symlinks=False)
+                    os.fsync(self.dirfd)
+                finally:
+                    # Unexpected staging remnants after interruption are
+                    # flagged by inventory and need trusted recovery review.
+                    try:
+                        os.unlink(stage, dir_fd=self.dirfd)
+                    except FileNotFoundError:
+                        pass
                 os.fsync(self.dirfd)
             self.db.execute('BEGIN IMMEDIATE')
             try:
