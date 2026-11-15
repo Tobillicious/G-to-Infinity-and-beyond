@@ -5,6 +5,7 @@ Unlike PR #505's old negative control, this suite exercises the NEW opt-in
 rights-bound writer and verifies that prior withdrawals stop publication.
 """
 import os
+import subprocess
 import sys
 import tempfile
 import threading
@@ -157,6 +158,64 @@ class EffectTimeRightsTests(unittest.TestCase):
         finally:
             other.close()
             other_fence.close()
+
+    def test_separate_process_withdrawal_is_serialized_with_publication(self):
+        """Independent controller process cannot pass the writer's flock."""
+        f = self.fixture
+        f.lease()
+        entered = threading.Event()
+        proceed = threading.Event()
+        outcome = []
+        real_link = os.link
+
+        def stop_at_link(*args, **kwargs):
+            entered.set()
+            if not proceed.wait(8):
+                raise RuntimeError("link release timed out")
+            return real_link(*args, **kwargs)
+
+        script = (
+            "import sys; "
+            "from g3_cross_process_fence import FileFence; "
+            "from g3_rights_veto.rights_veto import RightsVetoJournal; "
+            "guard=FileFence(sys.argv[1]); "
+            "j=RightsVetoJournal(sys.argv[2],publication_fence=guard); "
+            "r=j.record_withdrawal(record_ref=sys.argv[3], "
+            "subject=sys.argv[4],action='publish',"
+            "effect_digest=sys.argv[5],generation=1); "
+            "assert r['ok'],r; print(r['code']); "
+            "j.close(); guard.close()")
+        cmd = [
+            sys.executable, "-c", script, self.fence_path,
+            str(self.journal_path), f.event["authority_ref"], self.subject,
+            sha(f.html.encode())]
+        env = dict(os.environ)
+        env["PYTHONPATH"] = os.pathsep.join(
+            [str(ROOT), str(ROOT / "g3_prod_01"), env.get("PYTHONPATH", "")])
+        with patch("g3_monitor.os.link", side_effect=stop_at_link):
+            worker = threading.Thread(
+                target=lambda: outcome.append(f.writer.write(f.request())),
+                daemon=True)
+            worker.start()
+            self.assertTrue(entered.wait(5), "writer did not reach publication")
+            child = subprocess.Popen(
+                cmd, cwd=str(ROOT), env=env,
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            try:
+                time.sleep(0.2)
+                self.assertIsNone(child.poll(),
+                    "trusted controller must wait for publication fence")
+            finally:
+                proceed.set()
+            worker.join(timeout=10)
+            stdout, stderr = child.communicate(timeout=10)
+        self.assertFalse(worker.is_alive())
+        self.assertEqual(child.returncode, 0, stdout + stderr)
+        self.assertIn("withdrawal_recorded", stdout)
+        self.assertEqual(outcome[0]["code"], "committed")
+        self.assertEqual(
+            f.writer.write(f.request(seq=2))["code"],
+            "rights_veto_or_unavailable")
 
     def test_withdrawal_waits_while_publication_owns_fence(self):
         f = self.fixture
