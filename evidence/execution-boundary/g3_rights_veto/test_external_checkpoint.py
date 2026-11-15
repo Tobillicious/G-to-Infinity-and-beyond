@@ -1,4 +1,5 @@
 """Negative controls for independently signed rights-history checkpoints."""
+import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
@@ -48,6 +49,27 @@ class ExternalCheckpointTests(unittest.TestCase):
             self.kw,minimum_generation=1))["code"],"stale_external_checkpoint")
         self.assertEqual(verify_checkpoint(self.path,old,**self.kw)["code"],
                          "journal_checkpoint_mismatch")
+
+    def test_restored_older_valid_database_rejected_by_newer_checkpoint(self):
+        # Snapshot the genuinely valid generation-zero SQLite database using
+        # the SQLite backup API (not a brittle copy of an active WAL file).
+        backup_path = self.path.parent / "before-withdrawal.sqlite"
+        with sqlite3.connect(backup_path) as backup:
+            self.journal.db.backup(backup)
+        self.assertTrue(self.journal.record_withdrawal(**self.right,generation=1)["ok"])
+        latest = self.packet()
+        self.assertEqual(verify_checkpoint(self.path,latest,**self.kw)["code"],
+                         "checkpoint_matches_only")
+
+        # A privileged storage rollback produces an internally consistent
+        # database, but the independently retained newer checkpoint detects it.
+        self.journal.close()
+        self.path.write_bytes(backup_path.read_bytes())
+        result = verify_checkpoint(self.path, latest, **dict(
+            self.kw, minimum_generation=1))
+        self.assertEqual(result["code"], "journal_checkpoint_mismatch")
+        self.assertFalse(result["checkpoint_matches"])
+        self.assertFalse(result["authorizes_effect"])
 
     def test_wrong_signer(self):
         self.assertEqual(verify_checkpoint(self.path,self.packet(key=self.other),**self.kw)["code"],
