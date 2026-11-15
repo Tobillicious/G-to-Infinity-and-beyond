@@ -23,6 +23,13 @@ class SyntheticEffectGate(PilotGate):
             "CREATE TABLE IF NOT EXISTS synthetic_effects ("
             "event_id TEXT PRIMARY KEY, payload_digest TEXT NOT NULL, "
             "receipt TEXT NOT NULL UNIQUE)")
+        # Monotone broker-observed wall-clock floor: durable across restarts.
+        # Protects only against rollbacks below previously observed time.
+        self.db.execute(
+            "CREATE TABLE IF NOT EXISTS broker_time_floor "
+            "(id INTEGER PRIMARY KEY CHECK (id=1), value INTEGER NOT NULL)")
+        self.db.execute(
+            "INSERT OR IGNORE INTO broker_time_floor VALUES (1, 0)")
         # Prevent accidental or hostile direct writes through THIS connection.
         # This is a defense-in-depth adapter guard, NOT an OS-level DB fence.
         self._effect_write_enabled = False
@@ -34,6 +41,26 @@ class SyntheticEffectGate(PilotGate):
                 return sqlite3.SQLITE_DENY
             return sqlite3.SQLITE_OK
         self.db.set_authorizer(authorizer)
+
+    def accept_broker_time(self, now):
+        """Durably fence broker clock rollback before admission or dispatch.
+
+        This does NOT attest true UTC or stop a privileged writer from
+        changing the database. Only the isolated broker calls this method.
+        """
+        if type(now) is not int or now < 0 or now >= 2**63:
+            return {"ok": False, "code": "clock_unavailable"}
+        def act():
+            previous = self.db.execute(
+                "SELECT value FROM broker_time_floor WHERE id=1").fetchone()
+            if previous is None or type(previous[0]) is not int:
+                return {"ok": False, "code": "clock_state_invalid"}
+            if now < previous[0]:
+                return {"ok": False, "code": "clock_rollback"}
+            self.db.execute(
+                "UPDATE broker_time_floor SET value=? WHERE id=1", (now,))
+            return {"ok": True, "code": "clock_advanced"}
+        return self._transaction(act)
 
     def _audit_locked(self):
         """Detect missing/altered fixture effects within the same local DB."""
