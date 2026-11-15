@@ -1,0 +1,19 @@
+name: G3 durable rights veto negative controls
+on:
+  pull_request:
+    paths:
+      - 'evidence/execution-boundary/g3_rights_veto/**'
+      - '.github/workflows/g3-rights-veto.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  rights-veto-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run persistent deny-only withdrawal tests
+        run: |
+          cd evidence/execution-boundary/g3_rights_veto
+          python3 -B -m unittest -v test_rights_veto.py
