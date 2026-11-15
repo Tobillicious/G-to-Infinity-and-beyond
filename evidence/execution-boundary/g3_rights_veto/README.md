@@ -48,3 +48,17 @@ This detects some accidental corruption or incomplete local histories, **not**
 malicious rollback to an older self-consistent snapshot or a fully forged
 database. Externally anchored state and independent controller authentication
 remain required for stronger integrity claims.
+
+## Externally signed checkpoint comparison (stacked research)
+
+`external_checkpoint.py` reads the local journal in a read-only SQLite transaction, canonicalizes its withdrawal records and generation, and compares their SHA-256 digest with a separately signed Ed25519 checkpoint. The signature is domain-separated and pinned to one deployment. The caller MUST obtain both the **trusted public key** and the **minimum acceptable generation** independently of the journal and of the packet being verified.
+
+A checkpoint mismatch, stale generation, wrong key/deployment, missing database, or locally inconsistent withdrawal history denies verification. Even `checkpoint_matches_only` means **integrity agreement with the supplied trusted reference**, not actual consent or permission to publish. The verifier always returns `authorizes_effect: false`.
+
+A checkpoint must actually be exported to an independently controlled trust domain and held against rollback. If the attacker can replace both the journal and the external checkpoint/minimum generation, this verifier cannot detect rollback. There is no distribution, key-rotation, quorum, anti-cloning or trusted hardware guarantee. No untrusted application may be allowed to issue authoritative checkpoints.
+
+Tests:
+```sh
+cd evidence/execution-boundary/g3_rights_veto
+python3 -B -m unittest -v test_rights_veto.py test_external_checkpoint.py
+```
