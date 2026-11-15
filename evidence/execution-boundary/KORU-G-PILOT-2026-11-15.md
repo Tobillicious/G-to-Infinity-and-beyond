@@ -14,7 +14,7 @@ python3 -B -m unittest discover -s evidence/execution-boundary -p 'test_koru_sha
 python3 -B -m unittest discover -s evidence/execution-boundary -p 'test_koru_pilot_gate.py' -v
 ```
 
-**Verification receipt:** The files were source-reviewed during authoring but **the tests have not been executed in this session** (the runner could not fetch the connected repo into its execution environment). Do not report PASS before a pinned checkout runs the commands.
+**Verification receipt:** The original synthetic suites passed in GitHub Actions run [43688858124](https://github.com/Tobillicious/universal-protection-theory/actions/runs/43688858124). Later changes (including durable revocation) require a **new** successful CI run at their exact commit SHA before being reported verified.
 
 ## Why this is not yet the enforcement release
 
@@ -27,7 +27,7 @@ A SQLite commit with `synchronous=FULL` provides an isolated local durability ex
 ## Next release gates (not silently assumed)
 
 1. Run baseline `harness.py` and both unit suites on a supported machine, record exact source SHA and runtime settings; ensure old trusted runtime stays unmodified.
-2. Add an independently authenticated controller for authority issuance/revocation, privacy deletion, evidence and context updates; test revocation races and corrupted database recovery.
+2. Build an independently authenticated controller for authority **issuance**, privacy deletion, evidence and context updates. The local revocation and revocation/admission concurrency experiments now exist but still need multi-process and corruption/recovery tests; do not equate this local method with independent authentication.
 3. Build a genuine original-six-X3 event witness with independently validated subject, history, consent, freedom, feasible restraint/maximality and provenance; model-only value parity does **not** certify this.
 4. Introduce an **authorized**, staged journal/sink integration only after independent design review, crash/replay/outbox tests and negative controls, with all checks repeated at the actual effect boundary.
 5. Preserve independent emergency hold, shutdown and recovery operations.
