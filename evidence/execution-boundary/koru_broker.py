@@ -60,7 +60,7 @@ class _Handler(socketserver.StreamRequestHandler):
                     data["event"], now=now, permit=data["permit"])
             else:
                 result = self.server.gate.dispatch_synthetic(
-                    data["event"], now=data["now"], permit=data["permit"])
+                    data["event"], now=now, permit=data["permit"])
         except (TypeError, ValueError, KeyError):
             result = {"ok": False, "code": "bad_request"}
         self._send(result)
