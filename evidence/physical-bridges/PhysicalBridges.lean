@@ -464,3 +464,6 @@ import PhysicalBridges.WCoverageCycleObstructions
 
 -- Nonvacuous same-event owed protection and independently established author accountability.
 import PhysicalBridges.GuardianCreatorResponsibilityJoin
+
+-- Joker/Tree learned successor meets forward Time-Koru Genesis.
+import PhysicalBridges.JokerTimeKoruGenesisJoin
