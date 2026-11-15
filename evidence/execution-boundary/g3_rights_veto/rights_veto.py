@@ -32,13 +32,16 @@ class RightsVetoJournal:
             raise PermissionError("journal directory must be private to controller")
         if path.is_symlink():
             raise PermissionError("symlink journal denied")
-        if path.exists():
+        existed = path.exists()
+        if existed:
             st = path.stat()
             if not stat.S_ISREG(st.st_mode) or st.st_nlink != 1 or st.st_uid != os.geteuid() or st.st_mode & 0o077:
                 raise PermissionError("journal file must be private")
         self.db = sqlite3.connect(str(path), isolation_level=None,
                                   check_same_thread=False, timeout=5)
         self.lock = threading.RLock()
+        if not existed:
+            os.chmod(path, 0o600)
         try:
             self.db.execute("PRAGMA journal_mode=WAL")
             self.db.execute("PRAGMA synchronous=FULL")
