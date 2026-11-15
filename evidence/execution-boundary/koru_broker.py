@@ -54,6 +54,13 @@ class _Handler(socketserver.StreamRequestHandler):
         except (TypeError, ValueError, OverflowError):
             self._send({"ok": False, "code": "clock_unavailable"})
             return
+        # Persist the clock floor BEFORE evaluating any permit. A broker
+        # restart or system clock rollback cannot revive an old permit below
+        # the last time observed by this protected store.
+        time_check = self.server.gate.accept_broker_time(now)
+        if not time_check["ok"]:
+            self._send(time_check)
+            return
         try:
             if data["op"] == "admit":
                 result = self.server.gate.apply(
