@@ -98,6 +98,34 @@ class TestKoruPilotGate(unittest.TestCase):
         self.assertIn(outcomes[0]["code"], ("durable_synthetic_record", "authority_revoked"))
         self.assertEqual(self.gate.apply(self.event, now=20)["code"], "authority_revoked")
 
+    def test_audit_detects_tampered_record_and_fails_closed(self):
+        self.assertEqual(self.gate.audit()["code"], "local_consistency_only")
+        self.assertTrue(self.gate.apply(self.event, now=20)["ok"])
+        self.gate.db.execute(
+            "UPDATE records SET payload_digest=? WHERE event_id=?",
+            ("0" * 64, self.event["event_id"]))
+        self.assertEqual(self.gate.audit()["code"], "record_integrity")
+        other = copy.deepcopy(self.event)
+        other["event_id"] = "new-id"
+        self.assertEqual(self.gate.apply(other, now=20)["code"], "record_integrity")
+        self.assertEqual(self.gate.record_count(), 1)
+
+    def test_audit_detects_modified_durable_context(self):
+        self.gate.db.execute(
+            "UPDATE gate_state SET context_digest=? WHERE id=1",
+            ("f" * 64,))
+        self.assertEqual(self.gate.audit()["code"], "trusted_context_mismatch")
+        self.assertEqual(self.gate.apply(self.event, now=20)["code"],
+                         "trusted_context_mismatch")
+        self.assertEqual(self.gate.record_count(), 0)
+
+    def test_audit_detects_tampered_receipt(self):
+        self.assertTrue(self.gate.apply(self.event, now=20)["ok"])
+        self.gate.db.execute(
+            "UPDATE records SET receipt=? WHERE event_id=?",
+            ("x" * 64, self.event["event_id"]))
+        self.assertEqual(self.gate.audit()["code"], "record_integrity")
+
     def test_hold_and_released_generation(self):
         self.gate.hold(4)
         self.assertEqual(self.gate.apply(self.event, now=20)["code"], "held")
