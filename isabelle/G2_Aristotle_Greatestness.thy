@@ -2,10 +2,10 @@ theory G2_Aristotle_Greatestness
   imports G2_Hume_Hillary_Join
 begin
 
-text ‹A small independently checkable logical bridge. It does not assert that
+(* A small independently checkable logical bridge. It does not assert that
   the source premises hold in the physical world. In particular, the
   "infinity" arguments must be translated into exact premises before they
-  can discharge any of these assumptions.›
+  can discharge any of these assumptions. *)
 
 locale g2_aristotle = g2_hume_hillary +
   fixes admissible :: "'event ⇒ bool"
@@ -64,12 +64,12 @@ lemma vacuous_universal_six_without_owed:
   shows "universal_six e"
   using assms unfolding universal_six_def by blast
 
-text ‹The preceding theorem is deliberately conditional: it does not
-  derive benefit, dominance, existence or authentic consent from ontology.›
+(* The preceding theorem is deliberately conditional: it does not
+  derive benefit, dominance, existence or authentic consent from ontology. *)
 
 end
 
-text ‹A countermodel: reciprocal physical signalling need not be consent.›
+(* A countermodel: reciprocal physical signalling need not be consent. *)
 
 lemma physical_reciprocity_does_not_force_consent:
   "¬ (∀ (signal consent :: bool). signal ⟶ consent)"
