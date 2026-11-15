@@ -41,6 +41,22 @@ The opt-in `koru_ed25519_permit.py` introduces Ed25519 event permits:
 
 **Verified source receipt:** [GitHub Actions run 43691062134](https://github.com/Tobillicious/universal-protection-theory/actions/runs/43691062134) passed the asymmetric permit controls. This is a *pilot security milestone*, not complete G3 as universal physical protection. An externally trusted mapping from issuer to authorized real people, tamper-resistant key provisioning, independent time/revocation/key rotation and exhaustive protected effect channels remain required. Do not expose the Python `issue_ed25519` function to the agent or place any live key in the repository.
 
+## G3 effect-time boundary: recheck rather than trust admission
+
+[GitHub Actions run 43691420837](https://github.com/Tobillicious/universal-protection-theory/actions/runs/43691420837) **passed** the new `test_koru_synthetic_effect_gate.py` suite.
+
+`koru_synthetic_effect_gate.py` extends the pilot with a *separate, local SQLite synthetic-effect table*, NOT an actual actuator. It is a **protected-only** prototype requiring an Ed25519 public key. The `dispatch_synthetic` method rechecks at effect time, atomically with recording the synthetic effect:
+- current hold/generation, exact whole context and lineage;
+- unexpired Ed25519 signature tied to the exact original event;
+- durable authority revocation;
+- exact match against the already admitted event digest and receipt;
+- original independent synthetic six-position witness/authority/provenance checks;
+- unique event ID and idempotent retry, including across restart.
+
+The regression suite exercises revoked or expired permits *after* admission, hold between admission/effect, stale generation, changes to the event even with a freshly signed permit, unsigned-effect refusal, concurrency and restart.
+
+**The boundary is purposefully narrow.** The only "effect" is a local SQLite row. No external API, filesystem writer, actuator or AI process is controlled. SQLite's single-transaction guarantee does **not** extend to a network side effect, multiple services or physical hardware. The source inspector still uses synthetic witnesses, not verified real subject rights. All effect paths in any actual deployment would need to be forced through a separately hardened application boundary, with authenticated key provisioning, secure clocks, durability and revocation across processes, independently enforceable shutdown and recovery, and end-to-end adversarial testing. Do not represent this as unconditional physical protection.
+
 ## Why this is not yet the enforcement release
 
 The pilot is **synthetic and append-only**. It is not a proof verifier, independent human consent authenticator, cultural authority, cryptographic signing service, external-world effect router, or general implementation of the original six X3 duties. Its `ShadowVerifier` understands a toy six-position integer world and one `synthetic_refinement` kind. The code does not mutate actual world state or send externally effective actions.
