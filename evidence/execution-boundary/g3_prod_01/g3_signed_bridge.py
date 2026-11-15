@@ -41,7 +41,7 @@ class SignedG3Writer(Store):
         event_id=request['id']
         output=request['html']
         if (type(event_id) is not str or type(output) is not str or
-                event.get('event_id') != event_id):
+                event.get('event_id') != event_id or len(output.encode('utf-8'))>4096):
             return {'ok':False,'code':'event_id_mismatch'}
         if self.manifest.get(event_id) != sha(output.encode('utf-8')):
             return {'ok':False,'code':'untrusted_output_bytes'}
