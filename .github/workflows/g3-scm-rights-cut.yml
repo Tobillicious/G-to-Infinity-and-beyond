@@ -2,7 +2,7 @@ name: G3 SCM_RIGHTS capability-cut negative control
 on:
   pull_request:
     paths:
-      - 'evidence/execution-boundary/g3_prod_01/test_g3_scm_rights_cut.py test_g3_no_capability_leak.py'
+      - 'evidence/execution-boundary/g3_prod_01/test_g3_scm_rights_cut.py test_g3_no_capability_leak.py test_g3_hardlink_alias_cut.py'
       - '.github/workflows/g3-scm-rights-cut.yml'
   workflow_dispatch:
 permissions:
