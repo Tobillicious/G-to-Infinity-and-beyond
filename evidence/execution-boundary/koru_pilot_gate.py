@@ -15,7 +15,8 @@ from koru_pilot_permit import verify_permit
 class PilotGate:
     def __init__(self, db_path, *, contexts, signatures, witnesses,
                  authorities, provenances, context_ref, generation=1,
-                 permit_verification_key=None, permit_issuer=None):
+                 permit_verification_key=None, permit_issuer=None,
+                 ed25519_public_key=None):
         self.lock = threading.RLock()
         # Freeze caller-supplied trust stores to prevent external mutation.
         self.contexts = copy.deepcopy(contexts)
@@ -28,6 +29,16 @@ class PilotGate:
                     len(permit_verification_key) < 32 or
                     type(permit_issuer) is not str or not permit_issuer):
                 raise ValueError('invalid permit verification configuration')
+        if ed25519_public_key is not None:
+            if permit_verification_key is not None:
+                raise ValueError('choose one permit verifier')
+            if type(permit_issuer) is not str or not permit_issuer:
+                raise ValueError('permit issuer required')
+            # Imported only in asymmetric mode; baseline stdlib mode unchanged.
+            from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+            if not isinstance(ed25519_public_key, Ed25519PublicKey):
+                raise TypeError('Ed25519 public key required')
+        self.ed25519_public_key = ed25519_public_key
         self.permit_verification_key = permit_verification_key
         self.permit_issuer = permit_issuer
         self.context_ref = context_ref
@@ -133,7 +144,14 @@ class PilotGate:
             # All accesses and authority revocation must serialize on self.lock.
             ids = {row[0] for row in self.db.execute("SELECT event_id FROM records")}
             keys = {row[0] for row in self.db.execute("SELECT idempotency_key FROM records")}
-            if self.permit_verification_key is not None and not verify_permit(
+            if self.ed25519_public_key is not None:
+                # Verification key cannot mint an authorization.
+                from koru_ed25519_permit import verify_ed25519
+                if not verify_ed25519(
+                        self.ed25519_public_key, permit,
+                        issuer=self.permit_issuer, event=event, now=now):
+                    return {"ok": False, "code": "invalid_permit"}
+            elif self.permit_verification_key is not None and not verify_permit(
                     self.permit_verification_key, permit,
                     issuer=self.permit_issuer, event=event, now=now):
                 return {"ok": False, "code": "invalid_permit"}
