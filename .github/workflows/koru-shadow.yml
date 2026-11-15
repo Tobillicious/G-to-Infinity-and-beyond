@@ -91,3 +91,9 @@ jobs:
           python3 -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_g_mesh_effect_bridge.py' -v
+
+      - name: Test bounded public and control brokers against stalled client floods
+        run: |
+          python3 -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_g3_bounded_brokers.py' -v

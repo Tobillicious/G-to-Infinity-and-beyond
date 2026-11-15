@@ -15,11 +15,14 @@ import struct
 import sys
 import time
 
+from koru_bounded_server import BoundedThreadingMixIn, read_framed_request
+
 MAX_REQUEST = 32768
 
 
 class _Handler(socketserver.StreamRequestHandler):
     def handle(self):
+        self.request.settimeout(self.server.request_timeout)
         # Verify kernel-supplied Linux peer identity BEFORE parsing any request.
         try:
             raw_cred = self.request.getsockopt(
@@ -32,7 +35,9 @@ class _Handler(socketserver.StreamRequestHandler):
             self._send({"ok": False, "code": "peer_denied"})
             return
         # Strict one-request-per-connection, input bounded before JSON parse.
-        raw = self.rfile.readline(MAX_REQUEST + 1)
+        raw = read_framed_request(
+            self.request, max_bytes=MAX_REQUEST,
+            total_timeout=self.server.request_timeout)
         if not raw or len(raw) > MAX_REQUEST or not raw.endswith(b"\n"):
             self._send({"ok": False, "code": "bad_request"})
             return
@@ -117,18 +122,19 @@ class _Handler(socketserver.StreamRequestHandler):
         self.wfile.write((json.dumps(value, sort_keys=True) + "\n").encode("utf-8"))
 
 
-class SyntheticBroker(socketserver.ThreadingMixIn, socketserver.UnixStreamServer):
+class SyntheticBroker(BoundedThreadingMixIn, socketserver.UnixStreamServer):
     daemon_threads = True
     allow_reuse_address = False
 
     def __init__(self, socket_path, gate, *, allowed_client_uids, clock=None,
-                 effect_sink=None):
+                 effect_sink=None, max_connections=16, request_timeout=2.0):
         if sys.platform != "linux" or not hasattr(socket, "SO_PEERCRED"):
             raise RuntimeError("secure broker requires Linux SO_PEERCRED")
         if (type(allowed_client_uids) not in (set, frozenset) or
                 not allowed_client_uids or
                 any(type(u) is not int or u < 1 for u in allowed_client_uids)):
             raise ValueError("explicit non-root client UID allowlist required")
+        self.configure_bounds(max_connections=max_connections, request_timeout=request_timeout)
         self.allowed_client_uids = frozenset(allowed_client_uids)
         self.clock = clock if clock is not None else lambda: int(time.time())
         if not callable(self.clock):
