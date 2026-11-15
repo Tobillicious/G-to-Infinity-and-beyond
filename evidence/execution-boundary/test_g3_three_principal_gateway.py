@@ -6,6 +6,7 @@ external actuator, human rights claim or production deployment.
 """
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -129,7 +130,16 @@ class ThreePrincipalGatewayTests(unittest.TestCase):
                 public_socket=public_socket, control_socket=control_socket,
                 public_key=public_bytes, controller_uid=controller_uid,
                 guest_uid=guest_uid)
-            root = str(Path(__file__).resolve().parent)
+            # GitHub runner checkouts can be inaccessible after setuid.
+            # Stage ONLY source modules into an unprivileged read-only code
+            # directory; never expand filesystem rights on the checkout.
+            staged = parent / "test-code"
+            staged.mkdir(mode=0o755)
+            for module in Path(__file__).resolve().parent.glob("*.py"):
+                copy = staged / module.name
+                shutil.copyfile(module, copy)
+                copy.chmod(0o644)
+            root = str(staged)
             worker = None
 
             def lower_to(uid, gid):
