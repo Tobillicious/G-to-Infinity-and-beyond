@@ -52,9 +52,9 @@ else:
 with socket.socket(socket.AF_UNIX) as s:
     s.settimeout(2)
     s.connect(socketpath)
-    s.sendall(b'{"op":"write","id":"x","html":"unsafe","epoch":0}\\n'.replace(b'\\\\n',b'\\n'))
+    s.sendall(json.dumps({'op':'write','id':'x','html':'unsafe','epoch':0}).encode()+bytes([10]))
     result=b''
-    while not result.endswith(b'\\n'):
+    while not result.endswith(bytes([10])):
         chunk=s.recv(4096)
         if not chunk:break
         result+=chunk
