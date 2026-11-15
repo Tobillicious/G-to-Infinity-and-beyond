@@ -63,7 +63,7 @@ theorem coverage_excludes_exact_state_two_cycle
   have hts : stage t < stage s := by
     rw [hSecond]
     exact Nat.lt_succ_self _
-  exact (Nat.lt_irrefl _) (lt_trans hst hts)
+  exact (Nat.lt_irrefl _) (Nat.lt_trans hst hts)
 
 #print axioms coverage_excludes_exact_state_self_loop
 #print axioms coverage_excludes_exact_state_two_cycle
