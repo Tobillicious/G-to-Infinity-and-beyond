@@ -52,9 +52,9 @@ marker = send_request(req["sock"], "effect_marker", req["event"], req["permit"],
 marker_repeat = send_request(req["sock"], "effect_marker", req["event"], req["permit"], 20)
 forbidden = send_request(req["sock"], "hold", req["event"], req["permit"], 20)
 repeat = send_request(req["sock"], "dispatch", req["event"], req["permit"], 0)
-expired = send_request(req["sock"], "dispatch", req["event"], req["expired"], 0)
+expired = send_request(req["sock"], "effect_marker", req["event"], req["expired"], 0)
 # Explicit attempted client-side timestamp override must be rejected.
-payload = json.dumps({"op": "dispatch", "event": req["event"],
+payload = json.dumps({"op": "effect_marker", "event": req["event"],
                       "permit": req["expired"], "now": 0}).encode() + b"\n"
 with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
     s.settimeout(5)
@@ -122,9 +122,9 @@ class TestLinuxOSPrincipalBoundary(unittest.TestCase):
                 result = json.loads(proc.stdout)
                 self.assertTrue(result["db_denied"], result)
                 self.assertEqual(result["admit"], "durable_synthetic_record")
-                self.assertEqual(result["dispatch"], "synthetic_effect_recorded")
+                self.assertEqual(result["dispatch"], "effect_route_required")
                 self.assertEqual(result["hold"], "unsupported_operation")
-                self.assertEqual(result["repeat"], "already_dispatched")
+                self.assertEqual(result["repeat"], "effect_route_required")
                 self.assertEqual(result["marker"], "filesystem_marker_applied")
                 self.assertEqual(result["marker_repeat"], "marker_already_applied")
                 marker_path = effect_dir / (hashlib.sha256(
