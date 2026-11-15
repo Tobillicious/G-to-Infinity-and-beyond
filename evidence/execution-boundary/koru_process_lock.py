@@ -21,8 +21,18 @@ class InterprocessRLock:
     def __init__(self, path):
         if not isinstance(path, str) or not path:
             raise ValueError("trusted lock file path is required")
+        # A replaceable lock inode defeats advisory serialization: every
+        # cooperating process must resolve the SAME inode. Reject unsafe
+        # directory ownership/mode before opening or creating its lock file.
+        directory = os.path.dirname(os.path.abspath(path))
+        directory_info = os.stat(directory, follow_symlinks=False)
+        if (not stat.S_ISDIR(directory_info.st_mode) or
+                directory_info.st_uid != os.geteuid() or
+                directory_info.st_mode & 0o077):
+            raise PermissionError("lock directory must be owned and private")
         self._local = threading.RLock()
         self._depth = 0
+        self._pid = os.getpid()
         flags = os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW
         flags |= getattr(os, "O_CLOEXEC", 0)
         fd = os.open(path, flags, 0o600)
@@ -42,6 +52,8 @@ class InterprocessRLock:
         try:
             if self._closed:
                 raise RuntimeError("closed interprocess lock")
+            if os.getpid() != self._pid:
+                raise RuntimeError("forked process must reopen its own lock")
             if self._depth == 0:
                 fcntl.flock(self._fd, fcntl.LOCK_EX)
             self._depth += 1
