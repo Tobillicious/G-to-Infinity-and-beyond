@@ -22,4 +22,4 @@ jobs:
       - name: Probe separate OS UID bypass (disposable runner, research only)
         run: |
           cd evidence/execution-boundary/g3_prod_01
-          sudo python3 -B -m unittest -v test_g3_uid_isolation.py test_g3_secure_socket.py
+          sudo env PYTHONPATH="$(pwd)/.." python3 -B -m unittest -v test_g3_uid_isolation.py test_g3_secure_socket.py
