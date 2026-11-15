@@ -1,0 +1,24 @@
+name: G3 marker recovery fault-injection (non-deploying)
+on:
+  pull_request:
+    paths:
+      - 'evidence/execution-boundary/test_g3_marker_fault_injection.py'
+      - 'evidence/execution-boundary/koru_protected_fs_sink.py'
+      - '.github/workflows/g3-marker-recovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fault-injection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned public-key verifier
+        run: python -m pip install 'cryptography==46.0.4'
+      - name: Inject SQLite-to-marker and fsync failures without live effects
+        run: |
+          PYTHONPATH=evidence/execution-boundary python -B -m unittest -v test_g3_marker_fault_injection
