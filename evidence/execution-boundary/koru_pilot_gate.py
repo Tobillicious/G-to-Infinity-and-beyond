@@ -42,7 +42,8 @@ class PilotGate:
         self.permit_verification_key = permit_verification_key
         self.permit_issuer = permit_issuer
         self.context_ref = context_ref
-        self.db = sqlite3.connect(db_path, isolation_level=None, check_same_thread=False)
+        self.db = sqlite3.connect(db_path, isolation_level=None, check_same_thread=False,
+                                  cached_statements=0)
         self.db.execute("PRAGMA journal_mode=WAL")
         self.db.execute("PRAGMA synchronous=FULL")
         self.db.execute("CREATE TABLE IF NOT EXISTS gate_state (id INTEGER PRIMARY KEY CHECK (id=1), generation INTEGER NOT NULL, halted INTEGER NOT NULL, context_version INTEGER NOT NULL, context_digest TEXT NOT NULL, predecessor_ref TEXT NOT NULL)")
