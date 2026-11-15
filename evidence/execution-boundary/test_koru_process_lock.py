@@ -166,7 +166,6 @@ class TestG3InterprocessFence(unittest.TestCase):
     def test_symlink_lock_file_rejected(self):
         alternate = self.private / "elsewhere"
         alternate.write_text("not a lock")
-        self.gate.lock.close() if False else None
         # Existing protected lock remains held by gate; a second name that
         # points through a symlink MUST NOT be accepted.
         symlink = self.private / "linked.lock"
