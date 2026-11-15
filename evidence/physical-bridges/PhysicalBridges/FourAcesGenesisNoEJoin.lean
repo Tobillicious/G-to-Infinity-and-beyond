@@ -55,7 +55,7 @@ theorem four_aces_joker_genesis_protected_if_physically_reflected
     (J : JokerExperiment T FiniteObjectiveU H)
     (seed : Tree T H E)
     (physicalStep modeledStep : Tree T H E → Tree T H E → Prop)
-    (carrier : P → Index)
+    (carrier : P → FrozenBCRDEvents.Index)
     (r : ParticularRelations (Tree T H E) P)
     (owed : P → Prop)
     (hRealizes : ∀ n : Nat,
@@ -128,6 +128,10 @@ theorem learned_genesis_non_W_change_refutes_canonical_coverage
   intro hCoverage
   obtain ⟨_, hBefore, hAfter, hNext⟩ :=
     hCoverage s (cultivate J s) hRealizes
+  change s.whole = objectiveAt positiveWholeU s.epoch at hBefore
+  change (cultivate J s).whole =
+    objectiveAt positiveWholeU (cultivate J s).epoch at hAfter
+  change (cultivate J s).epoch = s.epoch + 1 at hNext
   apply hChange
   calc
     (cultivate J s).whole =
