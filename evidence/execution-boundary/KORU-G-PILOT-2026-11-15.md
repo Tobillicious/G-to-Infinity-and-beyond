@@ -57,6 +57,16 @@ The regression suite exercises revoked or expired permits *after* admission, hol
 
 **The boundary is purposefully narrow.** The only "effect" is a local SQLite row. No external API, filesystem writer, actuator or AI process is controlled. SQLite's single-transaction guarantee does **not** extend to a network side effect, multiple services or physical hardware. The source inspector still uses synthetic witnesses, not verified real subject rights. All effect paths in any actual deployment would need to be forced through a separately hardened application boundary, with authenticated key provisioning, secure clocks, durability and revocation across processes, independently enforceable shutdown and recovery, and end-to-end adversarial testing. Do not represent this as unconditional physical protection.
 
+## G3 direct-write bypass inventory and scoped adapter hardening
+
+[GitHub Actions run 43691660612](https://github.com/Tobillicious/universal-protection-theory/actions/runs/43691660612) passed the extended effect-boundary tests.
+
+The prototype now uses a SQLite statement authorizer to refuse direct `synthetic_effects` mutations through **its own existing gate connection** except during the explicitly checked `dispatch_synthetic` write. Statement caching is disabled to prevent an earlier compiled permitted statement being reused after the protected write ends. The effect gate also audits each recorded synthetic effect against the associated admitted event hash and its derived receipt; mismatches fail closed on subsequent dispatch/admission. Tests check raw connection write refusal, unauthorized row and receipt tampering, and detection of inconsistent histories.
+
+**Crucial negative control: complete mediation is NOT established.** The suite intentionally opens a *separate* SQLite connection and shows it can write `synthetic_effects` without passing `dispatch_synthetic`, so long as the caller retains filesystem write privileges. This is a demonstrated bypass under the current deployment design, not a hypothetical issue. Detection by the next gate audit does not undo an already landed write. Python/SQLite authorizers are not operating-system access control and may also be changed by privileged code in the same process.
+
+Therefore a real effect boundary must move the durable sink behind OS-enforced isolation (separate principal, file and socket permission boundaries, no delegated writable handles), with an authenticated narrow IPC interface to the trusted gate, trusted signed revocation, and no secondary writable path. Only then can complete mediation be tested for that precisely enumerated deployment; do not claim universal real-world G3 from this adapter.
+
 ## Why this is not yet the enforcement release
 
 The pilot is **synthetic and append-only**. It is not a proof verifier, independent human consent authenticator, cultural authority, cryptographic signing service, external-world effect router, or general implementation of the original six X3 duties. Its `ShadowVerifier` understands a toy six-position integer world and one `synthetic_refinement` kind. The code does not mutate actual world state or send externally effective actions.
