@@ -64,6 +64,31 @@ class SecureSocketTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             SignedFencedServer('relative.sock',self.writer,{65534})
 
+    def test_reject_writable_intermediate_ancestor(self):
+        ancestor=self.root/'writable-ancestor'
+        ancestor.mkdir(mode=0o700)
+        final=ancestor/'private'
+        final.mkdir(mode=0o700)
+        os.chmod(ancestor,0o777)
+        try:
+            with self.assertRaises(PermissionError):
+                SignedFencedServer(str(final/'signed.sock'),self.writer,{65534})
+            self.assertFalse((final/'signed.sock').exists())
+        finally:
+            os.chmod(ancestor,0o700)
+
+    def test_reject_symlinked_intermediate_ancestor(self):
+        real=self.root/'real-middle'
+        real.mkdir(mode=0o700)
+        final=real/'private'
+        final.mkdir(mode=0o700)
+        alias=self.root/'alias-middle'
+        alias.symlink_to(real,target_is_directory=True)
+        with self.assertRaises(PermissionError):
+            SignedFencedServer(str(alias/'private'/'signed.sock'),
+                               self.writer,{65534})
+        self.assertFalse((final/'signed.sock').exists())
+
     def test_separate_uid_socket_signed_and_unsigned_requests(self):
         if sys.platform!='linux' or os.geteuid()!=0:
             self.skipTest('disposable root Linux runner required')

@@ -12,6 +12,33 @@ from g3_monitor import Server
 from g3_cross_process_fence import FencedSignedG3Writer
 
 
+
+def _check_ancestor_components(parent_path):
+    """Conservative preflight, not a race-free path-resolution primitive.
+
+    Reject symlink ancestors and untrusted writable intermediates. A
+    root-owned sticky directory such as /tmp is accepted as a fixture root:
+    sticky-bit rules prevent an unrelated UID renaming an owned child, but
+    a deployment must separately defend mount, namespace and root attacks.
+    """
+    absolute = Path(parent_path)
+    if not absolute.is_absolute():
+        raise ValueError("socket parent must be absolute")
+    current = Path("/")
+    for name in absolute.parts[1:]:
+        current = current / name
+        st = os.lstat(current)
+        if not stat.S_ISDIR(st.st_mode):
+            raise PermissionError("socket ancestor must be a real directory")
+        # An untrusted UID must not be able to rename the next pathname.
+        writable = bool(st.st_mode & 0o022)
+        trusted_sticky = (st.st_uid == 0 and
+                          bool(st.st_mode & stat.S_ISVTX))
+        if writable and not trusted_sticky:
+            raise PermissionError("socket ancestor is group/other writable")
+        if st.st_uid not in (0, os.geteuid()):
+            raise PermissionError("socket ancestor has untrusted owner")
+
 class SignedFencedServer(Server):
     def __init__(self, path, store, allowed_uids):
         if not isinstance(store, FencedSignedG3Writer):
@@ -30,6 +57,7 @@ class SignedFencedServer(Server):
         if type(path) is not str or not os.path.isabs(path):
             raise ValueError("socket path must be absolute")
         socket_path = Path(path)
+        _check_ancestor_components(socket_path.parent)
         if socket_path.name in ('', '.', '..'):
             raise ValueError("invalid socket basename")
         parent_fd = os.open(str(socket_path.parent),
