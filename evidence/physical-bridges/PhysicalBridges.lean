@@ -470,3 +470,6 @@ import PhysicalBridges.JokerTimeKoruGenesisJoin
 
 -- Arbitrary adaptive optimiser histories preserve full six X3 in fenced model.
 import PhysicalBridges.AdaptiveGuardianHistories
+
+-- Repeated Joker learning, forward epochs, and retained ancestral records.
+import PhysicalBridges.LivingTreeGenerations
