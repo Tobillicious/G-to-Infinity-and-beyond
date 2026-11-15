@@ -79,3 +79,9 @@ jobs:
           python3 -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_g_mesh_protocol.py' -v
+
+      - name: Test offline two-node G-Mesh partitions, stale lease, replay and restart
+        run: |
+          python3 -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_g_mesh_two_node.py' -v
