@@ -101,6 +101,13 @@ class SignedG3Writer(Store):
                                 return {'ok':False,'code':'clock_unavailable_at_publish'}
                         except (ValueError, TypeError, OverflowError):
                             return {'ok':False,'code':'clock_unavailable_at_publish'}
+                        # Preserve the durable high-water mark even on
+                        # expiry/denial. Otherwise a trusted-clock rollback
+                        # could revive an apparently live controller lease.
+                        observed = self.mesh._transaction(
+                            lambda: self.mesh._observe_clock_locked(fresh_now))
+                        if not observed[0]:
+                            return {'ok':False,'code':'mesh_'+observed[1]}
                         if (fresh_now >= packet['not_after'] or
                                 not verify_ed25519(
                                     self.gate.ed25519_public_key,
