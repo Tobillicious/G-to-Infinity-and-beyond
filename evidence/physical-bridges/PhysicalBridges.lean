@@ -452,3 +452,5 @@ import PhysicalBridges.KoruRecoverableNoncollapse
 
 -- Assembled G1/G2/G3 fenced guardian: existing six duties, freedom and protected continuation.
 import PhysicalBridges.G123ExistingProofAssembly
+
+import PhysicalBridges.GuardianCreatorConditionalJoin
