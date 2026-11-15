@@ -54,3 +54,7 @@ This addition is intentionally separate from Lean and the historical UPT proofs.
 This is a useful local ordering property, not universal or distributed revocation: all legitimate writers/controllers MUST use the same protected lock inode and the same database. An uncontrolled process, root, an inherited directory FD, a replaced trust root, a separate G-Mesh process, or a remote lease revocation can still violate the broader protection objective. The original G3 and mesh stores are still separate; **no cross-store atomicity, fail-safe physical effect claim, or six-X3 real-world certification is established**.
 
 The source contains a test-only ability to arm the research writer and an unprotected bare `Store` fixture; the production rollout must remove or strongly isolate these before any exposure.
+
+## Integrated cross-agent test wave (PRs #464–#466)
+
+The `g3_monitor.py` bounded socket handler now uses an absolute monotonic read deadline, exactly one newline-delimited request frame, and strict operation allowlisting. `test_g3_monitor.py` includes hostile slow-trickle and multi-frame cases, staged-publication error injection, directory-fsync failure, and subprocess `os._exit` crash windows before/after publication. The signed writer and separate-UID tests from this PR are retained. CI must pass at the **new combined head**, not merely the original stacked PR heads. Python simulated failures and `os._exit` are not physical power-loss validation.
