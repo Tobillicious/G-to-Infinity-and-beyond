@@ -154,6 +154,32 @@ class TestG3SyntheticEffectBoundary(unittest.TestCase):
             self.event, now=20, permit=self.permit)["code"],
             "synthetic_effect_integrity")
 
+    def test_broker_time_floor_survives_restart_and_rejects_rollback(self):
+        self.assertEqual(self.gate.accept_broker_time(30)["code"],
+                         "clock_advanced")
+        self.assertEqual(self.gate.accept_broker_time(29)["code"],
+                         "clock_rollback")
+        self.assertEqual(self.gate.accept_broker_time(30)["code"],
+                         "clock_advanced")
+        self.gate.close()
+        self.gate = SyntheticEffectGate(self.path, **self.kwargs)
+        self.assertEqual(self.gate.accept_broker_time(1)["code"],
+                         "clock_rollback")
+        self.assertEqual(self.gate.accept_broker_time(31)["code"],
+                         "clock_advanced")
+        self.assertEqual(self.gate.effect_count(), 0)
+
+    def test_broker_time_rejects_bad_inputs_without_poisoning_floor(self):
+        for invalid in (-1, True, 1.5, "20", 2**65):
+            self.assertEqual(self.gate.accept_broker_time(invalid)["code"],
+                             "clock_unavailable")
+        self.assertEqual(self.gate.accept_broker_time(10)["code"],
+                         "clock_advanced")
+        self.assertEqual(self.gate.accept_broker_time(9)["code"],
+                         "clock_rollback")
+        self.assertEqual(self.gate.accept_broker_time(11)["code"],
+                         "clock_advanced")
+
     def test_unsigned_effect_mode_not_permitted(self):
         kwargs = dict(self.kwargs, ed25519_public_key=None)
         with self.assertRaises(ValueError):
