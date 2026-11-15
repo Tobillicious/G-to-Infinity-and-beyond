@@ -39,6 +39,7 @@ class EffectTimeRightsTests(unittest.TestCase):
             str(fixture.root / "writer.sqlite"), fixture.out,
             fence_path=self.fence_path, veto_journal=self.rights,
             trusted_subjects={fixture.event["event_id"]: self.subject},
+            trusted_authority_refs={fixture.event["event_id"]: fixture.event["authority_ref"]},
             gate=fixture.gate, mesh=fixture.mesh,
             manifest={fixture.event["event_id"]: sha(fixture.html.encode())},
             clock=lambda: fixture.now[0])
@@ -97,6 +98,15 @@ class EffectTimeRightsTests(unittest.TestCase):
                 gate_db=str(self.fixture.root / "g3.sqlite"),
                 mesh_db=str(self.fixture.root / "mesh.sqlite"))
 
+    def test_substituted_authority_ref_cannot_redirect_rights_lookup(self):
+        f = self.fixture
+        f.lease()
+        req = f.request()
+        req["event"] = dict(req["event"], authority_ref="replacement-authority")
+        result = f.writer.write(req)
+        self.assertEqual(result["code"], "rights_event_mapping_unavailable")
+        self.assertEqual(list(f.out.iterdir()), [])
+
     def test_closed_rights_journal_fails_closed_before_publish(self):
         self.rights.close()
         self.fixture.lease()
@@ -122,6 +132,7 @@ class EffectTimeRightsTests(unittest.TestCase):
                     str(f.root / "other-writer.sqlite"), f.out,
                     fence_path=self.fence_path, veto_journal=unbound,
                     trusted_subjects={f.event["event_id"]: self.subject},
+                    trusted_authority_refs={f.event["event_id"]: f.event["authority_ref"]},
                     gate=f.gate, mesh=f.mesh,
                     manifest={f.event["event_id"]: sha(f.html.encode())},
                     clock=lambda: f.now[0])
@@ -139,6 +150,7 @@ class EffectTimeRightsTests(unittest.TestCase):
                     str(f.root / "other-writer.sqlite"), f.out,
                     fence_path=self.fence_path, veto_journal=other,
                     trusted_subjects={f.event["event_id"]: self.subject},
+                    trusted_authority_refs={f.event["event_id"]: f.event["authority_ref"]},
                     gate=f.gate, mesh=f.mesh,
                     manifest={f.event["event_id"]: sha(f.html.encode())},
                     clock=lambda: f.now[0])
