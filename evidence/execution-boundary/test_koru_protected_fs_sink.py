@@ -15,6 +15,7 @@ import unittest
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from koru_ed25519_permit import issue_ed25519
 from koru_protected_fs_sink import ProtectedFilesystemSink
+from koru_shadow import digest
 from koru_synthetic_effect_gate import SyntheticEffectGate
 from test_koru_shadow import fixtures
 
@@ -138,7 +139,7 @@ class ProtectedFilesystemTests(unittest.TestCase):
         self.marker.write_text("tampered")
         self.assertEqual(self.sink.reconcile_report()["code"], "marker_integrity")
         self.assertEqual(self.sink.apply_marker(
-            self.event, now=20, permit=self.permit)["code"], "marker_integrity")
+            self.event, now=20, permit=self.permit)["code"], "effect_store_marker_integrity")
         self.marker.unlink()
         self.marker.symlink_to("/dev/null")
         self.assertEqual(self.sink.reconcile_report()["code"], "marker_integrity")
@@ -188,7 +189,13 @@ class ProtectedFilesystemTests(unittest.TestCase):
         self.assertTrue(self.gate.dispatch_synthetic(
             self.event, now=20, permit=self.permit)["ok"])
         later = dict(self.event, event_id=self.event["event_id"] + "-later",
-                     idempotency_key=self.event["idempotency_key"] + "-later")
+                     idempotency_key=self.event["idempotency_key"] + "-later",
+                     witness_ref="witness-74-later")
+        # Independently bind the second test event to a fresh trusted fixture
+        # witness. Reusing the first event's witness would be correctly denied.
+        self.gate.witnesses["witness-74-later"] = dict(
+            self.gate.witnesses[self.event["witness_ref"]],
+            event_digest=digest(later))
         later_permit = issue_ed25519(
             self.issuer, issuer="trusted-test-issuer",
             event=later, expires_at=200)
