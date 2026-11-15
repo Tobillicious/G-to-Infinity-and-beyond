@@ -53,6 +53,11 @@ class RightsVetoJournal:
             database = "file:" + str(path.resolve()) + "?mode=rw"
         self.db = sqlite3.connect(database, uri=True, isolation_level=None,
                                   check_same_thread=False, timeout=5)
+        # Pin the provisioned database path/inode for the bound writer.
+        # This is host-local path checking, not a defence against root.
+        self.bound_db_path = str(path.resolve())
+        db_stat = os.stat(path, follow_symlinks=False)
+        self.bound_db_identity = (db_stat.st_dev, db_stat.st_ino)
         self.lock = threading.RLock()
         # Only a trusted provisioner may bind this journal to the same
         # cross-process publication fence as the actual signed writer.
