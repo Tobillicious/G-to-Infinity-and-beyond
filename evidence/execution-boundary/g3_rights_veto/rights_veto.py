@@ -4,6 +4,7 @@ Never a consent source or an effect-granting reference monitor. Only a
 separately authenticated trusted controller may call record_withdrawal.
 No IPC interface is provided. Filesystem/host compromise remains out of scope.
 """
+import contextlib
 import os
 import sqlite3
 import stat
@@ -23,7 +24,7 @@ def _digest(x):
 
 
 class RightsVetoJournal:
-    def __init__(self, db_path, *, initialize=False):
+    def __init__(self, db_path, *, initialize=False, publication_fence=None):
         # Initialization is an explicit provisioning operation. A missing or
         # corrupt journal on restart MUST NOT silently become an empty ledger.
         if type(initialize) is not bool:
@@ -53,6 +54,11 @@ class RightsVetoJournal:
         self.db = sqlite3.connect(database, uri=True, isolation_level=None,
                                   check_same_thread=False, timeout=5)
         self.lock = threading.RLock()
+        # Only a trusted provisioner may bind this journal to the same
+        # cross-process publication fence as the actual signed writer.
+        # Legacy research journals remain unbound, and must never be
+        # represented as effect-time publication controls.
+        self.publication_fence = publication_fence
         if initialize:
             os.chmod(path, 0o600)
         try:
@@ -129,7 +135,13 @@ class RightsVetoJournal:
                 or not _digest(effect_digest)
                 or type(generation) is not int or generation < 1 or generation >= 2**63):
             return {"ok": False, "code": "invalid_withdrawal"}
-        with self.lock:
+        # If bound, the writer and the trusted revoker serialize on the
+        # SAME private flock inode. No write can race past a completed
+        # withdrawal while the cooperating writer owns that fence.
+        fence = (self.publication_fence.exclusive()
+                 if self.publication_fence is not None
+                 else contextlib.nullcontext())
+        with fence, self.lock:
             try:
                 self.db.execute("BEGIN IMMEDIATE")
                 current = self._state()
