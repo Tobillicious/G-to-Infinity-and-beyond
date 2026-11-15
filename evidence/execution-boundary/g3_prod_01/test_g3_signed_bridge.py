@@ -138,8 +138,10 @@ class SignedBridgeTests(unittest.TestCase):
             'import sys; from g3_cross_process_fence import revoke_writer; '
             'result=revoke_writer(sys.argv[1],sys.argv[2]); assert result["ok"]',
             str(self.root/'writer.sqlite'),str(self.root/'fence.lock')]
+        env=dict(os.environ)
+        env['PYTHONPATH']=str(Path(__file__).resolve().parent.parent)+os.pathsep+env.get('PYTHONPATH','')
         done=subprocess.run(command, capture_output=True, text=True, timeout=10,
-            cwd=str(Path(__file__).resolve().parent))
+            cwd=str(Path(__file__).resolve().parent), env=env)
         self.assertEqual(done.returncode,0,done.stdout+done.stderr)
         self.assertEqual(self.writer.write(self.request())['code'],'stale_or_halted')
         self.assertEqual(self.gate.effect_count(),0)
@@ -152,10 +154,12 @@ class SignedBridgeTests(unittest.TestCase):
             'import sys; from g3_cross_process_fence import revoke_writer; '
             'result=revoke_writer(sys.argv[1],sys.argv[2]); assert result["ok"]',
             str(self.root/'writer.sqlite'),str(self.root/'fence.lock')]
+        env=dict(os.environ)
+        env['PYTHONPATH']=str(Path(__file__).resolve().parent.parent)+os.pathsep+env.get('PYTHONPATH','')
         with self.writer.fence.exclusive():
             child=subprocess.Popen(command, stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE, text=True,
-                cwd=str(Path(__file__).resolve().parent))
+                cwd=str(Path(__file__).resolve().parent), env=env)
             try:
                 time.sleep(0.2)
                 self.assertIsNone(child.poll(),
