@@ -61,3 +61,9 @@ jobs:
           sudo -n "$(command -v python3)" -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_koru_control_broker.py' -v
+
+      - name: Test real OS-protected file marker via signed G3 gate and negative controls
+        run: |
+          sudo -n "$(command -v python3)" -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_protected_fs_sink.py' -v
