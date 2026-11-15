@@ -8,7 +8,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from g_mesh_protocol import (
     GMeshProtocolHandler, GMeshState, PROTOCOL, encode_body,
 )
-from g_mesh_provider import GMeshProviderRegistry, ProviderConfig
+from g_mesh_provider import GMeshProviderRegistry, ProviderConfig, offline_request_digest
 
 
 class TestMeshProtocol(unittest.TestCase):
@@ -128,17 +128,42 @@ class TestMeshProtocol(unittest.TestCase):
             ProviderConfig("offline-ollama", "ollama-mock", "fixture-model"),
             mock)
         adapter = registry.get_provider("offline-ollama")
+        request = dict(self.payload, event_digest=offline_request_digest(
+            "test", adapter.config))
         valid, output = adapter.invoke_protected_model(
-            "test", self.payload, self.signed(self.payload))
+            "test", request, self.signed(request))
         self.assertTrue(valid, output)
         self.assertFalse(output["verified_for_effects"])
         self.assertEqual(len(called), 1)
         with self.assertRaises(ValueError):
             registry.get_provider("unknown")
         valid, why = adapter.invoke_protected_model(
-            "test", self.payload, self.signed(self.payload))
+            "test", request, self.signed(request))
         self.assertFalse(valid)
         self.assertEqual(why, "nonce_replay")
+        self.assertEqual(len(called), 1)
+
+    def test_prompt_and_provider_substitution_rejected_before_mock(self):
+        called = []
+        registry = GMeshProviderRegistry(self.handler)
+        registry.register_provider(
+            ProviderConfig("one", "mock", "model-one"),
+            lambda p, m: called.append((p, m)) or "not-cleared")
+        registry.register_provider(
+            ProviderConfig("two", "mock", "model-two"),
+            lambda p, m: called.append((p, m)) or "not-cleared")
+        event = dict(self.payload, event_digest=offline_request_digest(
+            "approved prompt", registry.get_provider("one").config))
+        sig = self.signed(event)
+        for provider, prompt in (("one", "different prompt"),
+                                 ("two", "approved prompt")):
+            result = registry.get_provider(provider).invoke_protected_model(
+                prompt, event, sig)
+            self.assertEqual(result[1], "request_digest_mismatch")
+        self.assertEqual(called, [])
+        valid, candidate = registry.get_provider("one").invoke_protected_model(
+            "approved prompt", event, sig)
+        self.assertTrue(valid, candidate)
         self.assertEqual(len(called), 1)
 
     def test_offline_provider_never_called_when_revoked(self):
@@ -150,8 +175,10 @@ class TestMeshProtocol(unittest.TestCase):
         revoke = self.revocation()
         self.handler.handle_revocation_broadcast(
             revoke, self.controller.sign(encode_body(revoke)))
+        event = dict(self.payload, event_digest=offline_request_digest(
+            "test", registry.get_provider("mock").config))
         accepted, reason = registry.get_provider("mock").invoke_protected_model(
-            "test", self.payload, self.signed(self.payload))
+            "test", event, self.signed(event))
         self.assertFalse(accepted)
         self.assertEqual(reason, "FAIL_CLOSED_local_hold")
         self.assertEqual(called, [])
@@ -165,8 +192,10 @@ class TestMeshProtocol(unittest.TestCase):
         registry = GMeshProviderRegistry(self.handler)
         registry.register_provider(
             ProviderConfig("mock", "mock", "mock-model"), mock)
+        event = dict(self.payload, event_digest=offline_request_digest(
+            "test", registry.get_provider("mock").config))
         accepted, reason = registry.get_provider("mock").invoke_protected_model(
-            "test", self.payload, self.signed(self.payload))
+            "test", event, self.signed(event))
         self.assertFalse(accepted)
         self.assertEqual(reason, "FAIL_CLOSED_local_hold")
         self.assertEqual(self.handler.state, GMeshState.REVOKED_HALTED)
