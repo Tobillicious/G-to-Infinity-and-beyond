@@ -3,8 +3,9 @@
 RESEARCH FIXTURE ONLY. Does not handle actual external effects. The process
 owning this server MUST run as a distinct OS identity from untrusted callers,
 and its private SQLite directory MUST NOT be writable/traversable by callers.
-Only 'admit' and 'dispatch' are available; hold/revoke/release stay outside the
-untrusted socket API. The client cannot supply trusted registries or keys.
+Only admission and a configured effect route are exposed when a real marker
+sink is attached; synthetic dispatch is available only without that sink.
+Hold/revoke/release remain outside the untrusted socket API. The client cannot supply trusted registries or keys.
 """
 import json
 import os
@@ -48,6 +49,13 @@ class _Handler(socketserver.StreamRequestHandler):
             return
         if data["op"] == "effect_marker" and self.server.effect_sink is None:
             self._send({"ok": False, "code": "unsupported_operation"})
+            return
+        if data["op"] == "dispatch" and self.server.effect_sink is not None:
+            # A live marker sink must be the *only* dispatch route exposed
+            # to untrusted clients. Allowing SQLite-only dispatch would
+            # journal a side effect without creating its corresponding
+            # marker, stranding the recovery queue and blocking later work.
+            self._send({"ok": False, "code": "effect_route_required"})
             return
         # Time MUST come from the trusted broker, never a client-supplied value.
         try:
