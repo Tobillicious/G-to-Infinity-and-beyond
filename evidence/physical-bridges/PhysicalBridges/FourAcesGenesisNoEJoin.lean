@@ -26,6 +26,9 @@ No original Koru or X3 definitions are changed.
 namespace PhysicalBridges.FourAcesGenesisNoEJoin
 
 open PhysicalBridges.LivingTreeGenerations
+open PhysicalBridges.Koru
+open PhysicalBridges.BCRDTransportedParticularMarker
+open PhysicalBridges.FrozenBCRDEvents
 open PhysicalBridges.KoruJokerUniverseTrialFeedback
 open PhysicalBridges.KoruObjectiveWholeU
 open PhysicalBridges.FullPhysicalDomainGuardianAssembly
@@ -73,6 +76,9 @@ theorem four_aces_joker_genesis_protected_if_physically_reflected
       (cultivate J s).whole =
         objectiveStep
           (J.enact (J.revise s.theory (J.completedHistory s.whole))) ∧
+      koru (sourceWholeWeb s.whole)
+        (trackedPosition 2 s.epoch) (trackedPosition 3 s.epoch) ∧
+      (cultivate J s).whole = objectiveStep s.whole ∧
       (∀ p, owed p →
         OriginalX3 r.continues r.authorized r.free
           r.restrained r.maximal r.provenanced s (cultivate J s) p) ∧
@@ -111,7 +117,8 @@ theorem four_aces_joker_genesis_protected_if_physically_reflected
     intro bad
     rcases bad with ⟨hActual, p, hp, hFails⟩
     exact hFails (hGood p hp)
-  refine ⟨rfl, rfl, rfl, hGood, hNoViolation, hNoAbsolute⟩
+  refine ⟨rfl, rfl, rfl, hAces.1, hAces.2.1,
+    hGood, hNoViolation, hNoAbsolute⟩
 
 /-- A necessary compatibility gate. A newly learned source that
 is NOT the W-successor of the currently enacted source cannot
