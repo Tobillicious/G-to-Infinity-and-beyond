@@ -89,3 +89,36 @@ All actual-world predicates and the kernel bypass inventory remain obligations. 
 ## 7. Publication and evidence discipline
 
 This RFC supplements, but does not revise, the historical source record or existing DOIs. Publication metadata must be syntax-checked against files that actually exist (`CITATION.cff`, `PUBLISHED-4.4.json`, `release.json`). Formatting checks cannot certify Zenodo record existence, publication completeness or theorem validity. Keep mathematical verification and deploy approval separately auditable.
+
+## 8. Experimental v0 implementation (not a real federation)
+
+The research implementation in `g_mesh_protocol.py` and
+`g_mesh_provider.py` demonstrates **local**, per-source handshake sequence
+checks and **locally committed** signed emergency holds, not agreement
+between remote nodes. A pinned issuer public-key roster signs exact v0
+`handshake` messages; a separately pinned controller roster signs
+`revoke` messages. Signatures cover reconstructed canonical JSON with
+a protocol domain separator. Inputs with extra fields or caller-supplied
+bytes that disagree with canonical encoding are rejected. The source's
+sequence floor and controller's revocation sequence floor are durable
+SQLite state, with `BEGIN IMMEDIATE` for atomic check/update.
+
+A valid handshake means **authenticated research message only**.
+It does **not** verify the attestation reference, actual original-six
+duty coverage, real consent, remote lease freshness, protected
+hardware, or an actual world's physical invariants. The protocol
+handler has NO network server and NO effect API. A signed local
+revocation makes the node fail closed and survives process restart.
+Untrusted / malformed packets are refused without empowering arbitrary
+remote senders to trigger a global halt.
+
+The optional registry uses injected *offline mock callbacks only*.
+It neither holds provider API keys nor performs HTTP requests. Model
+outputs are returned as `verified_for_effects=False`; even a harmless
+text response is not a certificate of Koru preservation. Model content
+may require independent privacy, safety and authorization review before
+any release or effect. This v0 is **not wire-compatible** with the
+draft handshake fields in the user's earlier `g-mesh/1.0` sketch;
+no negotiation or automatic upgrade is offered. The RFC's proposed
+distributed quorum, TEE, network-isolation and original-six bridges
+remain pending.
