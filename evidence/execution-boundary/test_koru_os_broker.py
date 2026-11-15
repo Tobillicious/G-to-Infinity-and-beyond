@@ -3,6 +3,7 @@
 Run under root in an isolated CI worker. Never execute against production
 paths. The root-owned broker and unprivileged child MUST have distinct UIDs.
 """
+import hashlib
 import json
 import os
 import pathlib
@@ -16,6 +17,7 @@ import unittest
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from koru_broker import SyntheticBroker, send_request
 from koru_ed25519_permit import issue_ed25519
+from koru_protected_fs_sink import ProtectedFilesystemSink
 from koru_synthetic_effect_gate import SyntheticEffectGate
 from test_koru_shadow import fixtures
 
@@ -46,6 +48,8 @@ except PermissionError:
     denied = True
 r1 = send_request(req["sock"], "admit", req["event"], req["permit"], 10)
 r2 = send_request(req["sock"], "dispatch", req["event"], req["permit"], 20)
+marker = send_request(req["sock"], "effect_marker", req["event"], req["permit"], 20)
+marker_repeat = send_request(req["sock"], "effect_marker", req["event"], req["permit"], 20)
 forbidden = send_request(req["sock"], "hold", req["event"], req["permit"], 20)
 repeat = send_request(req["sock"], "dispatch", req["event"], req["permit"], 0)
 expired = send_request(req["sock"], "dispatch", req["event"], req["expired"], 0)
@@ -60,6 +64,7 @@ with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
 print(json.dumps({"db_denied": denied, "admit": r1["code"],
                   "dispatch": r2["code"], "hold": forbidden["code"],
                   "repeat": repeat["code"], "expired": expired["code"],
+                  "marker": marker["code"], "marker_repeat": marker_repeat["code"],
                   "spoofed_time": spoofed["code"]}))
 '''
 
@@ -76,6 +81,8 @@ class TestLinuxOSPrincipalBoundary(unittest.TestCase):
             private = pathlib.Path(folder) / "trusted"
             private.mkdir(mode=0o700)
             db = str(private / "events.db")
+            effect_dir = private / "actual-marker-effects"
+            effect_dir.mkdir(mode=0o700)
             socket_path = str(pathlib.Path(folder) / "broker.sock")
             event, trust = fixtures()
             signing_key = Ed25519PrivateKey.generate()
@@ -90,9 +97,10 @@ class TestLinuxOSPrincipalBoundary(unittest.TestCase):
             expired_permit = issue_ed25519(
                 signing_key, issuer="offline-test-issuer",
                 event=event, expires_at=15)
+            sink = ProtectedFilesystemSink(gate, str(effect_dir))
             broker = SyntheticBroker(socket_path, gate,
                                      allowed_client_uids={guest.pw_uid},
-                                     clock=lambda: 20)
+                                     clock=lambda: 20, effect_sink=sink)
             thread = threading.Thread(target=broker.serve_forever, daemon=True)
             thread.start()
             try:
@@ -117,6 +125,13 @@ class TestLinuxOSPrincipalBoundary(unittest.TestCase):
                 self.assertEqual(result["dispatch"], "synthetic_effect_recorded")
                 self.assertEqual(result["hold"], "unsupported_operation")
                 self.assertEqual(result["repeat"], "already_dispatched")
+                self.assertEqual(result["marker"], "filesystem_marker_applied")
+                self.assertEqual(result["marker_repeat"], "marker_already_applied")
+                marker_path = effect_dir / (hashlib.sha256(
+                    event["event_id"].encode()).hexdigest() + ".marker")
+                self.assertTrue(marker_path.is_file())
+                self.assertEqual(marker_path.stat().st_size, 0)
+                self.assertEqual(len(list(effect_dir.iterdir())), 1)
                 self.assertEqual(result["expired"], "invalid_permit_at_effect")
                 self.assertEqual(result["spoofed_time"], "bad_request")
                 self.assertEqual(gate.effect_count(), 1)
@@ -130,6 +145,7 @@ class TestLinuxOSPrincipalBoundary(unittest.TestCase):
                 broker.shutdown()
                 broker.server_close()
                 thread.join(timeout=5)
+                sink.close()
                 gate.close()
 
 
