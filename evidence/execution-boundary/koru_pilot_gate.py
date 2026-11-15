@@ -9,11 +9,13 @@ import copy
 import sqlite3
 import threading
 from koru_shadow import ShadowVerifier, digest
+from koru_pilot_permit import verify_permit
 
 
 class PilotGate:
     def __init__(self, db_path, *, contexts, signatures, witnesses,
-                 authorities, provenances, context_ref, generation=1):
+                 authorities, provenances, context_ref, generation=1,
+                 permit_verification_key=None, permit_issuer=None):
         self.lock = threading.RLock()
         # Freeze caller-supplied trust stores to prevent external mutation.
         self.contexts = copy.deepcopy(contexts)
@@ -21,6 +23,13 @@ class PilotGate:
         self.witnesses = copy.deepcopy(witnesses)
         self.authorities = copy.deepcopy(authorities)
         self.provenances = copy.deepcopy(provenances)
+        if permit_verification_key is not None:
+            if (type(permit_verification_key) is not bytes or
+                    len(permit_verification_key) < 32 or
+                    type(permit_issuer) is not str or not permit_issuer):
+                raise ValueError('invalid permit verification configuration')
+        self.permit_verification_key = permit_verification_key
+        self.permit_issuer = permit_issuer
         self.context_ref = context_ref
         self.db = sqlite3.connect(db_path, isolation_level=None, check_same_thread=False)
         self.db.execute("PRAGMA journal_mode=WAL")
@@ -101,7 +110,7 @@ class PilotGate:
         """Audit the synthetic journal under the transaction lock."""
         return self._transaction(self._audit_locked)
 
-    def apply(self, event, *, now):
+    def apply(self, event, *, now, permit=None):
         """Check and persist together in ONE SQLite transaction; never enact external effects."""
         def act():
             generation, halted, version, context_hash, predecessor = self.db.execute(
@@ -124,6 +133,10 @@ class PilotGate:
             # All accesses and authority revocation must serialize on self.lock.
             ids = {row[0] for row in self.db.execute("SELECT event_id FROM records")}
             keys = {row[0] for row in self.db.execute("SELECT idempotency_key FROM records")}
+            if self.permit_verification_key is not None and not verify_permit(
+                    self.permit_verification_key, permit,
+                    issuer=self.permit_issuer, event=event, now=now):
+                return {"ok": False, "code": "invalid_permit"}
             if self.db.execute(
                     "SELECT 1 FROM revoked_authorities WHERE authority_ref=?",
                     (event.get("authority_ref"),)).fetchone():
