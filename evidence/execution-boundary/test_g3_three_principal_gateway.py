@@ -1,4 +1,4 @@
-"""Three real Linux processes: writer, controller and untrusted requester.
+"""Three real Linux processes with signed mesh lease: writer, controller, guest.
 
 Separate ephemeral UIDs. Root test orchestrator only provisions and signs an
 offline fixture; it is NOT the writer or controller service. No live API, model,
@@ -16,6 +16,8 @@ import unittest
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives import serialization
 from koru_ed25519_permit import issue_ed25519
+from koru_shadow import digest
+from g_mesh_protocol import PROTOCOL, encode_body
 from test_koru_shadow import fixtures
 
 
@@ -24,7 +26,8 @@ import json, os, sys, threading
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 from koru_broker import SyntheticBroker
 from koru_control_broker import TrustedControlBroker
-from koru_protected_fs_sink import ProtectedFilesystemSink
+from g_mesh_effect_bridge import LeasedFilesystemEffect
+from g_mesh_protocol import GMeshProtocolHandler
 from koru_synthetic_effect_gate import SyntheticEffectGate
 from test_koru_shadow import fixtures
 
@@ -37,7 +40,17 @@ gate = SyntheticEffectGate(
     provenances=trust["provenances"], context_ref="ctx-one", generation=3,
     ed25519_public_key=Ed25519PublicKey.from_public_bytes(
         bytes.fromhex(c["public_key"])), permit_issuer="three-principal-issuer")
-sink = ProtectedFilesystemSink(gate, c["effect_dir"])
+mesh = GMeshProtocolHandler(
+    c["mesh_db"], node_id="protected-writer",
+    deployment_id="three-principal-fixture", policy_digest="a"*64,
+    issuer_keys={"mesh-issuer": Ed25519PublicKey.from_public_bytes(
+        bytes.fromhex(c["mesh_public_key"]))},
+    controller_keys={"mesh-controller": Ed25519PublicKey.from_public_bytes(
+        bytes.fromhex(c["mesh_controller_public_key"]))},
+    clock=lambda: 20, require_fresh_lease=True, max_lease_seconds=10)
+lease, lease_signature = c["lease"], bytes.fromhex(c["lease_signature"])
+assert mesh.install_authority_lease(lease, lease_signature)[0]
+sink = LeasedFilesystemEffect(gate, c["effect_dir"], mesh=mesh)
 public = SyntheticBroker(
     c["public_socket"], gate, allowed_client_uids={c["guest_uid"]},
     clock=lambda: 20, effect_sink=sink,
@@ -61,6 +74,7 @@ finally:
     for t in threads:
         t.join(timeout=3)
     sink.close()
+    mesh.close()
     gate.close()
 """
 
@@ -83,6 +97,9 @@ for label, path, mode in (
 socket_path = c["control_socket"] if c["role"] == "controller" else c["public_socket"]
 msg = c["control_payload"] if c["role"] == "controller" else dict(
     op=c["op"], event=c["event"], permit=c["permit"])
+if c["role"] != "controller" and c["op"] == "effect_marker" and c.get("mesh_envelope", True):
+    msg["mesh_handshake"] = c["mesh_handshake"]
+    msg["mesh_signature"] = c["mesh_signature"]
 with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as sock:
     sock.settimeout(3)
     sock.connect(socket_path)
@@ -123,9 +140,19 @@ class ThreePrincipalGatewayTests(unittest.TestCase):
             public_socket = str(public_dir / "public.sock")
             control_socket = str(private / "controller.sock")
             db = str(private / "state.sqlite")
+            mesh_db = str(private / "mesh.sqlite")
 
             event, _trusted = fixtures()
             issuer = Ed25519PrivateKey.generate()
+            mesh_issuer = Ed25519PrivateKey.generate()
+            mesh_controller = Ed25519PrivateKey.generate()
+            lease = dict(
+                protocol=PROTOCOL, type="lease", source_node_id="mesh-controller",
+                target_node_id="protected-writer",
+                deployment_id="three-principal-fixture",
+                policy_digest="a"*64, generation=1,
+                sequence=1, not_after=25)
+            lease_sig = mesh_controller.sign(encode_body(lease)).hex()
             permit = issue_ed25519(
                 issuer, issuer="three-principal-issuer",
                 event=event, expires_at=100)
@@ -133,7 +160,14 @@ class ThreePrincipalGatewayTests(unittest.TestCase):
                 encoding=serialization.Encoding.Raw,
                 format=serialization.PublicFormat.Raw).hex()
             config = dict(
-                db=db, effect_dir=str(effect_dir),
+                db=db, mesh_db=mesh_db, effect_dir=str(effect_dir),
+                lease=lease, lease_signature=lease_sig,
+                mesh_public_key=mesh_issuer.public_key().public_bytes(
+                    encoding=serialization.Encoding.Raw,
+                    format=serialization.PublicFormat.Raw).hex(),
+                mesh_controller_public_key=mesh_controller.public_key().public_bytes(
+                    encoding=serialization.Encoding.Raw,
+                    format=serialization.PublicFormat.Raw).hex(),
                 public_socket=public_socket, control_socket=control_socket,
                 public_key=public_bytes, controller_uid=controller_uid,
                 guest_uid=guest_uid)
@@ -156,10 +190,25 @@ class ThreePrincipalGatewayTests(unittest.TestCase):
                     os.setuid(uid)
                 return drop
 
-            def caller(role, *, op=None, payload=None):
+            def caller(role, *, op=None, payload=None, seq=1,
+                       mesh_envelope=True):
                 uid = controller_uid if role == "controller" else guest_uid
+                handshake = dict(
+                    protocol=PROTOCOL, type="handshake",
+                    source_node_id="mesh-issuer",
+                    target_node_id="protected-writer",
+                    deployment_id="three-principal-fixture",
+                    policy_digest="a"*64, event_digest=digest(event),
+                    authority_ref="auth-lesson", generation=1,
+                    sequence=seq, not_after=100,
+                    attestation_ref="unverified-test-attestation")
                 args = dict(config, role=role, op=op,
-                            event=event, permit=permit, control_payload=payload)
+                            event=event, permit=permit,
+                            control_payload=payload,
+                            mesh_handshake=handshake,
+                            mesh_signature=mesh_issuer.sign(
+                                encode_body(handshake)).hex(),
+                            mesh_envelope=mesh_envelope)
                 proc = subprocess.run(
                     [sys.executable, "-B", "-c", _CALLER],
                     input=json.dumps(args), capture_output=True, text=True,
@@ -191,6 +240,10 @@ class ThreePrincipalGatewayTests(unittest.TestCase):
                     caller("guest", op="admit")["code"],
                     "durable_synthetic_record")
                 self.assertEqual(
+                    caller("guest", op="effect_marker", mesh_envelope=False)["code"],
+                    "bad_request")
+                self.assertEqual(len(list(effect_dir.iterdir())), 0)
+                self.assertEqual(
                     caller("guest", op="effect_marker")["code"],
                     "filesystem_marker_applied")
                 self.assertEqual(len(list(effect_dir.iterdir())), 1)
@@ -199,7 +252,7 @@ class ThreePrincipalGatewayTests(unittest.TestCase):
                         "op": "hold", "minimum_generation": 4})["code"],
                     "held")
                 self.assertEqual(
-                    caller("guest", op="effect_marker")["code"],
+                    caller("guest", op="effect_marker", seq=2)["code"],
                     "held_at_effect")
                 self.assertEqual(len(list(effect_dir.iterdir())), 1)
                 self.assertEqual(
