@@ -12,7 +12,7 @@ import socketserver
 import struct
 import sys
 
-from koru_bounded_server import BoundedThreadingMixIn
+from koru_bounded_server import BoundedThreadingMixIn, read_framed_request
 
 MAX_CONTROL_REQUEST = 4096
 
@@ -33,10 +33,9 @@ class _ControlHandler(socketserver.StreamRequestHandler):
         if uid not in self.server.controller_uids:
             self._reply({"ok": False, "code": "controller_denied"})
             return
-        try:
-            raw = self.rfile.readline(MAX_CONTROL_REQUEST + 1)
-        except (TimeoutError, OSError):
-            return
+        raw = read_framed_request(
+            self.request, max_bytes=MAX_CONTROL_REQUEST,
+            total_timeout=self.server.request_timeout)
         if not raw or len(raw) > MAX_CONTROL_REQUEST or not raw.endswith(b"\n"):
             self._reply({"ok": False, "code": "invalid_control_request"})
             return
