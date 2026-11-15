@@ -95,6 +95,12 @@ class SignedBridgeTests(unittest.TestCase):
         r['html']='substitute'
         self.assertEqual(self.writer.write(r)['code'],'untrusted_output_bytes')
         self.assertFalse(list(self.out.iterdir()))
+    def test_oversized_output_denied(self):
+        self.lease()
+        r=self.request()
+        r['html']='X'*4097
+        self.assertEqual(self.writer.write(r)['code'],'event_id_mismatch')
+        self.assertFalse(list(self.out.iterdir()))
     def test_unsigned_request_rejected(self):
         self.lease()
         r=self.request()
