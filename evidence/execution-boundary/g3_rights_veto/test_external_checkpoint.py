@@ -71,6 +71,30 @@ class ExternalCheckpointTests(unittest.TestCase):
         self.assertFalse(result["checkpoint_matches"])
         self.assertFalse(result["authorizes_effect"])
 
+    def test_same_generation_subject_and_digest_substitution_rejected(self):
+        self.assertTrue(self.journal.record_withdrawal(**self.right,generation=1)["ok"])
+        checkpoint = self.packet()
+        self.journal.db.execute(
+            "UPDATE withdrawn SET subject=?, effect_digest=? WHERE record_ref=?",
+            ("other-person", "b"*64, "r1"))
+        result = verify_checkpoint(self.path,checkpoint,**dict(
+            self.kw,minimum_generation=1))
+        self.assertEqual(result["code"],"journal_checkpoint_mismatch")
+        self.assertFalse(result["checkpoint_matches"])
+        self.assertFalse(result["authorizes_effect"])
+
+    def test_same_generation_reference_replacement_rejected(self):
+        self.assertTrue(self.journal.record_withdrawal(**self.right,generation=1)["ok"])
+        checkpoint = self.packet()
+        self.journal.db.execute(
+            "UPDATE withdrawn SET record_ref=? WHERE record_ref=?",
+            ("different-right", "r1"))
+        result = verify_checkpoint(self.path,checkpoint,**dict(
+            self.kw,minimum_generation=1))
+        self.assertEqual(result["code"],"journal_checkpoint_mismatch")
+        self.assertFalse(result["checkpoint_matches"])
+        self.assertFalse(result["original_six_x3_proved"])
+
     def test_wrong_signer(self):
         self.assertEqual(verify_checkpoint(self.path,self.packet(key=self.other),**self.kw)["code"],
                          "checkpoint_not_verified")
