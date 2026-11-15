@@ -8,6 +8,7 @@ import unittest
 from pathlib import Path
 from koru_shadow import digest
 from koru_pilot_gate import PilotGate
+from koru_pilot_permit import issue_permit, verify_permit
 from test_koru_shadow import fixtures
 
 
@@ -125,6 +126,74 @@ class TestKoruPilotGate(unittest.TestCase):
             "UPDATE records SET receipt=? WHERE event_id=?",
             ("x" * 64, self.event["event_id"]))
         self.assertEqual(self.gate.audit()["code"], "record_integrity")
+
+    def test_authenticated_event_permit_admission(self):
+        key = b"A" * 32  # test fixture ONLY, never a production secret
+        self.gate.close()
+        self.gate = PilotGate(
+            self.db_path, contexts=self.trusted["contexts"],
+            signatures=self.trusted["signatures"],
+            witnesses=self.trusted["witnesses"],
+            authorities=self.trusted["authorities"],
+            provenances=self.trusted["provenances"],
+            context_ref="ctx-one", generation=3,
+            permit_verification_key=key, permit_issuer="test-independent-issuer")
+        permit = issue_permit(key, issuer="test-independent-issuer",
+                              event=self.event, expires_at=40)
+        self.assertEqual(self.gate.apply(self.event, now=20)["code"], "invalid_permit")
+        self.assertEqual(self.gate.apply(self.event, now=40, permit=permit)["code"],
+                         "invalid_permit")
+        self.assertFalse(verify_permit(key, permit,
+                                     issuer="wrong-issuer", event=self.event, now=20))
+        self.assertTrue(self.gate.apply(self.event, now=20, permit=permit)["ok"])
+        self.assertEqual(self.gate.apply(self.event, now=20, permit=permit)["code"], "replay")
+
+    def test_permit_forgery_event_binding_and_revocation(self):
+        key = b"B" * 32
+        self.gate.close()
+        self.gate = PilotGate(
+            self.db_path, contexts=self.trusted["contexts"],
+            signatures=self.trusted["signatures"],
+            witnesses=self.trusted["witnesses"],
+            authorities=self.trusted["authorities"],
+            provenances=self.trusted["provenances"],
+            context_ref="ctx-one", generation=3,
+            permit_verification_key=key, permit_issuer="authority-pilot")
+        permit = issue_permit(key, issuer="authority-pilot",
+                              event=self.event, expires_at=50)
+        changed = copy.deepcopy(self.event)
+        changed["purpose"] = "other"
+        self.assertEqual(self.gate.apply(changed, now=20, permit=permit)["code"],
+                         "invalid_permit")
+        forged = dict(permit, mac="0" * 64)
+        self.assertEqual(self.gate.apply(self.event, now=20, permit=forged)["code"],
+                         "invalid_permit")
+        self.gate.revoke_authority("auth-lesson")
+        self.assertEqual(self.gate.apply(self.event, now=20, permit=permit)["code"],
+                         "authority_revoked")
+        self.assertEqual(self.gate.record_count(), 0)
+
+    def test_signed_permit_rejects_tampered_scope_and_expiry(self):
+        key = b"C" * 32
+        permit = issue_permit(key, issuer="trusted-issuer", event=self.event,
+                              expires_at=80)
+        self.assertTrue(verify_permit(key, permit, issuer="trusted-issuer",
+                                      event=self.event, now=20))
+        self.assertFalse(verify_permit(key, dict(permit, expires_at=800),
+                                       issuer="trusted-issuer", event=self.event,
+                                       now=20))
+        self.assertFalse(verify_permit(key, dict(permit, authority_ref="fake"),
+                                       issuer="trusted-issuer", event=self.event,
+                                       now=20))
+        self.assertFalse(verify_permit(key, dict(permit, mac="fake"),
+                                       issuer="trusted-issuer", event=self.event,
+                                       now=20))
+        self.assertFalse(verify_permit(key, dict(permit, extra="x"),
+                                       issuer="trusted-issuer", event=self.event,
+                                       now=20))
+        self.assertFalse(verify_permit(key, permit, issuer="trusted-issuer",
+                                       event=dict(self.event, scope="delete"),
+                                       now=20))
 
     def test_hold_and_released_generation(self):
         self.gate.hold(4)
