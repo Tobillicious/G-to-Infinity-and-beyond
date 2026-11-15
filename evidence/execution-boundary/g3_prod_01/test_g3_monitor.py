@@ -27,6 +27,18 @@ class MonitorTests(unittest.TestCase):
   e=self.s.arm()['epoch'];self.assertTrue(self.s.write(self.msg(e))['ok'])
   f=next(self.out.iterdir());f.write_text('tampered')
   self.assertEqual(self.s.write(self.msg(e,event='other'))['code'],'integrity_failure')
+ def test_no_staging_artifacts_after_success(self):
+  e=self.s.arm()['epoch']
+  self.assertTrue(self.s.write(self.msg(e))['ok'])
+  self.assertEqual(len(list(self.out.iterdir())),1)
+  self.assertTrue(next(self.out.iterdir()).name.endswith('.html'))
+ def test_orphan_stage_fails_closed(self):
+  e=self.s.arm()['epoch']
+  (self.out/'.stage-orphan').write_text('interrupted')
+  self.assertEqual(self.s.write(self.msg(e))['code'],'integrity_failure')
+ def test_malformed_request_denied(self):
+  e=self.s.arm()['epoch']
+  self.assertEqual(self.s.write({'op':'write','id':'a','html':'ok','epoch':e,'path':'/tmp/unsafe'})['code'],'schema')
  def test_collision(self):
   e=self.s.arm()['epoch'];self.assertTrue(self.s.write(self.msg(e))['ok'])
   self.assertEqual(self.s.write(self.msg(e,html='different'))['code'],'collision')
