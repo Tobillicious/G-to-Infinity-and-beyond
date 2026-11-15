@@ -67,3 +67,9 @@ jobs:
           sudo -n "$(command -v python3)" -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_koru_protected_fs_sink.py' -v
+
+      - name: Test independent controller process hold/revoke serialized with G3 effects
+        run: |
+          sudo -n "$(command -v python3)" -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_process_lock.py' -v
