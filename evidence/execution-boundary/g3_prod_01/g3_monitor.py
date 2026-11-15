@@ -138,7 +138,7 @@ class Store:
                 return {'ok':False,'code':'integrity_failure','unknown':len(unexpected),'invalid':len(bad)}
             return {'ok':True,'pending':pending,'committed':len(present)}
 
-    def write(self, msg):
+    def write(self, msg, *, pre_publish=None):
         """Authorized *prototype* command; currently only UID + epoch checked.
         Real integration MUST verify signed G3 permit, fresh mesh lease,
         bound policy, X3 evidence, exact event and human authorization.
@@ -184,6 +184,14 @@ class Store:
                         stream.write(content)
                         stream.flush()
                         os.fsync(stream.fileno())
+                    # The signed subclass can recheck live authority at the
+                    # last local decision boundary before publication. This
+                    # deliberately leaves durable INTENT on denial, rather
+                    # than pretending synthetic dispatch was rolled back.
+                    if pre_publish is not None:
+                        fresh = pre_publish()
+                        if not fresh['ok']:
+                            return fresh
                     os.link(stage, filename, src_dir_fd=self.dirfd,
                             dst_dir_fd=self.dirfd, follow_symlinks=False)
                     os.fsync(self.dirfd)
@@ -195,6 +203,12 @@ class Store:
                     except FileNotFoundError:
                         pass
                 os.fsync(self.dirfd)
+            # Existing/recovered files also require current authorization
+            # before this writer reports a successful completion.
+            if pre_publish is not None:
+                fresh = pre_publish()
+                if not fresh['ok']:
+                    return fresh
             self.db.execute('BEGIN IMMEDIATE')
             try:
                 self.db.execute("UPDATE effect SET state='COMMITTED' WHERE id=?",(event_id,))
