@@ -11,6 +11,35 @@ from pathlib import Path
 import stat
 
 
+
+def inspect_trusted_ancestors(path):
+    """Check each directory component in an existing absolute pathname.
+
+    This catches preexisting symlink and writable-parent hazards. It is
+    intentionally conservative and NOT atomic against simultaneous rename
+    or mount changes. A root-owned sticky /tmp-style ancestor is allowed
+    for disposable fixtures, relying on sticky-directory protections.
+    """
+    p = Path(path)
+    if not p.is_absolute():
+        return {'ok': False, 'code': 'relative_path'}
+    current = Path('/')
+    for part in p.parts[1:-1]:
+        current = current / part
+        try:
+            s = os.lstat(current)
+        except OSError:
+            return {'ok': False, 'code': 'ancestor_unavailable'}
+        if not stat.S_ISDIR(s.st_mode):
+            return {'ok': False, 'code': 'ancestor_not_directory'}
+        if s.st_uid not in (0, os.geteuid()):
+            return {'ok': False, 'code': 'ancestor_untrusted_owner'}
+        if s.st_mode & 0o022:
+            if not (s.st_uid == 0 and s.st_mode & stat.S_ISVTX):
+                return {'ok': False, 'code': 'ancestor_writable'}
+    return {'ok': True, 'code': 'ancestors_checked'}
+
+
 def inspect_private_root(path):
     """Inspect a private directory with O_NOFOLLOW, using its actual inode."""
     p = Path(path)
@@ -65,6 +94,13 @@ def inspect_writer_host(*, output_dir, writer_db, fence_file, gate_db, mesh_db):
     paths = [output_dir, writer_db, fence_file, gate_db, mesh_db]
     if any(type(p) is not str or not os.path.isabs(p) for p in paths):
         return {'ok': False, 'code': 'invalid_path'}
+    # Reject symlink and untrusted write-capable ancestors before examining
+    # the final inode. O_NOFOLLOW alone covers only the final component.
+    for p in paths:
+        ancestor = inspect_trusted_ancestors(p)
+        if not ancestor['ok']:
+            return {'ok': False, 'code': 'unsafe_ancestor', 'path': p,
+                    'reason': ancestor['code']}
     real = [os.path.abspath(p) for p in paths]
     if len(set(real)) != len(real):
         return {'ok': False, 'code': 'resource_path_collision'}
