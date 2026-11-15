@@ -23,6 +23,34 @@ class SyntheticEffectGate(PilotGate):
             "CREATE TABLE IF NOT EXISTS synthetic_effects ("
             "event_id TEXT PRIMARY KEY, payload_digest TEXT NOT NULL, "
             "receipt TEXT NOT NULL UNIQUE)")
+        # Prevent accidental or hostile direct writes through THIS connection.
+        # This is a defense-in-depth adapter guard, NOT an OS-level DB fence.
+        self._effect_write_enabled = False
+        def authorizer(action, name, _column, _database, _origin):
+            if (action in (sqlite3.SQLITE_INSERT, sqlite3.SQLITE_UPDATE,
+                           sqlite3.SQLITE_DELETE) and
+                    name == "synthetic_effects" and
+                    not self._effect_write_enabled):
+                return sqlite3.SQLITE_DENY
+            return sqlite3.SQLITE_OK
+        self.db.set_authorizer(authorizer)
+
+    def _audit_locked(self):
+        """Detect missing/altered fixture effects within the same local DB."""
+        base = super()._audit_locked()
+        if not base["ok"]:
+            return base
+        for event_id, payload_hash, effect_receipt in self.db.execute(
+                "SELECT event_id, payload_digest, receipt FROM synthetic_effects"):
+            parent = self.db.execute(
+                "SELECT payload_digest, receipt FROM records WHERE event_id=?",
+                (event_id,)).fetchone()
+            if (parent is None or parent[0] != payload_hash or
+                    effect_receipt != digest(
+                        ["synthetic-effect-only-v1", event_id,
+                         payload_hash, parent[1]])):
+                return {"ok": False, "code": "synthetic_effect_integrity"}
+        return base
 
     def dispatch_synthetic(self, event, *, now, permit):
         """Check registered event + live permit, then atomically write ONE toy effect.
@@ -86,9 +114,13 @@ class SyntheticEffectGate(PilotGate):
                 return {"ok": True, "code": "already_dispatched", "receipt": existing[1]}
             receipt = digest(["synthetic-effect-only-v1", event["event_id"],
                               payload_hash, admission_receipt])
-            self.db.execute(
-                "INSERT INTO synthetic_effects VALUES (?,?,?)",
-                (event["event_id"], payload_hash, receipt))
+            self._effect_write_enabled = True
+            try:
+                self.db.execute(
+                    "INSERT INTO synthetic_effects VALUES (?,?,?)",
+                    (event["event_id"], payload_hash, receipt))
+            finally:
+                self._effect_write_enabled = False
             return {"ok": True, "code": "synthetic_effect_recorded",
                     "receipt": receipt}
         return self._transaction(act)
