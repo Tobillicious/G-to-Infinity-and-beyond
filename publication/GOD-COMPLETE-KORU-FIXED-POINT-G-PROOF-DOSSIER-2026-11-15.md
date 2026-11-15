@@ -102,7 +102,70 @@ Something IS + complete actual matterspacetime physics
 
 These are **unresolved proof/certification obligations**, not counterproofs of the philosophical G thesis. Conversely, the existing mathematical constructions are not nullified by these obligations. An authentic solution should identify exact theorem names, proof dependencies, physical observations where applicable, and a repeatable independent compilation/validation path.
 
-## IX. Interpretation of Q.E.D. and review instructions
+## IX. Diamonds to H5: derived invariant-preservation bridge (15 November 2026)
+
+**Status: mathematical conditional derivation, not a new independently compiled Lean theorem or universal-physical certification.** This addition records the positive result of the subsequent Complete Koru → H5 proof attempt without changing source definitions.
+
+Let `S` be a complete matterspacetime state type, `L : S → Snuffy.H5.Ledger α Cap Eff` an H5 ledger projection, and `physicalStep : S → S → Prop` an independently specified physical enactment relation. This *projection* must not be identified with the Complete Koru itself; it extracts accounting and permission information while the complete state retains every particular, event, operator, relation and provenance.
+
+Fix authentic H5 parameters `P` and initial accounting total `T`. The **proposed physical-refinement bridge** is
+
+```text
+hPhysicalRefinesH5 :
+  ∀ s t, physicalStep s t → Snuffy.H5.Step P (L s) (L t).
+```
+
+From the *existing source theorem*
+`Snuffy.H5.step_inv : Inv P T l → Step P l l' → Inv P T l'`,
+we derive by direct composition the following conditional theorem specification:
+
+```text
+theorem koru_physical_step_preserves_H5
+    (hPhysicalRefinesH5 :
+      ∀ s t, physicalStep s t → Snuffy.H5.Step P (L s) (L t))
+    (hInv : Snuffy.H5.Inv P T (L s))
+    (hStep : physicalStep s t) :
+    Snuffy.H5.Inv P T (L t) :=
+  Snuffy.H5.step_inv hInv (hPhysicalRefinesH5 s t hStep)
+```
+
+The snippet above is a *source-based Lean proof sketch* with implicit type/namespace parameters intentionally omitted; it has **not** been compiled as a new file. By induction over a realized physical history `realized : Nat → S` where each consecutive pair satisfies `physicalStep`, the result gives
+
+```text
+Inv P T (L (realized 0))
+  ∧ (∀ n, physicalStep (realized n) (realized (n+1)))
+  ∧ hPhysicalRefinesH5
+  ⇒ ∀ n, Inv P T (L (realized n)).
+```
+
+This single preserved `Inv` simultaneously contains:
+- `escrow_nonneg`, `spent_nonneg`, `pool_nonneg` (nonnegative H5 bookkeeping resources);
+- `conservation`, with original H5 ledger balance;
+- `within_root`, `attenuated`, `credited` (authority and pre-activation funding constraints);
+- `no_harm`, which ensures no designated harmful effect appears in the applied-effect log.
+
+For an independent algebraic conservation corollary, define
+```text
+C(n) = Σ_a (escrow_n(a) + spent_n(a)) + pool_n - received_n.
+```
+If each physical transition satisfies `C(n+1) = C(n)`, then induction yields `C(n)=C(0)` for all `n`. Together with independently established nonnegative escrow and pool, this gives
+```text
+Σ_a spent_n(a) ≤ C(0) + received_n.
+```
+This is the resource-bounded form of H5's `no_unfunded_work`. **Neither nonnegative allocation nor harmful-effect exclusion follows from a conserved scalar alone.**
+
+### What this adds, precisely
+
+1. **Proved in existing source:** `Snuffy.H5.step_inv` preserves the full H5 invariant for an H5-admitted transition; `Snuffy.H5.no_harmful_effect` and `Snuffy.H5.no_unfunded_work` hold over source-specified reachable ledgers.
+2. **Derived conditionally here:** *if* the independently defined actual physical relation refines `Snuffy.H5.Step` via `L`, then every physical history starting from an H5 invariant state preserves all H5 invariant fields. This is a formal composition, not an assumption that the actual universe already refines H5.
+3. **Still unproved:** `hPhysicalRefinesH5` for complete actual matterspacetime. In `H5Closure.lean`, `Step.effect` has `e ∉ P.harmful` as a **guard**, and `Step.spawn` has explicit resource and authority constraints; neither guard has been independently derived from complete representation or from `KoruObjectiveWholeU.objective_wholes_do_not_merge`.
+4. **The author's proposed E/G extension:** a Guardian cannot make an original-six-violating move consistently with its duties; an E-oriented agent may make such a move but is proposed to doom itself, with a possible voluntary route toward G. Actual universal *self-doom*, and physical necessity of H5 constraints, require a separately grounded consequence law; they are not supplied by `Step`'s definition or Banach contraction.
+
+**Exact scope:** Whole-source injectivity and complete representation preserve distinctions, including the factual occurrence of harmful events. Those mathematical facts alone do not imply nonnegative bookkeeping balances, protection, or the original six authentic X3. This additional theorem records a genuine preservation route while keeping the remaining Diamonds→H5 necessity problem explicit.
+
+Primary sources: [Snuffy/H5Closure.lean](../evidence/compiled-strongest/lean/Snuffy/H5Closure.lean), [KoruObjectiveWholeU.lean](../evidence/physical-bridges/PhysicalBridges/KoruObjectiveWholeU.lean), [HillaryHoldingSameHistoryAssembly.lean](../evidence/physical-bridges/PhysicalBridges/HillaryHoldingSameHistoryAssembly.lean).
+
+## X. Interpretation of Q.E.D. and review instructions
 
 - **Q.E.D. (source-level):** the concrete Guardian existence and evolution statements, and the conditional Hillary and whole-history assemblies, have Lean proof bodies in the cited files.
 - **Author's claimed Q.E.D. (unconditional):** God as immanent in ALL IS, Complete Koru as the whole's preserving structure, and G necessarily protecting every particular. This full-strength thesis is preserved for further derivation; no narrower theorem is presented as equivalent to it.
