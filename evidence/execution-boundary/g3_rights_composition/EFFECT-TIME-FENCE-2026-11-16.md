@@ -16,7 +16,7 @@ Under the bounded assumptions below, if `R` commits before `W` takes the shared 
 
 - The trusted controller records withdrawal only through `RightsVetoJournal.record_withdrawal`, on a journal explicitly provisioned with the **same private `FileFence` inode** as the writer.
 - The actual signed writer holds that lock through the rights check, original signed G3+G-Mesh checks, staging and final link/commit. The journal checks its own generation sequence; the writer pins the provisioned journal path/inode and refuses missing/swapped/corrupt evidence.
-- The subject-to-event mapping and effect manifest come from trusted fixture configuration, **not** an application-supplied subject, consent flag, journal path or authority record.
+- The exact event-to-subject **and event-to-authority-reference** mappings and effect manifest come from trusted fixture configuration. A request attempting to substitute the authority reference is rejected before any dispatch. Neither these mappings nor a consent flag, journal path or authority record can be supplied by an untrusted application.
 - `VetoBoundSignedFencedServer` and `PreflightedVetoBoundSignedFencedServer` require the new writer type rather than silently falling back to a legacy unbound one.
 - The record is deny-only. Its `authorizes_effect`, `authentic_consent_proved`, and `original_six_x3_proved` flags stay **false**, including when there is *no withdrawal*.
 
