@@ -11,7 +11,7 @@ cd evidence/execution-boundary/g3_prod_01
 python3 -m unittest -v
 ```
 
-Requires Linux, Python 3.9+, and private writable test directories. Eight local unit tests passed in the original isolated harness on 15 November 2026. Re-run on exact PR head and in GitHub CI before asserting branch verification.
+Requires Linux, Python 3.9+, and private writable test directories. The original isolated harness passed eight local unit tests on 15 November 2026. The branch now has eleven tests and a dedicated GitHub Actions workflow; rely on exact-head CI for their results.
 
 ## Demonstrated in the limited test harness
 
@@ -20,14 +20,14 @@ Requires Linux, Python 3.9+, and private writable test directories. Eight local 
 - Only bounded content may be written, to hash-derived names in an independently configured private output directory. The request does not select arbitrary paths.
 - Socket requests are one-per-connection, byte-bounded, checked against Linux SO_PEERCRED UIDs, and concurrency-limited.
 - Unresolved previously journaled intentions block unrelated writes; existing output contents and type are verified.
-- Interrupted new writes may leave an incomplete file. The implementation detects this as an integrity failure and requires review rather than treating it as a safe recovery.
+- Output bytes are fully written and fsynced to a private staging inode before a no-overwrite hard-link publication. Orphan staging files are detected as integrity failures requiring trusted review.
 
 ## Release blockers: do not deploy
 
 1. **Missing real G3 authorization**: No Ed25519 G3 permit, signed fresh G-Mesh lease, six original X3 duties, authentic consent, or policy correspondence is checked by Store.write. An allowed UID knowing the current epoch can issue writes. Epoch is NOT a cryptographic capability.
 2. **Disarmed demonstration startup**: Store.arm is trusted in-process/test only. The CLI remains disarmed; never expose arm/revoke on the untrusted application socket.
 3. **No measured multi-UID isolation**: The tests emulate UID rejection but do not provision distinct system accounts, mount namespaces, MAC/seccomp, inherited-FD hygiene, or non-bypass guarantees. Host root or kernel can bypass.
-4. **Crash consistency gaps**: clean close/reopen is tested; SIGKILL, power loss, fsync boundaries, filesystem faults and atomic publication are not yet tested. A partial output file is possible.
+4. **Crash consistency gaps**: clean close/reopen is tested; SIGKILL, power loss, fsync boundaries, filesystem faults and atomic publication are not yet tested. Staging and publication crash points still require fault injection; orphan staging files fail closed.
 5. **Physical-domain gap**: No hazard analysis, real consent, actual-world six-X3 grounding, hardware interlocks, actuators, distributed consensus, or universally protective result.
 6. **Rollback and resource gaps**: Local SQLite is not anchored against privileged rollback; the socket directory must be securely provisioned. Additional process/resource exhaustion and race testing is required.
 7. **Broker/protocol constraints**: This reference monitor does not expose original PR #456 signed envelope interface. Do not connect an untrusted agent or external service to this prototype as if it were G3.
