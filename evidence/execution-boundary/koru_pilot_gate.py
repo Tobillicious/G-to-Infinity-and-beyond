@@ -125,6 +125,14 @@ class PilotGate:
     def apply(self, event, *, now, permit=None):
         """Check and persist together in ONE SQLite transaction; never enact external effects."""
         def act():
+            # A protected SyntheticEffectGate can supply a durable-clock check.
+            # It MUST run under this transaction lock, not just at broker entry:
+            # another request could advance the time floor between the calls.
+            clock_check = getattr(self, "_clock_check_locked", None)
+            if clock_check is not None:
+                check = clock_check(now)
+                if not check["ok"]:
+                    return check
             generation, halted, version, context_hash, predecessor = self.db.execute(
                 "SELECT generation, halted, context_version, context_digest, predecessor_ref "
                 "FROM gate_state WHERE id=1").fetchone()
