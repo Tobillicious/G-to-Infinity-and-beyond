@@ -82,6 +82,21 @@ class EffectTimeRightsTests(unittest.TestCase):
         self.assertEqual(f.writer.write(f.request(seq=2))["code"],
                          "rights_veto_or_unavailable")
 
+    def test_protected_ipc_requires_veto_bound_writer(self):
+        from g3_secure_socket import VetoBoundSignedFencedServer
+        from g3_bound_host_server import PreflightedVetoBoundSignedFencedServer
+        with self.assertRaises(TypeError):
+            VetoBoundSignedFencedServer(
+                str(self.fixture.root / "untrusted.sock"), object(), {65534})
+        with self.assertRaises(TypeError):
+            PreflightedVetoBoundSignedFencedServer(
+                str(self.fixture.root / "untrusted-host.sock"),
+                object(), {65534}, output_dir=str(self.fixture.out),
+                writer_db=str(self.fixture.root / "writer.sqlite"),
+                fence_file=self.fence_path,
+                gate_db=str(self.fixture.root / "g3.sqlite"),
+                mesh_db=str(self.fixture.root / "mesh.sqlite"))
+
     def test_closed_rights_journal_fails_closed_before_publish(self):
         self.rights.close()
         self.fixture.lease()
