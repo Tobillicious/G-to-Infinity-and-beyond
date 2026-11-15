@@ -98,6 +98,43 @@ class ThreeWayTests(unittest.TestCase):
             generation=1)["ok"])
         self.assertFalse(self.check()["three_way_evidence_consistent"])
 
+    def test_two_different_same_generation_journals_cannot_be_combined(self):
+        # Journal A is checkpointed and contains the actual r1 withdrawal.
+        # Journal B has a different withdrawal at the same generation, so a
+        # naive two-database join reports no local veto for r1.
+        self.assertTrue(self.j.record_withdrawal(
+            record_ref="r1", subject="p1", action="publish",
+            effect_digest="a"*64, generation=1)["ok"])
+        latest = self.checkpoint()
+        other_path = Path(self.tmp.name) / "decoy.sqlite"
+        decoy = RightsVetoJournal(other_path, initialize=True)
+        self.addCleanup(decoy.close)
+        self.assertTrue(decoy.record_withdrawal(
+            record_ref="other", subject="p1", action="publish",
+            effect_digest="b"*64, generation=1)["ok"])
+        self.claim["revocation_generation"] = 1
+        updated = dict(self.record, generation=1)
+        result = self.check(
+            veto_journal=decoy, veto_db_path=self.path,
+            current_generation=1, trusted_records={"r1": updated},
+            checkpoint_packet=latest, trusted_generation_floor=1)
+        self.assertEqual(result["code"], "veto_journal_identity_mismatch")
+        self.assertFalse(result["three_way_evidence_consistent"])
+        self.assertFalse(result["authorizes_effect"])
+
+    def test_checkpoint_path_substitution_rejected(self):
+        other_path = Path(self.tmp.name) / "other.sqlite"
+        other = RightsVetoJournal(other_path, initialize=True)
+        self.addCleanup(other.close)
+        result = self.check(veto_db_path=other_path)
+        self.assertEqual(result["code"], "veto_journal_identity_mismatch")
+
+    def test_symlink_checkpoint_path_rejected(self):
+        alias = Path(self.tmp.name) / "alias.sqlite"
+        alias.symlink_to(self.path)
+        result = self.check(veto_db_path=alias)
+        self.assertEqual(result["code"], "veto_journal_identity_mismatch")
+
     def test_stale_floor_rejected(self):
         self.assertEqual(self.check(trusted_generation_floor=1)["code"],
                          "stale_rights_generation")
