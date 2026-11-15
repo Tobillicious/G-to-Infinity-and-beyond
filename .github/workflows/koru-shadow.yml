@@ -85,3 +85,9 @@ jobs:
           python3 -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_g_mesh_two_node.py' -v
+
+      - name: Test signed G-Mesh lease at protected actual marker and broker boundaries
+        run: |
+          python3 -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_g_mesh_effect_bridge.py' -v
