@@ -4,6 +4,7 @@ import subprocess
 import time
 import sys
 import tempfile
+import threading
 import unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
@@ -14,7 +15,7 @@ from koru_ed25519_permit import issue_ed25519
 from koru_shadow import digest
 from koru_synthetic_effect_gate import SyntheticEffectGate
 from test_koru_shadow import fixtures
-from g3_monitor import sha
+from g3_monitor import sha, Server, request
 
 class SignedBridgeTests(unittest.TestCase):
     def setUp(self):
@@ -170,6 +171,65 @@ class SignedBridgeTests(unittest.TestCase):
         self.assertEqual(child.returncode,0,output+errors)
         self.assertEqual(self.writer.write(self.request())['code'],'stale_or_halted')
         self.assertFalse(list(self.out.iterdir()))
+    def test_signed_writer_socket_enforces_full_envelope(self):
+        # The public IPC path must call the signed subclass, never bare
+        # Store.write. In-process signed-writer unit checks alone do not
+        # demonstrate the behavior of the actual socket entrypoint.
+        sock=str(self.root/'signed-writer.sock')
+        server=Server(sock,self.writer,{os.geteuid()})
+        thread=threading.Thread(target=server.serve_forever,daemon=True)
+        thread.start()
+        try:
+            signed=self.request()
+            unsigned={k:signed[k] for k in ('op','id','html','epoch')}
+            self.assertEqual(request(sock,unsigned)['code'],
+                             'signed_envelope_required')
+            self.assertEqual(self.gate.effect_count(),0)
+            self.assertEqual(list(self.out.iterdir()),[])
+
+            # Even a correctly signed envelope is insufficient without
+            # a fresh bounded controller lease.
+            self.assertEqual(request(sock,signed)['code'],
+                             'mesh_FAIL_CLOSED_lease_unavailable')
+            self.assertEqual(self.gate.effect_count(),0)
+            self.assertEqual(list(self.out.iterdir()),[])
+
+            self.lease()
+            substitution=dict(signed,html='<h1>Replaced content</h1>')
+            self.assertEqual(request(sock,substitution)['code'],
+                             'untrusted_output_bytes')
+            self.assertEqual(self.gate.effect_count(),0)
+            self.assertEqual(list(self.out.iterdir()),[])
+
+            self.assertEqual(request(sock,signed)['code'],'committed')
+            self.assertEqual(self.gate.effect_count(),1)
+            self.assertEqual(len(list(self.out.iterdir())),1)
+            self.assertEqual(request(sock,signed)['code'],'mesh_nonce_replay')
+            self.assertEqual(len(list(self.out.iterdir())),1)
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(timeout=5)
+            self.assertFalse(thread.is_alive())
+
+    def test_writer_socket_hold_denies_signed_request(self):
+        self.lease()
+        sock=str(self.root/'signed-hold.sock')
+        server=Server(sock,self.writer,{os.geteuid()})
+        thread=threading.Thread(target=server.serve_forever,daemon=True)
+        thread.start()
+        try:
+            self.writer.hold()
+            self.assertEqual(request(sock,self.request())['code'],
+                             'stale_or_halted')
+            self.assertEqual(self.gate.effect_count(),0)
+            self.assertEqual(list(self.out.iterdir()),[])
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(timeout=5)
+            self.assertFalse(thread.is_alive())
+
     def test_writer_epoch_fenced(self):
         self.lease()
         self.writer.hold()
