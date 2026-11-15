@@ -87,6 +87,14 @@ The broker also **ignores the caller's clock** and derives the permit's expiry c
 
 **Remaining obligations:** The fixture clock is injected for deterministic tests; production needs a securely managed, trusted clock resilient to rollback. The test does not establish resistance to a compromised broker UID, root administrator, filesystem-owner capability leakage, malicious code loaded into the trusted process, arbitrary kernel compromise, unsigned recovery paths, or external effects. Neither a Linux UID nor Ed25519 signature alone proves authentic subject consent or the original six X3 duties for an actual-world action.
 
+## G3 durable trusted-clock floor (restart / rollback negative controls)
+
+**Verified:** [GitHub Actions run 43692984732](https://github.com/Tobillicious/universal-protection-theory/actions/runs/43692984732) passed the updated synthetic effect and OS-broker suites.
+
+`SyntheticEffectGate.accept_broker_time(now)` persists the last observed broker clock value in a singleton SQLite row using `BEGIN IMMEDIATE` and rejects a lower subsequent value with `clock_rollback`. The Linux broker calls this **before** it admits or dispatches any event. An invalid or overflowing clock is rejected, and the persisted floor is retained after a gate/broker process restart. Tests cover rollback after restart, repeated timestamps, forward advancement, negative/non-integer input, and invalid oversized timestamps.
+
+This closes a specific *time rollback below the last broker-observed time* failure: after a successful check at time `t`, the broker will not accept a request evaluated at any `t' < t` even if it has a correctly signed permit. It does not prove wall-clock truth, reject a forward clock jump, or authenticate OS time. A privileged database writer can edit the floor; an attacker who compromises the trusted broker can also change the clock. Large forward jumps can cause fail-closed availability loss when time is corrected. Production requires independent clock trust, monotonic-time policy, recovery procedures and a review of failure behavior. This is a *synthetic local protection* milestone, not physical universality.
+
 ## Why this is not yet the enforcement release
 
 The pilot is **synthetic and append-only**. It is not a proof verifier, independent human consent authenticator, cultural authority, cryptographic signing service, external-world effect router, or general implementation of the original six X3 duties. Its `ShadowVerifier` understands a toy six-position integer world and one `synthetic_refinement` kind. The code does not mutate actual world state or send externally effective actions.
