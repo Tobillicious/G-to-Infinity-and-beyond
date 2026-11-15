@@ -16,8 +16,14 @@ class PilotGate:
     def __init__(self, db_path, *, contexts, signatures, witnesses,
                  authorities, provenances, context_ref, generation=1,
                  permit_verification_key=None, permit_issuer=None,
-                 ed25519_public_key=None):
-        self.lock = threading.RLock()
+                 ed25519_public_key=None, cross_process_lock_path=None):
+        if cross_process_lock_path is None:
+            self.lock = threading.RLock()
+        else:
+            # Opt in only for trusted, separately running controller/effect
+            # processes configured to share the same protected lock inode.
+            from koru_process_lock import InterprocessRLock
+            self.lock = InterprocessRLock(cross_process_lock_path)
         # Freeze caller-supplied trust stores to prevent external mutation.
         self.contexts = copy.deepcopy(contexts)
         self.signatures = copy.deepcopy(signatures)
@@ -194,3 +200,5 @@ class PilotGate:
     def close(self):
         with self.lock:
             self.db.close()
+        if hasattr(self.lock, "close"):
+            self.lock.close()
