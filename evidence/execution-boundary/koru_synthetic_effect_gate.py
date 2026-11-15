@@ -62,6 +62,22 @@ class SyntheticEffectGate(PilotGate):
             return {"ok": True, "code": "clock_advanced"}
         return self._transaction(act)
 
+    def _clock_check_locked(self, now):
+        """Reject a stale time inside the SAME transaction as an event action.
+
+        The broker's prior clock-floor transaction can race with another
+        request; checking here prevents a stale in-flight request from acting.
+        """
+        if type(now) is not int or now < 0 or now >= 2**63:
+            return {"ok": False, "code": "clock_unavailable"}
+        row = self.db.execute(
+            "SELECT value FROM broker_time_floor WHERE id=1").fetchone()
+        if row is None or type(row[0]) is not int or row[0] < 0:
+            return {"ok": False, "code": "clock_state_invalid"}
+        if now < row[0]:
+            return {"ok": False, "code": "clock_rollback"}
+        return {"ok": True, "code": "clock_current"}
+
     def _audit_locked(self):
         """Detect missing/altered fixture effects within the same local DB."""
         base = super()._audit_locked()
@@ -86,6 +102,9 @@ class SyntheticEffectGate(PilotGate):
         is repeated at effect time in the same SQLite transaction as local write.
         """
         def act():
+            clock_check = self._clock_check_locked(now)
+            if not clock_check["ok"]:
+                return clock_check
             audit = self._audit_locked()
             if not audit["ok"]:
                 return audit
