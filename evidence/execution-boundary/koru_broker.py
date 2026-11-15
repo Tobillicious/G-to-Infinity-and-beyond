@@ -41,7 +41,18 @@ class _Handler(socketserver.StreamRequestHandler):
         except (ValueError, UnicodeDecodeError):
             self._send({"ok": False, "code": "bad_request"})
             return
-        if type(data) is not dict or set(data) != {"op", "event", "permit"}:
+        if type(data) is not dict:
+            self._send({"ok": False, "code": "bad_request"})
+            return
+        # Lease-mode marker gateway accepts a *separately signed* mesh
+        # handshake; all other routes retain the narrower original schema.
+        leased_marker = (
+            data.get("op") == "effect_marker" and
+            self.server.effect_sink is not None and
+            getattr(self.server.effect_sink, "requires_mesh_handshake", False))
+        expected = ({"op", "event", "permit", "mesh_handshake", "mesh_signature"}
+                    if leased_marker else {"op", "event", "permit"})
+        if set(data) != expected:
             self._send({"ok": False, "code": "bad_request"})
             return
         if data["op"] not in ("admit", "dispatch", "effect_marker"):
@@ -79,8 +90,22 @@ class _Handler(socketserver.StreamRequestHandler):
             elif data["op"] == "effect_marker":
                 # Target path and effect type are provisioned independently,
                 # NEVER selected from client-controlled event or socket JSON.
-                result = self.server.effect_sink.apply_marker(
-                    data["event"], now=now, permit=data["permit"])
+                if leased_marker:
+                    # Hex decoding is strictly canonical; the mesh handler
+                    # authenticates the bytes and exact event digest.
+                    hex_signature = data["mesh_signature"]
+                    if (type(hex_signature) is not str or
+                            len(hex_signature) != 128 or
+                            any(c not in "0123456789abcdef" for c in hex_signature)):
+                        result = {"ok": False, "code": "invalid_mesh_signature"}
+                    else:
+                        result = self.server.effect_sink.apply_marker(
+                            data["event"], now=now, permit=data["permit"],
+                            mesh_handshake=data["mesh_handshake"],
+                            mesh_signature=bytes.fromhex(hex_signature))
+                else:
+                    result = self.server.effect_sink.apply_marker(
+                        data["event"], now=now, permit=data["permit"])
             else:
                 result = self.server.gate.dispatch_synthetic(
                     data["event"], now=now, permit=data["permit"])
