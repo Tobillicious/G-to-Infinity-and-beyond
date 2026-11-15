@@ -79,7 +79,8 @@ class TrustedControlBroker(BoundedThreadingMixIn, socketserver.UnixStreamServer)
     allow_reuse_address = False
 
     def __init__(self, socket_path, gate, *, controller_uids,
-                 max_connections=8, request_timeout=2.0):
+                 max_connections=8, request_timeout=2.0,
+                 controller_group_access=False):
         if sys.platform != "linux" or not hasattr(socket, "SO_PEERCRED"):
             raise RuntimeError("control socket requires Linux peer credentials")
         if (type(controller_uids) not in (set, frozenset) or
@@ -87,10 +88,16 @@ class TrustedControlBroker(BoundedThreadingMixIn, socketserver.UnixStreamServer)
                 any(type(uid) is not int or uid < 0 for uid in controller_uids)):
             raise ValueError("explicit controller UID allowlist required")
         self.configure_bounds(max_connections=max_connections, request_timeout=request_timeout)
+        if type(controller_group_access) is not bool:
+            raise ValueError("controller_group_access must be explicit bool")
+        self.controller_group_access = controller_group_access
         self.controller_uids = frozenset(controller_uids)
         self.gate = gate
         super().__init__(socket_path, _ControlHandler)
-        os.chmod(socket_path, 0o600)
+        # Optional group access only where a provisioned trusted controller
+        # GID shares the socket group. SO_PEERCRED UID verification remains
+        # mandatory; filesystem mode alone never authorizes control.
+        os.chmod(socket_path, 0o660 if controller_group_access else 0o600)
 
 
 def send_control(socket_path, payload):

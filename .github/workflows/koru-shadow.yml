@@ -97,3 +97,9 @@ jobs:
           python3 -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_g3_bounded_brokers.py' -v
+
+      - name: Test three distinct Linux UID principals and isolated emergency control
+        run: |
+          sudo -n "$(command -v python3)" -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_g3_three_principal_gateway.py' -v
