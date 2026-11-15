@@ -22,3 +22,48 @@ jobs:
           python3 -B -m unittest discover \
             -s evidence/execution-boundary \
             -p 'test_koru_shadow.py' -v
+
+      - name: Run isolated transactional G pilot negative controls
+        run: |
+          python3 -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_pilot_gate.py' -v
+
+      - name: Install pinned G3 public-key verifier dependency
+        run: python3 -m pip install 'cryptography==46.0.4'
+
+      - name: Run G3 asymmetric-issuer and protected-admission negative controls
+        run: |
+          python3 -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_ed25519_permit.py' -v
+
+      - name: Test G3 effect-time permit revalidation and exactly-once synthetic dispatch
+        run: |
+          python3 -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_synthetic_effect_gate.py' -v
+
+      - name: Test Linux distinct-UID OS-boundary broker and deny direct DB writes
+        run: |
+          sudo -n -E "$(command -v python3)" -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_os_broker.py' -v
+
+      - name: Test G3 broker restart and durable permit time rollback rejection
+        run: |
+          python3 -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_broker_restart.py' -v
+
+      - name: Test G3 separately privileged controller, emergency hold, release and persistent revocation
+        run: |
+          sudo -n "$(command -v python3)" -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_control_broker.py' -v
+
+      - name: Test real OS-protected file marker via signed G3 gate and negative controls
+        run: |
+          sudo -n "$(command -v python3)" -B -m unittest discover \
+            -s evidence/execution-boundary \
+            -p 'test_koru_protected_fs_sink.py' -v
