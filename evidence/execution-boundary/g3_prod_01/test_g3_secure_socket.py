@@ -20,9 +20,12 @@ class SecureSocketTests(unittest.TestCase):
     request = SignedBridgeTests.request
 
     def test_bare_store_cannot_be_served(self):
-        with self.assertRaises(TypeError):
-            SignedFencedServer(str(self.root/'bad.sock'), Store(
-                str(self.root/'bad.sqlite'),self.out), {65534})
+        bare = Store(str(self.root/'bad.sqlite'),self.out)
+        try:
+            with self.assertRaises(TypeError):
+                SignedFencedServer(str(self.root/'bad.sock'),bare,{65534})
+        finally:
+            bare.close()
 
     def test_same_uid_or_root_client_denied_at_configuration(self):
         for uids in ({os.geteuid()}, {0}, set(), {True}):
