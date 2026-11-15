@@ -63,9 +63,9 @@ def read_framed_request(sock, *, max_bytes, total_timeout):
         if not block:
             return None
         body.extend(block)
-        if b"\\n" in block:
-            if (len(body) > max_bytes or not body.endswith(b"\\n") or
-                    body.count(b"\\n") != 1):
+        if b"\n" in block:
+            if (len(body) > max_bytes or not body.endswith(b"\n") or
+                    body.count(b"\n") != 1):
                 return None
             return bytes(body)
     return None
