@@ -95,6 +95,16 @@ The broker also **ignores the caller's clock** and derives the permit's expiry c
 
 This closes a specific *time rollback below the last broker-observed time* failure: after a successful check at time `t`, the broker will not accept a request evaluated at any `t' < t` even if it has a correctly signed permit. It does not prove wall-clock truth, reject a forward clock jump, or authenticate OS time. A privileged database writer can edit the floor; an attacker who compromises the trusted broker can also change the clock. Large forward jumps can cause fail-closed availability loss when time is corrected. Production requires independent clock trust, monotonic-time policy, recovery procedures and a review of failure behavior. This is a *synthetic local protection* milestone, not physical universality.
 
+## G3 transaction-time clock fence and restart-resistant signed permits
+
+**Verified:** [GitHub Actions run 43693338937](https://github.com/Tobillicious/universal-protection-theory/actions/runs/43693338937) passed the transactional clock and socket restart tests.
+
+The earlier design advanced `broker_time_floor` in a separate transaction before admission/dispatch. Under concurrency, another request could advance that floor between the first transaction and the action's transaction. The revised `SyntheticEffectGate._clock_check_locked` rejects any request with a timestamp below the latest persisted floor **inside the same SQLite transaction as the admission or synthetic effect insertion**. The legacy unsigned research pilot retains its original behavior; the signed effect gate receives the stricter check. Tests simulate an in-flight request using stale time after another request advances the floor, including both admission and dispatch.
+
+`test_koru_broker_restart.py` adds an end-to-end UNIX-socket broker shutdown/reopen test using the same database. It demonstrates: admission at time 30, restart with time 20 rejected as `clock_rollback`, an expired signed permit at time 35 rejected as `invalid_permit_at_effect`, and subsequent time 31 rejected as rollback. No synthetic effect is recorded in the negative controls. The broker's own clock remains the source of time; the client cannot supply a timestamp.
+
+The tests **do not** establish authenticated UTC, protect against privileged database modification, or stop compromise of the broker OS identity. Time-floor enforcement is not a proof of original-six universal physical coverage or real-world effect mediation. Proper secure time and hardened, independently verified recovery remain important release obligations.
+
 ## Why this is not yet the enforcement release
 
 The pilot is **synthetic and append-only**. It is not a proof verifier, independent human consent authenticator, cultural authority, cryptographic signing service, external-world effect router, or general implementation of the original six X3 duties. Its `ShadowVerifier` understands a toy six-position integer world and one `synthetic_refinement` kind. The code does not mutate actual world state or send externally effective actions.
