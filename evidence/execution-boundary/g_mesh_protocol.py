@@ -162,6 +162,23 @@ class GMeshProtocolHandler:
             "CREATE TABLE IF NOT EXISTS time_floor "
             "(id INTEGER PRIMARY KEY CHECK(id=1), last_seen INTEGER NOT NULL)")
         self.db.execute("INSERT OR IGNORE INTO time_floor VALUES (1,0)")
+        # A signed lease is an active runtime authorization, not a permanent
+        # grant.  A process restart (graceful or otherwise) must not revive a
+        # still-unexpired lease without a fresh controller handshake.
+        # Preserve the durable per-controller sequence floor: replaying the
+        # old signed lease after restart must also fail.
+        # The BEGIN IMMEDIATE transaction serializes this startup fence with
+        # other writers using this SQLite store. It does not claim safe
+        # multi-instance operation or external clock attestation.
+        if self.require_fresh_lease:
+            self.db.execute("BEGIN IMMEDIATE")
+            try:
+                self.db.execute("DELETE FROM lease_state")
+                self.db.execute("COMMIT")
+            except BaseException:
+                self.db.execute("ROLLBACK")
+                self.db.close()
+                raise
 
     @property
     def state(self):
