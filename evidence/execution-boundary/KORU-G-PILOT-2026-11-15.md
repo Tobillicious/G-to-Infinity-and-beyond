@@ -16,6 +16,12 @@ python3 -B -m unittest discover -s evidence/execution-boundary -p 'test_koru_pil
 
 **Verification receipt:** The original synthetic suites passed in GitHub Actions run [43688858124](https://github.com/Tobillicious/universal-protection-theory/actions/runs/43688858124). Later changes (including durable revocation) require a **new** successful CI run at their exact commit SHA before being reported verified.
 
+## Local integrity checks (synthetic pilot)
+
+The pilot now exposes `audit()` and automatically runs the same local consistency check before every `apply()` transaction. It checks SQLite `PRAGMA quick_check`, the persistent context binding against the controller-injected context, and each stored event receipt against its stored event identity, payload digest, context and predecessor. Tampered record fields or context bindings fail closed during admission; regression tests deliberately modify SQLite rows and assert rejection. Checks are O(number of recorded events), appropriate only for this small research fixture.
+
+**Important:** These receipts are plain SHA-256 *consistency digests*, not keyed MACs, signed attestations, or external audit anchors. An actor with privileged database access can rewrite a record and recompute its digest. This check is **not** tamper-proof, does not authenticate real permission, and does not guarantee forensic completeness. A stronger release must use a separate trust root or protected signing key, authenticated controller, recovery procedures and independent audit receipts.
+
 ## Why this is not yet the enforcement release
 
 The pilot is **synthetic and append-only**. It is not a proof verifier, independent human consent authenticator, cultural authority, cryptographic signing service, external-world effect router, or general implementation of the original six X3 duties. Its `ShadowVerifier` understands a toy six-position integer world and one `synthetic_refinement` kind. The code does not mutate actual world state or send externally effective actions.
