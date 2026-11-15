@@ -30,6 +30,17 @@ The pilot now exposes `audit()` and automatically runs the same local consistenc
 
 `permit_verification_key=None` leaves legacy synthetic fixture behavior unchanged for backward compatibility. A protected deployment must explicitly enable verification and prevent access to any unprotected write path; opt-in protection alone is not complete mediation.
 
+## G3 asymmetric-issuer milestone (15 November 2026)
+
+The opt-in `koru_ed25519_permit.py` introduces Ed25519 event permits:
+- Only the **trusted issuer** needs an Ed25519 private key; `PilotGate(..., ed25519_public_key=..., permit_issuer=...)` receives **only the public key** and cannot mint a valid signature from that key.
+- A permit covers the exact event bytes under canonical JSON hashing, expected issuer label, context digest, authority reference and expiry.
+- Checks occur in the same local database application transaction as revocation, fencing, synthetic witness validation and durable record insertion.
+- `test_koru_ed25519_permit.py` exercises valid admission, forged signature, expired grant, wrong key/issuer, changed payload/context, revocation, hold, replay and absence of issuer-private-key methods on the gate.
+- CI installs `cryptography==46.0.4` for this test suite; the original stdlib-only HMAC/unsigned synthetic fixtures remain backward-compatible, but **production routes must not enable these bypass modes**.
+
+**Verified source receipt:** [GitHub Actions run 43691062134](https://github.com/Tobillicious/universal-protection-theory/actions/runs/43691062134) passed the asymmetric permit controls. This is a *pilot security milestone*, not complete G3 as universal physical protection. An externally trusted mapping from issuer to authorized real people, tamper-resistant key provisioning, independent time/revocation/key rotation and exhaustive protected effect channels remain required. Do not expose the Python `issue_ed25519` function to the agent or place any live key in the repository.
+
 ## Why this is not yet the enforcement release
 
 The pilot is **synthetic and append-only**. It is not a proof verifier, independent human consent authenticator, cultural authority, cryptographic signing service, external-world effect router, or general implementation of the original six X3 duties. Its `ShadowVerifier` understands a toy six-position integer world and one `synthetic_refinement` kind. The code does not mutate actual world state or send externally effective actions.
