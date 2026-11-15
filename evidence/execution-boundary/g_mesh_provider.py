@@ -6,6 +6,8 @@ provider integrations require separately enforced ingress/egress capabilities
 and certified original-six actual-world obligations, not token filtering.
 """
 from dataclasses import dataclass
+import hashlib
+import json
 
 from g_mesh_protocol import GMeshState
 
@@ -15,6 +17,18 @@ class ProviderConfig:
     provider_id: str
     provider_type: str
     default_model: str
+
+
+def offline_request_digest(prompt, config):
+    """Domain-separated authorization for one exact offline mock request."""
+    if type(prompt) is not str or not isinstance(config, ProviderConfig):
+        raise ValueError("invalid offline request")
+    body = json.dumps(
+        {"provider_id": config.provider_id, "provider_type": config.provider_type,
+         "model": config.default_model, "prompt": prompt},
+        sort_keys=True, separators=(",", ":"), ensure_ascii=True,
+    ).encode("ascii")
+    return hashlib.sha256(b"g-mesh-offline-request-v0\\x00" + body).hexdigest()
 
 
 class GMeshProviderAdapter:
@@ -36,6 +50,10 @@ class GMeshProviderAdapter:
             return False, "FAIL_CLOSED_local_hold"
         if type(prompt) is not str or len(prompt) > 8192:
             return False, "invalid_mock_prompt"
+        if (type(handshake_payload) is not dict or
+                handshake_payload.get("event_digest") !=
+                offline_request_digest(prompt, self.config)):
+            return False, "request_digest_mismatch"
         valid, reason = self.handler.process_handshake(
             handshake_payload, signature, canonical)
         if not valid:
