@@ -43,7 +43,10 @@ class _Handler(socketserver.StreamRequestHandler):
         if type(data) is not dict or set(data) != {"op", "event", "permit"}:
             self._send({"ok": False, "code": "bad_request"})
             return
-        if data["op"] not in ("admit", "dispatch"):
+        if data["op"] not in ("admit", "dispatch", "effect_marker"):
+            self._send({"ok": False, "code": "unsupported_operation"})
+            return
+        if data["op"] == "effect_marker" and self.server.effect_sink is None:
             self._send({"ok": False, "code": "unsupported_operation"})
             return
         # Time MUST come from the trusted broker, never a client-supplied value.
@@ -65,6 +68,11 @@ class _Handler(socketserver.StreamRequestHandler):
             if data["op"] == "admit":
                 result = self.server.gate.apply(
                     data["event"], now=now, permit=data["permit"])
+            elif data["op"] == "effect_marker":
+                # Target path and effect type are provisioned independently,
+                # NEVER selected from client-controlled event or socket JSON.
+                result = self.server.effect_sink.apply_marker(
+                    data["event"], now=now, permit=data["permit"])
             else:
                 result = self.server.gate.dispatch_synthetic(
                     data["event"], now=now, permit=data["permit"])
@@ -80,7 +88,8 @@ class SyntheticBroker(socketserver.ThreadingMixIn, socketserver.UnixStreamServer
     daemon_threads = True
     allow_reuse_address = False
 
-    def __init__(self, socket_path, gate, *, allowed_client_uids, clock=None):
+    def __init__(self, socket_path, gate, *, allowed_client_uids, clock=None,
+                 effect_sink=None):
         if sys.platform != "linux" or not hasattr(socket, "SO_PEERCRED"):
             raise RuntimeError("secure broker requires Linux SO_PEERCRED")
         if (type(allowed_client_uids) not in (set, frozenset) or
@@ -91,6 +100,9 @@ class SyntheticBroker(socketserver.ThreadingMixIn, socketserver.UnixStreamServer
         self.clock = clock if clock is not None else lambda: int(time.time())
         if not callable(self.clock):
             raise ValueError("trusted clock callback required")
+        if effect_sink is not None and effect_sink.gate is not gate:
+            raise ValueError("filesystem sink must use this protected gate")
+        self.effect_sink = effect_sink
         self.gate = gate
         super().__init__(socket_path, _Handler)
         # Mode is set only after bind. Containing directory must be protected
