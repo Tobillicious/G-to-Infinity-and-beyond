@@ -11,7 +11,7 @@ cd evidence/execution-boundary/g3_prod_01
 python3 -m unittest -v test_g3_monitor.py test_g3_signed_bridge.py
 ```
 
-Requires Linux, Python 3.9+, and private writable test directories. The original isolated harness passed eight local unit tests on 15 November 2026. The branch now contains eleven monitor tests and seven signed-bridge tests; rely on exact-head CI for results.
+Requires Linux, Python 3.9+, and private writable test directories. The original isolated harness passed eight local unit tests on 15 November 2026. The branch has eleven monitor tests, an expanded signed-bridge suite (including actual subprocess revocation), and a Linux separate-UID fixture. Verify exact-head GitHub CI for the complete results.
 
 ## Demonstrated in the limited test harness
 
@@ -46,3 +46,11 @@ This addition is intentionally separate from Lean and the historical UPT proofs.
 ## Signed bridge research path
 
 `g3_signed_bridge.py` defines `SignedG3Writer(Store)`, which requires a trusted provisioned PR #456 `SyntheticEffectGate`, a lease-enabled `GMeshProtocolHandler`, an integer trusted clock, and an immutable-by-copy digest manifest mapping admitted event identifiers to exact HTML bytes. The bridge demands the event ID, event digest, mesh authority, signed G-Mesh handshake and G3 permit to agree, then holds **these exact three in-process handler locks** while it journals and writes. The mesh handshake is consumed before the G3 and filesystem operation, so failures must be handled as terminal denial/retry with a fresh sequence. This demonstrates composition, **not a single transaction** or cross-process revocation safety. `Store.arm()` remains trusted-test-only; the demonstration CLI remains disarmed.
+
+## Cross-process local epoch fencing (research)
+
+`g3_cross_process_fence.py` adds a **cooperating-process-only**, private Linux `flock` barrier around the signed writer's startup, arm, hold, and write. A separate trusted control process can call `revoke_writer(db_path, fence_path)`, acquiring the **same** lock and transactionally increasing the local writer epoch while halting future effects. A new subprocess regression checks that revocation blocks on a writer-held fence and that a completed revocation causes subsequent signed requests to fail *before* consuming a signed mesh sequence or writing a synthetic G3 effect.
+
+This is a useful local ordering property, not universal or distributed revocation: all legitimate writers/controllers MUST use the same protected lock inode and the same database. An uncontrolled process, root, an inherited directory FD, a replaced trust root, a separate G-Mesh process, or a remote lease revocation can still violate the broader protection objective. The original G3 and mesh stores are still separate; **no cross-store atomicity, fail-safe physical effect claim, or six-X3 real-world certification is established**.
+
+The source contains a test-only ability to arm the research writer and an unprotected bare `Store` fixture; the production rollout must remove or strongly isolate these before any exposure.
