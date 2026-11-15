@@ -127,7 +127,8 @@ theorem accumulated_knowledge_grows_each_generation
   | succ n ih =>
       change (grow J s n).ancestors.length + 1 =
         s.ancestors.length + (n + 1)
-      rw [ih, Nat.add_succ]
+      rw [ih]
+      omega
 
 /-- Forward Time Koru: chronological epoch rank strictly grows
 while the complete ancestral record is retained. -/
@@ -139,7 +140,8 @@ theorem epoch_advances_with_learning
   | zero => rfl
   | succ n ih =>
       change (grow J s n).epoch + 1 = s.epoch + (n + 1)
-      rw [ih, Nat.add_succ]
+      rw [ih]
+      omega
 
 /-- Original ethical records and right-handed orientation are never
 erased or inverted by this proposed learned-boundary construction. -/
