@@ -1,12 +1,14 @@
 """Integration tests using existing PR #456 synthetic fixtures; no live effects."""
 import os
+import subprocess
+import time
 import sys
 import tempfile
 import unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-from g3_signed_bridge import SignedG3Writer
+from g3_cross_process_fence import FencedSignedG3Writer
 from g_mesh_protocol import GMeshProtocolHandler, PROTOCOL, encode_body
 from koru_ed25519_permit import issue_ed25519
 from koru_shadow import digest
@@ -45,8 +47,9 @@ class SignedBridgeTests(unittest.TestCase):
             clock=lambda:self.now[0],require_fresh_lease=True,
             max_lease_seconds=10)
         self.html='<h1>Safe curriculum</h1>'
-        self.writer=SignedG3Writer(
-            str(self.root/'writer.sqlite'),self.out,gate=self.gate,
+        self.writer=FencedSignedG3Writer(
+            str(self.root/'writer.sqlite'),self.out,
+            fence_path=str(self.root/'fence.lock'),gate=self.gate,
             mesh=self.mesh,manifest={self.event['event_id']:sha(self.html.encode())},
             clock=lambda:self.now[0])
         self.epoch=self.writer.arm()['epoch']
@@ -127,6 +130,41 @@ class SignedBridgeTests(unittest.TestCase):
         self.assertEqual(
             self.writer.write(self.request())['code'],'unresolved_previous_effect')
         self.assertEqual(self.gate.effect_count(),0)
+        self.assertFalse(list(self.out.iterdir()))
+    def test_separate_process_local_revoke_denies_signed_write(self):
+        self.lease()
+        command=[
+            sys.executable, '-c',
+            'import sys; from g3_cross_process_fence import revoke_writer; '
+            'result=revoke_writer(sys.argv[1],sys.argv[2]); assert result["ok"]',
+            str(self.root/'writer.sqlite'),str(self.root/'fence.lock')]
+        done=subprocess.run(command, capture_output=True, text=True, timeout=10,
+            cwd=str(Path(__file__).resolve().parent))
+        self.assertEqual(done.returncode,0,done.stdout+done.stderr)
+        self.assertEqual(self.writer.write(self.request())['code'],'stale_or_halted')
+        self.assertEqual(self.gate.effect_count(),0)
+        self.assertFalse(list(self.out.iterdir()))
+
+    def test_external_revocation_blocks_on_writer_commit_fence(self):
+        self.lease()
+        command=[
+            sys.executable, '-c',
+            'import sys; from g3_cross_process_fence import revoke_writer; '
+            'result=revoke_writer(sys.argv[1],sys.argv[2]); assert result["ok"]',
+            str(self.root/'writer.sqlite'),str(self.root/'fence.lock')]
+        with self.writer.fence.exclusive():
+            child=subprocess.Popen(command, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, text=True,
+                cwd=str(Path(__file__).resolve().parent))
+            try:
+                time.sleep(0.2)
+                self.assertIsNone(child.poll(),
+                    'external hold must wait for writer-owned fence')
+            finally:
+                pass
+        output, errors=child.communicate(timeout=10)
+        self.assertEqual(child.returncode,0,output+errors)
+        self.assertEqual(self.writer.write(self.request())['code'],'stale_or_halted')
         self.assertFalse(list(self.out.iterdir()))
     def test_writer_epoch_fenced(self):
         self.lease()
