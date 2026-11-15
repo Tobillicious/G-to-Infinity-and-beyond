@@ -15,7 +15,7 @@ import struct
 import sys
 import time
 
-from koru_bounded_server import BoundedThreadingMixIn
+from koru_bounded_server import BoundedThreadingMixIn, read_framed_request
 
 MAX_REQUEST = 32768
 
@@ -35,11 +35,9 @@ class _Handler(socketserver.StreamRequestHandler):
             self._send({"ok": False, "code": "peer_denied"})
             return
         # Strict one-request-per-connection, input bounded before JSON parse.
-        try:
-            raw = self.rfile.readline(MAX_REQUEST + 1)
-        except (TimeoutError, OSError):
-            # Slow/incomplete senders lose the connection without an effect.
-            return
+        raw = read_framed_request(
+            self.request, max_bytes=MAX_REQUEST,
+            total_timeout=self.server.request_timeout)
         if not raw or len(raw) > MAX_REQUEST or not raw.endswith(b"\n"):
             self._send({"ok": False, "code": "bad_request"})
             return
