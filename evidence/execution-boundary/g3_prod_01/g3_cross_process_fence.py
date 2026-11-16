@@ -186,6 +186,17 @@ class VetoBoundFencedSignedG3Writer(FencedSignedG3Writer):
                 if (veto.get("local_veto") is not False or
                         veto.get("code") != "no_local_withdrawal_found_not_authorized"):
                     return {"ok": False, "code": "rights_veto_or_unavailable"}
+                # Recheck the live process's output write-capabilities at
+                # effect time. A successful startup-only host preflight
+                # cannot exclude descriptors acquired afterwards.
+                # This is a same-process research check, not host-wide
+                # revocation or syscall confinement.
+                from g3_bound_host_server import (
+                    _no_retained_writable_output_handles,
+                )
+                if not _no_retained_writable_output_handles(self):
+                    return {"ok": False,
+                            "code": "effect_time_writable_fd_or_unavailable"}
                 # Only the already-signed G3+mesh gate may admit this
                 # research fixture. The veto check cannot grant permission.
                 return super().write(request)
