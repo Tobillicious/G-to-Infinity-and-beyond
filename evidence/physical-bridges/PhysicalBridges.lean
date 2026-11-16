@@ -482,3 +482,6 @@ import PhysicalBridges.LivingTreeCoverageProvenance
 
 -- Constructed complete Tree learning and all-six protected effect transitions.
 import PhysicalBridges.LivingTreeFencedEffects
+
+-- External effects + independently validated original-six subject reflections.
+import PhysicalBridges.ExternalJointEffectRefinement
