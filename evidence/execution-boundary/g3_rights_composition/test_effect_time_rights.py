@@ -59,6 +59,27 @@ class EffectTimeRightsTests(unittest.TestCase):
             action="publish", effect_digest=sha(f.html.encode()),
             generation=1)
 
+    def test_new_writable_output_fd_after_initialization_denies_effect(self):
+        """A live writer must not trust only an earlier startup FD check."""
+        f = self.fixture
+        f.lease()
+        stage = f.out / ".unexpected-live-writable-stage"
+        fd = os.open(stage, os.O_CREAT | os.O_EXCL | os.O_WRONLY |
+                     os.O_CLOEXEC, 0o600)
+        try:
+            response = f.writer.write(f.request())
+            self.assertFalse(response["ok"], response)
+            self.assertEqual(
+                response["code"], "effect_time_writable_fd_or_unavailable")
+            self.assertEqual(f.gate.effect_count(), 0)
+            self.assertEqual(list(f.out.glob("*.html")), [])
+        finally:
+            os.close(fd)
+            stage.unlink()
+        # Releasing the unexpected capability permits the usual
+        # independently authorized synthetic request.
+        self.assertEqual(f.writer.write(f.request())["code"], "committed")
+
     def test_prior_withdrawal_denies_real_publish(self):
         self.assertTrue(self.withdraw()["ok"])
         self.fixture.lease()
