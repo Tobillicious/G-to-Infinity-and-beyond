@@ -119,6 +119,9 @@ class VetoBoundFencedSignedG3Writer(FencedSignedG3Writer):
         if not isinstance(guard, FileFence):
             raise PermissionError("unbound rights journal cannot enforce publication")
         super().__init__(path, output_dir, fence_path=fence_path, **kwargs)
+        # Pin the configured pathname as well as the opened lock inode.
+        # A freshly started controller resolves the pathname, not this FD.
+        self.bound_fence_path = str(Path(fence_path).absolute())
         try:
             a = os.fstat(self.fence.fd)
             b = os.fstat(guard.fd)
@@ -140,8 +143,18 @@ class VetoBoundFencedSignedG3Writer(FencedSignedG3Writer):
         bound = j.publication_fence
         a = os.fstat(self.fence.fd)
         b = os.fstat(bound.fd)
+        # A journal process launched after replacement would acquire a
+        # *different* lock inode. Detect that split-brain before any effect.
+        p_fence = Path(self.bound_fence_path)
+        if p_fence.is_symlink():
+            raise PermissionError("rights/writer fence path replaced")
+        c = os.stat(p_fence, follow_symlinks=False)
         if ((a.st_dev, a.st_ino) != (b.st_dev, b.st_ino) or
-                not stat.S_ISREG(a.st_mode) or a.st_nlink != 1):
+                (a.st_dev, a.st_ino) != (c.st_dev, c.st_ino) or
+                not stat.S_ISREG(a.st_mode) or a.st_nlink != 1 or
+                not stat.S_ISREG(c.st_mode) or c.st_nlink != 1 or
+                c.st_uid != os.geteuid() or
+                stat.S_IMODE(c.st_mode) != 0o600):
             raise PermissionError("rights/writer fence binding lost")
         rows = j.db.execute("PRAGMA database_list").fetchall()
         main = [entry[2] for entry in rows if entry[1] == "main"]
