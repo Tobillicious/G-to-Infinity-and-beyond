@@ -59,6 +59,10 @@ theorem canonical_coverage_forces_each_learning_source_to_W
   have hStep : physicalStep s (cultivate J s) := hRealizes n
   obtain ⟨_, hBefore, hAfter, hStage⟩ :=
     hCoverage s (cultivate J s) hStep
+  change s.whole = objectiveAt positiveWholeU s.epoch at hBefore
+  change (cultivate J s).whole =
+    objectiveAt positiveWholeU (cultivate J s).epoch at hAfter
+  change (cultivate J s).epoch = s.epoch + 1 at hStage
   have hW : (cultivate J s).whole = objectiveStep s.whole := by
     calc
       (cultivate J s).whole =
@@ -112,10 +116,8 @@ theorem cultivate_preserves_full_parent_identity
       (s.theory, s.whole, J.completedHistory s.whole) =
         (t.theory, t.whole, J.completedHistory t.whole) := by
     injection hRecord with hh _
-    exact hh
   have hTail : s.ancestors = t.ancestors := by
     injection hRecord with _ ht
-    exact ht
   have hTheory : s.theory = t.theory :=
     congrArg (fun a : T × FiniteObjectiveU × H => a.1) hHead
   have hWhole : s.whole = t.whole :=
@@ -130,7 +132,17 @@ theorem cultivate_preserves_full_parent_identity
   have hHand := congrArg
     (fun x : LivingTree T H E => x.rightHanded) h
   change s.rightHanded = t.rightHanded at hHand
-  exact LivingTree.ext hEpoch' hTheory hWhole hTail hEthics hHand
+  cases s with
+  | mk e th w anc eth hand =>
+    cases t with
+    | mk e' th' w' anc' eth' hand' =>
+      cases hEpoch'
+      cases hTheory
+      cases hWhole
+      cases hTail
+      cases hEthics
+      cases hHand
+      rfl
 
 #print axioms canonical_coverage_forces_each_learning_source_to_W
 #print axioms old_W_coverage_forces_two_epoch_source_recurrence
