@@ -473,3 +473,6 @@ import PhysicalBridges.AdaptiveGuardianHistories
 
 -- Repeated Joker learning, forward epochs, and retained ancestral records.
 import PhysicalBridges.LivingTreeGenerations
+
+-- Exact Four-Aces/Joker learned boundary G/no-E compatibility gate.
+import PhysicalBridges.FourAcesGenesisNoEJoin
