@@ -476,3 +476,6 @@ import PhysicalBridges.LivingTreeGenerations
 
 -- Exact Four-Aces/Joker learned boundary G/no-E compatibility gate.
 import PhysicalBridges.FourAcesGenesisNoEJoin
+
+-- Canonical W rigidity vs full-parent learned Genesis provenance.
+import PhysicalBridges.LivingTreeCoverageProvenance
