@@ -479,3 +479,6 @@ import PhysicalBridges.FourAcesGenesisNoEJoin
 
 -- Canonical W rigidity vs full-parent learned Genesis provenance.
 import PhysicalBridges.LivingTreeCoverageProvenance
+
+-- Constructed complete Tree learning and all-six protected effect transitions.
+import PhysicalBridges.LivingTreeFencedEffects
