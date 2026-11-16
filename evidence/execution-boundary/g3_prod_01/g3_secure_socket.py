@@ -79,3 +79,17 @@ class SignedFencedServer(Server):
         finally:
             os.close(parent_fd)
         super().__init__(path, store, allowed_uids)
+
+
+class VetoBoundSignedFencedServer(SignedFencedServer):
+    """Explicit rights-veto-aware IPC; reject legacy unbound signed writers.
+
+    This merely adds trusted withdrawal denial. Authentic consent,
+    comprehensive X3, distributed revocation and host confinement remain
+    separate release gates.
+    """
+    def __init__(self, path, store, allowed_uids):
+        from g3_cross_process_fence import VetoBoundFencedSignedG3Writer
+        if not isinstance(store, VetoBoundFencedSignedG3Writer):
+            raise TypeError("veto-bound signed writer required")
+        super().__init__(path, store, allowed_uids)

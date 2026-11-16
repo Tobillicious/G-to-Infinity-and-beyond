@@ -151,3 +151,17 @@ class PreflightedSignedFencedServer(SignedFencedServer):
         # SignedFencedServer enforces distinct UID, signed/fenced writer,
         # fresh-lease configuration and protected socket pathname.
         super().__init__(socket_path, writer, allowed_uids)
+
+
+class PreflightedVetoBoundSignedFencedServer(PreflightedSignedFencedServer):
+    """Opt-in bounded Linux host gate that also requires effect-time veto binding.
+
+    The old PreflightedSignedFencedServer remains a research fixture; only
+    this explicit constructor enforces the shared-fence rights-veto check.
+    Neither class certifies all physical effects or subject consent.
+    """
+    def __init__(self, socket_path, writer, allowed_uids, **kwargs):
+        from g3_cross_process_fence import VetoBoundFencedSignedG3Writer
+        if not isinstance(writer, VetoBoundFencedSignedG3Writer):
+            raise TypeError("rights-veto-bound signed writer required")
+        super().__init__(socket_path, writer, allowed_uids, **kwargs)
