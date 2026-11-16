@@ -161,6 +161,42 @@ class EffectTimeRightsTests(unittest.TestCase):
         finally:
             unbound.close()
 
+    def test_replaced_fence_path_after_writer_start_denies_publish(self):
+        """A restarted controller must not lock a different pathname inode."""
+        f = self.fixture
+        f.lease()
+        original = Path(self.fence_path)
+        moved = original.with_suffix(".old-lock")
+        original.rename(moved)
+        original.write_bytes(b"new-lock-inode")
+        original.chmod(0o600)
+        try:
+            result = f.writer.write(f.request())
+            self.assertFalse(result["ok"], result)
+            self.assertEqual(result["code"], "rights_evidence_unavailable")
+            self.assertEqual(f.gate.effect_count(), 0)
+            self.assertEqual(list(f.out.glob("*.html")), [])
+        finally:
+            original.unlink()
+            moved.rename(original)
+        # Restore the original inode; the exact signed bounded request works.
+        self.assertEqual(f.writer.write(f.request())["code"], "committed")
+
+    def test_unlinked_fence_path_after_start_denies_publish(self):
+        f = self.fixture
+        f.lease()
+        original = Path(self.fence_path)
+        moved = original.with_suffix(".missing-lock")
+        original.rename(moved)
+        try:
+            result = f.writer.write(f.request())
+            self.assertFalse(result["ok"], result)
+            self.assertEqual(result["code"], "rights_evidence_unavailable")
+            self.assertEqual(f.gate.effect_count(), 0)
+            self.assertEqual(list(f.out.glob("*.html")), [])
+        finally:
+            moved.rename(original)
+
     def test_fence_inode_mismatch_rejected(self):
         f = self.fixture
         other_fence = FileFence(str(f.root / "unrelated.lock"))
