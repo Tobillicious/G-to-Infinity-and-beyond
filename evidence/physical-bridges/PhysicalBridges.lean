@@ -485,3 +485,42 @@ import PhysicalBridges.LivingTreeFencedEffects
 
 -- External effects + independently validated original-six subject reflections.
 import PhysicalBridges.ExternalJointEffectRefinement
+
+-- G2 same-event measured physical opportunity + per-particular cumulative agency join.
+import PhysicalBridges.G2PhysicalAgencyCumulativeJoin
+
+-- G2 coexistence: contraction upper bound + finite-stage injectivity + cumulative owed agency.
+import PhysicalBridges.G2NoncollapsingCoexistence
+
+-- G2 non-collapse of authentic agency projections on both cumulative trajectories.
+import PhysicalBridges.G2AgencyProjectionPreservation
+
+-- Distinct six G-Mesh witness nodes cover the six unchanged original duties.
+import PhysicalBridges.G2SixNodeDutyCorrespondence
+
+-- Exact tagged original-six duty mismatch on the same actual W-covered event.
+import PhysicalBridges.G2FirstActualDutyMismatch
+
+-- Independent empirical bridge countercontrols: entropy capacity and telemetry are not X3.
+import PhysicalBridges.G2EmpiricalBridgeNegativeControls
+
+-- G2/G3 fail-closed tripwire: rejected guarded step HOLD and actual-effect mediation.
+import PhysicalBridges.G2FailClosedEnactmentBoundary
+
+-- Last-mile event audit: concrete coverage failure or same-event missing original duty.
+import PhysicalBridges.G2LastMileWitnessAudit
+
+-- Whole-first physical bridge: a local readout cannot reconstruct Complete Koru.
+import PhysicalBridges.G2WholeFirstPhysicalBridgeRepair
+
+-- Build 25: physical refinement preserves original owed cohort and protected outcome.
+import PhysicalBridges.G2BoundedPhysicalProtectionSynthesis
+
+import PhysicalBridges.G3OperatorFirstLossJoin
+import PhysicalBridges.G3SameEventCapstone
+import PhysicalBridges.EndlessKnowledgeGuardianBridge
+import PhysicalBridges.FourCausePhysicalGuardianBridge
+import PhysicalBridges.IntegratedProtectionCoexistenceAssembly
+
+-- Adversarial six duty, lived-history rollback and unclassified-effect controls.
+import PhysicalBridges.IntegratedProtectionHostileControls
