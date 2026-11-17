@@ -78,8 +78,17 @@ def inspect(*, log, checkout, expected_sha):
         if not target.is_file() or target.is_symlink():
             raise ValueError("source missing or symlink: " + name)
         checksums[name] = hashlib.sha256(target.read_bytes()).hexdigest()
+    # A HEAD label alone does not bind edited working-tree files to Git.
+    # Reject any modified, removed, or mode-changed watched tracked source.
+    watched_paths = ["evidence/execution-boundary/" + name for name in WATCH]
+    tree_check = subprocess.run(
+        ["git", "-C", str(root), "diff", "--quiet", "HEAD", "--", *watched_paths],
+        capture_output=True, check=False)
+    if tree_check.returncode != 0:
+        raise ValueError("reviewed source does not match committed Git tree")
     return {
         "schema": "g3-r7-same-head-research-replay-v2",
+        "working_tree_source_matches_commit": True,
         "source_commit": actual,
         "test_count": len(matches),
         "unique_test_case_count": len(multiplicity),
