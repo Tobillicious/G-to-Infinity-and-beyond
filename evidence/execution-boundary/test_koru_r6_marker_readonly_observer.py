@@ -99,6 +99,23 @@ class MarkerObserverPureTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "replaced"):
                     observe(scope, expected_uid=os.geteuid())
 
+    def test_intermediate_directory_symlink_denied(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            actual_parent = root / "parent"
+            actual_parent.mkdir()
+            (actual_parent / "scope").mkdir()
+            (root / "alias").symlink_to(actual_parent, target_is_directory=True)
+            with self.assertRaises(OSError):
+                observe(root / "alias" / "scope", expected_uid=os.geteuid())
+
+    def test_parent_directory_dotdot_traversal_denied(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            (root / "scope").mkdir()
+            with self.assertRaisesRegex(ValueError, "non-traversing"):
+                observe(root / "scope" / ".." / "scope", expected_uid=os.geteuid())
+
     def test_directory_symlink_denied(self):
         with tempfile.TemporaryDirectory() as d:
             target = Path(d) / "real"
