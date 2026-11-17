@@ -41,29 +41,28 @@ theorem finite_orbits_do_not_merge
 
 /-- An upper separation bound at every stage of the SAME evolution. -/
 theorem finite_orbits_contract_above
-    [MetricSpace S]
-    (advance : S → S) (k : ℝ)
+    (advance : S → S) (distance : S → S → ℝ) (k : ℝ)
     (hk : 0 ≤ k)
-    (hContract : ∀ x y, dist (advance x) (advance y) ≤
-      k * dist x y)
+    (hContract : ∀ x y, distance (advance x) (advance y) ≤
+      k * distance x y)
     (x y : S) :
     ∀ n : Nat,
-      dist (orbit advance x n) (orbit advance y n) ≤
-        k ^ n * dist x y := by
+      distance (orbit advance x n) (orbit advance y n) ≤
+        k ^ n * distance x y := by
   intro n
   induction n with
   | zero => simp [orbit]
   | succ n ih =>
       calc
-        dist (orbit advance x (n + 1))
+        distance (orbit advance x (n + 1))
             (orbit advance y (n + 1)) =
-            dist (advance (orbit advance x n))
+            distance (advance (orbit advance x n))
                  (advance (orbit advance y n)) := by rfl
         _ ≤ k * dist (orbit advance x n)
                       (orbit advance y n) := hContract _ _
-        _ ≤ k * (k ^ n * dist x y) :=
+        _ ≤ k * (k ^ n * distance x y) :=
               mul_le_mul_of_nonneg_left ih hk
-        _ = k ^ (n + 1) * dist x y := by
+        _ = k ^ (n + 1) * distance x y := by
               simp only [pow_succ, mul_assoc, mul_comm, mul_left_comm]
 
 /-- One actual next-step certificate has already established the
@@ -126,13 +125,14 @@ theorem nontrivial_exact_distance_preservation_not_strict_contraction
     [MetricSpace S]
     (advance : S → S) (k : ℝ)
     (hk : 0 ≤ k) (hStrict : k < 1)
-    (hContract : ∀ x y, dist (advance x) (advance y) ≤
-      k * dist x y)
+    (hContract : ∀ x y, distance (advance x) (advance y) ≤
+      k * distance x y)
     (x y : S) (hDifferent : x ≠ y)
-    (hKeepDistance : dist (advance x) (advance y) = dist x y) :
+    (hPositiveDistinct : x ≠ y → 0 < distance x y)
+    (hKeepDistance : distance (advance x) (advance y) = distance x y) :
     False := by
-  have hPositive : 0 < dist x y := dist_pos.mpr hDifferent
-  have hShort : k * dist x y < dist x y := by
+  have hPositive : 0 < distance x y := hPositiveDistinct hDifferent
+  have hShort : k * distance x y < distance x y := by
     have h := mul_lt_mul_of_pos_right hStrict hPositive
     simpa using h
   have hBound := hContract x y
