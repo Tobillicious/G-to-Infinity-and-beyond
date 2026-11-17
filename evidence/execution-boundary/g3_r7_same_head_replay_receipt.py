@@ -18,6 +18,10 @@ REQUIRED_TEST_MODULES = frozenset((
     "test_koru_r5_kernel_denial_evidence",
     "test_koru_r6_marker_readonly_observer",
     "test_koru_r5_forest_coverage_audit",
+    "test_koru_r5_residual_unix_ipc",
+    "test_koru_r5_process_creation_fence",
+    "test_koru_r5_socket_family_fence",
+    "test_koru_no_inherited_fd_executor",
 ))
 CASE = re.compile(r"^(test_[A-Za-z0-9_]+) \((test_[A-Za-z0-9_]+\.[A-Za-z0-9_.]+)\) \.\.\. (ok|FAIL|ERROR|skipped.*|expected failure|unexpected success)$")
 
@@ -32,6 +36,10 @@ WATCH = (
     "test_koru_r6_marker_readonly_observer.py",
     "koru_r5_forest_coverage_audit.py",
     "test_koru_r5_forest_coverage_audit.py",
+    "test_koru_r5_residual_unix_ipc.py",
+    "test_koru_r5_process_creation_fence.py",
+    "test_koru_r5_socket_family_fence.py",
+    "test_koru_no_inherited_fd_executor.py",
 )
 
 def inspect(*, log, checkout, expected_sha):
@@ -98,6 +106,7 @@ def inspect(*, log, checkout, expected_sha):
         "tested_source_sha256": checksums,
         "research_suite_executed": True,
         "forest_six_duty_gap_checks_executed": True,
+        "r5_alternative_effect_channel_tests_executed": True,
         "r4_independently_administered_custody_verified": False,
         "r5_all_actual_effects_covered": False,
         "r6_authentic_six_reflections_verified": False,
