@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+G3_NODE_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+exec python3 "$G3_NODE_ROOT/evidence/execution-boundary/g3_guardian_node/launcher.py" "$@"
