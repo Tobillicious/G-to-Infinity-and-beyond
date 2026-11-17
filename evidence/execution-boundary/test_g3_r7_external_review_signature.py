@@ -43,6 +43,27 @@ class R7ReviewSignatureTests(unittest.TestCase):
                     "certified_for_production", "authorizes_effect"):
             self.assertFalse(receipt[key])
 
+    def test_reviewer_key_fingerprint_matches_actual_supplied_key(self):
+        import hashlib
+        receipt = self.signed()
+        self.assertEqual(receipt["supplied_reviewer_public_key_sha256"],
+                         hashlib.sha256(self.public).hexdigest())
+
+    def test_invalid_review_timestamp_rejected(self):
+        for value in ("later", "2026-02-30T00:00:00Z",
+                      "2026-11-18T12:13:14+13:00", "2026-11-18"):
+            with self.subTest(value=value):
+                self.doc["reviewed_at_utc"] = value
+                with self.assertRaisesRegex(ValueError, "timestamp"):
+                    self.signed()
+
+    def test_forged_signature_cannot_change_reviewer_timestamp(self):
+        body = json.dumps(self.doc, sort_keys=True).encode()
+        sig = self.private.sign(DOMAIN + body)
+        altered = body.replace(b"2026-11-18T00:00:00Z", b"2026-11-19T00:00:00Z")
+        with self.assertRaisesRegex(ValueError, "signature mismatch"):
+            self.signed(altered, sig=sig)
+
     def test_wrong_public_key_rejected(self):
         other = Ed25519PrivateKey.generate().public_key().public_bytes(
             encoding=Encoding.Raw, format=PublicFormat.Raw)
