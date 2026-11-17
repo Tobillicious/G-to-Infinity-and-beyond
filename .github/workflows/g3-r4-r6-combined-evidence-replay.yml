@@ -20,6 +20,10 @@ on:
       - 'evidence/execution-boundary/test_koru_fixed_workload_contract.py'
       - 'evidence/execution-boundary/g3_r7_external_review_signature.py'
       - 'evidence/execution-boundary/test_g3_r7_external_review_signature.py'
+      - 'evidence/execution-boundary/g3_rights_composition/same_event.py'
+      - 'evidence/execution-boundary/g3_rights_composition/test_same_event.py'
+      - 'evidence/execution-boundary/g3_rights_review/rights_review.py'
+      - 'evidence/execution-boundary/g3_authority_evidence/authority_evidence.py'
   workflow_dispatch:
 jobs:
   one-head-linux-evidence:
@@ -42,6 +46,7 @@ jobs:
           "$PYTHON_BIN" -B -m unittest -v \
             test_g3_r7_same_head_replay_receipt \
             test_g3_r7_external_review_signature
+          "$PYTHON_BIN" -B -m unittest -v g3_rights_composition.test_same_event
           sudo -n env PYTHONPATH=. "$PYTHON_BIN" -B -m unittest -v \
             test_koru_operator_surviving_rollback \
             test_koru_operator_all_stores_rollback_contrast.AllStoresRollbackContrast \
