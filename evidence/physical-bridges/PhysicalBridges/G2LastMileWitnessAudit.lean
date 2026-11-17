@@ -56,8 +56,17 @@ theorem failed_complete_coverage_has_actual_counterexample
   have ⟨s, hS⟩ := Classical.not_forall.mp hNotCoverage
   have ⟨t, hT⟩ := Classical.not_forall.mp hS
   have hActual : physicalStep s t := by
-    by_contra hNo
-    exact hT (fun hStep => False.elim (hNo hStep))
+    by_cases hYes : physicalStep s t
+    · exact hYes
+    · have hImpossible :
+          physicalStep s t →
+            modeledStep s t ∧
+            source s = objectiveAt positiveWholeU (stage s) ∧
+            source t = objectiveAt positiveWholeU (stage t) ∧
+            stage t = stage s + 1 := by
+        intro hStep
+        exact False.elim (hYes hStep)
+      exact False.elim (hT hImpossible)
   have hNotJoin :
       ¬ (modeledStep s t ∧
         source s = objectiveAt positiveWholeU (stage s) ∧
