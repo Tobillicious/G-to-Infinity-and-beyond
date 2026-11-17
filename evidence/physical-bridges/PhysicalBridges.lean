@@ -503,3 +503,6 @@ import PhysicalBridges.G2FirstActualDutyMismatch
 
 -- Independent empirical bridge countercontrols: entropy capacity and telemetry are not X3.
 import PhysicalBridges.G2EmpiricalBridgeNegativeControls
+
+-- G2/G3 fail-closed tripwire: rejected guarded step HOLD and actual-effect mediation.
+import PhysicalBridges.G2FailClosedEnactmentBoundary
