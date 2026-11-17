@@ -55,13 +55,12 @@ class MarkerObserverPureTests(unittest.TestCase):
 
     def test_hardlinked_marker_rejected(self):
         with tempfile.TemporaryDirectory() as d:
-            (Path(d) / "fixed.marker").touch()
-            os.link(Path(d) / "fixed.marker", Path(d).parent / "marker-hardlink")
-            try:
-                with self.assertRaisesRegex(ValueError, "properties"):
-                    observe(d, expected_uid=os.geteuid())
-            finally:
-                (Path(d).parent / "marker-hardlink").unlink()
+            scope = Path(d) / "scope"
+            scope.mkdir()
+            (scope / "fixed.marker").touch()
+            os.link(scope / "fixed.marker", Path(d) / "second-link")
+            with self.assertRaisesRegex(ValueError, "properties"):
+                observe(scope, expected_uid=os.geteuid())
 
     def test_renamed_directory_rejected(self):
         with tempfile.TemporaryDirectory() as d:
