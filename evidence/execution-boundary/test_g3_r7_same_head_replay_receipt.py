@@ -28,16 +28,22 @@ class ExactHeadReplayReceiptTests(unittest.TestCase):
         total = len(cases) if count is None else count
         self.log.write_text("\n".join(cases) + "\n\nRan %d tests in 0.1s\n\n%s\n" % (total, status))
 
-    def check(self, sha=SHA, *, tree_clean=True):
+    def check(self, sha=SHA, *, tree_clean=True, tracked=True):
         def fake_git(argv, **kwargs):
             from subprocess import CompletedProcess
             if argv[3:5] == ["rev-parse", "HEAD"]:
                 return CompletedProcess(argv, 0, SHA + "\n", "")
             if argv[3:5] == ["diff", "--quiet"]:
                 return CompletedProcess(argv, 0 if tree_clean else 1, b"", b"")
+            if argv[3:5] == ["ls-files", "--error-unmatch"]:
+                return CompletedProcess(argv, 0 if tracked else 1, b"", b"")
             raise AssertionError("unexpected git command in R7 fixture")
         with patch("g3_r7_same_head_replay_receipt.subprocess.run", side_effect=fake_git):
             return inspect(log=self.log, checkout=self.root, expected_sha=sha)
+
+    def test_untracked_watched_source_rejected(self):
+        with self.assertRaisesRegex(ValueError, "not tracked"):
+            self.check(tracked=False)
 
     def test_modified_git_tree_rejected(self):
         with self.assertRaisesRegex(ValueError, "committed Git tree"):
