@@ -131,7 +131,7 @@ print(json.dumps({'artifacts':inventory,'journal':rows},sort_keys=True))
         self.assertEqual(len(after['journal']),1)
         self.assertEqual(after['journal'][0][0],self.event['event_id'])
         self.assertEqual(after['journal'][0][1],sha(self.html.encode()))
-        self.assertEqual(after['journal'][0][3],'DONE')
+        self.assertEqual(after['journal'][0][3],'COMMITTED')
         self.assertEqual(self.gate.effect_count(),1)
 
         # A distinct authenticated HOLD stops a later request through
