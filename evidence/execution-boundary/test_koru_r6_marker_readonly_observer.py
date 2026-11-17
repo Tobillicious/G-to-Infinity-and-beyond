@@ -10,6 +10,9 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+
+import koru_r6_marker_readonly_observer as observer_module
 
 from koru_r6_marker_readonly_observer import observe
 import test_koru_authority_owned_marker_service as base
@@ -71,6 +74,30 @@ class MarkerObserverPureTests(unittest.TestCase):
             marker_dir.rename(moved)
             with self.assertRaises(OSError):
                 observe(marker_dir, expected_uid=os.geteuid())
+
+    def test_same_filename_inode_swap_during_observation_is_rejected(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            scope = root / "scope"
+            scope.mkdir()
+            (scope / "fixed.marker").touch()
+            replacement = root / "replacement"
+            replacement.touch()
+            original_listdir = os.listdir
+            calls = 0
+
+            def concurrent_replace(directory_fd):
+                nonlocal calls
+                calls += 1
+                if calls == 2:
+                    # The visible name is unchanged but an entirely different
+                    # inode has replaced the one opened for the first read.
+                    os.replace(replacement, scope / "fixed.marker")
+                return original_listdir(directory_fd)
+
+            with patch.object(observer_module.os, "listdir", side_effect=concurrent_replace):
+                with self.assertRaisesRegex(ValueError, "replaced"):
+                    observe(scope, expected_uid=os.geteuid())
 
     def test_directory_symlink_denied(self):
         with tempfile.TemporaryDirectory() as d:
