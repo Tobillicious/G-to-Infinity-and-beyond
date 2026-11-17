@@ -58,8 +58,17 @@ def inspect(*, log, checkout, expected_sha):
     case_ids = [m.group(2) for m in matches]
     if any(not case_id.endswith("." + m.group(1)) for case_id, m in zip(case_ids, matches)):
         raise ValueError("test method identity mismatch")
-    if len(set(case_ids)) != len(case_ids):
-        raise ValueError("duplicate unittest case identity")
+    from collections import Counter
+    multiplicity = Counter(case_ids)
+    # unittest loads the same imported R4 fixture class in two named modules.
+    # Retain both successful executions, but refuse any other duplicate case.
+    reusable_fixture_prefix = (
+        "test_koru_operator_surviving_rollback.SurvivingOperatorRollbackTests."
+    )
+    if any(count > 2 or (count > 1 and not case_id.startswith(reusable_fixture_prefix))
+           for case_id, count in multiplicity.items()):
+        raise ValueError("unexplained duplicate unittest case identity")
+    duplicate_executions = sum(count - 1 for count in multiplicity.values())
     tested_modules = {m.group(2).split(".", 1)[0] for m in matches}
     if not REQUIRED_TEST_MODULES <= tested_modules:
         raise ValueError("missing mandatory R4/R5/R6 test module")
@@ -74,6 +83,8 @@ def inspect(*, log, checkout, expected_sha):
         "schema": "g3-r7-same-head-research-replay-v2",
         "source_commit": actual,
         "test_count": len(matches),
+        "unique_test_case_count": len(multiplicity),
+        "repeated_R4_fixture_executions": duplicate_executions,
         "test_case_identity_sha256": hashlib.sha256("\n".join(sorted(case_ids)).encode()).hexdigest(),
         "covered_test_modules": sorted(tested_modules),
         "tested_source_sha256": checksums,
