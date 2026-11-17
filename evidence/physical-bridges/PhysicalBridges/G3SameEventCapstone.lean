@@ -104,4 +104,38 @@ theorem g3_nonvacuous_source_and_witnessed_external_protection
 
 #print axioms g3_nonvacuous_source_and_witnessed_external_protection
 
+
+/-- **G3 physical falsification diagnostic, no bridge premise assumed.**
+An independently observed real event involving a genuinely owed particular
+that fails even one unchanged original-six duty falsifies at least one of the
+two required physical bridge claims: exhaustive refinement of actual events,
+or authentic six-duty subject reflection. This does NOT infer which claim
+fails or that either claim holds in the actual world. -/
+theorem observed_original_six_loss_exposes_coverage_or_meaning_gap
+    (J : JokerExperiment T FiniteObjectiveU H)
+    (realStep : W → W → Prop)
+    (read : W → Joint T H E n)
+    (carrier : P → Fin n)
+    (owed : P → Prop)
+    (actual : ParticularRelations W P)
+    (w v : W) (p : P)
+    (hReal : realStep w v)
+    (hOwed : owed p)
+    (hViolation :
+      ¬ OriginalX3 actual.continues actual.authorized actual.free
+          actual.restrained actual.maximal actual.provenanced w v p) :
+    ¬ AllActualEffectsRefineJoint J realStep read ∨
+      ¬ AuthenticSixReflections realStep read carrier owed actual := by
+  classical
+  by_cases hCoverage : AllActualEffectsRefineJoint J realStep read
+  · right
+    intro hMeaning
+    exact hViolation
+      (independently_covered_events_satisfy_original_six
+        J realStep read carrier owed actual
+        hCoverage hMeaning w v hReal p hOwed)
+  · exact Or.inl hCoverage
+
+#print axioms observed_original_six_loss_exposes_coverage_or_meaning_gap
+
 end PhysicalBridges.G3SameEventCapstone
