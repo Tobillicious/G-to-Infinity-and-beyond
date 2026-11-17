@@ -17,6 +17,7 @@ REQUIRED_TEST_MODULES = frozenset((
     "test_koru_r5_post_connect_kernel_fence",
     "test_koru_r5_kernel_denial_evidence",
     "test_koru_r6_marker_readonly_observer",
+    "test_koru_r5_forest_coverage_audit",
 ))
 CASE = re.compile(r"^(test_[A-Za-z0-9_]+) \((test_[A-Za-z0-9_]+\.[A-Za-z0-9_.]+)\) \.\.\. (ok|FAIL|ERROR|skipped.*|expected failure|unexpected success)$")
 
@@ -29,6 +30,8 @@ WATCH = (
     "koru_r5_kernel_denial_evidence.py",
     "koru_r6_marker_readonly_observer.py",
     "test_koru_r6_marker_readonly_observer.py",
+    "koru_r5_forest_coverage_audit.py",
+    "test_koru_r5_forest_coverage_audit.py",
 )
 
 def inspect(*, log, checkout, expected_sha):
@@ -85,6 +88,7 @@ def inspect(*, log, checkout, expected_sha):
         "covered_test_modules": sorted(tested_modules),
         "tested_source_sha256": checksums,
         "research_suite_executed": True,
+        "forest_six_duty_gap_checks_executed": True,
         "r4_independently_administered_custody_verified": False,
         "r5_all_actual_effects_covered": False,
         "r6_authentic_six_reflections_verified": False,
