@@ -491,3 +491,6 @@ import PhysicalBridges.G2PhysicalAgencyCumulativeJoin
 
 -- G2 coexistence: contraction upper bound + finite-stage injectivity + cumulative owed agency.
 import PhysicalBridges.G2NoncollapsingCoexistence
+
+-- G2 non-collapse of authentic agency projections on both cumulative trajectories.
+import PhysicalBridges.G2AgencyProjectionPreservation
