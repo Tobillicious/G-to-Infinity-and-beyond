@@ -1,6 +1,4 @@
 import PhysicalBridges.G2PhysicalAgencyCumulativeJoin
-import Mathlib.Tactic.Ring
-import Mathlib.Tactic.Linarith
 
 /-!
 # G2 non-collapsing coexistence, finite-stage agency, cumulative seed
@@ -66,8 +64,7 @@ theorem finite_orbits_contract_above
         _ ≤ k * (k ^ n * dist x y) :=
               mul_le_mul_of_nonneg_left ih hk
         _ = k ^ (n + 1) * dist x y := by
-              rw [pow_succ]
-              ring
+              simp only [pow_succ, mul_assoc, mul_comm, mul_left_comm]
 
 /-- One actual next-step certificate has already established the
     non-ledger original particular's continuation/required opportunities.
@@ -135,11 +132,12 @@ theorem nontrivial_exact_distance_preservation_not_strict_contraction
     (hKeepDistance : dist (advance x) (advance y) = dist x y) :
     False := by
   have hPositive : 0 < dist x y := dist_pos.mpr hDifferent
-  have hStrictGap : 0 < (1 - k) * dist x y :=
-    mul_pos (sub_pos.mpr hStrict) hPositive
+  have hShort : k * dist x y < dist x y := by
+    have h := mul_lt_mul_of_pos_right hStrict hPositive
+    simpa using h
   have hBound := hContract x y
   rw [hKeepDistance] at hBound
-  nlinarith
+  exact (not_lt_of_ge hBound) hShort
 
 #print axioms finite_orbits_do_not_merge
 #print axioms finite_orbits_contract_above
