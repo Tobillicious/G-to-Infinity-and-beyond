@@ -49,6 +49,12 @@ class ExactHeadReplayReceiptTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "committed Git tree"):
             self.check(tree_clean=False)
 
+    def test_all_mandatory_test_modules_are_source_fingerprinted(self):
+        record = self.check()
+        for module in REQUIRED_TEST_MODULES:
+            self.assertIn(module + ".py", WATCH)
+            self.assertIn(module + ".py", record["tested_source_sha256"])
+
     def test_valid_replay_never_certifies(self):
         record = self.check()
         self.assertEqual(record["test_count"], len(REQUIRED_TEST_MODULES))
