@@ -31,6 +31,7 @@ class ExactHeadReplayReceiptTests(unittest.TestCase):
     def check(self, sha=SHA):
         with patch("g3_r7_same_head_replay_receipt.subprocess.run") as run:
             run.return_value.stdout = SHA + "\n"
+            run.return_value.returncode = 0
             return inspect(log=self.log, checkout=self.root, expected_sha=sha)
 
     def test_valid_replay_never_certifies(self):
@@ -46,6 +47,16 @@ class ExactHeadReplayReceiptTests(unittest.TestCase):
                      "certified_for_production", "universal_physical_protection_proved",
                      "authorizes_effect"):
             self.assertFalse(record[flag])
+
+    def test_dirty_watched_source_rejected(self):
+        with patch("g3_r7_same_head_replay_receipt.subprocess.run") as run:
+            run.return_value.stdout = SHA + "\\n"
+            run.return_value.returncode = 1
+            with self.assertRaisesRegex(ValueError, "committed Git tree"):
+                inspect(log=self.log, checkout=self.root, expected_sha=SHA)
+
+    def test_clean_watched_source_identity_recorded(self):
+        self.assertIs(self.check()["working_tree_source_matches_commit"], True)
 
     def test_stale_head_rejected(self):
         with self.assertRaisesRegex(ValueError, "checkout"):
