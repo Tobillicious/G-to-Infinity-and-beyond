@@ -1,0 +1,52 @@
+name: G3 Linux production preflight (non-deploying)
+on:
+  pull_request:
+    paths:
+      - 'evidence/execution-boundary/koru_production_preflight.py'
+      - 'evidence/execution-boundary/test_koru_production_preflight.py'
+      - '.github/workflows/g3-production-preflight.yml'
+      - 'evidence/execution-boundary/koru_isolated_marker_writer.py'
+      - 'evidence/execution-boundary/test_koru_isolated_marker_writer.py'
+      - 'evidence/execution-boundary/test_koru_writer_uid_integration.py'
+      - 'evidence/execution-boundary/koru_writer_signed_policy.py'
+      - 'evidence/execution-boundary/test_koru_writer_signed_policy.py'
+      - 'evidence/execution-boundary/koru_writer_enactment_fence.py'
+      - 'evidence/execution-boundary/test_koru_writer_enactment_fence.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preflight-negative-controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate preflight and negative controls without privileges
+        run: |
+          PYTHONPATH=evidence/execution-boundary python -B -m unittest -v test_koru_production_preflight test_koru_isolated_marker_writer
+  signed-writer-policy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned research crypto dependency
+        run: python -m pip install 'cryptography>=42,<47'
+      - name: Verify writer-side signed permit checks fail closed
+        run: PYTHONPATH=evidence/execution-boundary python -B -m unittest -v test_koru_writer_signed_policy test_koru_writer_enactment_fence
+  uid-boundary-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run disposable 3-UID kernel DAC integration negative controls
+        run: |
+          sudo -n env PYTHONPATH=evidence/execution-boundary "$(command -v python)" -B -m unittest -v test_koru_writer_uid_integration

@@ -1,0 +1,274 @@
+name: G3 cross-UID signed HOLD research (non-deploying)
+on:
+  pull_request:
+    paths:
+      - 'evidence/execution-boundary/koru_cross_uid_authority.py'
+      - 'evidence/execution-boundary/test_koru_signed_cross_uid_hold.py'
+      - 'evidence/execution-boundary/koru_cross_uid_fence.py'
+      - 'evidence/execution-boundary/test_koru_cross_uid_fence.py'
+      - 'evidence/execution-boundary/koru_root_hold_floor.py'
+      - 'evidence/execution-boundary/test_koru_root_hold_floor.py'
+      - 'evidence/execution-boundary/test_koru_hold_intent_failures.py'
+      - 'evidence/execution-boundary/test_koru_guardian_sigkill.py'
+      - 'evidence/execution-boundary/test_koru_hold_ack_reconcile.py'
+      - 'evidence/execution-boundary/koru_signed_hold_receipt.py'
+      - 'evidence/execution-boundary/test_koru_signed_hold_receipt.py'
+      - 'evidence/execution-boundary/koru_hold_challenge_client.py'
+      - 'evidence/execution-boundary/test_koru_hold_challenge_client.py'
+      - 'evidence/execution-boundary/koru_local_hold_ack_socket.py'
+      - 'evidence/execution-boundary/test_koru_local_hold_ack_socket.py'
+      - 'evidence/execution-boundary/test_koru_hold_ack_real_cross_uid.py'
+      - 'evidence/execution-boundary/koru_socket_endpoint_pin.py'
+      - 'evidence/execution-boundary/test_koru_socket_endpoint_pin.py'
+      - 'evidence/execution-boundary/koru_root_receipt_key.py'
+      - 'evidence/execution-boundary/test_koru_root_receipt_key.py'
+      - 'evidence/execution-boundary/koru_provisioned_receipt_issuer.py'
+      - 'evidence/execution-boundary/test_koru_provisioned_receipt_issuer.py'
+      - 'evidence/execution-boundary/test_koru_guardian_key_restart.py'
+      - 'evidence/execution-boundary/koru_independent_hold_anchor_gate.py'
+      - 'evidence/execution-boundary/test_koru_independent_hold_anchor_gate.py'
+      - 'evidence/execution-boundary/koru_signed_remote_hold_witness.py'
+      - 'evidence/execution-boundary/test_koru_signed_remote_hold_witness.py'
+      - 'evidence/execution-boundary/koru_transactional_hold_witness.py'
+      - 'evidence/execution-boundary/test_koru_transactional_hold_witness.py'
+      - 'evidence/execution-boundary/koru_transaction_scoped_effect.py'
+      - 'evidence/execution-boundary/test_koru_transaction_scoped_effect.py'
+      - 'evidence/execution-boundary/test_koru_cross_process_effect_order.py'
+      - 'evidence/execution-boundary/koru_durable_effect_intent.py'
+      - 'evidence/execution-boundary/test_koru_durable_effect_intent.py'
+      - 'evidence/execution-boundary/koru_signed_effect_reconciliation.py'
+      - 'evidence/execution-boundary/test_koru_signed_effect_reconciliation.py'
+      - 'evidence/execution-boundary/koru_external_checkpoint_contrast.py'
+      - 'evidence/execution-boundary/test_koru_external_checkpoint_contrast.py'
+      - 'evidence/execution-boundary/koru_nonce_signed_checkpoint.py'
+      - 'evidence/execution-boundary/test_koru_nonce_signed_checkpoint.py'
+      - 'evidence/execution-boundary/koru_authority_admission_journal.py'
+      - 'evidence/execution-boundary/test_koru_authority_admission_journal.py'
+      - 'evidence/execution-boundary/koru_authority_effect_time_fence.py'
+      - 'evidence/execution-boundary/test_koru_authority_effect_time_fence.py'
+      - 'evidence/execution-boundary/koru_isolated_authority_executor.py'
+      - 'evidence/execution-boundary/test_koru_isolated_authority_executor.py'
+      - 'evidence/execution-boundary/koru_separated_authority_service.py'
+      - 'evidence/execution-boundary/koru_separated_effect_executor.py'
+      - 'evidence/execution-boundary/test_koru_separated_authority_executor.py'
+      - 'evidence/execution-boundary/koru_authority_owned_marker_service.py'
+      - 'evidence/execution-boundary/test_koru_authority_owned_marker_service.py'
+      - 'evidence/execution-boundary/test_koru_authority_owned_sigkill.py'
+      - 'evidence/execution-boundary/koru_authority_checkpoint_contrast.py'
+      - 'evidence/execution-boundary/test_koru_authority_checkpoint_contrast.py'
+      - 'evidence/execution-boundary/koru_monotonic_revision_witness.py'
+      - 'evidence/execution-boundary/test_koru_monotonic_revision_witness.py'
+      - 'evidence/execution-boundary/koru_cross_uid_revision_witness.py'
+      - 'evidence/execution-boundary/test_koru_cross_uid_revision_witness.py'
+      - 'evidence/execution-boundary/koru_mtls_revision_witness.py'
+      - 'evidence/execution-boundary/test_koru_mtls_revision_witness.py'
+      - 'evidence/execution-boundary/koru_client_revision_floor.py'
+      - 'evidence/execution-boundary/test_koru_client_revision_floor.py'
+      - 'evidence/execution-boundary/koru_two_witness_agreement.py'
+      - 'evidence/execution-boundary/test_koru_two_witness_agreement.py'
+      - 'evidence/execution-boundary/test_koru_dual_mtls_endpoints.py'
+      - 'evidence/execution-boundary/koru_retained_third_anchor.py'
+      - 'evidence/execution-boundary/test_koru_retained_third_anchor.py'
+      - 'evidence/execution-boundary/koru_anchor_partial_recovery.py'
+      - 'evidence/execution-boundary/test_koru_anchor_partial_recovery.py'
+      - 'evidence/execution-boundary/koru_signed_history_effect_fence.py'
+      - 'evidence/execution-boundary/test_koru_signed_history_effect_fence.py'
+      - 'evidence/execution-boundary/koru_authority_ordered_hold_effect.py'
+      - 'evidence/execution-boundary/test_koru_authority_ordered_hold_effect.py'
+      - 'evidence/execution-boundary/test_koru_authority_crossprocess_race.py'
+      - 'evidence/execution-boundary/koru_no_inherited_fd_executor.py'
+      - 'evidence/execution-boundary/test_koru_no_inherited_fd_executor.py'
+      - 'evidence/execution-boundary/koru_scm_rights_receive_guard.py'
+      - 'evidence/execution-boundary/test_koru_scm_rights_receive_guard.py'
+      - 'evidence/execution-boundary/koru_seccomp_fd_receive_fence.py'
+      - 'evidence/execution-boundary/test_koru_seccomp_fd_receive_fence.py'
+      - 'evidence/execution-boundary/test_koru_seccomp_path_effect_fence.py'
+      - 'evidence/execution-boundary/test_koru_r5_socket_family_fence.py'
+      - 'evidence/execution-boundary/test_koru_r5_process_creation_fence.py'
+      - 'evidence/execution-boundary/test_koru_r5_residual_unix_ipc.py'
+      - 'evidence/execution-boundary/test_koru_r5_post_connect_kernel_fence.py'
+      - 'evidence/execution-boundary/test_koru_r5_other_unix_destination.py'
+      - 'evidence/execution-boundary/test_koru_r5_same_uid_peer_impersonation.py'
+      - 'evidence/execution-boundary/test_koru_r5_observed_authority_process_peer.py'
+      - 'evidence/execution-boundary/koru_r5_observed_syscalls.py'
+      - 'evidence/execution-boundary/test_koru_r5_observed_syscalls.py'
+      - 'evidence/execution-boundary/koru_operator_checkpoint_recovery.py'
+      - 'evidence/execution-boundary/koru_operator_checkpoint_custodian.py'
+      - 'evidence/execution-boundary/koru_operator_checkpoint_mtls.py'
+      - 'evidence/execution-boundary/test_koru_operator_checkpoint_recovery.py'
+      - 'evidence/execution-boundary/test_koru_operator_checkpoint_custodian.py'
+      - 'evidence/execution-boundary/test_koru_operator_checkpoint_mtls.py'
+      - 'evidence/execution-boundary/test_koru_operator_checkpoint_handshake_bounds.py'
+      - 'evidence/execution-boundary/test_koru_operator_surviving_rollback.py'
+      - 'evidence/execution-boundary/test_koru_operator_checkpoint_interleaving.py'
+      - 'evidence/execution-boundary/test_koru_operator_checkpoint_strict_wire.py'
+      - 'evidence/execution-boundary/test_koru_operator_all_stores_rollback_contrast.py'
+      - 'evidence/execution-boundary/test_koru_operator_post_recovery_recheck.py'
+      - 'evidence/execution-boundary/test_koru_custodian_authenticated_observation.py'
+      - 'evidence/execution-boundary/test_koru_operator_readonly_negative_controls.py'
+      - 'evidence/execution-boundary/test_koru_operator_bound_witness_reads.py'
+      - 'evidence/execution-boundary/koru_landlock_write_fence.py'
+      - 'evidence/execution-boundary/test_koru_landlock_write_fence.py'
+      - 'evidence/execution-boundary/koru_executor_fd_startup_audit.py'
+      - 'evidence/execution-boundary/test_koru_executor_fd_startup_audit.py'
+      - 'evidence/execution-boundary/koru_fixed_workload_contract.py'
+      - 'evidence/execution-boundary/test_koru_fixed_workload_contract.py'
+      - 'evidence/execution-boundary/koru_pinned_security_dependencies.py'
+      - 'evidence/execution-boundary/test_koru_pinned_security_dependencies.py'
+      - 'evidence/execution-boundary/koru_fixed_entrypoint_freeze.py'
+      - 'evidence/execution-boundary/test_koru_fixed_entrypoint_freeze.py'
+      - 'evidence/execution-boundary/koru_second_hop_dependency_contract.py'
+      - 'evidence/execution-boundary/test_koru_second_hop_dependency_contract.py'
+      - 'evidence/execution-boundary/test_koru_authority_malformed_wire.py'
+      - 'evidence/execution-boundary/koru_bounded_server.py'
+      - 'evidence/execution-boundary/koru_authority_reserved_workers.py'
+      - 'evidence/execution-boundary/test_koru_authority_reserved_hold_capacity.py'
+      - 'evidence/execution-boundary/koru_emergency_hold_endpoint.py'
+      - 'evidence/execution-boundary/test_koru_emergency_hold_endpoint.py'
+      - 'evidence/execution-boundary/test_koru_emergency_hold_persistence.py'
+      - 'evidence/execution-boundary/G3-INTEGRATED-RESEARCH-CANDIDATE.md'
+      - 'evidence/execution-boundary/test_koru_integration_manifest.py'
+      - 'evidence/execution-boundary/koru_runtime_evidence.py'
+      - 'evidence/execution-boundary/test_koru_runtime_evidence.py'
+      - 'evidence/execution-boundary/test_koru_authority_child_runtime_observation.py'
+      - '.github/workflows/g3-cross-uid-signed-hold-research.yml'
+      - '.github/workflows/g3-r5-forest-integrated-review.yml'
+      - '.github/workflows/g3-r5-forest-gap-check.yml'
+      - 'evidence/execution-boundary/koru_r5_forest_coverage_audit.py'
+      - 'evidence/execution-boundary/test_koru_r5_forest_coverage_audit.py'
+      - 'evidence/execution-boundary/FOREST-HUME-IS-SUBSTITUTION-2026-11-17.md'
+      - 'evidence/execution-boundary/FOREST-ETHICS-OPERATOR-ATLAS-2026-11-17.md'
+  workflow_dispatch:
+jobs:
+  disposable-linux:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install 'cryptography==46.0.4'
+      - name: Disposable cross-UID signed HOLD integration
+        run: |
+          cd evidence/execution-boundary
+          PYTHON_BIN="$(python -c 'import sys; print(sys.executable)')"
+          sudo -n env PYTHONPATH=. "$PYTHON_BIN" -B -m unittest -v \
+            test_koru_cross_uid_fence \
+            test_koru_signed_cross_uid_hold \
+            test_koru_root_hold_floor \
+            test_koru_hold_intent_failures \
+            test_koru_guardian_sigkill \
+            test_koru_hold_ack_reconcile \
+            test_koru_signed_hold_receipt \
+            test_koru_hold_challenge_client \
+            test_koru_local_hold_ack_socket \
+            test_koru_hold_ack_real_cross_uid \
+            test_koru_socket_endpoint_pin \
+            test_koru_root_receipt_key \
+            test_koru_provisioned_receipt_issuer \
+            test_koru_guardian_key_restart \
+            test_koru_independent_hold_anchor_gate \
+            test_koru_signed_remote_hold_witness \
+            test_koru_transactional_hold_witness \
+            test_koru_transaction_scoped_effect \
+            test_koru_cross_process_effect_order \
+            test_koru_durable_effect_intent \
+            test_koru_signed_effect_reconciliation \
+            test_koru_external_checkpoint_contrast \
+            test_koru_nonce_signed_checkpoint \
+            test_koru_authority_admission_journal \
+            test_koru_authority_effect_time_fence \
+            test_koru_isolated_authority_executor \
+            test_koru_separated_authority_executor \
+            test_koru_authority_owned_marker_service \
+            test_koru_authority_owned_sigkill \
+            test_koru_authority_checkpoint_contrast \
+            test_koru_monotonic_revision_witness \
+            test_koru_cross_uid_revision_witness \
+            test_koru_mtls_revision_witness \
+            test_koru_client_revision_floor \
+            test_koru_two_witness_agreement \
+            test_koru_dual_mtls_endpoints \
+            test_koru_retained_third_anchor \
+            test_koru_anchor_partial_recovery \
+            test_koru_signed_history_effect_fence \
+            test_koru_authority_ordered_hold_effect \
+            test_koru_authority_crossprocess_race \
+            test_koru_no_inherited_fd_executor \
+            test_koru_scm_rights_receive_guard \
+            test_koru_seccomp_fd_receive_fence \
+            test_koru_seccomp_path_effect_fence \
+            test_koru_r5_socket_family_fence \
+            test_koru_r5_process_creation_fence \
+            test_koru_r5_residual_unix_ipc \
+            test_koru_r5_post_connect_kernel_fence \
+            test_koru_r5_other_unix_destination \
+            test_koru_r5_same_uid_peer_impersonation \
+            test_koru_r5_observed_authority_process_peer \
+            test_koru_r5_observed_syscalls \
+            test_koru_operator_checkpoint_recovery \
+            test_koru_operator_checkpoint_custodian \
+            test_koru_operator_checkpoint_mtls \
+            test_koru_operator_checkpoint_handshake_bounds \
+            test_koru_operator_surviving_rollback \
+            test_koru_operator_checkpoint_interleaving \
+            test_koru_operator_checkpoint_strict_wire \
+            test_koru_operator_all_stores_rollback_contrast \
+            test_koru_operator_post_recovery_recheck \
+            test_koru_custodian_authenticated_observation \
+            test_koru_operator_readonly_negative_controls \
+            test_koru_operator_bound_witness_reads \
+            test_koru_landlock_write_fence \
+            test_koru_executor_fd_startup_audit \
+            test_koru_fixed_workload_contract \
+            test_koru_pinned_security_dependencies \
+            test_koru_fixed_entrypoint_freeze \
+            test_koru_second_hop_dependency_contract \
+            test_koru_authority_malformed_wire \
+            test_koru_authority_reserved_hold_capacity \
+            test_koru_emergency_hold_endpoint \
+            test_koru_emergency_hold_persistence \
+            test_koru_integration_manifest \
+            test_koru_runtime_evidence \
+            test_koru_authority_child_runtime_observation
+          sudo -n env PYTHONPATH=. "$PYTHON_BIN" -B koru_runtime_evidence.py \
+            --checkout-sha "${{ github.event.pull_request.head.sha || github.sha }}" \
+            --output "$RUNNER_TEMP/g3-runtime-evidence.json"
+      - name: Trace actual confined-child syscalls (R5 research only)
+        run: |
+          # Disposable CI tracing of the existing fixed launcher only.
+          # The parent test runner and authority are excluded by the
+          # successful seccomp-install + AF_UNIX selection rule.
+          sudo -n apt-get update -qq
+          sudo -n apt-get install -y -qq strace
+          cd evidence/execution-boundary
+          PYTHON_BIN="$(python -c 'import sys; print(sys.executable)')"
+          sudo -n strace -ff -qq -s 1024 -o "$RUNNER_TEMP/g3-r5-trace" \
+            -e trace=all \
+            env PYTHONPATH=. "$PYTHON_BIN" -B -m unittest -v \
+              test_koru_no_inherited_fd_executor.NoInheritedFdTests.test_fixed_launcher_can_request_one_authority_owned_effect \
+              test_koru_no_inherited_fd_executor.NoInheritedFdTests.test_hold_first_denies_fixed_launcher
+          sudo -n env PYTHONPATH=. "$PYTHON_BIN" -B koru_r5_observed_syscalls.py \
+            --trace-prefix "$RUNNER_TEMP/g3-r5-trace" \
+            --output "$RUNNER_TEMP/g3-r5-syscall-inventory.json"
+          sudo -n chmod 0644 "$RUNNER_TEMP/g3-r5-syscall-inventory.json"
+      - name: Archive G3 R5 observed syscall inventory (research only)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g3-r5-observed-syscalls
+          path: ${{ runner.temp }}/g3-r5-syscall-inventory.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Archive G3 runtime inventory (research only)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g3-runtime-inventory
+          path: ${{ runner.temp }}/g3-runtime-evidence.json
+          if-no-files-found: warn
+          retention-days: 14
