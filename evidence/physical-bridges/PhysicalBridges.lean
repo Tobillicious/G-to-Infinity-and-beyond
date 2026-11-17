@@ -485,3 +485,6 @@ import PhysicalBridges.LivingTreeFencedEffects
 
 -- External effects + independently validated original-six subject reflections.
 import PhysicalBridges.ExternalJointEffectRefinement
+
+-- G2 same-event measured physical opportunity + per-particular cumulative agency join.
+import PhysicalBridges.G2PhysicalAgencyCumulativeJoin
