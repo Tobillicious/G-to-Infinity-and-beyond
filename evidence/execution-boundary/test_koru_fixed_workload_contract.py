@@ -26,6 +26,20 @@ class FixedWorkloadContractTests(unittest.TestCase):
     def test_actual_checkout_matches_narrow_contract(self):
         self.assertTrue(verify_checkout())
 
+    def test_injected_direct_marker_write_rejected(self):
+        marker = '            request = json.loads(data)'
+        self.assertIn(marker, self.authority)
+        changed = self.authority.replace(
+            marker, marker + '\\n            self.server.write_fixed_marker()', 1)
+        self.check_rejected(authority=changed)
+
+    def test_unreviewed_shell_effect_call_rejected(self):
+        marker = '            request = json.loads(data)'
+        self.assertIn(marker, self.authority)
+        changed = self.authority.replace(
+            marker, marker + '\\n            os.system("true")', 1)
+        self.check_rejected(authority=changed)
+
     def test_new_unreviewed_operation_rejected(self):
         self.check_rejected(authority=self.authority.replace(
             '{"op": "fixed_marker"}','{"op": "arbitrary_write"}'))
