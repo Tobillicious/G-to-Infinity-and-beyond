@@ -43,7 +43,9 @@ WATCH = (
 )
 # Every required test module is itself part of the reviewed evidence input.
 # Do not allow future required-suite additions to escape source fingerprinting.
-WATCH = tuple(sorted(set(WATCH) | {name + ".py" for name in REQUIRED_TEST_MODULES}))
+WATCH = tuple(sorted(set(WATCH) | {name + ".py" for name in REQUIRED_TEST_MODULES}
+                     | {"g3_r7_same_head_replay_receipt.py",
+                        "test_g3_r7_same_head_replay_receipt.py"}))
 
 def inspect(*, log, checkout, expected_sha):
     if not isinstance(expected_sha, str) or re.fullmatch(r"[0-9a-f]{40}", expected_sha) is None:
