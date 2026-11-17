@@ -16,6 +16,8 @@ on:
       - 'evidence/execution-boundary/test_koru_r5_process_creation_fence.py'
       - 'evidence/execution-boundary/test_koru_r5_socket_family_fence.py'
       - 'evidence/execution-boundary/test_koru_no_inherited_fd_executor.py'
+      - 'evidence/execution-boundary/g3_r7_external_review_signature.py'
+      - 'evidence/execution-boundary/test_g3_r7_external_review_signature.py'
   workflow_dispatch:
 jobs:
   one-head-linux-evidence:
@@ -35,7 +37,9 @@ jobs:
           cd evidence/execution-boundary
           PYTHON_BIN="$(python -c 'import sys; print(sys.executable)')"
           set -o pipefail
-          "$PYTHON_BIN" -B -m unittest -v test_g3_r7_same_head_replay_receipt
+          "$PYTHON_BIN" -B -m unittest -v \
+            test_g3_r7_same_head_replay_receipt \
+            test_g3_r7_external_review_signature
           sudo -n env PYTHONPATH=. "$PYTHON_BIN" -B -m unittest -v \
             test_koru_operator_surviving_rollback \
             test_koru_operator_all_stores_rollback_contrast.AllStoresRollbackContrast \
