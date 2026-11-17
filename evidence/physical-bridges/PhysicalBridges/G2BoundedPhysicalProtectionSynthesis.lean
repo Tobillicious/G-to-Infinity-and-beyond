@@ -46,10 +46,10 @@ theorem physical_history_has_accepted_source_history
   induction hPhysical with
   | refl =>
       exact ⟨s, Reach.refl s, hRelated⟩
-  | @tail p mid last hBefore hEdge ih =>
+  | tail hBefore hEdge ih =>
       obtain ⟨t, hSource, hRel⟩ := ih
       obtain ⟨u, hStep, hNext⟩ :=
-        hMediation t mid last hRel hEdge
+        hMediation t _ _ hRel hEdge
       exact ⟨u, Reach.tail hSource hStep, hNext⟩
 
 /-- THE bounded same-history protection synthesis.
