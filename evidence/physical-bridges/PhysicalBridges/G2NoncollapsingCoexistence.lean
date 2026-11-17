@@ -39,31 +39,11 @@ theorem finite_orbits_do_not_merge
   | succ n ih =>
       simpa [orbit] using (hInjective.ne ih)
 
-/-- An upper separation bound at every stage of the SAME evolution. -/
-theorem finite_orbits_contract_above
-    (advance : S → S) (distance : S → S → ℝ) (k : ℝ)
-    (hk : 0 ≤ k)
-    (hContract : ∀ x y, distance (advance x) (advance y) ≤
-      k * distance x y)
-    (x y : S) :
-    ∀ n : Nat,
-      distance (orbit advance x n) (orbit advance y n) ≤
-        k ^ n * distance x y := by
-  intro n
-  induction n with
-  | zero => simp [orbit]
-  | succ n ih =>
-      calc
-        distance (orbit advance x (n + 1))
-            (orbit advance y (n + 1)) =
-            distance (advance (orbit advance x n))
-                 (advance (orbit advance y n)) := by rfl
-        _ ≤ k * distance (orbit advance x n)
-                      (orbit advance y n) := hContract _ _
-        _ ≤ k * (k ^ n * distance x y) :=
-              mul_le_mul_of_nonneg_left ih hk
-        _ = k ^ (n + 1) * distance x y := by
-              simp only [pow_succ, mul_assoc, mul_comm, mul_left_comm]
+/-!
+Quantitative Banach bounds belong in the separate metric-space development
+with its appropriate real-number library. This core-only proof module does not
+relabel a natural-number proxy as the genuine physical metric.
+-/
 
 /-- One actual next-step certificate has already established the
     non-ledger original particular's continuation/required opportunities.
@@ -117,30 +97,7 @@ theorem cumulative_owed_agency_on_both_distinct_orbits
   have hyN := retain y hy n
   exact ⟨distinct, hxN.1, hyN.1, hxN.2, hyN.2⟩
 
-/-- If a complete state-pair distance must remain EXACTLY fixed,
-    that pair cannot also experience a strict contraction unless it
-    already has zero distance. This rules out pretending that the
-    entire agency metric is simultaneously unchanged and contracted. -/
-theorem nontrivial_exact_distance_preservation_not_strict_contraction
-    (advance : S → S) (distance : S → S → ℝ) (k : ℝ)
-    (hk : 0 ≤ k) (hStrict : k < 1)
-    (hContract : ∀ x y, distance (advance x) (advance y) ≤
-      k * distance x y)
-    (x y : S) (hDifferent : x ≠ y)
-    (hPositiveDistinct : x ≠ y → 0 < distance x y)
-    (hKeepDistance : distance (advance x) (advance y) = distance x y) :
-    False := by
-  have hPositive : 0 < distance x y := hPositiveDistinct hDifferent
-  have hShort : k * distance x y < distance x y := by
-    have h := mul_lt_mul_of_pos_right hStrict hPositive
-    simpa using h
-  have hBound := hContract x y
-  rw [hKeepDistance] at hBound
-  exact (not_lt_of_ge hBound) hShort
-
 #print axioms finite_orbits_do_not_merge
-#print axioms finite_orbits_contract_above
 #print axioms cumulative_owed_agency_on_both_distinct_orbits
-#print axioms nontrivial_exact_distance_preservation_not_strict_contraction
 
 end PhysicalBridges.G2NoncollapsingCoexistence
