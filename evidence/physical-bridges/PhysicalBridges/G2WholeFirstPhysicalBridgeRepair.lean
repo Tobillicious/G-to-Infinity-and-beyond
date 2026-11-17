@@ -23,7 +23,8 @@ cannot supply the inverse for the whole.
 namespace PhysicalBridges.G2WholeFirstPhysicalBridgeRepair
 
 open PhysicalBridges.KoruObjectiveWholeU
-open PhysicalBridges.BCRDOperatorSubjectEventJoin
+open PhysicalBridges.KoruWholeEventEnactment
+open PhysicalBridges.BCRDTransportedParticularMarker
 open PhysicalBridges.FrozenBCRDEvents
 
 /-- The same local source event need not identify the complete
