@@ -1,0 +1,77 @@
+"""Non-certifying R7 replay receipt for a pinned disposable Linux CI run.
+
+Binds observed unittest success, source bytes and exact git HEAD. CI reports
+are not independent reviewer signatures, off-host custody, or subject evidence.
+"""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+
+WATCH = (
+    "koru_operator_checkpoint_recovery.py",
+    "koru_operator_checkpoint_custodian.py",
+    "koru_operator_checkpoint_mtls.py",
+    "koru_no_inherited_fd_executor.py",
+    "koru_seccomp_fd_receive_fence.py",
+    "koru_r5_kernel_denial_evidence.py",
+    "koru_r6_marker_readonly_observer.py",
+    "test_koru_r6_marker_readonly_observer.py",
+)
+
+def inspect(*, log, checkout, expected_sha):
+    if not isinstance(expected_sha, str) or re.fullmatch(r"[0-9a-f]{40}", expected_sha) is None:
+        raise ValueError("invalid exact commit")
+    root = Path(checkout).resolve(strict=True)
+    actual = subprocess.run(
+        ["git", "-C", str(root), "rev-parse", "HEAD"],
+        capture_output=True, text=True, check=True).stdout.strip()
+    if actual != expected_sha:
+        raise ValueError("tested checkout does not match exact commit")
+    lines = Path(log).read_text(encoding="utf8").splitlines()
+    summaries = [re.fullmatch(r"Ran ([0-9]+) tests? in ([0-9.]+)s", s.strip())
+                 for s in lines]
+    summaries = [s for s in summaries if s is not None]
+    if len(summaries) != 1 or int(summaries[0].group(1)) < 1:
+        raise ValueError("exactly one positive unittest summary required")
+    if sum(s.strip() == "OK" for s in lines) != 1:
+        raise ValueError("one unambiguous unittest OK required")
+    if any(re.search(r"^(FAILED|ERROR:|FAIL:|Traceback \(most recent call last\))", s.strip()) for s in lines):
+        raise ValueError("failure content in replay transcript")
+    source_root = root / "evidence" / "execution-boundary"
+    checksums = {}
+    for name in WATCH:
+        target = source_root / name
+        if not target.is_file() or target.is_symlink():
+            raise ValueError("source missing or symlink: " + name)
+        checksums[name] = hashlib.sha256(target.read_bytes()).hexdigest()
+    return {
+        "schema": "g3-r7-same-head-research-replay-v1",
+        "source_commit": actual,
+        "test_count": int(summaries[0].group(1)),
+        "tested_source_sha256": checksums,
+        "research_suite_executed": True,
+        "r4_independently_administered_custody_verified": False,
+        "r5_all_actual_effects_covered": False,
+        "r6_authentic_six_reflections_verified": False,
+        "r7_independent_reviewer_accepted": False,
+        "certified_for_production": False,
+        "universal_physical_protection_proved": False,
+        "authorizes_effect": False,
+    }
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--log", type=Path, required=True)
+    ap.add_argument("--checkout", type=Path, required=True)
+    ap.add_argument("--sha", required=True)
+    ap.add_argument("--output", type=Path, required=True)
+    args = ap.parse_args()
+    result = inspect(log=args.log, checkout=args.checkout, expected_sha=args.sha)
+    args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+    print("R7 bounded same-head replay receipt: " + str(result["test_count"]) + " tests")
+    
+if __name__ == "__main__":
+    main()
