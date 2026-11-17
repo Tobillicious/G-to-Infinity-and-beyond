@@ -32,7 +32,7 @@ jobs:
           "$PYTHON_BIN" -B -m unittest -v test_g3_r7_same_head_replay_receipt
           sudo -n env PYTHONPATH=. "$PYTHON_BIN" -B -m unittest -v \
             test_koru_operator_surviving_rollback \
-            test_koru_operator_all_stores_rollback_contrast \
+            test_koru_operator_all_stores_rollback_contrast.AllStoresRollbackContrast \
             test_koru_operator_post_recovery_recheck \
             test_koru_r5_post_connect_kernel_fence \
             test_koru_r5_kernel_denial_evidence \
