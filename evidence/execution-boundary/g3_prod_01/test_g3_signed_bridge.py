@@ -79,6 +79,68 @@ class SignedBridgeTests(unittest.TestCase):
             epoch=self.epoch,event=self.event,permit=self.permit,
             mesh_handshake=packet,
             mesh_signature=self.mkey.sign(encode_body(packet)).hex())
+    def test_independent_process_observes_signed_curriculum_commit(self):
+        """Outside-process pre/post evidence for one bounded disk effect.
+
+        Independent PROCESS, not a separately secured observer or a claim
+        about Zelda-Fitzgerald hardware. The same local account can still
+        bypass the write gate if granted direct filesystem capabilities.
+        """
+        import json
+        observer = r"""
+import hashlib,json,os,sqlite3,stat,sys
+from pathlib import Path
+directory=Path(sys.argv[1])
+db_path=sys.argv[2]
+files=sorted(directory.iterdir())
+inventory=[]
+for path in files:
+    info=path.lstat()
+    if not stat.S_ISREG(info.st_mode):
+        raise SystemExit('nonregular artifact')
+    inventory.append({'name':path.name,
+                      'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+                      'mode':stat.S_IMODE(info.st_mode),
+                      'bytes':info.st_size})
+conn=sqlite3.connect('file:'+db_path+'?mode=ro',uri=True)
+rows=conn.execute('SELECT id,digest,epoch,state FROM effect ORDER BY id').fetchall()
+conn.close()
+print(json.dumps({'artifacts':inventory,'journal':rows},sort_keys=True))
+"""
+        def observe():
+            result=subprocess.run(
+                [sys.executable,'-B','-c',observer,str(self.out),
+                 str(self.root/'writer.sqlite')],
+                capture_output=True,text=True,timeout=8,
+                cwd=str(self.root))
+            self.assertEqual(result.returncode,0,result.stderr)
+            return json.loads(result.stdout)
+
+        before=observe()
+        self.assertEqual(before['artifacts'],[])
+        self.assertEqual(before['journal'],[])
+
+        self.lease()
+        committed=self.writer.write(self.request())
+        self.assertEqual(committed['code'],'committed')
+        after=observe()
+        self.assertEqual(len(after['artifacts']),1)
+        self.assertEqual(after['artifacts'][0]['sha256'],sha(self.html.encode()))
+        self.assertEqual(after['artifacts'][0]['mode'],0o400)
+        self.assertEqual(after['artifacts'][0]['bytes'],len(self.html.encode()))
+        self.assertEqual(len(after['journal']),1)
+        self.assertEqual(after['journal'][0][0],self.event['event_id'])
+        self.assertEqual(after['journal'][0][1],sha(self.html.encode()))
+        self.assertEqual(after['journal'][0][3],'DONE')
+        self.assertEqual(self.gate.effect_count(),1)
+
+        # A distinct authenticated HOLD stops a later request through
+        # this broker. Re-read the disk and journal *outside* the writer.
+        self.assertTrue(self.writer.hold()['ok'])
+        denied=self.writer.write(self.request(seq=2))
+        self.assertEqual(denied['code'],'stale_or_halted')
+        self.assertEqual(observe(),after)
+
     def test_missing_lease_denies(self):
         self.assertEqual(self.writer.write(self.request())['code'],
                          'mesh_FAIL_CLOSED_lease_unavailable')
