@@ -41,6 +41,38 @@ class MarkerObserverPureTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "properties"):
                 observe(d, expected_uid=os.geteuid())
 
+    def test_fifo_marker_rejected_without_blocking(self):
+        with tempfile.TemporaryDirectory() as d:
+            os.mkfifo(Path(d) / "fixed.marker")
+            with self.assertRaisesRegex(ValueError, "properties"):
+                observe(d, expected_uid=os.geteuid())
+
+    def test_wrong_owner_rejected(self):
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d) / "fixed.marker").touch()
+            with self.assertRaisesRegex(ValueError, "properties"):
+                observe(d, expected_uid=os.geteuid() + 1)
+
+    def test_hardlinked_marker_rejected(self):
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d) / "fixed.marker").touch()
+            os.link(Path(d) / "fixed.marker", Path(d).parent / "marker-hardlink")
+            try:
+                with self.assertRaisesRegex(ValueError, "properties"):
+                    observe(d, expected_uid=os.geteuid())
+            finally:
+                (Path(d).parent / "marker-hardlink").unlink()
+
+    def test_renamed_directory_rejected(self):
+        with tempfile.TemporaryDirectory() as d:
+            marker_dir = Path(d) / "markers"
+            marker_dir.mkdir()
+            # A missing named path must not silently authenticate a former FD.
+            moved = Path(d) / "former-markers"
+            marker_dir.rename(moved)
+            with self.assertRaises(OSError):
+                observe(marker_dir, expected_uid=os.geteuid())
+
     def test_directory_symlink_denied(self):
         with tempfile.TemporaryDirectory() as d:
             target = Path(d) / "real"
