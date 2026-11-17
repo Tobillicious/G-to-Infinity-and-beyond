@@ -16,6 +16,8 @@ on:
       - 'evidence/execution-boundary/test_koru_r5_process_creation_fence.py'
       - 'evidence/execution-boundary/test_koru_r5_socket_family_fence.py'
       - 'evidence/execution-boundary/test_koru_no_inherited_fd_executor.py'
+      - 'evidence/execution-boundary/koru_fixed_workload_contract.py'
+      - 'evidence/execution-boundary/test_koru_fixed_workload_contract.py'
       - 'evidence/execution-boundary/g3_r7_external_review_signature.py'
       - 'evidence/execution-boundary/test_g3_r7_external_review_signature.py'
   workflow_dispatch:
@@ -51,7 +53,8 @@ jobs:
             test_koru_r5_residual_unix_ipc \
             test_koru_r5_process_creation_fence \
             test_koru_r5_socket_family_fence \
-            test_koru_no_inherited_fd_executor 2>&1 | tee "$RUNNER_TEMP/g3-r4-r6-replay.txt"
+            test_koru_no_inherited_fd_executor \
+            test_koru_fixed_workload_contract 2>&1 | tee "$RUNNER_TEMP/g3-r4-r6-replay.txt"
           "$PYTHON_BIN" -B g3_r7_same_head_replay_receipt.py \
             --log "$RUNNER_TEMP/g3-r4-r6-replay.txt" \
             --checkout "../.." \
