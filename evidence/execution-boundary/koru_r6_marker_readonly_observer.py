@@ -30,7 +30,10 @@ def observe(directory, *, expected_uid):
             # another inode; O_NONBLOCK prevents a hostile FIFO from hanging.
             before = os.stat("fixed.marker", dir_fd=fd, follow_symlinks=False)
             file_flags = os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK | os.O_CLOEXEC
-            marker_fd = os.open("fixed.marker", file_flags, dir_fd=fd)
+            try:
+                marker_fd = os.open("fixed.marker", file_flags, dir_fd=fd)
+            except OSError as error:
+                raise ValueError("marker identity or inode properties invalid") from error
             try:
                 info = os.fstat(marker_fd)
             finally:
