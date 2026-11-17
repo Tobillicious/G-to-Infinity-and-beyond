@@ -47,6 +47,14 @@ def observe(directory, *, expected_uid):
         # Detect a replaceable name or directory changed during the read.
         if os.listdir(fd) != names:
             raise ValueError("marker directory changed during observation")
+        if result["exists"]:
+            # Same filename is not sufficient: reject an inode swapped between
+            # the descriptor inspection and final directory enumeration.
+            final_info = os.stat("fixed.marker", dir_fd=fd, follow_symlinks=False)
+            if ((final_info.st_dev, final_info.st_ino, final_info.st_uid,
+                 final_info.st_size, final_info.st_nlink) !=
+                (info.st_dev, info.st_ino, info.st_uid, info.st_size, info.st_nlink)):
+                raise ValueError("marker replaced during observation")
         after_dir = os.fstat(fd)
         named_dir = os.stat(directory, follow_symlinks=False)
         if ((directory_id.st_dev, directory_id.st_ino) !=
