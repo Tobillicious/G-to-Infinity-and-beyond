@@ -94,6 +94,13 @@ def inspect(*, log, checkout, expected_sha):
         capture_output=True, check=False)
     if tree_check.returncode != 0:
         raise ValueError("reviewed source does not match committed Git tree")
+    # git diff ignores untracked files. Require each reviewed file to be
+    # present in the immutable Git index before accepting its SHA-256.
+    tracked = subprocess.run(
+        ["git", "-C", str(root), "ls-files", "--error-unmatch", "--", *watched_paths],
+        capture_output=True, check=False)
+    if tracked.returncode != 0:
+        raise ValueError("reviewed source is not tracked by Git")
     return {
         "schema": "g3-r7-same-head-research-replay-v2",
         "working_tree_source_matches_commit": True,
