@@ -497,3 +497,6 @@ import PhysicalBridges.G2AgencyProjectionPreservation
 
 -- Distinct six G-Mesh witness nodes cover the six unchanged original duties.
 import PhysicalBridges.G2SixNodeDutyCorrespondence
+
+-- Exact tagged original-six duty mismatch on the same actual W-covered event.
+import PhysicalBridges.G2FirstActualDutyMismatch
