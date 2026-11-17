@@ -30,14 +30,14 @@ class FixedWorkloadContractTests(unittest.TestCase):
         marker = '            request = json.loads(data)'
         self.assertIn(marker, self.authority)
         changed = self.authority.replace(
-            marker, marker + '\\n            self.server.write_fixed_marker()', 1)
+            marker, marker + '\n            self.server.write_fixed_marker()', 1)
         self.check_rejected(authority=changed)
 
     def test_unreviewed_shell_effect_call_rejected(self):
         marker = '            request = json.loads(data)'
         self.assertIn(marker, self.authority)
         changed = self.authority.replace(
-            marker, marker + '\\n            os.system("true")', 1)
+            marker, marker + '\n            os.system("true")', 1)
         self.check_rejected(authority=changed)
 
     def test_new_unreviewed_operation_rejected(self):
