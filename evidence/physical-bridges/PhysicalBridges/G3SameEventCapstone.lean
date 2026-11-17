@@ -138,4 +138,66 @@ theorem observed_original_six_loss_exposes_coverage_or_meaning_gap
 
 #print axioms observed_original_six_loss_exposes_coverage_or_meaning_gap
 
+
+/-- All SIX *local* source-to-subject implications at the ONE actual event.
+This is an audit obligation, not an assertion that the real duties hold.
+It retains each original source relation separately, with no replacement
+of authentic consent, historical continuity, freedom or provenance. -/
+def AuthenticSixAtEvent
+    (read : W → Joint T H E n)
+    (carrier : P → Fin n)
+    (actual : ParticularRelations W P)
+    (w v : W) (p : P) : Prop :=
+  ((relations n).continues (read w).2 (read v).2 (carrier p) →
+      actual.continues w v p) ∧
+  ((relations n).authorized (read w).2 (read v).2 (carrier p) →
+      actual.authorized w v p) ∧
+  ((relations n).free (read w).2 (read v).2 (carrier p) →
+      actual.free w v p) ∧
+  ((relations n).restrained (read w).2 (read v).2 (carrier p) →
+      actual.restrained w v p) ∧
+  ((relations n).maximal (read w).2 (read v).2 (carrier p) →
+      actual.maximal w v p) ∧
+  ((relations n).provenanced (read w).2 (read v).2 (carrier p) →
+      actual.provenanced w v p)
+
+/-- Fail-closed SAME-EVENT diagnosis. Given an independently witnessed
+original-six violation, the *particular observed transition* is either
+not a modeled joint step or the six local semantic implications are
+not all faithful for the *same owed particular*. No global coverage,
+authenticity, or source-preservation premise is assumed. -/
+theorem observed_violation_localizes_exact_event_gap
+    (J : JokerExperiment T FiniteObjectiveU H)
+    (realStep : W → W → Prop)
+    (read : W → Joint T H E n)
+    (carrier : P → Fin n)
+    (owed : P → Prop)
+    (actual : ParticularRelations W P)
+    (w v : W) (p : P)
+    (_hReal : realStep w v)
+    (_hOwed : owed p)
+    (hViolation :
+      ¬ OriginalX3 actual.continues actual.authorized actual.free
+          actual.restrained actual.maximal actual.provenanced w v p) :
+    ¬ jointStep J (read w) (read v) ∨
+      ¬ AuthenticSixAtEvent read carrier actual w v p := by
+  classical
+  by_cases hJoint : jointStep J (read w) (read v)
+  · right
+    intro hAt
+    have hModel : FullEvent (relations n) (read w).2 (read v).2 :=
+      every_joint_effect_has_all_original_six J (read w) (read v) hJoint
+    have hSource := hModel (carrier p)
+    rcases hAt with ⟨hContinue, hAuthorize, hFree,
+      hRestrain, hMaximize, hProvenance⟩
+    exact hViolation ⟨hContinue hSource.historicalContinuity,
+      hAuthorize hSource.authorization,
+      hFree hSource.freedom,
+      hRestrain hSource.restraint,
+      hMaximize hSource.maximality,
+      hProvenance hSource.provenance⟩
+  · exact Or.inl hJoint
+
+#print axioms observed_violation_localizes_exact_event_gap
+
 end PhysicalBridges.G3SameEventCapstone
