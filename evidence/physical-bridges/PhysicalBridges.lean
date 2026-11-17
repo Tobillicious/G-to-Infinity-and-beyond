@@ -521,3 +521,6 @@ import PhysicalBridges.G3SameEventCapstone
 import PhysicalBridges.EndlessKnowledgeGuardianBridge
 import PhysicalBridges.FourCausePhysicalGuardianBridge
 import PhysicalBridges.IntegratedProtectionCoexistenceAssembly
+
+-- Adversarial six duty, lived-history rollback and unclassified-effect controls.
+import PhysicalBridges.IntegratedProtectionHostileControls
