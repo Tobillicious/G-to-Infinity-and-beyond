@@ -506,3 +506,6 @@ import PhysicalBridges.G2EmpiricalBridgeNegativeControls
 
 -- G2/G3 fail-closed tripwire: rejected guarded step HOLD and actual-effect mediation.
 import PhysicalBridges.G2FailClosedEnactmentBoundary
+
+-- Last-mile event audit: concrete coverage failure or same-event missing original duty.
+import PhysicalBridges.G2LastMileWitnessAudit
