@@ -10,13 +10,30 @@ from pathlib import Path
 import stat
 
 
+def _open_directory_without_symlinks(directory):
+    """Traverse every absolute path component relative to a pinned root FD."""
+    path = Path(directory)
+    if not path.is_absolute() or ".." in path.parts:
+        raise ValueError("absolute non-traversing marker directory required")
+    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC
+    fd = os.open("/", flags)
+    try:
+        for name in path.parts[1:]:
+            next_fd = os.open(name, flags, dir_fd=fd)
+            os.close(fd)
+            fd = next_fd
+        return fd
+    except BaseException:
+        os.close(fd)
+        raise
+
+
 def observe(directory, *, expected_uid):
     if (not isinstance(directory, (str, Path))
             or not Path(directory).is_absolute()
             or type(expected_uid) is not int or expected_uid < 0):
         raise ValueError("absolute marker directory and pinned UID required")
-    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC
-    fd = os.open(directory, flags)
+    fd = _open_directory_without_symlinks(directory)
     try:
         directory_id = os.fstat(fd)
         names = os.listdir(fd)
@@ -56,7 +73,11 @@ def observe(directory, *, expected_uid):
                 (info.st_dev, info.st_ino, info.st_uid, info.st_size, info.st_nlink)):
                 raise ValueError("marker replaced during observation")
         after_dir = os.fstat(fd)
-        named_dir = os.stat(directory, follow_symlinks=False)
+        reopened_fd = _open_directory_without_symlinks(directory)
+        try:
+            named_dir = os.fstat(reopened_fd)
+        finally:
+            os.close(reopened_fd)
         if ((directory_id.st_dev, directory_id.st_ino) !=
                 (after_dir.st_dev, after_dir.st_ino)
                 or (named_dir.st_dev, named_dir.st_ino) !=
