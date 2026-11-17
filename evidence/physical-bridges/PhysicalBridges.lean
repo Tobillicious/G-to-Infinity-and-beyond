@@ -509,3 +509,6 @@ import PhysicalBridges.G2FailClosedEnactmentBoundary
 
 -- Last-mile event audit: concrete coverage failure or same-event missing original duty.
 import PhysicalBridges.G2LastMileWitnessAudit
+
+-- Whole-first physical bridge: a local readout cannot reconstruct Complete Koru.
+import PhysicalBridges.G2WholeFirstPhysicalBridgeRepair
