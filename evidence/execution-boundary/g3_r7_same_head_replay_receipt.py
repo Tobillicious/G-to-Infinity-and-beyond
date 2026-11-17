@@ -10,6 +10,16 @@ from pathlib import Path
 import re
 import subprocess
 
+REQUIRED_TEST_MODULES = frozenset((
+    "test_koru_operator_surviving_rollback",
+    "test_koru_operator_all_stores_rollback_contrast",
+    "test_koru_operator_post_recovery_recheck",
+    "test_koru_r5_post_connect_kernel_fence",
+    "test_koru_r5_kernel_denial_evidence",
+    "test_koru_r6_marker_readonly_observer",
+))
+CASE = re.compile(r"^(test_[A-Za-z0-9_]+) \\((test_[A-Za-z0-9_]+)\\.[A-Za-z0-9_.]+\\) \\.\\.\\. (ok|FAIL|ERROR|skipped.*|expected failure|unexpected success)$")
+
 WATCH = (
     "koru_operator_checkpoint_recovery.py",
     "koru_operator_checkpoint_custodian.py",
@@ -40,6 +50,17 @@ def inspect(*, log, checkout, expected_sha):
         raise ValueError("one unambiguous unittest OK required")
     if any(re.search(r"^(FAILED|ERROR:|FAIL:|Traceback \(most recent call last\))", s.strip()) for s in lines):
         raise ValueError("failure content in replay transcript")
+    case_lines = [s.strip() for s in lines if s.strip().startswith("test_")]
+    matches = [CASE.fullmatch(s) for s in case_lines]
+    if (any(m is None or m.group(3) != "ok" for m in matches)
+            or len(matches) != int(summaries[0].group(1))):
+        raise ValueError("verbose test case count or outcome does not match summary")
+    case_ids = [m.group(2) + "." + m.group(1) for m in matches]
+    if len(set(case_ids)) != len(case_ids):
+        raise ValueError("duplicate unittest case identity")
+    tested_modules = {m.group(2) for m in matches}
+    if not REQUIRED_TEST_MODULES <= tested_modules:
+        raise ValueError("missing mandatory R4/R5/R6 test module")
     source_root = root / "evidence" / "execution-boundary"
     checksums = {}
     for name in WATCH:
@@ -48,9 +69,11 @@ def inspect(*, log, checkout, expected_sha):
             raise ValueError("source missing or symlink: " + name)
         checksums[name] = hashlib.sha256(target.read_bytes()).hexdigest()
     return {
-        "schema": "g3-r7-same-head-research-replay-v1",
+        "schema": "g3-r7-same-head-research-replay-v2",
         "source_commit": actual,
-        "test_count": int(summaries[0].group(1)),
+        "test_count": len(matches),
+        "test_case_identity_sha256": hashlib.sha256("\\n".join(sorted(case_ids)).encode()).hexdigest(),
+        "covered_test_modules": sorted(tested_modules),
         "tested_source_sha256": checksums,
         "research_suite_executed": True,
         "r4_independently_administered_custody_verified": False,
