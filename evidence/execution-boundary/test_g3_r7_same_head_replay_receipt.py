@@ -49,6 +49,11 @@ class ExactHeadReplayReceiptTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "committed Git tree"):
             self.check(tree_clean=False)
 
+    def test_receipt_verifier_and_its_tests_are_source_fingerprinted(self):
+        hashes = self.check()["tested_source_sha256"]
+        self.assertIn("g3_r7_same_head_replay_receipt.py", hashes)
+        self.assertIn("test_g3_r7_same_head_replay_receipt.py", hashes)
+
     def test_all_mandatory_test_modules_are_source_fingerprinted(self):
         record = self.check()
         for module in REQUIRED_TEST_MODULES:
