@@ -57,14 +57,14 @@ theorem failed_complete_coverage_has_actual_counterexample
   have ⟨t, hT⟩ := Classical.not_forall.mp hS
   have hActual : physicalStep s t := by
     by_contra hNo
-    exact hT (False.elim (hNo))
+    exact hT (fun hStep => False.elim (hNo hStep))
   have hNotJoin :
       ¬ (modeledStep s t ∧
         source s = objectiveAt positiveWholeU (stage s) ∧
         source t = objectiveAt positiveWholeU (stage t) ∧
         stage t = stage s + 1) := by
     intro hJoin
-    exact hT (fun _ => hJoin) hActual
+    exact hT (fun _ => hJoin)
   refine ⟨s, t, hActual, ?_⟩
   by_cases hm : modeledStep s t
   · by_cases hb : source s = objectiveAt positiveWholeU (stage s)
