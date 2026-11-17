@@ -515,3 +515,8 @@ import PhysicalBridges.G2WholeFirstPhysicalBridgeRepair
 
 -- Build 25: physical refinement preserves original owed cohort and protected outcome.
 import PhysicalBridges.G2BoundedPhysicalProtectionSynthesis
+
+import PhysicalBridges.G3OperatorFirstLossJoin
+import PhysicalBridges.G3SameEventCapstone
+import PhysicalBridges.EndlessKnowledgeGuardianBridge
+import PhysicalBridges.FourCausePhysicalGuardianBridge
