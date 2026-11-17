@@ -50,6 +50,22 @@ class ForestAuditTests(unittest.TestCase):
         a = examine(owed_subjects={"p", "q"})
         self.assertIn("missing_subject_evidence:q", a["unresolved"])
 
+    def test_observed_subject_omitted_from_owed_cohort_is_flagged(self):
+        a = examine(subject_evidence={
+            "p": {name: True for name in SIX},
+            "unlisted_q": {name: True for name in SIX},
+        })
+        self.assertIn("evidence_subject_outside_owed_scope:unlisted_q", a["unresolved"])
+        self.assertEqual(a["status"], "RESEARCH_GAPS")
+        self.assertFalse(a["authorizes_effect"])
+
+    def test_malformed_extra_subject_key_refused(self):
+        with self.assertRaisesRegex(ValueError, "identifier"):
+            examine(subject_evidence={
+                "p": {name: True for name in SIX},
+                None: {name: True for name in SIX},
+            })
+
     def test_empty_owed_scope_not_vacuously_passed(self):
         a = examine(owed_subjects=set(), subject_evidence={})
         self.assertIn("empty_owed_subject_scope", a["unresolved"])
