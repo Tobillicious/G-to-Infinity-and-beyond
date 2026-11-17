@@ -18,7 +18,7 @@ REQUIRED_TEST_MODULES = frozenset((
     "test_koru_r5_kernel_denial_evidence",
     "test_koru_r6_marker_readonly_observer",
 ))
-CASE = re.compile(r"^(test_[A-Za-z0-9_]+) \\((test_[A-Za-z0-9_]+)\\.[A-Za-z0-9_.]+\\) \\.\\.\\. (ok|FAIL|ERROR|skipped.*|expected failure|unexpected success)$")
+CASE = re.compile(r"^(test_[A-Za-z0-9_]+) \((test_[A-Za-z0-9_]+)\.[A-Za-z0-9_.]+\) \.\.\. (ok|FAIL|ERROR|skipped.*|expected failure|unexpected success)$")
 
 WATCH = (
     "koru_operator_checkpoint_recovery.py",
@@ -72,7 +72,7 @@ def inspect(*, log, checkout, expected_sha):
         "schema": "g3-r7-same-head-research-replay-v2",
         "source_commit": actual,
         "test_count": len(matches),
-        "test_case_identity_sha256": hashlib.sha256("\\n".join(sorted(case_ids)).encode()).hexdigest(),
+        "test_case_identity_sha256": hashlib.sha256("\n".join(sorted(case_ids)).encode()).hexdigest(),
         "covered_test_modules": sorted(tested_modules),
         "tested_source_sha256": checksums,
         "research_suite_executed": True,
