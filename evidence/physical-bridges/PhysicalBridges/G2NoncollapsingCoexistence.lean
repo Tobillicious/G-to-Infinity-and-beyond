@@ -58,7 +58,7 @@ theorem finite_orbits_contract_above
             (orbit advance y (n + 1)) =
             distance (advance (orbit advance x n))
                  (advance (orbit advance y n)) := by rfl
-        _ ≤ k * dist (orbit advance x n)
+        _ ≤ k * distance (orbit advance x n)
                       (orbit advance y n) := hContract _ _
         _ ≤ k * (k ^ n * distance x y) :=
               mul_le_mul_of_nonneg_left ih hk
@@ -122,8 +122,7 @@ theorem cumulative_owed_agency_on_both_distinct_orbits
     already has zero distance. This rules out pretending that the
     entire agency metric is simultaneously unchanged and contracted. -/
 theorem nontrivial_exact_distance_preservation_not_strict_contraction
-    [MetricSpace S]
-    (advance : S → S) (k : ℝ)
+    (advance : S → S) (distance : S → S → ℝ) (k : ℝ)
     (hk : 0 ≤ k) (hStrict : k < 1)
     (hContract : ∀ x y, distance (advance x) (advance y) ≤
       k * distance x y)
