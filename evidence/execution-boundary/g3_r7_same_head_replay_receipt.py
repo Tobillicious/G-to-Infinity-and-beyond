@@ -18,7 +18,7 @@ REQUIRED_TEST_MODULES = frozenset((
     "test_koru_r5_kernel_denial_evidence",
     "test_koru_r6_marker_readonly_observer",
 ))
-CASE = re.compile(r"^(test_[A-Za-z0-9_]+) \((test_[A-Za-z0-9_]+)\.[A-Za-z0-9_.]+\) \.\.\. (ok|FAIL|ERROR|skipped.*|expected failure|unexpected success)$")
+CASE = re.compile(r"^(test_[A-Za-z0-9_]+) \((test_[A-Za-z0-9_]+\.[A-Za-z0-9_.]+)\) \.\.\. (ok|FAIL|ERROR|skipped.*|expected failure|unexpected success)$")
 
 WATCH = (
     "koru_operator_checkpoint_recovery.py",
@@ -55,10 +55,12 @@ def inspect(*, log, checkout, expected_sha):
     if (any(m is None or m.group(3) != "ok" for m in matches)
             or len(matches) != int(summaries[0].group(1))):
         raise ValueError("verbose test case count or outcome does not match summary")
-    case_ids = [m.group(2) + "." + m.group(1) for m in matches]
+    case_ids = [m.group(2) for m in matches]
+    if any(not case_id.endswith("." + m.group(1)) for case_id, m in zip(case_ids, matches)):
+        raise ValueError("test method identity mismatch")
     if len(set(case_ids)) != len(case_ids):
         raise ValueError("duplicate unittest case identity")
-    tested_modules = {m.group(2) for m in matches}
+    tested_modules = {m.group(2).split(".", 1)[0] for m in matches}
     if not REQUIRED_TEST_MODULES <= tested_modules:
         raise ValueError("missing mandatory R4/R5/R6 test module")
     source_root = root / "evidence" / "execution-boundary"
