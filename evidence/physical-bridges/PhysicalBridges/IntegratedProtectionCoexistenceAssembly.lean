@@ -41,7 +41,7 @@ universe u v w x
     as a replacement for genuine six-duty semantic reflection. -/
 theorem covered_history_keeps_originals_and_every_actual_step_has_six
     {Node : Type u} {Mind : Type v} {Action : Type w}
-    {Physical : Type x} {T H E P : Type} {n : Nat}
+    {Physical : Type} {T H E P : Type} {n : Nat}
     (relate : State Node Mind Action → Physical → Prop)
     (realStep : Physical → Physical → Prop)
     (physicalProtected : Physical → Prop)
