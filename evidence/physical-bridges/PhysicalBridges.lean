@@ -512,3 +512,6 @@ import PhysicalBridges.G2LastMileWitnessAudit
 
 -- Whole-first physical bridge: a local readout cannot reconstruct Complete Koru.
 import PhysicalBridges.G2WholeFirstPhysicalBridgeRepair
+
+-- Build 25: physical refinement preserves original owed cohort and protected outcome.
+import PhysicalBridges.G2BoundedPhysicalProtectionSynthesis
