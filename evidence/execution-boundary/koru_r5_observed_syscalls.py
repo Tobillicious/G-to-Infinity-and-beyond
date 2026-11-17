@@ -15,6 +15,65 @@ import sys
 SYSCALL = re.compile(r"^([A-Za-z_][A-Za-z_0-9]*)\(")
 FILTER_INSTALL = "prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER"
 
+# strace -ff emits the file descriptor returned by socket() and used by
+# connect()/close(). Count only live connected Unix sockets at confinement,
+# not closed connections made earlier by interpreter startup. Ambiguous
+# descriptor manipulation fails closed rather than being counted as safe.
+SOCKET_FD = re.compile(r"^socket\(AF_UNIX,.*\) = ([0-9]+)$")
+CONNECT_FD = re.compile(r"^connect\(([0-9]+), .*AF_UNIX.*\) = 0$")
+CLOSE_FD = re.compile(r"^close\(([0-9]+)(?=\)|<)")
+FD_MODIFY = re.compile(r"^(?:dup|dup2|dup3|fcntl|sendmsg|recvmsg|recvmmsg|pidfd_getfd)\(")
+FD_TRANSFER = re.compile(r"^(?:sendmsg|sendmmsg|recvmsg|recvmmsg|pidfd_getfd)\(")
+
+
+def live_connected_unix_sockets(before):
+    opened = set()
+    connected = set()
+    for line in before:
+        # Transfer APIs can carry an FD absent from this socket tracker;
+        # a matching digit in strace text is not reliable provenance evidence.
+        # The selected fixed child has no pre-fence descriptor-transfer contract.
+        if FD_TRANSFER.match(line):
+            raise ValueError("ambiguous pre-fence descriptor transfer attempt")
+        if FD_MODIFY.match(line):
+            # This fixed child must not manipulate the tracked socket
+            # capability through other FD-producing or transfer syscalls.
+            if any(re.search(r"\b" + str(fd) + r"\b", line)
+                   for fd in opened | connected):
+                raise ValueError("ambiguous pre-fence socket descriptor manipulation")
+        # close_range() can invalidate the tracked authority descriptor without
+        # emitting any close(fd) line. Unless the selected child proves a
+        # disjoint range, its effect on our FD lifetime is ambiguous.
+        # Fail closed whenever any tracked socket has been opened; this
+        # fixed child has no post-socket close_range contract.
+        if line.startswith("close_range(") and opened:
+            raise ValueError("ambiguous pre-fence close_range over tracked socket lifetime")
+        match = SOCKET_FD.match(line)
+        if match:
+            fd = int(match.group(1))
+            opened.add(fd)
+            connected.discard(fd)
+            continue
+        match = CONNECT_FD.match(line)
+        if match:
+            fd = int(match.group(1))
+            if fd not in opened:
+                raise ValueError("Unix connection not associated with tracked socket")
+            connected.add(fd)
+            continue
+        match = CLOSE_FD.match(line)
+        if match:
+            fd = int(match.group(1))
+            if line.rstrip().endswith("= 0"):
+                # strace can annotate close(4<UNIX-STREAM:[...]>).
+                # A successful close removes that live capability.
+                opened.discard(fd)
+                connected.discard(fd)
+            elif fd in opened or fd in connected:
+                # An unconfirmed close is not evidence of release.
+                raise ValueError("ambiguous tracked socket close result")
+    return connected
+
 
 def summarize(prefix):
     traces = sorted(prefix.parent.glob(prefix.name + ".*"))
@@ -29,19 +88,29 @@ def summarize(prefix):
             continue
         stages["numeric_pid_traces"] += 1
         lines = path.read_text(errors="replace").splitlines()
-        # Detect this existing launcher via the installed seccomp filter.
+        # strace -ff follows a PID across execve(). The same PID trace can
+        # contain the unittest harness's earlier Unix connections before it
+        # execs the fixed Python -c child. Do not count those as child effects.
+        # Select the last successful fixed-child execve before its filter,
+        # WITHOUT relaxing the one-connection requirement within that child.
         installs = [i for i, line in enumerate(lines) if FILTER_INSTALL in line
                     and "= 0" in line]
         if not installs:
             continue
+        child_execs = [i for i, line in enumerate(lines[:installs[-1]])
+                       if line.startswith("execve(") and '"-c"' in line
+                       and line.rstrip().endswith("= 0")]
+        if not child_execs:
+            stages["no_fixed_child_execve"] += 1
+            continue
+        lines = lines[child_execs[-1]:]
+        installs = [i for i, line in enumerate(lines) if FILTER_INSTALL in line
+                    and "= 0" in line]
         stages["seccomp_install_success"] += 1
         # The reviewed fixed child connects under executor UID BEFORE its
-        # strict seccomp install. Require successful AF_UNIX socket creation
-        # and connection in that same PID trace. Python's startup/fixture
-        # may open and close extra Unix sockets before the final FD audit;
-        # the fixed child independently verifies exactly one LIVE authority
-        # socket immediately before installing seccomp. A Python-only
-        # seccomp probe with no pre-filter connection cannot qualify.
+        # strict seccomp install. Require both successful AF_UNIX socket
+        # creation and a successful AF_UNIX connection in that same PID
+        # trace. An unrelated Python-only seccomp probe cannot qualify.
         before = lines[:installs[-1]]
         sockets = [line for line in before
                    if line.startswith("socket(") and "AF_UNIX" in line
@@ -55,12 +124,33 @@ def summarize(prefix):
             stages["no_pre_filter_unix_connect"] += 1
         # The launcher verifies exactly one live inherited/new FD at the
         # handoff, not exactly one socket() ever called during Python startup.
-        # Do not equate historical pre-filter connect count with live FD count.
-        # The fixed child itself verifies exactly one live authority FD.
-        # Preserve post-filter success prohibition and require a traced reply.
+        # Preserve exactly one successful authority connect and the subsequent
+        # post-filter success prohibition; allow additional CLOSED pre-filter
+        # AF_UNIX sockets in the observed startup trace.
         stages["successful_unix_socket_count_" + str(min(len(sockets), 9))] += 1
         stages["successful_unix_connect_count_" + str(min(len(connections), 9))] += 1
-        if len(sockets) < 1 or len(connections) < 1:
+        # Closed setup connections are not live capabilities. The existing
+        # fixed launcher independently audits all live /proc/self/fd handles
+        # immediately before seccomp, and validates SO_PEERCRED UID + PID.
+        # Reconstruct Unix socket lifetime from trace as an extra witness.
+        live_connections = live_connected_unix_sockets(before)
+        stages["live_connected_unix_count_" + str(min(len(live_connections), 9))] += 1
+        # Sanitized evidence-only telemetry for failing trace qualification.
+        # Never log raw strace lines, socket paths, peer data, or PID filenames.
+        # The trusted in-child /proc/self/fd audit remains authoritative.
+        # These counts help identify whether our tracer failed to observe
+        # close()/close_range() or incorrectly selected a pre-child segment.
+        close_calls = sum(line.startswith("close(") and line.endswith("= 0")
+                          for line in before)
+        close_range_calls = sum(line.startswith("close_range(") and
+                                line.endswith("= 0") for line in before)
+        stages["successful_close_count_" + str(min(close_calls, 20))] += 1
+        stages["successful_close_range_count_" + str(min(close_range_calls, 9))] += 1
+        stages["tracked_open_not_connected_" +
+               str(min(len(set(int(m.group(1)) for line in before
+                               if (m := SOCKET_FD.match(line))) -
+                           live_connections), 9))] += 1
+        if len(sockets) < 1 or len(connections) < 1 or len(live_connections) != 1:
             stages["pre_connection_mismatch"] += 1
             continue
         stages["pre_connection_verified"] += 1
@@ -106,6 +196,7 @@ def summarize(prefix):
             "kernel_eperm_by_syscall": dict(sorted(denials.items())),
             "pre_seccomp_af_unix_socket_creations": len(sockets),
             "pre_seccomp_af_unix_connections": len(connections),
+            "live_connected_af_unix_at_filter": len(live_connections),
             "after_seccomp_af_unix_socket_attempts": af_unix_sockets,
             "other_socket_creation_attempts": non_unix_socket_attempts,
         })
@@ -118,10 +209,10 @@ def summarize(prefix):
     if outcomes["synthetic_effect_returned"] != 1 or outcomes["authority_denied"] < 2:
         raise ValueError("expected exactly one effect and at least two denials")
     return {
-        "schema": "g3-r5-observed-syscalls-v3",
+        "schema": "g3-r5-observed-syscalls-v4",
         "observed_outcome_counts": dict(sorted(outcomes.items())),
         "scope": "one tested fixed-marker authority request and HOLD-first denial; observed, non-exhaustive",
-        "selection": "at least one successful pre-filter AF_UNIX socket/connect, successful seccomp install, post-filter authority reply; no successful post-filter socket/connect",
+        "selection": "one live tracked pre-filter AF_UNIX connection at filter, successful seccomp install, post-filter authority reply; no successful post-filter socket/connect",
         "children": children,
     }
 
