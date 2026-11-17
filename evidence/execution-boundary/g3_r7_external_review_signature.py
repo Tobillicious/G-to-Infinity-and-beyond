@@ -44,7 +44,7 @@ def validate_review(data, *, expected_head, expected_evidence_sha256):
             or type(data["evidence_sha256"]) is not str
             or data["evidence_sha256"] != expected_evidence_sha256):
         raise ValueError("review does not match independently pinned source/evidence")
-    if data["decision"] not in DECISIONS:
+    if type(data["decision"]) is not str or data["decision"] not in DECISIONS:
         raise ValueError("unsupported review decision")
     for key in ("scope", "reviewer_identifier", "reviewed_at_utc", "findings"):
         val = data[key]
