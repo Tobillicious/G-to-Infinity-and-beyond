@@ -18,17 +18,40 @@ def observe(directory, *, expected_uid):
     flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC
     fd = os.open(directory, flags)
     try:
+        directory_id = os.fstat(fd)
         names = os.listdir(fd)
-        if names == []:
-            return {"exists": False}
-        if names != ["fixed.marker"]:
+        if names not in ([], ["fixed.marker"]):
             raise ValueError("unexpected marker-directory contents")
-        info = os.stat("fixed.marker", dir_fd=fd, follow_symlinks=False)
-        if (not stat.S_ISREG(info.st_mode) or info.st_uid != expected_uid
-                or info.st_size != 0 or info.st_nlink != 1):
-            raise ValueError("marker identity or inode properties invalid")
-        return {"exists": True, "device": info.st_dev, "inode": info.st_ino,
-                "uid": info.st_uid, "size": info.st_size, "nlink": info.st_nlink}
+        if names == []:
+            result = {"exists": False}
+        else:
+            # Anchor inspection to the opened directory descriptor. A symlink
+            # or replacement between enumeration and open must not substitute
+            # another inode; O_NONBLOCK prevents a hostile FIFO from hanging.
+            before = os.stat("fixed.marker", dir_fd=fd, follow_symlinks=False)
+            file_flags = os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK | os.O_CLOEXEC
+            marker_fd = os.open("fixed.marker", file_flags, dir_fd=fd)
+            try:
+                info = os.fstat(marker_fd)
+            finally:
+                os.close(marker_fd)
+            if ((before.st_dev, before.st_ino) != (info.st_dev, info.st_ino)
+                    or not stat.S_ISREG(info.st_mode) or info.st_uid != expected_uid
+                    or info.st_size != 0 or info.st_nlink != 1):
+                raise ValueError("marker identity or inode properties invalid")
+            result = {"exists": True, "device": info.st_dev, "inode": info.st_ino,
+                      "uid": info.st_uid, "size": info.st_size, "nlink": info.st_nlink}
+        # Detect a replaceable name or directory changed during the read.
+        if os.listdir(fd) != names:
+            raise ValueError("marker directory changed during observation")
+        after_dir = os.fstat(fd)
+        named_dir = os.stat(directory, follow_symlinks=False)
+        if ((directory_id.st_dev, directory_id.st_ino) !=
+                (after_dir.st_dev, after_dir.st_ino)
+                or (named_dir.st_dev, named_dir.st_ino) !=
+                   (directory_id.st_dev, directory_id.st_ino)):
+            raise ValueError("observed marker directory replaced")
+        return result
     finally:
         os.close(fd)
 
