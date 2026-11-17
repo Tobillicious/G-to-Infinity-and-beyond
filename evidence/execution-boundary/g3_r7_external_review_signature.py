@@ -49,7 +49,7 @@ def validate_review(data, *, expected_head, expected_evidence_sha256):
     if type(data["decision"]) is not str or data["decision"] not in DECISIONS:
         raise ValueError("unsupported review decision")
     timestamp = data["reviewed_at_utc"]
-    if type(timestamp) is not str or not re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z", timestamp):
+    if type(timestamp) is not str or not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", timestamp):
         raise ValueError("review timestamp must be an explicit UTC ISO-8601 second")
     try:
         observed = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
