@@ -50,7 +50,7 @@ class ExactHeadReplayReceiptTests(unittest.TestCase):
 
     def test_dirty_watched_source_rejected(self):
         with patch("g3_r7_same_head_replay_receipt.subprocess.run") as run:
-            run.return_value.stdout = SHA + "\\n"
+            run.return_value.stdout = SHA + "\n"
             run.return_value.returncode = 1
             with self.assertRaisesRegex(ValueError, "committed Git tree"):
                 inspect(log=self.log, checkout=self.root, expected_sha=SHA)
