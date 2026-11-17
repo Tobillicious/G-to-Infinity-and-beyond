@@ -494,3 +494,6 @@ import PhysicalBridges.G2NoncollapsingCoexistence
 
 -- G2 non-collapse of authentic agency projections on both cumulative trajectories.
 import PhysicalBridges.G2AgencyProjectionPreservation
+
+-- Distinct six G-Mesh witness nodes cover the six unchanged original duties.
+import PhysicalBridges.G2SixNodeDutyCorrespondence
