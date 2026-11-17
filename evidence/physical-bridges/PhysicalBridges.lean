@@ -500,3 +500,6 @@ import PhysicalBridges.G2SixNodeDutyCorrespondence
 
 -- Exact tagged original-six duty mismatch on the same actual W-covered event.
 import PhysicalBridges.G2FirstActualDutyMismatch
+
+-- Independent empirical bridge countercontrols: entropy capacity and telemetry are not X3.
+import PhysicalBridges.G2EmpiricalBridgeNegativeControls
