@@ -7,6 +7,8 @@ Obtain/pin a reviewer key independently of the applicant's packet.
 """
 import argparse
 import json
+import hashlib
+from datetime import datetime, timezone
 from pathlib import Path
 import re
 from cryptography.exceptions import InvalidSignature
@@ -46,6 +48,15 @@ def validate_review(data, *, expected_head, expected_evidence_sha256):
         raise ValueError("review does not match independently pinned source/evidence")
     if type(data["decision"]) is not str or data["decision"] not in DECISIONS:
         raise ValueError("unsupported review decision")
+    timestamp = data["reviewed_at_utc"]
+    if type(timestamp) is not str or not re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z", timestamp):
+        raise ValueError("review timestamp must be an explicit UTC ISO-8601 second")
+    try:
+        observed = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError("invalid UTC review timestamp") from exc
+    if observed.tzinfo != timezone.utc:
+        raise ValueError("review timestamp not UTC")
     for key in ("scope", "reviewer_identifier", "reviewed_at_utc", "findings"):
         val = data[key]
         if type(val) is not str or not val.strip() or len(val) > 8192:
@@ -74,6 +85,7 @@ def verify(*, review_bytes, signature, reviewer_public_key,
     return {
         "schema": "g3-r7-detached-review-integrity-v1",
         "signature_valid_for_supplied_public_key": True,
+        "supplied_reviewer_public_key_sha256": hashlib.sha256(reviewer_public_key).hexdigest(),
         "source_commit": expected_head,
         "decision": document["decision"],
         "independent_reviewer_identity_verified": False,
