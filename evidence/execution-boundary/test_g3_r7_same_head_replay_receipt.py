@@ -76,6 +76,21 @@ class ExactHeadReplayReceiptTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "duplicate"):
             self.check()
 
+    def test_known_imported_R4_fixture_duplicate_is_recorded(self):
+        reused = ("test_same (test_koru_operator_surviving_rollback."
+                  "SurvivingOperatorRollbackTests.test_same) ... ok")
+        self.rewrite(self.cases + [reused, reused])
+        record = self.check()
+        self.assertEqual(record["repeated_R4_fixture_executions"], 1)
+        self.assertEqual(record["unique_test_case_count"], len(self.cases) + 1)
+
+    def test_third_R4_fixture_execution_rejected(self):
+        reused = ("test_same (test_koru_operator_surviving_rollback."
+                  "SurvivingOperatorRollbackTests.test_same) ... ok")
+        self.rewrite(self.cases + [reused, reused, reused])
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            self.check()
+
     def test_skipped_test_rejected(self):
         changed = self.cases.copy()
         changed[0] = changed[0].replace("... ok", "... skipped 'not ready'")
