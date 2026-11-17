@@ -41,6 +41,9 @@ WATCH = (
     "test_koru_r5_socket_family_fence.py",
     "test_koru_no_inherited_fd_executor.py",
 )
+# Every required test module is itself part of the reviewed evidence input.
+# Do not allow future required-suite additions to escape source fingerprinting.
+WATCH = tuple(sorted(set(WATCH) | {name + ".py" for name in REQUIRED_TEST_MODULES}))
 
 def inspect(*, log, checkout, expected_sha):
     if not isinstance(expected_sha, str) or re.fullmatch(r"[0-9a-f]{40}", expected_sha) is None:
