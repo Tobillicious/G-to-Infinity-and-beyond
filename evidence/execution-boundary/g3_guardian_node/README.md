@@ -39,7 +39,11 @@ The current source baseline is `77d3b2d1823fc09458873a1f5f461d24d349d337`, the r
 
 ## Current launch evidence
 
-This package is source-reviewed and its Docker-free fingerprint/lifecycle checks pass. The earlier local launch failed at module import before the authority started. The import-path correction is present in this Dockerfile. No successful live run of this wrapper revision is claimed; the existing container has not been replaced by this source checkpoint. Its older engine label is different, so the launcher refuses an automatic state migration.
+On 18 November 2026 the package was started successfully in Zelda's local Linux/ARM64 Docker VM. Recovery first verified the old guardian volume was empty through a read-only mount, then replaced only the failed container while retaining that volume. No provisioned state was reset or migrated.
+
+The live authority created the one fixed marker, a repeat was denied, and HOLD was committed at generation 2. An actual same-volume container replacement retained the HOLD, admission record and marker inode. A subsequent request was denied. The node remains running in HOLD. The [live observation](live-observation-2026-11-18.md) records exact source/image identities, the environment and the qualification that the post-HOLD denial is not an isolated HOLD-first causal control.
+
+Docker Desktop's start-at-login setting was enabled and verified in its UI and settings file. The container uses `unless-stopped`. Only container replacement was exercised; host reboot, login recovery and a year of uptime have not been observed. The launcher still refuses automatic engine migration for provisioned state.
 
 After a successful start, `unless-stopped` requests persistence when the local Docker engine runs. It cannot guarantee a year of availability through host shutdown, resource exhaustion, lost state or administrative interference. No machine-wide protection or independently administered custody follows from keeping this one service running.
 

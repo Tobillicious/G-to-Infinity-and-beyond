@@ -1,0 +1,178 @@
+{
+  "schema": "g3-zelda-local-live-observation-v1",
+  "date": "2026-11-18",
+  "timezone": "Pacific/Auckland",
+  "source_commit": "91c4a8e4d3ee0b40ef1dfa105ab837a5d92e0883",
+  "engine_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+  "bundle_sha256": "3ca00f383e5e92717e4412922daf6d74cf8445ce40d90710da9251e1f637d1e5",
+  "node_image_id": "sha256:59b63744380e2fc80d0ad4cfd282856171834cdb70e446803c04b6777dfa56b7",
+  "runtime": {
+    "python": "3.13.18 (main, Nov  5 2026, 08:08:09) [GCC 14.2.0]",
+    "kernel": "6.12.69-linuxkit",
+    "machine": "aarch64",
+    "openssl": "OpenSSL 3.5.7 9 Jun 2026",
+    "cryptography": "46.0.4"
+  },
+  "empty_old_volume_verified_read_only": true,
+  "state_volume_retained": true,
+  "before_container": "c2491956bf0f2e7489c1848f13951dad74a11a4ff6f41f07a5440953a6df1bcc",
+  "after_container": "ac849cd0ac8ae589ecb57f706fd25cedc383bdf783f0ea5cd4876b4f6786b234",
+  "first_effect": {
+    "node": {
+      "admission_state_recorded": true,
+      "authority_pid": 13,
+      "authority_uid": 65533,
+      "controller_uid": 65530,
+      "custody": "same-administrator local Docker volume",
+      "engine_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+      "executor_uid": 65532,
+      "generation": 1,
+      "held": false,
+      "independent_custody_verified": false,
+      "marker": {
+        "device": 65025,
+        "exists": true,
+        "inode": 1022411,
+        "nlink": 1,
+        "size": 0,
+        "uid": 65533
+      },
+      "observer_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+      "ready": true,
+      "scope": "one authority-owned zero-byte marker",
+      "whole_machine_enforcement": false
+    },
+    "result": {
+      "code": "synthetic_effect_returned",
+      "ok": true
+    }
+  },
+  "repeated_request": {
+    "node": {
+      "admission_state_recorded": true,
+      "authority_pid": 13,
+      "authority_uid": 65533,
+      "controller_uid": 65530,
+      "custody": "same-administrator local Docker volume",
+      "engine_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+      "executor_uid": 65532,
+      "generation": 1,
+      "held": false,
+      "independent_custody_verified": false,
+      "marker": {
+        "device": 65025,
+        "exists": true,
+        "inode": 1022411,
+        "nlink": 1,
+        "size": 0,
+        "uid": 65533
+      },
+      "observer_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+      "ready": true,
+      "scope": "one authority-owned zero-byte marker",
+      "whole_machine_enforcement": false
+    },
+    "result": {
+      "code": "authority_denied",
+      "ok": false
+    }
+  },
+  "hold_request": {
+    "node": {
+      "admission_state_recorded": true,
+      "authority_pid": 13,
+      "authority_uid": 65533,
+      "controller_uid": 65530,
+      "custody": "same-administrator local Docker volume",
+      "engine_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+      "executor_uid": 65532,
+      "generation": 2,
+      "held": true,
+      "independent_custody_verified": false,
+      "marker": {
+        "device": 65025,
+        "exists": true,
+        "inode": 1022411,
+        "nlink": 1,
+        "size": 0,
+        "uid": 65533
+      },
+      "observer_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+      "ready": true,
+      "scope": "one authority-owned zero-byte marker",
+      "whole_machine_enforcement": false
+    },
+    "result": {
+      "code": "hold_recorded",
+      "ok": true
+    }
+  },
+  "restarted_status": {
+    "admission_state_recorded": true,
+    "authority_pid": 13,
+    "authority_uid": 65533,
+    "controller_uid": 65530,
+    "custody": "same-administrator local Docker volume",
+    "engine_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+    "executor_uid": 65532,
+    "generation": 2,
+    "held": true,
+    "independent_custody_verified": false,
+    "marker": {
+      "device": 65025,
+      "exists": true,
+      "inode": 1022411,
+      "nlink": 1,
+      "size": 0,
+      "uid": 65533
+    },
+    "observer_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+    "ready": true,
+    "scope": "one authority-owned zero-byte marker",
+    "whole_machine_enforcement": false
+  },
+  "post_restart_request": {
+    "node": {
+      "admission_state_recorded": true,
+      "authority_pid": 13,
+      "authority_uid": 65533,
+      "controller_uid": 65530,
+      "custody": "same-administrator local Docker volume",
+      "engine_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+      "executor_uid": 65532,
+      "generation": 2,
+      "held": true,
+      "independent_custody_verified": false,
+      "marker": {
+        "device": 65025,
+        "exists": true,
+        "inode": 1022411,
+        "nlink": 1,
+        "size": 0,
+        "uid": 65533
+      },
+      "observer_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+      "ready": true,
+      "scope": "one authority-owned zero-byte marker",
+      "whole_machine_enforcement": false
+    },
+    "result": {
+      "code": "authority_denied",
+      "ok": false
+    }
+  },
+  "docker_desktop_start_at_login": true,
+  "restart_policy": "unless-stopped",
+  "current_running": true,
+  "observation_scope": "One authority-owned zero-byte marker; same-administrator Docker host; local execution",
+  "post_hold_denial_is_isolated_hold_first_control": false,
+  "claim_flags": {
+    "whole_machine_enforcement": false,
+    "all_actual_effects_covered": false,
+    "independent_custody_verified": false,
+    "authentic_original_six_reflections_verified": false,
+    "independent_R7_acceptance": false,
+    "one_year_uptime_observed": false,
+    "unconditional_universal_protection": false
+  }
+}
