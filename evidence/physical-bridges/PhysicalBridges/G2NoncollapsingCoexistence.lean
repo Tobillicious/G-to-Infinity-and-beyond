@@ -1,4 +1,6 @@
 import PhysicalBridges.G2PhysicalAgencyCumulativeJoin
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.Linarith
 
 /-!
 # G2 non-collapsing coexistence, finite-stage agency, cumulative seed
