@@ -22,6 +22,7 @@ REQUIRED_TEST_MODULES = frozenset((
     "test_koru_r5_process_creation_fence",
     "test_koru_r5_socket_family_fence",
     "test_koru_no_inherited_fd_executor",
+    "test_koru_fixed_workload_contract",
 ))
 CASE = re.compile(r"^(test_[A-Za-z0-9_]+) \((test_[A-Za-z0-9_]+\.[A-Za-z0-9_.]+)\) \.\.\. (ok|FAIL|ERROR|skipped.*|expected failure|unexpected success)$")
 
@@ -40,6 +41,8 @@ WATCH = (
     "test_koru_r5_process_creation_fence.py",
     "test_koru_r5_socket_family_fence.py",
     "test_koru_no_inherited_fd_executor.py",
+    "koru_fixed_workload_contract.py",
+    "test_koru_fixed_workload_contract.py",
 )
 # Every required test module is itself part of the reviewed evidence input.
 # Do not allow future required-suite additions to escape source fingerprinting.
