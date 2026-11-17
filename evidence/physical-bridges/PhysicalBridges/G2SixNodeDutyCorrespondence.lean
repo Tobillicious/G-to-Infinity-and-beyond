@@ -104,6 +104,33 @@ theorem original_six_violation_exposes_coverage_or_reflection
       e continues authorized free restrained maximal provenanced
       hMeaning s t hActual p hOwed)
 
+/-- All six nodes may report an event and cover the same particular while
+    authentic original-six protection fails. The reporting layer alone
+    cannot replace independent subject-level semantic reflection. -/
+theorem six_node_reporting_does_not_imply_original_six :
+    ∃ (e : DistributedEvidence Unit Unit)
+      (continues authorized free restrained maximal provenanced :
+        Unit → Unit → Unit → Prop),
+      e.actualStep () () ∧ e.owed () () ∧
+      ¬ OriginalX3 continues authorized free restrained maximal provenanced
+        () () () := by
+  let e : DistributedEvidence Unit Unit := {
+    actualStep := fun _ _ => True
+    owed := fun _ _ => True
+    covers := fun _ _ _ _ => True
+    reports := fun _ _ _ _ _ => True
+    allSixCovered := by
+      intro s t p hActual hOwed duty
+      exact ⟨0, trivial, trivial⟩
+  }
+  refine ⟨e, (fun _ _ _ => True), (fun _ _ _ => True),
+    (fun _ _ _ => True), (fun _ _ _ => False),
+    (fun _ _ _ => True), (fun _ _ _ => True),
+    trivial, trivial, ?_⟩
+  intro hSix
+  exact hSix.restraint
+
+#print axioms six_node_reporting_does_not_imply_original_six
 #print axioms six_node_coverage_and_reflection_yield_original_six
 #print axioms original_six_violation_exposes_coverage_or_reflection
 
