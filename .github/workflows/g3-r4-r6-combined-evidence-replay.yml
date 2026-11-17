@@ -10,6 +10,8 @@ on:
       - '.github/workflows/g3-r4-r6-combined-evidence-replay.yml'
       - 'evidence/execution-boundary/g3_r7_same_head_replay_receipt.py'
       - 'evidence/execution-boundary/test_g3_r7_same_head_replay_receipt.py'
+      - 'evidence/execution-boundary/koru_r5_forest_coverage_audit.py'
+      - 'evidence/execution-boundary/test_koru_r5_forest_coverage_audit.py'
   workflow_dispatch:
 jobs:
   one-head-linux-evidence:
@@ -36,7 +38,8 @@ jobs:
             test_koru_operator_post_recovery_recheck \
             test_koru_r5_post_connect_kernel_fence \
             test_koru_r5_kernel_denial_evidence \
-            test_koru_r6_marker_readonly_observer 2>&1 | tee "$RUNNER_TEMP/g3-r4-r6-replay.txt"
+            test_koru_r6_marker_readonly_observer \
+            test_koru_r5_forest_coverage_audit 2>&1 | tee "$RUNNER_TEMP/g3-r4-r6-replay.txt"
           "$PYTHON_BIN" -B g3_r7_same_head_replay_receipt.py \
             --log "$RUNNER_TEMP/g3-r4-r6-replay.txt" \
             --checkout "../.." \
