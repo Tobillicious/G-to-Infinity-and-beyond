@@ -488,3 +488,6 @@ import PhysicalBridges.ExternalJointEffectRefinement
 
 -- G2 same-event measured physical opportunity + per-particular cumulative agency join.
 import PhysicalBridges.G2PhysicalAgencyCumulativeJoin
+
+-- G2 coexistence: contraction upper bound + finite-stage injectivity + cumulative owed agency.
+import PhysicalBridges.G2NoncollapsingCoexistence
