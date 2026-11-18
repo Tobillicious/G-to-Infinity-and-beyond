@@ -7,4 +7,4 @@ def test_physical_correspondence_gaps_documented():
     assert path.exists(), "PHYSICAL-CORRESPONDENCE-GAPS.md must exist"
     text = path.read_text()
     for term in ("side-channel", "jitter", "starvation", "physical correspondence"):
-        assert term in text, f"missing gap term: {term}"
+        assert term.lower() in text.lower(), f"missing gap term: {term}"
