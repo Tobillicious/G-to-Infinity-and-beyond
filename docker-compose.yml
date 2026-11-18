@@ -1,40 +1,57 @@
-version: "3.9"
-services:
-  g3-guardian-node:
-    build:
-      context: ./evidence/execution-boundary/g3_guardian_node
-    container_name: upt-guardian-node
-    restart: unless-stopped
-    read_only: true
-    cap_drop: [ALL]
-    cap_add: [CHOWN, DAC_OVERRIDE, SETUID, SETGID, KILL]
-    security_opt: [no-new-privileges]
-    pids_limit: 128
-    mem_limit: 256m
-    cpus: 0.5
-    volumes:
-      - upt-guardian-node-state:/state
-    tmpfs:
-      - /tmp:rw,nosuid,nodev,mode=1777,size=32m
-    networks: [gmesh]
-    labels:
-      com.upt.g3.role: guardian-node
-
-  gmesh-server:
-    image: python:3.11-slim
-    container_name: upt-gmesh-server
-    working_dir: /app
-    command: ["python", "g_mesh_server.py"]
-    volumes:
-      - ./evidence/execution-boundary:/app
-    ports:
-      - "9001:9001"
-    networks: [gmesh]
-    restart: unless-stopped
-
-volumes:
-  upt-guardian-node-state:
+version: '3.8'
 
 networks:
-  gmesh:
+  gmesh-swarm:
     driver: bridge
+
+services:
+  zelda-core:
+    build: .
+    container_name: zelda-core-node
+    environment:
+      - NODE_ID=zelda-core-0x4F
+      - G_MESH_MODE=sovereign
+    ports:
+      - "8443:8443"
+    networks:
+      - gmesh-swarm
+    healthcheck:
+      test: ["CMD", "python3", "-m", "gmesh.verify", "--node-id", "zelda-core-0x4F", "--strict"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  omega-core:
+    build: .
+    container_name: omega-core-node
+    environment:
+      - NODE_ID=omega-core-0x5E
+      - G_MESH_MODE=sovereign
+    ports:
+      - "8444:8443"
+    networks:
+      - gmesh-swarm
+    healthcheck:
+      test: ["CMD", "python3", "-m", "gmesh.verify", "--node-id", "omega-core-0x5E", "--strict"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  sigma-core:
+    build: .
+    container_name: sigma-core-node
+    environment:
+      - NODE_ID=sigma-core-0x6D
+      - G_MESH_MODE=sovereign
+    ports:
+      - "8445:8443"
+    networks:
+      - gmesh-swarm
+    healthcheck:
+      test: ["CMD", "python3", "-m", "gmesh.verify", "--node-id", "sigma-core-0x6D", "--strict"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
