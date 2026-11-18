@@ -58,6 +58,21 @@ def verify_fixed_workload(authority_source,launcher_source):
              {(("op","fixed_marker"),),(("op","hold"),)},
              "authority request allowlist drift")
     h=_source(authority,handler)
+    # The handler's complete call graph is a small, fixed reviewed interface.
+    # Required strings alone allow an injected direct file write or shell call
+    # while all pre-existing phrases remain present. Reject ANY new call
+    # expression, including calls nested in a conditional or exception path.
+    allowed_handler_calls = {
+        "self.request.getsockopt", "struct.calcsize", "struct.unpack",
+        "read_framed_request", "json.loads", "self.reply",
+        "self.server.journal.admit", "self.server.fence.execute_synthetic",
+        "self.server.journal.hold",
+    }
+    actual_handler_calls = {
+        ast.unparse(n.func) for n in ast.walk(handler) if isinstance(n, ast.Call)
+    }
+    _require(actual_handler_calls == allowed_handler_calls,
+             "unreviewed authority handler call or missing required call")
     for phrase in ("uid == self.server.executor_uid",
                    "uid == self.server.controller_uid",
                    "self.server.journal.admit(OPERATION, self.server.expected)",
@@ -91,6 +106,15 @@ def verify_fixed_workload(authority_source,launcher_source):
                    "FD_AUDIT_CHILD_CODE","LANDLOCK_CHILD_CODE",
                    "SECCOMP_CHILD_CODE"):
         _require(phrase in launch_code,"launcher confinement drift: "+phrase)
+    # Isolated interpreter with no `site` import: no .pth execution or
+    # name-service lookup before the fence. Exact prefix, so dropping or
+    # reordering either flag is caught.
+    _require("[sys.executable, '-B', '-I', '-S', '-c', FD_AUDIT_CHILD_CODE"
+             in launch_code,"launcher interpreter isolation drift")
+    # Explicit non-existent HOME: no name-service lookup (nscd/userdb IPC)
+    # from the child before its fence; the authority stays the only peer.
+    _require("'HOME': '/nonexistent'" in launch_code,
+             "launcher pre-fence name-service lookup drift")
     child_values=[n.value.value for n in ast.walk(launcher)
                   if isinstance(n,ast.Assign)
                   for target in n.targets

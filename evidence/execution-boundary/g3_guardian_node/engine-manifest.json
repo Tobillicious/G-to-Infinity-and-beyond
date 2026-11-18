@@ -1,0 +1,24 @@
+{
+  "engine_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337",
+  "files": {
+    "koru_authority_owned_marker_service.py": "4d68d9e376a7b3a9bebd858417c01b04e0c93a2dc552eb305e58c719084e37ab",
+    "koru_authority_admission_journal.py": "0b39ac33f7edb9216d1f6d6d02b6047da23b3bb3189695f323b76f124f81be06",
+    "koru_authority_effect_time_fence.py": "f17e0cb08234ef8a6d1a468a7567b5128579612b885d977c092b1d508b22b61a",
+    "koru_transactional_hold_witness.py": "e484c095e0e4994b2707c6604bc6fcbf0e1b5972b2bb45cdcdcaf8ba4cca5293",
+    "koru_bounded_server.py": "5dfdaf536e05541e268ea80c3e97c2e56e07205667987d5fa8cd865d706653a6",
+    "koru_authority_reserved_workers.py": "1b8a1cadff80635153e2942019dd66761d4adcc4eb05e8689dfe897f24c48416",
+    "koru_durable_effect_intent.py": "9a7603855fe01ba2a82c63e29de2b7725eeb6b048ce9aaad0a8c69c44388d073",
+    "koru_transaction_scoped_effect.py": "f889872eda9a692bf6885e187723a70e36f737459e805030150e707c181f66fe",
+    "koru_no_inherited_fd_executor.py": "35b9c009ea7f0f3feb2b64b7b51160c366901adc363c5e0f49681df93702699c",
+    "koru_seccomp_fd_receive_fence.py": "05886ebe25eb8704fe7845f43ab53814e039f86edd2fc6ff51a6f59c87c26f60",
+    "koru_landlock_write_fence.py": "22eb8b37d563c5fc3dce87daf37afc4ffb0e4f52738c8ab917a8b45c2aca73c9",
+    "koru_executor_fd_startup_audit.py": "81b4071160ba32b0a1abb56580098551da290f8255577d351b6b34446ded42dd"
+  },
+  "docker_image": "g3-zelda-test:py313",
+  "docker_image_id": "sha256:2fc838f955c21126b5a70d3e6837d6553bb60c5323fd09769781c6a0c1ff2f52",
+  "scope": "One authority-owned zero-byte marker; Linux container; local controller; no whole-machine or independent-custody certification",
+  "observer_files": {
+    "koru_r6_marker_readonly_observer.py": "3412a6dcc9cce3a81143e07c2a43471ed949504ebe23f9059a2faea7860a6d91"
+  },
+  "observer_source_commit": "77d3b2d1823fc09458873a1f5f461d24d349d337"
+}

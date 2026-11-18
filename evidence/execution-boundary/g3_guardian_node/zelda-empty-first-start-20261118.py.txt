@@ -1,0 +1,99 @@
+"""Reviewed first-start recovery for Zelda's failed, never-provisioned node.
+
+Refuses any nonempty volume or unexpected container identity. It never deletes
+a volume, clears HOLD, edits a database or migrates provisioned engine state.
+"""
+import datetime
+import hashlib
+import json
+from pathlib import Path
+import sys
+import time
+
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT / "evidence/execution-boundary/g3_guardian_node"))
+import launcher
+
+OLD_CONTAINER_ID = "ae8f72d1bde0b130b202842edd07c56ce8ed1a9e11ef568cc1dabb3ec5da3acc"
+OLD_ENGINE = "9f9a11f3b14fcddab358e50f0ea8f90b88f02066"
+REPORTS = ROOT.parent / "output/g3-zelda-live-2026-11-18"
+EMPTY_CHECK = '''import json,os
+names=sorted(os.listdir("/state"))
+print(json.dumps({"state_entries":names,"empty":not names}))
+raise SystemExit(0 if not names else 3)
+'''
+
+
+def recover(record):
+    manifest, bundle = launcher.pinned_bundle()
+    launcher.local_context()
+    record.update(engine_source_commit=manifest["engine_source_commit"],
+                  bundle_sha256=bundle)
+    info = launcher.node_container()
+    if info:
+        labels = info["Config"].get("Labels") or {}
+        if labels.get(launcher.BUNDLE) == bundle:
+            # Retrying a failed current-bundle start retains its existing state.
+            return launcher.start(manifest, bundle)
+        if info["Id"] != OLD_CONTAINER_ID or labels.get(launcher.ENGINE_LABEL) != OLD_ENGINE:
+            raise RuntimeError("unexpected existing node identity; no replacement")
+        if info["State"]["Running"] or info["State"].get("Restarting"):
+            raise RuntimeError("old failed node must be stopped before empty-state recovery")
+        mounts = info.get("Mounts", [])
+        if len(mounts) != 1 or mounts[0].get("Name") != launcher.VOLUME or \
+                mounts[0].get("Destination") != "/state" or mounts[0].get("Type") != "volume":
+            raise RuntimeError("unexpected existing state mount")
+        record["old_container"] = {"id": info["Id"], "image": info["Image"],
+            "engine": labels[launcher.ENGINE_LABEL], "state": info["State"]["Status"]}
+        logs = launcher.docker("logs", "--tail", "30", info["Id"], allow_failure=True)
+        record["previous_startup_log"] = logs.stdout + logs.stderr
+    volume = launcher.inspect("volume", launcher.VOLUME)
+    if not volume or (volume.get("Labels") or {}).get(launcher.ROLE) != "guardian-node":
+        raise RuntimeError("existing state volume identity is not the expected guardian volume")
+    base = launcher.inspect("image", manifest["docker_image"])
+    if not base or base["Id"] != manifest["docker_image_id"]:
+        raise RuntimeError("local read-only inspection image is not the pinned base")
+    result = launcher.docker("run", "--rm", "--pull=never", "--network", "none",
+        "--read-only", "--cap-drop", "ALL", "--memory", "64m", "--pids-limit", "16",
+        "--mount", "type=volume,src=" + launcher.VOLUME + ",dst=/state,readonly",
+        "--entrypoint", "python", manifest["docker_image_id"], "-B", "-c", EMPTY_CHECK)
+    observation = json.loads(result.stdout)
+    if observation != {"state_entries": [], "empty": True}:
+        raise RuntimeError("state is not empty; no reset or automatic migration is allowed")
+    record["read_only_empty_state_observation"] = observation
+    # Recheck identity immediately before removing only the failed container.
+    current = launcher.node_container()
+    if info:
+        if not current or current["Id"] != info["Id"] or current["State"]["Running"]:
+            raise RuntimeError("existing node changed during the recovery check")
+        launcher.docker("rm", info["Id"])
+        record["removed_failed_container_only"] = info["Id"]
+    elif current:
+        raise RuntimeError("another node appeared during the recovery check")
+    record["state_volume_retained"] = True
+    return launcher.start(manifest, bundle)
+
+
+def main():
+    record = {"started_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "recovery_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "unconditional_protection_certified": False,
+        "independent_custody_verified": False}
+    REPORTS.mkdir(parents=True, exist_ok=True)
+    report = REPORTS / ("first-start-" + str(time.time_ns()) + ".json")
+    try:
+        record["live_status"] = recover(record)
+        record["ready"] = bool(record["live_status"].get("ready"))
+        print(json.dumps(record["live_status"], indent=2, sort_keys=True))
+    except Exception as error:
+        record["ready"] = False
+        record["error"] = str(error)
+        raise
+    finally:
+        record["finished_utc"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        report.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
+        print("Recovery record: " + str(report), file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()

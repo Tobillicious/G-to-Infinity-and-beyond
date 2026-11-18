@@ -26,6 +26,20 @@ class FixedWorkloadContractTests(unittest.TestCase):
     def test_actual_checkout_matches_narrow_contract(self):
         self.assertTrue(verify_checkout())
 
+    def test_injected_direct_marker_write_rejected(self):
+        marker = '            request = json.loads(data)'
+        self.assertIn(marker, self.authority)
+        changed = self.authority.replace(
+            marker, marker + '\n            self.server.write_fixed_marker()', 1)
+        self.check_rejected(authority=changed)
+
+    def test_unreviewed_shell_effect_call_rejected(self):
+        marker = '            request = json.loads(data)'
+        self.assertIn(marker, self.authority)
+        changed = self.authority.replace(
+            marker, marker + '\n            os.system("true")', 1)
+        self.check_rejected(authority=changed)
+
     def test_new_unreviewed_operation_rejected(self):
         self.check_rejected(authority=self.authority.replace(
             '{"op": "fixed_marker"}','{"op": "arbitrary_write"}'))
@@ -74,6 +88,20 @@ class FixedWorkloadContractTests(unittest.TestCase):
     def test_authority_socket_identity_check_removed_rejected(self):
         self.check_rejected(launcher=self.launcher.replace(
             "socket.SO_PEERCRED","socket.SO_TYPE"))
+
+    def test_site_import_reenabled_rejected(self):
+        # Re-enabling `site` restores pre-fence .pth execution and NSS lookups.
+        self.check_rejected(launcher=self.launcher.replace(
+            '"-B","-I","-S","-c"','"-B","-I","-c"'))
+
+    def test_home_removed_rejected(self):
+        # Without HOME, `import ctypes` triggers pre-fence nscd/userdb IPC.
+        self.check_rejected(launcher=self.launcher.replace(
+            '"HOME":"/nonexistent"','"LANG":"C"'))
+
+    def test_isolated_mode_removed_rejected(self):
+        self.check_rejected(launcher=self.launcher.replace(
+            '"-B","-I","-S","-c"','"-B","-S","-c"'))
 
 
 if __name__=="__main__":

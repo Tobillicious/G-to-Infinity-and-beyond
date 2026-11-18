@@ -1,0 +1,83 @@
+name: G3 combined R4-R6 protection evidence replay (non-deploying)
+on:
+  pull_request:
+    paths:
+      - 'evidence/execution-boundary/koru_r5_kernel_denial_evidence.py'
+      - 'evidence/execution-boundary/test_koru_r5_kernel_denial_evidence.py'
+      - 'evidence/execution-boundary/koru_r6_marker_readonly_observer.py'
+      - 'evidence/execution-boundary/test_koru_r6_marker_readonly_observer.py'
+      - 'evidence/execution-boundary/G3-R6-FIXED-MARKER-ACTUAL-EFFECT-EVIDENCE-2026-11-17.md'
+      - '.github/workflows/g3-r4-r6-combined-evidence-replay.yml'
+      - 'evidence/execution-boundary/g3_r7_same_head_replay_receipt.py'
+      - 'evidence/execution-boundary/test_g3_r7_same_head_replay_receipt.py'
+      - 'evidence/execution-boundary/koru_r5_forest_coverage_audit.py'
+      - 'evidence/execution-boundary/test_koru_r5_forest_coverage_audit.py'
+      - 'evidence/execution-boundary/test_koru_r5_residual_unix_ipc.py'
+      - 'evidence/execution-boundary/test_koru_r5_process_creation_fence.py'
+      - 'evidence/execution-boundary/test_koru_r5_socket_family_fence.py'
+      - 'evidence/execution-boundary/test_koru_no_inherited_fd_executor.py'
+      - 'evidence/execution-boundary/koru_fixed_workload_contract.py'
+      - 'evidence/execution-boundary/test_koru_fixed_workload_contract.py'
+      - 'evidence/execution-boundary/g3_r7_external_review_signature.py'
+      - 'evidence/execution-boundary/test_g3_r7_external_review_signature.py'
+      - 'evidence/execution-boundary/g3_rights_composition/same_event.py'
+      - 'evidence/execution-boundary/g3_rights_composition/test_same_event.py'
+      - 'evidence/execution-boundary/g3_rights_review/rights_review.py'
+      - 'evidence/execution-boundary/g3_authority_evidence/authority_evidence.py'
+      - 'evidence/execution-boundary/g3_r6_same_event_evidence_audit.py'
+      - 'evidence/execution-boundary/test_g3_r6_same_event_evidence_audit.py'
+  workflow_dispatch:
+jobs:
+  one-head-linux-evidence:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install 'cryptography==46.0.4'
+      - name: Reuse existing operator rollback, strict R5 and R6 observer regressions
+        run: |
+          cd evidence/execution-boundary
+          PYTHON_BIN="$(python -c 'import sys; print(sys.executable)')"
+          set -o pipefail
+          "$PYTHON_BIN" -B -m unittest -v \
+            test_g3_r7_same_head_replay_receipt \
+            test_g3_r7_external_review_signature
+          "$PYTHON_BIN" -B -m unittest -v g3_rights_composition.test_same_event
+          "$PYTHON_BIN" -B -m unittest -v test_g3_r6_same_event_evidence_audit
+          sudo -n env PYTHONPATH=. "$PYTHON_BIN" -B -m unittest -v \
+            test_koru_operator_surviving_rollback \
+            test_koru_operator_all_stores_rollback_contrast.AllStoresRollbackContrast \
+            test_koru_operator_post_recovery_recheck \
+            test_koru_r5_post_connect_kernel_fence \
+            test_koru_r5_kernel_denial_evidence \
+            test_koru_r6_marker_readonly_observer \
+            test_koru_r5_forest_coverage_audit \
+            test_koru_r5_residual_unix_ipc \
+            test_koru_r5_process_creation_fence \
+            test_koru_r5_socket_family_fence \
+            test_koru_no_inherited_fd_executor \
+            test_koru_fixed_workload_contract 2>&1 | tee "$RUNNER_TEMP/g3-r4-r6-replay.txt"
+          "$PYTHON_BIN" -B g3_r7_same_head_replay_receipt.py \
+            --log "$RUNNER_TEMP/g3-r4-r6-replay.txt" \
+            --checkout "../.." \
+            --sha "${{ github.event.pull_request.head.sha || github.sha }}" \
+            --output "$RUNNER_TEMP/g3-r7-scoped-replay.json"
+      - name: Note exact SHA and bounded test scope
+        run: |
+          printf 'head_sha=%s\n' "${{ github.event.pull_request.head.sha || github.sha }}"
+          printf '%s\n' 'R4 same-host rollback simulation; R5 synthetic Linux syscall denies; R6 same-admin separate-process marker.'
+          printf '%s\n' 'No off-host admin independence, authentic six-subject reflections or universal effects claimed.'
+      - name: Upload sanitized R7 research replay receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g3-r7-same-head-research-replay
+          path: ${{ runner.temp }}/g3-r7-scoped-replay.json
+          if-no-files-found: warn
+          retention-days: 14

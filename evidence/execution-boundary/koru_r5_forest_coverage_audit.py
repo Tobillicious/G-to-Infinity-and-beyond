@@ -44,6 +44,14 @@ def audit_forest_scope(*, declared_paths, observed_paths, owed_subjects,
         gaps.append("unexpected_effect_path:" + path)
     for path in sorted(declared_paths - observed_paths):
         gaps.append("declared_path_not_observed:" + path)
+    # Do not silently discard subjects supplied by an evidence collector but
+    # omitted from the asserted owed cohort: this is a review discrepancy.
+    for subject in subject_evidence:
+        if type(subject) is not str or not subject:
+            raise ValueError("invalid evidence subject identifier")
+    for subject in sorted(set(subject_evidence) - owed_subjects):
+        gaps.append("evidence_subject_outside_owed_scope:" + subject)
+
     for subject in sorted(owed_subjects):
         evidence = subject_evidence.get(subject)
         if not isinstance(evidence, Mapping):
