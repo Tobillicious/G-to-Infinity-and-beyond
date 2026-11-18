@@ -24,3 +24,14 @@ This document records the gap between machine-checked formal results and physica
 ## Status
 
 These gaps are tracked, not resolved. Conditional results must be labeled conditional.
+
+## Adversarial Test Stubs
+
+- Inject 15-50ms jitter across 40% of G3 links during high-frequency commits.
+- Flood shared buffers to force indirect starvation and verify no false blame.
+- Perturb G3 node state before hash flush to test side-channel degradation.
+
+## Hardware Assumptions
+
+- Memory faults, timing side-channels, and cache attacks are not covered by formal proofs.
+- Physical correspondence must be verified independently.
