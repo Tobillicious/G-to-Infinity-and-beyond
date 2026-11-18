@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  g3-guardian-node:
+    build:
+      context: ./evidence/execution-boundary/g3_guardian_node
+    container_name: upt-guardian-node
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    cap_add: [CHOWN, DAC_OVERRIDE, SETUID, SETGID, KILL]
+    security_opt: [no-new-privileges]
+    pids_limit: 128
+    mem_limit: 256m
+    cpus: 0.5
+    volumes:
+      - upt-guardian-node-state:/state
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,mode=1777,size=32m
+    networks: [gmesh]
+    labels:
+      com.upt.g3.role: guardian-node
+
+  gmesh-server:
+    image: python:3.11-slim
+    container_name: upt-gmesh-server
+    working_dir: /app
+    command: ["python", "g_mesh_server.py"]
+    volumes:
+      - ./evidence/execution-boundary:/app
+    ports:
+      - "9001:9001"
+    networks: [gmesh]
+    restart: unless-stopped
+
+volumes:
+  upt-guardian-node-state:
+
+networks:
+  gmesh:
+    driver: bridge
