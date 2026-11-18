@@ -1,0 +1,60 @@
+name: G3 Zelda observed effect bridge (non-deploying)
+on:
+  pull_request:
+    paths:
+      - 'evidence/execution-boundary/g3_zelda_observed_effect_bridge.py'
+      - 'evidence/execution-boundary/test_g3_zelda_observed_effect_bridge.py'
+      - 'evidence/execution-boundary/g3_guardian_node/live-observation-2026-11-18.json'
+      - '.github/workflows/g3-zelda-observed-effect-bridge.yml'
+      - 'evidence/execution-boundary/g3_protected_source_tripwire.py'
+      - 'evidence/execution-boundary/test_g3_protected_source_tripwire.py'
+      - 'evidence/execution-boundary/g3_start_acceptance.py'
+      - 'evidence/execution-boundary/test_g3_start_acceptance.py'
+      - 'evidence/execution-boundary/g3_quorum_certificate_check.py'
+      - 'evidence/execution-boundary/test_g3_quorum_certificate_check.py'
+      - 'evidence/execution-boundary/g3_joint_physical_acceptance.py'
+      - 'evidence/execution-boundary/test_g3_joint_physical_acceptance.py'
+      - 'evidence/execution-boundary/g3_real_effect_inventory_handoff.py'
+      - 'evidence/execution-boundary/test_g3_real_effect_inventory_handoff.py'
+      - 'evidence/execution-boundary/koru_broker.py'
+      - 'evidence/execution-boundary/koru_separated_authority_service.py'
+      - 'evidence/execution-boundary/koru_authority_owned_marker_service.py'
+      - 'evidence/execution-boundary/koru_no_inherited_fd_executor.py'
+      - 'evidence/execution-boundary/g3_guardian_node/service.py'
+      - 'evidence/execution-boundary/koru_transactional_hold_witness.py'
+      - 'evidence/execution-boundary/koru_r5_forest_coverage_audit.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-observation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert exact source checkout
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          test -z "$(git status --porcelain)"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pinned Ed25519 verifier used by quorum tests
+        run: python -m pip install 'cryptography==46.0.4'
+      - name: Test adversarial observation boundary
+        run: |
+          cd evidence/execution-boundary
+          python -B -m unittest -v test_g3_zelda_observed_effect_bridge test_g3_protected_source_tripwire test_g3_start_acceptance test_g3_quorum_certificate_check test_g3_joint_physical_acceptance
+      - name: Reject unexpected drift of reviewed authority/HOLD sources
+        run: python -B evidence/execution-boundary/g3_protected_source_tripwire.py
+      - name: Emit non-authorizing scoped effect bridge report
+        run: |
+          python -B evidence/execution-boundary/g3_zelda_observed_effect_bridge.py \
+            --observation evidence/execution-boundary/g3_guardian_node/live-observation-2026-11-18.json
+      - name: Start non-authorizing G3 stage-zero acceptance and print open gates
+        run: python -B evidence/execution-boundary/g3_start_acceptance.py

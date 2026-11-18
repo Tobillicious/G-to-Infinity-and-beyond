@@ -97,6 +97,78 @@ theorem four_cause_nonvacuous_guardian_with_original_six
     (four_causes_derive_complete_joint_coverage J read hFour)
     hMeaning
 
+
+/-- A fifth, causally distinguishable event is not in the four-constructor
+    domain. This formally prevents promoting four-cause completeness to an
+    unrestricted physical claim by silently omitting the new transition. -/
+theorem fifth_cause_is_not_a_four_cause_transition :
+    ∃ s t : Plant, ExtendedRealStep s t ∧ ¬ RealStep s t := by
+  obtain ⟨s, t, hExtended, hNoWitness⟩ :=
+    fifth_cause_defeats_four_cause_coverage
+  refine ⟨s, t, hExtended, ?_⟩
+  intro hFour
+  exact hNoWitness (all_four_real_step_classes_are_witnessed s t hFour)
+
+/-- To cover the extended plant, the fifth cause needs its OWN exact joint
+    refinement. This extends the coverage result without changing any
+    original duty or redefining an unknown event as a known one. -/
+theorem five_causes_derive_extended_joint_coverage
+    (J : JokerExperiment T FiniteObjectiveU H)
+    (read : Plant → Joint T H E n)
+    (hFour : FourCauseJointRefinement J read)
+    (hUnclassified : ∀ s k,
+      jointStep J (read s)
+        (read { burden := s.burden + k, lastCause := CauseKind.unclassified })) :
+    AllActualEffectsRefineJoint J ExtendedRealStep read := by
+  intro s t hReal
+  cases hReal with
+  | known hKnown =>
+      exact (four_causes_derive_complete_joint_coverage J read hFour) _ _ hKnown
+  | unknown k =>
+      exact hUnclassified _ k
+
+
+/-- An explicit admission policy for the extended PLANT, not a claim that
+    real unclassified physical events cannot happen. Unknown steps remain
+    present in ExtendedRealStep but cannot acquire the admitted label. -/
+def ClassifiedAdmission (s t : Plant) : Prop :=
+  ExtendedRealStep s t ∧ t.lastCause ≠ CauseKind.unclassified
+
+/-- The admission gate has a proof-producing completeness check: every
+    admitted extended step is necessarily one of the four known types. -/
+theorem classified_admission_has_known_cause
+    {s t : Plant} (h : ClassifiedAdmission s t) : RealStep s t := by
+  rcases h with ⟨hStep, hTag⟩
+  cases hStep with
+  | known hKnown => exact hKnown
+  | unknown k => exact False.elim (hTag rfl)
+
+/-- An unknown fifth-cause event cannot be admitted, regardless of magnitude. -/
+theorem unknown_cause_is_not_admitted (s : Plant) (k : Nat) :
+    ¬ ClassifiedAdmission s
+        { burden := s.burden + k, lastCause := CauseKind.unclassified } := by
+  intro h
+  exact h.2 rfl
+
+/-- Admission implies reviewed joint-step refinement, using only the four
+    already named source obligations. This holds for the ADMITTED SUBSYSTEM,
+    not the entire independent ExtendedRealStep physical relation. -/
+theorem classified_admission_derives_joint_coverage
+    (J : JokerExperiment T FiniteObjectiveU H)
+    (read : Plant → Joint T H E n)
+    (hFour : FourCauseJointRefinement J read) :
+    AllActualEffectsRefineJoint J ClassifiedAdmission read := by
+  intro s t h
+  exact (four_causes_derive_complete_joint_coverage J read hFour) s t
+    (classified_admission_has_known_cause h)
+
+#print axioms classified_admission_has_known_cause
+#print axioms unknown_cause_is_not_admitted
+#print axioms classified_admission_derives_joint_coverage
+
+#print axioms fifth_cause_is_not_a_four_cause_transition
+#print axioms five_causes_derive_extended_joint_coverage
+
 #print axioms four_causes_derive_complete_joint_coverage
 #print axioms four_cause_plant_has_an_actual_modeled_step
 #print axioms four_cause_nonvacuous_guardian_with_original_six
