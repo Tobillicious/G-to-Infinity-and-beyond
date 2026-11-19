@@ -96,6 +96,9 @@ Tobias approved publishing ("publish now", "approved"). The paragraph below is t
 
 1. Merge PR #664 (needs Tobias's command or permission).
 2. ~~Publish Figshare v2~~ DONE. Next: v3 with the 7 missing Lean files, duplicates removed.
+   v3 attempt (end of session): the 7 files were added to the edit page (398 files) but every one
+   stuck at "Uploading file (0%)". NOT published. Next agent: open the edit page, Cancel the 7 stuck
+   uploads, re-add them (drag-drop or Browse files), wait for 100%, verify via API, then Publish.
 3. Ask Tobias which Figshare item is canonical; leave the other as draft.
 4. Zenodo v4.9 with all Lean files + the two new modules, once #664 is on main.
 5. The next proof rung: the actualisation bridge — that physical matterspacetime is a history whose
