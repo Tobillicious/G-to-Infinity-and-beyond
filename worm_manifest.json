@@ -6519,6 +6519,10 @@
     "sha256": "59975e2509a68c76868a5a959e50282898f08f59917b534fc414784303220e79",
     "size_bytes": 967
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AllIsForwardPersistence.setup.json": {
+    "sha256": "234f4e9f50f0ce1c7babdae9725192fa494cedd426b36b28b487407e65f0c6f1",
+    "size_bytes": 1381
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AllIsGActualityDischarge.setup.json": {
     "sha256": "67ff7de49ba41c5f5f3d26ec77e6f2ea12b9a1bec4dfa26d87d6aea1cc25ac31",
     "size_bytes": 18528
@@ -6639,6 +6643,14 @@
     "sha256": "9f3adfd854f9e39eee18559822c53bbc3a1a8ff358bb0b2e9a9012866ef7e255",
     "size_bytes": 17670
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralPerspectiveObjectiveJoin.setup.json": {
+    "sha256": "bd3ae682537053ce1e952804ba04663d8ccc8811ba8e052b2d0bd4e88d747957",
+    "size_bytes": 17474
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralSummitAllIsOneClosure.setup.json": {
+    "sha256": "6d0527a1f8dc100703880b104508d4b02defd15963d0a944e506e6b18fcf50a3",
+    "size_bytes": 339
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralSummitCyclicContinuation.setup.json": {
     "sha256": "4faada69e2d9afddb15e8abd2c684a1b6ab64822c867bac49ddb7f3e4c514ede",
     "size_bytes": 18742
@@ -6646,6 +6658,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralSummitFirstViolationGap.setup.json": {
     "sha256": "6b2eff73118140cea3f00ed7bf8e49a8f8026ccfe3b6730943d762b8327bd0ba",
     "size_bytes": 17616
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralSummitMiddleCollapse.setup.json": {
+    "sha256": "f1bd01dc363379fbe8376d0ddd9573575d7b76ed9ab084515a2615b1109da100",
+    "size_bytes": 555
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralSummitPremiseNecessity.setup.json": {
     "sha256": "b9354bf912a1761a880486f30fc18d7a68d62f4a354c810c7b922664dc6ca081",
@@ -6719,6 +6735,10 @@
     "sha256": "e544c7421addcfb7046acb4bba0e9b4960e37aa68b145abcc458a457a2d09271",
     "size_bytes": 28377
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G123ExistingProofAssembly.setup.json": {
+    "sha256": "3fd8e6d8cada1a56498917475b04d8fe13a3f14ce9cff59e7b32802c2c4b542f",
+    "size_bytes": 29413
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3BoundedGuardianDischarge.setup.json": {
     "sha256": "d1a0cbbd6c6b2aeac198d96de4d11b1c218a2dd629619313bc9011d3a2b869ad",
     "size_bytes": 34422
@@ -6730,6 +6750,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3TreeOfLifeUnconditional.setup.json": {
     "sha256": "1df83ee59bf47a1b59aa68707b89e32a338c13b7ffb90caf866bc88f807dddb5",
     "size_bytes": 34847
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3UniversalBridge.setup.json": {
+    "sha256": "2f157be1d2ce8b79fec6ff07f8a9020a9f2fc995efbf78e2844daec6bd5068e5",
+    "size_bytes": 36708
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/GAndNoEFullSixTraceAssembly.setup.json": {
     "sha256": "7803f8d9c36bd9e12ebd25b29b9d55115d8d4a8ae0ff11ba050498f748b79f61",
@@ -7390,6 +7414,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/TotalEOriginalX3Bridge.setup.json": {
     "sha256": "4c1902e1e16e9e37911965bc949a608eab21b88bb99866ed60c775a206537f34",
     "size_bytes": 18711
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/UPTLaw.setup.json": {
+    "sha256": "6382c377f2e6d852bd000c766089f09997b44d167120179054097bff44b98465",
+    "size_bytes": 21961
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/UniversalOwedOriginalX3.setup.json": {
     "sha256": "0c718406150e4f1ec1de658586ebb089c8f5706db31d4f93f1923f2e8e7e171d",
@@ -8504,7 +8532,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "ce81a02305adfaef5a8055e8805c8f89d5cc407991be3dc312905168b351eb43",
-    "size_bytes": 459341
+    "sha256": "994303c879313c9dd3458b1ddef0b5e61a727d07b36c9e347c44e205d6d49e25",
+    "size_bytes": 459767
   }
 }
