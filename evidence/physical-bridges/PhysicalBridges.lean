@@ -536,3 +536,5 @@ import PhysicalBridges.G3TreeOfLifeUnconditional
 import PhysicalBridges.G3TriadicBridge
 import PhysicalBridges.G3UniversalBridge
 import PhysicalBridges.PureG
+import PhysicalBridges.G3TurnToG
+import PhysicalBridges.G3KoruSpiral
