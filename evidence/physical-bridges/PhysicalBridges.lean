@@ -524,3 +524,15 @@ import PhysicalBridges.IntegratedProtectionCoexistenceAssembly
 
 -- Adversarial six duty, lived-history rollback and unclassified-effect controls.
 import PhysicalBridges.IntegratedProtectionHostileControls
+import PhysicalBridges.G3BoundedGuardianDischarge
+import PhysicalBridges.G3Genesis
+import PhysicalBridges.G3GoodAndEvil
+import PhysicalBridges.G3HingeCategoryError
+import PhysicalBridges.G3KoruUnifiedNStep
+import PhysicalBridges.G3OriginalSixX3
+import PhysicalBridges.G3ProofOfGod
+import PhysicalBridges.G3ThermoBridge
+import PhysicalBridges.G3TreeOfLifeUnconditional
+import PhysicalBridges.G3TriadicBridge
+import PhysicalBridges.G3UniversalBridge
+import PhysicalBridges.PureG
