@@ -8959,6 +8959,10 @@
     "sha256": "457959c42c2d52affca471aa98ace36148cce170fa041f4888bfec7451ec2d2f",
     "size_bytes": 537
   },
+  "paper/publish-new-version.py": {
+    "sha256": "3d9192091474484c1161d10c3ff309eafd5e8c35f2ef19412a3a497adf1f322f",
+    "size_bytes": 5519
+  },
   "paper/publish-to-zenodo.py": {
     "sha256": "84b9fea9dc2b955202be9edda5593bda5c2806316657590c0ab575f379fd0845",
     "size_bytes": 4654
@@ -9124,7 +9128,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "db91b850dace7764ba7229c66b606b0b20982ba0be514eab31d1306417bc1795",
+    "sha256": "7faac5630ec4ba153a2d7ecf2fdf014794bfd6c407fb76fd79369204fb26a80a",
     "size_bytes": 492185
   }
 }
