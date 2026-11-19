@@ -6679,6 +6679,10 @@
     "sha256": "67f05a000dfa048ac6dff021885d1098f4f4d33f8a881cc3cd670b11c75c9665",
     "size_bytes": 171
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/EndlessKnowledgeGuardianBridge.setup.json": {
+    "sha256": "00d4fcb043a1c8b6ee7daab93457ec96a22fb3c85fd7caf704f629a9f0d0c872",
+    "size_bytes": 33568
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/EverestActualWEventJoin.setup.json": {
     "sha256": "16559aed2db117cdd9de7ce5760c472f91983de74c6e5f545ae76fdd0a7b1c9e",
     "size_bytes": 25207
@@ -6699,6 +6703,10 @@
     "sha256": "eb1b042aaca0567aae66692007314acc79a681deaa7156ab13e17a31bef6618b",
     "size_bytes": 32328
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/FourCausePhysicalGuardianBridge.setup.json": {
+    "sha256": "dc86f0a1cf708a74f91a9bc5f27e17ae964b8aaa085187f4d54f838d1030b7ab",
+    "size_bytes": 34208
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/FrozenBCRDEvents.setup.json": {
     "sha256": "a73e625e42c0eb56bfa9d7876c8b455ae181569be01c95a88cb6897f967bfcb2",
     "size_bytes": 163
@@ -6711,9 +6719,17 @@
     "sha256": "e544c7421addcfb7046acb4bba0e9b4960e37aa68b145abcc458a457a2d09271",
     "size_bytes": 28377
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3BoundedGuardianDischarge.setup.json": {
+    "sha256": "d1a0cbbd6c6b2aeac198d96de4d11b1c218a2dd629619313bc9011d3a2b869ad",
+    "size_bytes": 34422
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3SameEventCapstone.setup.json": {
     "sha256": "f7895afb7784538090c19ac01261f95d472152ed72abe507be6826fe7dba981d",
     "size_bytes": 33772
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3TreeOfLifeUnconditional.setup.json": {
+    "sha256": "1df83ee59bf47a1b59aa68707b89e32a338c13b7ffb90caf866bc88f807dddb5",
+    "size_bytes": 34847
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/GAndNoEFullSixTraceAssembly.setup.json": {
     "sha256": "7803f8d9c36bd9e12ebd25b29b9d55115d8d4a8ae0ff11ba050498f748b79f61",
@@ -8468,7 +8484,7 @@
     "size_bytes": 325
   },
   "worm_manifest.json": {
-    "sha256": "48f32dbe6ca94175019599e9167a9a9b768e0604df3c038e865f7322bb62fc1c",
-    "size_bytes": 444846
+    "sha256": "d3a194de46fce3c33e15c0de32e963a60accdc4356cbc9ff3d3c68eadd42ee6c",
+    "size_bytes": 458186
   }
 }
