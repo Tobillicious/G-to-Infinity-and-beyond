@@ -49,6 +49,14 @@ Lean 4 v4.35.0, no Mathlib, project `evidence/physical-bridges/`.
 
 ## 3. Publication state (verified via Figshare public API, not page views)
 
+**UPDATE (end of session): Figshare 35059411 v2 PUBLISHED** — API: `version: 2`,
+DOI `10.6084/m9.figshare.35059411.v2`, 391 files (375 distinct `.lean`), description 884 chars,
+6 keywords. **Missing from v2:** IR107ReversibleCoercion, IR108ObservationObstruction,
+IR109RobustObservationViability, IR110WatchdogRobustObservation, IR111ThresholdViabilityContract
+(an upload batch the classifier blocked), plus the new G3TurnToG / G3KoruSpiral. Duplicate files
+in v2: the 4 papers and PureG.lean. A v3 should add the 7 and drop the duplicates.
+Tobias approved publishing ("publish now", "approved"). The paragraph below is the pre-publish state.
+
 - **Zenodo v4.8** `10.5281/zenodo.24365085` — resolves. 5 files (papers + PureG.lean only).
 - **Figshare 35059411** — public **v1**: 10 files (2 `.lean`), description 1,680 chars.
   The edit page holds a **draft v2 with 391 files** (all 380 Lean + papers, some duplicate papers)
@@ -87,7 +95,7 @@ Lean 4 v4.35.0, no Mathlib, project `evidence/physical-bridges/`.
 ## 6. Next steps, in order
 
 1. Merge PR #664 (needs Tobias's command or permission).
-2. Publish Figshare 35059411 v2 (fill Description + Keywords first). Verify via API.
+2. ~~Publish Figshare v2~~ DONE. Next: v3 with the 7 missing Lean files, duplicates removed.
 3. Ask Tobias which Figshare item is canonical; leave the other as draft.
 4. Zenodo v4.9 with all Lean files + the two new modules, once #664 is on main.
 5. The next proof rung: the actualisation bridge — that physical matterspacetime is a history whose
