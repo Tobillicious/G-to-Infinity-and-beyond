@@ -7859,6 +7859,10 @@
     "sha256": "0d885c741a7f33941254eedf65b1b2bc4ac71718a25c4e0ea6f71435928a2a6c",
     "size_bytes": 26236
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/PureG.setup.json": {
+    "sha256": "647e940144c2c2e76aed48c7a84283eaa2adec95e2d7c055c07da5a824857589",
+    "size_bytes": 152
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/RecoveredRouteBSourceCertificate.setup.json": {
     "sha256": "96972c306131f90c6a9a253dfe2887c037bd96d4714a8905e9b1f296cba63254",
     "size_bytes": 19322
@@ -9148,7 +9152,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "f297f8cd97b967f52ed698656f0cd2c131ded2f1a159b5de3bdec045f446c0bc",
-    "size_bytes": 492331
+    "sha256": "aa9777728a3b3b5381576a765feed42eae40c208b676f785005d051f227d5d52",
+    "size_bytes": 493338
   }
 }
