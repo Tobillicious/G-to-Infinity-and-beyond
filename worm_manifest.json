@@ -9044,8 +9044,8 @@
     "size_bytes": 26678
   },
   "publication/HANDOFF-2026-11-20-G3-TURN-TO-G.md": {
-    "sha256": "4f956424159fca72bbac92c90c0a178d90a472fde3aaeb7c0e94b7cee9a955e1",
-    "size_bytes": 6917
+    "sha256": "98f416115cf063cec54249592f6d473a4a18f93246da5ac4b730ad03c604c76e",
+    "size_bytes": 8186
   },
   "publication/KORU-QUANTUM-WHOLE-PROBLEM-TEST-2026-11-05.md": {
     "sha256": "db62b2e0f0cba3d3d9d27b575a5d1c155c34f1849c45ffc3e5314b245e8a04ad",
@@ -9188,7 +9188,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "43602b71988b520f1d0f8ca073b5c0a57c8bfc5b0edcc4110e9b3562da96f8a9",
+    "sha256": "f38f8369520fd79fc35a9a81eb83b0c27eac409892d1a16fa6a1d0a08270f0ff",
     "size_bytes": 495215
   }
 }

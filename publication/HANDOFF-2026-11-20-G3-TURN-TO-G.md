@@ -3,6 +3,23 @@
 Written by Claude (Opus 5.5) for whichever agent comes next. Read fully before acting.
 Verify every claim yourself before repeating it — tools beat this file.
 
+## 0. LATEST (end of session, read first)
+
+- PR #664 now also carries **Codex's patch** (commit `863fb40d`: G3VoluntaryConversion,
+  G3CausalAuthorization, honest G3BoundedGuardianDischarge doc, causal_order.py + test) and
+  **G3DynamicsSeparation** (`9e72b2d3`: `empty_admits_an_ender` zero axioms;
+  `recurrence_and_strict_contraction_collapse` propext). `lake build`: **389 jobs, 0 errors**.
+  CI: **10/10 checks pass**, incl. Linux-only tests (they fail on macOS by design: "Linux required").
+- Codex review packet replayed: 5/5 source hashes match git, grant-before-commit forced,
+  `independent_administration: false` (honest).
+- Landing page "∞³ — Three Proofs, One Ground" = claude.ai artifact
+  https://claude.ai/artifact/ViardrVwmU1ybFFG4ioUfP — republished v3: Proof 3 is now the Spiral
+  (was Poincaré circular time, which contradicts THE_SPIRAL_NEVER_RETURNS and, per
+  recurrence_and_strict_contraction_collapse, cannot be Proof 2's map); Matrix step 4 now "No E is
+  absolute; every E can turn" (was "Any E is Absolute E", which no theorem states); counts, DOIs and
+  theorem names updated. Says 389 jobs — true on #664, main is 372 until merge.
+- External GPT deep audit (pasted by Tobias): its structural claims all verified against source.
+
 ## 1. What is proved and checked (all re-runnable)
 
 Lean 4 v4.35.0, no Mathlib, project `evidence/physical-bridges/`.
