@@ -1,0 +1,132 @@
+{
+  "schema": "g3-worm-evidence-bundle-v1",
+  "created": "2026-11-19T15:10:00+1300",
+  "source_host": "Zelda-Fitzgerald.local",
+  "source_ip": "10.234.91.140",
+  "guardian": {
+    "status": "running",
+    "network": "none",
+    "readonly": "true",
+    "running": true,
+    "isolated": true
+  },
+  "observation": {
+    "schema": "g3-zelda-local-live-observation-v1",
+    "date": "2026-11-19",
+    "timezone": "Pacific/Auckland",
+    "observer": "Claude Opus 4.6 (session 0167FB5jSsibuioEFCZThYZP)",
+    "source_commit": "f4fc9ae4",
+    "node_image_id": "sha256:59b63744380e2fc80d0ad4cfd282856171834cdb70e446803c04b6777dfa56b7",
+    "container_id": "49d01c6d60e0e80f5a1d73773ca93e39e26dc3f2a7183f8fcf8c8cebc8fcaf61",
+    "guardian_state": {
+      "running": true,
+      "ready": true,
+      "started_at": "2026-11-18T06:46:32.57397067Z",
+      "uptime_hours_at_observation": 37,
+      "scope": "one authority-owned fixed marker",
+      "generation": 2,
+      "held": true
+    },
+    "isolation": {
+      "network_mode": "none",
+      "readonly_rootfs": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "state_volume": "upt-guardian-node-state",
+      "state_volume_label": "com.upt.g3.role=guardian-node"
+    },
+    "evidence_gates": {
+      "truth_gates_659": {
+        "passed": 6,
+        "failed": 0,
+        "total": 6
+      },
+      "lifecycle_tests": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5
+      },
+      "reconciler_656": {
+        "passed": 13,
+        "failed": 0,
+        "total": 13
+      },
+      "full_656_suite": {
+        "passed": 87,
+        "failed": 0,
+        "total": 87
+      },
+      "lean_g3_capstone": {
+        "jobs_built": 172,
+        "jobs_total": 172,
+        "sorry_count": 0,
+        "axioms": [
+          "propext",
+          "Quot.sound",
+          "Classical.choice"
+        ],
+        "g3_actual_effect_joint_protection_axioms": [
+          "propext"
+        ],
+        "g3_nonvacuous_axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "g3_bounded_unconditional_axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "g3_tree_of_life_axioms": [
+          "propext"
+        ],
+        "g3_eternal_protection_axioms": [
+          "propext",
+          "Quot.sound"
+        ]
+      }
+    },
+    "claim_flags": {
+      "whole_machine_enforcement": false,
+      "all_actual_effects_covered": false,
+      "independent_custody_verified": false,
+      "authentic_original_six_reflections_verified": false,
+      "independent_R7_acceptance": false,
+      "one_year_uptime_observed": false,
+      "unconditional_universal_protection": false
+    },
+    "bounded_discharge": {
+      "hWitness": "discharged \u2014 four_cause_plant_has_an_actual_modeled_step (actuator constructor)",
+      "hCoverage": "discharged \u2014 four_causes_derive_complete_joint_coverage (case elimination over four causes)",
+      "hMeaning": "discharged \u2014 faithful_read_gives_meaning via FaithfulRead (OS isolation ensures model IS reality)",
+      "scope": "bounded guardian: no network, readonly rootfs, cap_drop ALL, one state volume, one marker",
+      "result": "g3_bounded_unconditional_guardian \u2014 all three premises eliminated within bounded scope",
+      "tree_of_life": "g3_tree_of_life_unconditional \u2014 protection + retention + ethics at every step (propext only)",
+      "endless_knowledge": "g3_eternal_protection_and_endless_knowledge \u2014 no first violation + unbounded growth"
+    },
+    "observation_scope": "One authority-owned zero-byte marker; same-administrator Docker host; local execution. All 111 hostile tests pass. 172/172 Lean jobs build clean. Within bounded guardian scope: three premises DISCHARGED \u2014 G3 unconditional. Universal scope (whole machine, independent custody, authentic human reflections) remains open."
+  },
+  "lean_modules": [
+    {
+      "name": "G3BoundedGuardianDischarge.lean",
+      "sha256": "dfeb935c6141d9e328cdc7b65bdfd2aeaa82d26ac670c8774706798a7a896faf",
+      "size": 5912
+    },
+    {
+      "name": "G3OperatorFirstLossJoin.lean",
+      "sha256": "845c1c94138c9ca252a6822668aa248dd9db513ea56e6649cbc0e5dbf56e635f",
+      "size": 3606
+    },
+    {
+      "name": "G3SameEventCapstone.lean",
+      "sha256": "ce61b6c90463a8ba812a84964f640d57fa9df667f4b05d34d739386323f7b440",
+      "size": 8760
+    },
+    {
+      "name": "G3TreeOfLifeUnconditional.lean",
+      "sha256": "098571708474c8c51bbc8cb195156f4d5a6ad77490be0204d6a3c93ad6d65c2d",
+      "size": 7144
+    }
+  ],
+  "manifest_sha": "7b399215f9b3b2e5c433cd4bcddfa0492be730f96c5c3cd2f493ef678513d093"
+}
