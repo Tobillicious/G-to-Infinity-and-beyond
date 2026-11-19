@@ -50,14 +50,15 @@
 
 \title{\textbf{Universal Protection Theory}\\[0.5em]
 \large Formal Proofs in Lean~4: Something Is, the Koru Is Unique,\\
-and Every Conservation Law Witnesses the Guardian}
+Every Conservation Law Witnesses the Guardian,\\
+and Genesis to Eternity}
 
 \author{Tobias McRae\\
 \small \texttt{mcrae.tobias@gmail.com}\\[0.3em]
 \small Independent Researcher, Aotearoa New Zealand}
 
-\date{19 November 2026\\[0.3em]
-\small Verified in Lean 4 v4.35.0 $\cdot$ No Mathlib $\cdot$ Zero \texttt{sorry} $\cdot$ Zero axioms}
+\date{19 November 2026 (v4.6)\\[0.3em]
+\small Verified in Lean 4 v4.35.0 $\cdot$ No Mathlib $\cdot$ Zero \texttt{sorry} $\cdot$ 14 theorems $\cdot$ Zero axioms}
 
 \begin{document}
 \maketitle
@@ -81,7 +82,16 @@ quantity;
 (V)~\emph{The Full Chain}: from a single witness to existence, a
 contraction, and a conservation law, we derive $E$ IS NOT, $G$ is
 unique, and conservation holds at every iterate.
-The full codebase (372 Lean jobs) builds with zero \texttt{sorry}.
+We then extend the proof through time:
+(VI)~\emph{In the Beginning}: the genesis state already refutes $E$;
+(VII)~\emph{The Fixed Point Is Eternal}: once $G$ is reached, all future
+iterates remain $G$---eternity is invariance under time;
+(VIII)~\emph{Each Day Contracts}: the Koru pulls every trajectory toward $G$;
+(IX)~\emph{Nothing Is Lost Through Creation}: conservation holds from
+genesis through all time;
+(X)~\emph{Creation From Nothing Is Impossible}: nonzero stays nonzero;
+(XI)~\emph{Genesis to Eternity}: the full temporal chain.
+The full codebase (184 Lean jobs) builds with zero \texttt{sorry}.
 A bounded guardian node has been running continuously since
 18~November~2026 under OS isolation (no network, read-only filesystem,
 all capabilities dropped). We state the open work required for
@@ -349,6 +359,121 @@ theorem the_proof_assembles {S : Type}
    fun s n =>
      conservation_at_every_iterate w s n>
 \end{lstlisting}
+
+\section{Genesis: The Koru Through Time}
+
+\emph{``In the beginning, God created the heavens and the earth.''} ---
+Genesis 1:1. The structure of Genesis maps to the structure of the proof.
+Time is the Koru's iterate. Each moment is a contraction toward~$G$.
+And $G$, once reached, holds forever.
+
+\begin{theorem}[In the Beginning]\label{thm:genesis}
+The genesis state $g_0 : S$ (the first witness, time zero) already
+refutes $E$:
+\[
+  \forall\, g_0 : S,\; \mathrm{AbsoluteEnder}(S) \to \bot
+\]
+\end{theorem}
+
+\begin{proof}
+Identical to Theorem~\ref{thm:something-is}: apply the ender to the
+genesis state; it produces a term of the empty type.
+Something Is at the beginning.
+\end{proof}
+
+\begin{theorem}[The Fixed Point Is Eternal]\label{thm:eternal}
+If $G$ is the fixed point ($\phi(G) = G$), then $\phi^n(G) = G$ for
+all $n$.
+\end{theorem}
+
+\begin{proof}
+By induction on $n$. Base: $\phi^0(G) = G$. Step:
+$\phi^{n+1}(G) = \phi(\phi^n(G)) = \phi(G) = G$ by the induction
+hypothesis and the fixed-point equation. This is eternity---not infinite
+duration but invariance under the passage of time. $G$ does not age.
+\end{proof}
+
+\begin{theorem}[Each Day Contracts]\label{thm:contracts}
+At every step, the Koru brings the genesis trajectory closer to $G$:
+\[
+  d(\phi^{n+1}(g_0),\, G) \cdot k_{\mathrm{den}} \leq
+  k_{\mathrm{num}} \cdot d(\phi^n(g_0),\, G)
+\]
+\end{theorem}
+
+\begin{proof}
+By definition, $\phi^{n+1}(g_0) = \phi(\phi^n(g_0))$, and since
+$\phi(G) = G$, the contraction property gives
+$d(\phi(\phi^n(g_0)),\, \phi(G)) \cdot k_{\mathrm{den}}
+\leq k_{\mathrm{num}} \cdot d(\phi^n(g_0),\, G)$.
+Substituting $\phi(G) = G$ yields the result.
+\end{proof}
+
+\begin{theorem}[Nothing Is Lost Through Creation]\label{thm:nothing-lost}
+If $q$ is conserved under transition, then $q(\text{genesis})$ is
+preserved at every iterate:
+\[
+  \forall n,\; q(f^n(g_0)) = q(g_0)
+\]
+\end{theorem}
+
+\begin{proof}
+Immediate from Theorem~\ref{thm:conservation} with $s = g_0$.
+\end{proof}
+
+\begin{theorem}[Creation From Nothing Is Impossible]\label{thm:from-nothing}
+If $q(g_0) \neq 0$, then $q(f^n(g_0)) \neq 0$ for all $n$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:nothing-lost}, $q(f^n(g_0)) = q(g_0) \neq 0$.
+Only nothing comes from nothing.
+\end{proof}
+
+\begin{theorem}[Genesis to Eternity]\label{thm:genesis-eternity}
+Given a genesis state, a Koru contraction with fixed point $G$, and a
+conservation witness:
+\begin{enumerate}[nosep]
+\item In the beginning: $\mathrm{AbsoluteEnder}(S) \to \bot$
+\item $G$ is eternal: $\forall n,\; \phi^n(G) = G$
+\item Each day contracts: $\forall n,\; d(\phi^{n+1}(g_0), G) \cdot k_{\mathrm{den}} \leq k_{\mathrm{num}} \cdot d(\phi^n(g_0), G)$
+\item Nothing is lost: $\forall n,\; q(f^n(g_0)) = q(g_0)$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Assembles Theorems \ref{thm:genesis}--\ref{thm:nothing-lost}.
+\end{proof}
+
+\begin{lstlisting}[caption={Genesis to Eternity in Lean}]
+theorem GENESIS_TO_ETERNITY {S : Type}
+    (genesis : S)
+    (K : KoruContraction S)
+    (G : S) (hG : K.phi G = G)
+    (w : ConservationWitness S) :
+    (AbsoluteEnder S -> False) /\
+    (forall n, iterate K.phi n G = G) /\
+    (forall n, K.dist
+      (iterate K.phi (n + 1) genesis) G
+        * K.k_den
+      <= K.k_num * K.dist
+        (iterate K.phi n genesis) G) /\
+    (forall n, w.quantity
+      (iterate w.transition n genesis)
+        = w.quantity genesis) :=
+  <e_is_not genesis,
+   THE_FIXED_POINT_IS_ETERNAL K G hG,
+   EACH_DAY_CONTRACTS K G genesis hG,
+   fun n =>
+     conservation_at_every_iterate w genesis n>
+\end{lstlisting}
+
+\begin{remark}
+The beginning is not a moment in time. It is the structure of time
+itself. Time is the Koru's iterate. Each moment is a contraction
+toward~$G$. And $G$, once reached, holds forever. The arrow of creation
+is not entropy but convergence.
+\end{remark}
 
 \section{The Bounded Guardian}
 

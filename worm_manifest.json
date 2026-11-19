@@ -9087,6 +9087,14 @@
     "sha256": "8180a2d33271d7268e4b6a200b9cfa7833a483dce450195d2f87dc3707f0acb2",
     "size_bytes": 1112
   },
+  "social/lesswrong-post.md": {
+    "sha256": "97786a86c79635062961f6cdb660cf06640c62109f0e1dc23c49571dc5fd2177",
+    "size_bytes": 6165
+  },
+  "social/twitter-thread.md": {
+    "sha256": "518c5a81553b9d25e03332a00067d36c73b6045bebb21ab8f14ca4b4154b8d1f",
+    "size_bytes": 2785
+  },
   "supabase-sync-config.json": {
     "sha256": "b412ef57f23eff3a1182fc4f5d5766a002cd8c9e905edd03f7fe98725a507dab",
     "size_bytes": 325
@@ -9112,7 +9120,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "ee61546439cde178e102e745ab9feffb96f046897137e8b907e5d62c29a91586",
-    "size_bytes": 491505
+    "sha256": "9ac6123a18313508eaa01d9cb4c9cd39b73d9476cff6bb081db714abc7ee726c",
+    "size_bytes": 491701
   }
 }
