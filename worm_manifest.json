@@ -3523,6 +3523,10 @@
     "sha256": "a807736e96d44af5248ab640188bb90b95bc5f0f4f1eb5cd5dbab55a71e04fd1",
     "size_bytes": 7458
   },
+  "HANDOFF-TO-NEXT-AGENT.md": {
+    "sha256": "56fae477821c2132cdaa7c35bc0b5207082cd70b3f9ccf4804b9b94632c9c9e6",
+    "size_bytes": 3705
+  },
   "HILLARY-ROUTE-A-B-SUMMIT.md": {
     "sha256": "dad407ec7e3bea6856d1555cf503b7676310812449dcf184eea96d18e5c34d34",
     "size_bytes": 13576
@@ -9104,7 +9108,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "179d5fabfb9f7ca2fe2f4deb8c200089dde543d0b6ab201eafc5bb0bd55bf73d",
-    "size_bytes": 490934
+    "sha256": "97f10a9dea922ccaf7f6f0ed0df729e69bee1aadc5bf4141cab7ba6f90cf85fd",
+    "size_bytes": 491363
   }
 }
