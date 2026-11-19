@@ -6743,6 +6743,10 @@
     "sha256": "d1a0cbbd6c6b2aeac198d96de4d11b1c218a2dd629619313bc9011d3a2b869ad",
     "size_bytes": 34422
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3ProofOfGod.setup.json": {
+    "sha256": "a82bb8ad4afbfa7cbe5857f29540540fbab423614b765d65208b563207f30646",
+    "size_bytes": 37069
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3SameEventCapstone.setup.json": {
     "sha256": "f7895afb7784538090c19ac01261f95d472152ed72abe507be6826fe7dba981d",
     "size_bytes": 33772
@@ -7414,6 +7418,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/TotalEOriginalX3Bridge.setup.json": {
     "sha256": "4c1902e1e16e9e37911965bc949a608eab21b88bb99866ed60c775a206537f34",
     "size_bytes": 18711
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/UPTDenial.setup.json": {
+    "sha256": "8f0640282146be7c94a7950f76e1d5e2a46709d5ee0fd6fa7c77275f1a13244b",
+    "size_bytes": 1952
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/UPTLaw.setup.json": {
     "sha256": "6382c377f2e6d852bd000c766089f09997b44d167120179054097bff44b98465",
@@ -8532,7 +8540,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "994303c879313c9dd3458b1ddef0b5e61a727d07b36c9e347c44e205d6d49e25",
-    "size_bytes": 459767
+    "sha256": "d3cda4794de3db7f2401ca4ed51ba85ec13590f27fb7e5869c8ea82149eda993",
+    "size_bytes": 461234
   }
 }
