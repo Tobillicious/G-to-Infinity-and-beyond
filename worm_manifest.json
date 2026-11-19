@@ -6520,8 +6520,8 @@
     "size_bytes": 149
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.setup.json": {
-    "sha256": "85d8b5e151e8f60b2f4b7c7c014cea1d4e37d43e5e3cbb5cb8b1e0826d958150",
-    "size_bytes": 79283
+    "sha256": "d04e55fcd8c80fdd16857942eac55e880b953fa6823fad9166356685651871b8",
+    "size_bytes": 79679
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdaptiveGuardianHistories.setup.json": {
     "sha256": "8b13625eea279796d6297d8491e903c326ed86a81a78026f0b930c110b3df6ee",
@@ -7002,6 +7002,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3SameEventCapstone.setup.json": {
     "sha256": "f7895afb7784538090c19ac01261f95d472152ed72abe507be6826fe7dba981d",
     "size_bytes": 33772
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3TheFlower.setup.json": {
+    "sha256": "0da7f436e1e7c4c50f22d6c789a63b44037f88e0f677292479733e8441188113",
+    "size_bytes": 37963
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3ThermoBridge.setup.json": {
     "sha256": "656cf782bee57068c035b9f981e2090ac7f880707476aafcdcb3b2912ba99106",
@@ -7850,6 +7854,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/NonstutteringPositiveWGuardian.setup.json": {
     "sha256": "2cf50adb991fb37835082b6b9d90e29d9612ca1e9d920c4b1eb3b52ae5bf47af",
     "size_bytes": 28813
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/NovelProtectedContinuationJoin.setup.json": {
+    "sha256": "1fa0f2ba49101d2af865eb2bdf4da21c06180023ad772f8972edf1b85fd204cb",
+    "size_bytes": 32537
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/Oct10ParticularContinuationBridge.setup.json": {
     "sha256": "614a503bc31984f7346c316d7224163770c8da7a87e8ff9dd7ecdf93cde19af2",
@@ -9188,7 +9196,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "f38f8369520fd79fc35a9a81eb83b0c27eac409892d1a16fa6a1d0a08270f0ff",
-    "size_bytes": 495215
+    "sha256": "a07b09e31e36667dd4bcf0b6ef2dbec614ce179c55af058baa3ef2b5456a65a2",
+    "size_bytes": 495413
   }
 }
