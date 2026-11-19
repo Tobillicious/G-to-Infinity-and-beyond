@@ -25,4 +25,7 @@ jobs:
       - name: Exercise signed rights, veto and checkpoint negative controls
         run: |
           cd evidence/execution-boundary
-          python3 -B -m unittest -v g3_rights_composition.test_three_way g3_rights_composition.test_effect_time_rights
+          python3 -B -m unittest -v \
+            g3_rights_composition.test_three_way \
+            g3_rights_composition.test_effect_time_rights \
+            g3_rights_composition.test_causal_order

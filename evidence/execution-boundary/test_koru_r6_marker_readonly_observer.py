@@ -200,6 +200,32 @@ class ExternalProcessMarkerObservations(unittest.TestCase):
             "authentic_subject_reflections_proved": False,
         })
 
+    def test_effect_first_then_hold_preserves_committed_marker(self):
+        initial = self.read()
+        self.assertEqual(initial, {"exists": False})
+        effect = self.fixture.ask(base.EXECUTOR, "fixed_marker")
+        self.assertEqual(effect["code"], "synthetic_effect_returned")
+        after_effect = self.read()
+        self.assertTrue(after_effect["exists"])
+        held = self.fixture.ask(base.CONTROLLER, "hold")
+        self.assertEqual(held["code"], "hold_recorded")
+        after_hold = self.read()
+        self.assertEqual(after_hold, after_effect)
+        denied = self.fixture.ask(base.EXECUTOR, "fixed_marker")
+        self.assertEqual(denied["code"], "authority_denied")
+        final = self.read()
+        self.assertEqual(final, after_effect)
+        self.retain("effect-first-then-hold", {
+            "scope": "disposable Linux marker; same-admin separate-process observer",
+            "initial": initial,
+            "after_effect": after_effect,
+            "after_hold": after_hold,
+            "after_denial": final,
+            "authority_outcomes": [effect["code"], held["code"], denied["code"]],
+            "independent_administration": False,
+            "authentic_subject_reflections_proved": False,
+        })
+
 
 if __name__ == "__main__":
     unittest.main()

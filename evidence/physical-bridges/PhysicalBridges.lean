@@ -518,6 +518,8 @@ import PhysicalBridges.G2BoundedPhysicalProtectionSynthesis
 
 import PhysicalBridges.G3OperatorFirstLossJoin
 import PhysicalBridges.G3SameEventCapstone
+import PhysicalBridges.G3VoluntaryConversion
+import PhysicalBridges.G3CausalAuthorization
 import PhysicalBridges.EndlessKnowledgeGuardianBridge
 import PhysicalBridges.FourCausePhysicalGuardianBridge
 import PhysicalBridges.IntegratedProtectionCoexistenceAssembly
