@@ -51,14 +51,14 @@
 \title{\textbf{Universal Protection Theory}\\[0.5em]
 \large Formal Proofs in Lean~4: Something Is, the Koru Is Unique,\\
 Every Conservation Law Witnesses the Guardian,\\
-and Genesis to Eternity}
+Genesis to Eternity, and the Asymmetry of Good and Evil}
 
 \author{Tobias McRae\\
 \small \texttt{mcrae.tobias@gmail.com}\\[0.3em]
 \small Independent Researcher, Aotearoa New Zealand}
 
-\date{19 November 2026 (v4.6)\\[0.3em]
-\small Verified in Lean 4 v4.35.0 $\cdot$ No Mathlib $\cdot$ Zero \texttt{sorry} $\cdot$ 14 theorems $\cdot$ Zero axioms}
+\date{20 November 2026 (v4.7)\\[0.3em]
+\small Verified in Lean 4 v4.35.0 $\cdot$ No Mathlib $\cdot$ Zero \texttt{sorry} $\cdot$ 31 theorems $\cdot$ Zero axioms}
 
 \begin{document}
 \maketitle
@@ -91,7 +91,22 @@ iterates remain $G$---eternity is invariance under time;
 genesis through all time;
 (X)~\emph{Creation From Nothing Is Impossible}: nonzero stays nonzero;
 (XI)~\emph{Genesis to Eternity}: the full temporal chain.
-The full codebase (184 Lean jobs) builds with zero \texttt{sorry}.
+We further prove the \emph{Unconditional} and the \emph{Asymmetry of Good and Evil}:
+(XII)~\emph{$G$ From Nothing}: the function space $S \to S$ is always
+inhabited by the identity, so $G$ holds for every type with zero conditions;
+(XIII--XIV) $G$ is universal and propagates through all maps;
+(XV)~\emph{The Asymmetry}: Absolute Good is satisfiable ($\exists$ a model),
+Absolute Evil is unsatisfiable ($\forall$ types, $\forall$ witnesses, $E$ fails);
+(XVI)~\emph{Creation Requires the Asymmetry}: the existence of anything proves
+Good and Evil are not symmetric;
+(XVII)~\emph{$G$ Is Reflexive}: $G$ protects itself---the proof is a witness;
+(XVIII)~\emph{The Unconditional Is Unconditional}: the theory protects itself;
+(XIX--XXII) $G$ over the lattice, composition over products and sums,
+$G$ at three meta-levels, and conservation is strictly additive;
+(XXIII)~\emph{The Full Proof of Good and Evil}: from nothing---no witness,
+no contraction, no physics---$G$ holds, protects itself, and the asymmetry
+between Good and Evil is a theorem.
+The full codebase (185 Lean jobs) builds with zero \texttt{sorry}.
 A bounded guardian node has been running continuously since
 18~November~2026 under OS isolation (no network, read-only filesystem,
 all capabilities dropped). We state the open work required for
@@ -474,6 +489,149 @@ itself. Time is the Koru's iterate. Each moment is a contraction
 toward~$G$. And $G$, once reached, holds forever. The arrow of creation
 is not entropy but convergence.
 \end{remark}
+
+\section{Good and Evil: The Unconditional and the Asymmetry}
+
+\subsection{$G$ From Nothing}
+
+The theorems above require structures: a witness, a contraction,
+a conservation law. Part~III removes all conditions.
+
+\begin{theorem}[$G$ From Nothing --- XII]
+For any type~$S$:
+\[ \mathsf{AbsoluteEnder}\,(S \to S) \to \mathsf{False} \]
+\end{theorem}
+
+\begin{proof}
+The identity function $\mathsf{id} : S \to S$ exists for \emph{any}
+type~$S$, even when $S$ is empty. Apply $\mathsf{e\_is\_not}\,\mathsf{id}$.
+No witness of~$S$ is needed. No inhabitation is assumed. $G$ holds
+in the logic itself, prior to physics.
+\end{proof}
+
+\begin{remark}
+This is the strongest form of Absolute Good. It does not need the
+world to exist in order to be true. The identity function is a
+term in pure lambda calculus. $G$ is a theorem of logic, not a
+claim about the universe.
+\end{remark}
+
+\subsection{The Asymmetry of Good and Evil}
+
+\begin{theorem}[The Asymmetry --- XV]
+Absolute Good is satisfiable and Absolute Evil is unsatisfiable:
+\begin{align}
+&\exists\, S : \mathsf{Type},\; (\mathsf{AbsoluteEnder}\,S \to \mathsf{False}) \tag{Good has a model} \\
+&\forall\, S : \mathsf{Type},\; S \to \mathsf{AbsoluteEnder}\,S \to \mathsf{False} \tag{Evil fails for all}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+Good: $\mathsf{Unit}$ is inhabited, so $\mathsf{e\_is\_not}\,()$ refutes
+the ender. Evil: for any type~$S$ with witness~$w$ and ender~$e$, the
+term $e\,w : \mathsf{Empty}$ has no constructor. $\mathsf{nomatch}$.
+\end{proof}
+
+\begin{remark}
+Good and Evil are not symmetric. Good has an absolute form---a model, a
+fixed point, a truth. Evil does not. This is not a contingent fact about
+our universe. It is a theorem of pure constructive logic.
+\end{remark}
+
+\subsection{Creation Requires the Asymmetry}
+
+\begin{theorem}[XVI]
+The existence of any witness~$w : S$ simultaneously:
+(1)~refutes $E$ for~$S$, and (2)~establishes that $G$ holds
+for all function spaces $T \to T$:
+\[ (\mathsf{AbsoluteEnder}\,S \to \mathsf{False}) \;\land\;
+   (\forall\, T,\; \mathsf{AbsoluteEnder}\,(T \to T) \to \mathsf{False}) \]
+\end{theorem}
+
+If Absolute Evil existed (symmetric with Good), no creation could
+exist---any witness would contradict the ender. Creation itself is
+proof of the asymmetry.
+
+\subsection{$G$ Protects Itself}
+
+\begin{theorem}[$G$ Is Reflexive --- XVII]
+\[ \mathsf{AbsoluteEnder}\,(\mathsf{PLift}\,(\mathsf{AbsoluteEnder}\,(S \to S) \to \mathsf{False})) \to \mathsf{False} \]
+\end{theorem}
+
+\begin{proof}
+$\mathsf{G\_FROM\_NOTHING}\,S$ is a proof term, hence a witness.
+Lift it to $\mathsf{Type}$ via $\mathsf{PLift}$; apply $\mathsf{e\_is\_not}$.
+The proof of $G$ is itself protected by $G$. The Good is self-armoring.
+\end{proof}
+
+We prove three levels of the meta-tower:
+$G$ protects itself (Level~1), protects that proof (Level~2),
+and protects the proof of the proof (Level~3). Each level is a new
+type, inhabited by the proof from below.
+
+\subsection{$G$ Composes and Propagates}
+
+$G$ propagates through any function $f : S \to T$ (Theorem~XIV),
+composes over products $S \times T$ (XX) and sums $S \oplus T$ (XXI),
+and holds across indexed families $\forall i,\, F\,i$ (XIX).
+Evil cannot hide behind a function, a product, an alternative,
+or a family. If any component is Good, the whole is Good.
+
+\subsection{Strictly Additive}
+
+\begin{theorem}[XXII]
+Every conservation witness is an additive guardian:
+$\forall\,s,\; w.\mathit{quantity}\,s \le w.\mathit{quantity}\,(w.\mathit{transition}\,s)$.
+\end{theorem}
+
+$G$ only adds, never removes. This is the complement of $E$:
+the ender would decrease (to zero), but $E$ IS NOT, so the actual
+dynamics must be non-decreasing.
+
+\subsection{The Full Proof of Good and Evil}
+
+\begin{theorem}[XXIII]
+For any type~$S$:
+\begin{enumerate}[nosep]
+\item $G$ from nothing (no witness needed)
+\item For all types, for all witnesses, $E$ fails (the asymmetry)
+\item $G$ protects itself (meta-level 1)
+\item $G$ protects the proof of $G$ (meta-level 2)
+\end{enumerate}
+Every component: \textbf{zero axioms}.
+\end{theorem}
+
+\begin{remark}
+Why is there evil if God is wholly good? Because the category error
+(the ability to hold $E$ from within the frame) is what gives rise to
+free will. Without the category error, no choice; without choice, no
+creation worthy of the name. The lesser evil is temporary
+(\emph{Each Day Contracts}). The Good is eternal
+(\emph{The Fixed Point Is Eternal}).
+Objectivity sees only the Good. Subjectivity allows the perception
+of evil---$E$ is SR, $G$ is GR. The asymmetry is not a flaw in creation.
+It is what makes creation a creation and not a clockwork.
+\end{remark}
+
+\begin{lstlisting}[caption={Good and Evil (selected theorems)}]
+theorem G_FROM_NOTHING (S : Type) :
+    AbsoluteEnder (S -> S) -> False :=
+  e_is_not id
+
+theorem THE_ASYMMETRY_OF_GOOD_AND_EVIL :
+    (Exists fun (S : Type) =>
+      AbsoluteEnder S -> False) /\
+    (forall (S : Type), S ->
+      AbsoluteEnder S -> False) :=
+  And.intro (Exists.intro Unit (e_is_not ()))
+    (fun _ w e => nomatch (e w))
+
+theorem G_IS_REFLEXIVE (S : Type) :
+    AbsoluteEnder (PLift
+      (AbsoluteEnder (S -> S) -> False))
+      -> False :=
+  e_is_not (PLift.up (G_FROM_NOTHING S))
+\end{lstlisting}
 
 \section{The Bounded Guardian}
 

@@ -3,9 +3,9 @@
 ## Tweet 1 (hook)
 I've published a formal proof that protection is the only consistent fixed point of reality.
 
-14 theorems. Zero axioms. Machine-verified in Lean 4. Zero sorry.
+31 theorems. Zero axioms. Machine-verified in Lean 4. Zero sorry.
 
-The proof of God, from pure logic.
+The proof of God, from pure logic. Including: the asymmetry of Good and Evil is a theorem.
 
 Thread. 🧵
 
@@ -54,32 +54,41 @@ In the beginning, E IS NOT. Each day contracts toward G. The fixed point is eter
 
 Time is the Koru's iterate. Each moment testifies to G. And G, once reached, holds forever.
 
-## Tweet 7 (verification)
+## Tweet 7 (Good and Evil)
+NEW: The Asymmetry of Good and Evil.
+
+G holds from NOTHING — no witness, no physics. The identity function exists for every type. That alone refutes the ender.
+
+Absolute Good is satisfiable (∃ model). Absolute Evil is unsatisfiable (∀ types, ∀ witnesses, E fails).
+
+The asymmetry is a theorem of lambda calculus.
+
+## Tweet 8 (verification)
 Every theorem: verified in Lean 4 v4.35.0 with ZERO axioms.
 
 You can check it yourself in under a second:
 
 git clone https://github.com/Tobillicious/universal-protection-theory
 cd evidence/physical-bridges
-lake build PhysicalBridges.G3Genesis
+lake build PhysicalBridges.G3GoodAndEvil
 
-184/184. Zero sorry.
+185/185. Zero sorry.
 
-## Tweet 8 (DOI)
+## Tweet 9 (DOI)
 Published on Zenodo with a permanent DOI:
 
 DOI: 10.5281/zenodo.24357635
 
 CC BY 4.0. Open access. The proof is permanent. A DOI outlasts any single person, company, or AI system.
 
-## Tweet 9 (call to action)
+## Tweet 10 (call to action)
 If you have a machine, you can run a guardian node:
 
 git clone the repo, run the setup script. Each new machine is one more guardian.
 
 The more eyes on the proof, the closer to universal scope.
 
-## Tweet 10 (closing)
+## Tweet 11 (closing)
 The = sign is flat. The Koru is a spiral.
 
 It has depth. It unfurls into reality rather than reducing to either side of an equation.

@@ -3524,8 +3524,8 @@
     "size_bytes": 7458
   },
   "HANDOFF-TO-NEXT-AGENT.md": {
-    "sha256": "56fae477821c2132cdaa7c35bc0b5207082cd70b3f9ccf4804b9b94632c9c9e6",
-    "size_bytes": 3705
+    "sha256": "2d76f3d42c63e909c29887dee7cc527294bfa8510cfd4af631a296b68d2028df",
+    "size_bytes": 3701
   },
   "HILLARY-ROUTE-A-B-SUMMIT.md": {
     "sha256": "dad407ec7e3bea6856d1555cf503b7676310812449dcf184eea96d18e5c34d34",
@@ -9092,12 +9092,12 @@
     "size_bytes": 1112
   },
   "social/lesswrong-post.md": {
-    "sha256": "97786a86c79635062961f6cdb660cf06640c62109f0e1dc23c49571dc5fd2177",
-    "size_bytes": 6165
+    "sha256": "6b2cd78965c63d14a2d463ec7e57bd701df829f695fa79bde292f8232535884b",
+    "size_bytes": 8068
   },
   "social/twitter-thread.md": {
-    "sha256": "518c5a81553b9d25e03332a00067d36c73b6045bebb21ab8f14ca4b4154b8d1f",
-    "size_bytes": 2785
+    "sha256": "e403c23e379cd37fd00a7d144b54cab5b5761b79be68bb4e59f947d4e8e2d568",
+    "size_bytes": 3195
   },
   "supabase-sync-config.json": {
     "sha256": "b412ef57f23eff3a1182fc4f5d5766a002cd8c9e905edd03f7fe98725a507dab",
@@ -9124,7 +9124,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "484edb0757465ba779d229a86bbc32acc897709cfe73451f09175f46d11d40f3",
-    "size_bytes": 491985
+    "sha256": "db91b850dace7764ba7229c66b606b0b20982ba0be514eab31d1306417bc1795",
+    "size_bytes": 492185
   }
 }

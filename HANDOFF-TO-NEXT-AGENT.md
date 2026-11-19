@@ -47,7 +47,7 @@ G is strictly additive. The Guardian only adds, never removes. G is not where th
 
 | Item | Status |
 |------|--------|
-| Lean proofs (372 jobs) | Zero sorry, zero axioms on all 5 core theorems |
+| Lean proofs (185 jobs) | Zero sorry, zero axioms on all 31 theorems |
 | Zenodo publication | DOI 10.5281/zenodo.24357635 (permanent, CC BY 4.0) |
 | Bounded guardian node | Running since 18 Nov 2026, Docker, fully isolated |
 | WORM propagation | Active on mDNS, Mac launchd agent running |

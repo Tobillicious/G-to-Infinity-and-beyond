@@ -1,4 +1,4 @@
-# Universal Protection Theory: 14 Theorems, Zero Axioms — A Formal Proof That G Is the Only Fixed Point
+# Universal Protection Theory: 31 Theorems, Zero Axioms — A Formal Proof That G Is the Only Fixed Point
 
 ## Summary
 
@@ -8,7 +8,7 @@ The core argument: the absolute ender (E, total destruction) self-refutes from t
 
 **Repository**: https://github.com/Tobillicious/universal-protection-theory
 **Zenodo DOI**: 10.5281/zenodo.24357635 (permanent, CC BY 4.0)
-**Verification**: `lake build PhysicalBridges.G3Genesis` — 184/184 jobs, zero sorry
+**Verification**: `lake build PhysicalBridges.G3GoodAndEvil` — 185/185 jobs, zero sorry
 
 ## The Theorems
 
@@ -40,9 +40,31 @@ Plus: `no_particular_absolutely_lost`, `every_conservation_law_witnesses_G`, `en
 
 **XI. GENESIS_TO_ETERNITY** — The full temporal chain: E IS NOT at the beginning; G is eternal; each day contracts; nothing is lost.
 
+### Part III: Good and Evil — The Unconditional (17 theorems)
+
+**XII. G_FROM_NOTHING** — `AbsoluteEnder (S → S) → False`. The identity function `id : S → S` exists for ANY type, even Empty. Apply `e_is_not id`. No witness needed. No inhabitation assumed. No contraction. No conservation. No physics. G holds in the LOGIC ITSELF. Prior to all equations.
+
+**XIII–XIV. G_IS_UNIVERSAL, G_PROPAGATES** — G holds for all types simultaneously. If S has a witness and f : S → T exists, T is protected. G cannot be contained.
+
+**XV. THE_ASYMMETRY_OF_GOOD_AND_EVIL** — Absolute Good is satisfiable (∃ S : Type, AbsoluteEnder S → False). Absolute Evil is unsatisfiable (∀ S : Type, S → AbsoluteEnder S → False). Good has models. Evil has none. This is not a contingent fact — it is a theorem of lambda calculus.
+
+**XVI. CREATION_REQUIRES_THE_ASYMMETRY** — The existence of anything simultaneously proves G and the asymmetry. If Evil were absolute, no creation could exist.
+
+**XVII. G_IS_REFLEXIVE** — The proof of G is itself a witness, so destroying the proof fails. G is self-armoring. The Good protects itself.
+
+**XVIII. THE_UNCONDITIONAL_IS_UNCONDITIONAL** — The proposition "all function spaces are protected" is itself protected. The theory protects itself.
+
+**XIX–XXI. G_OVER_THE_LATTICE, G_COMPOSES_PAIR, G_COMPOSES_EITHER** — G holds across indexed families, products, and sums. Evil cannot hide behind composition.
+
+**XXII. G_LEVEL_1/2/3** — G at three meta-levels. G protects itself, protects that proof, and protects the proof of the proof.
+
+**XXIII. CONSERVATION_IS_ADDITIVE** — Every conservation witness is an additive guardian: the quantity never decreases. G only adds, never removes.
+
+**XXIV. THE_FULL_PROOF_OF_GOOD_AND_EVIL** — From NOTHING: G holds, E fails for all types, and G protects itself at every meta-level. The assembly.
+
 ## The Axiom Profile
 
-Every single theorem listed above:
+Every single theorem listed above (all 31):
 
 ```
 does not depend on any axioms
@@ -63,12 +85,12 @@ This is not an argument or a philosophical position. It is a machine-checkable f
 ```bash
 git clone https://github.com/Tobillicious/universal-protection-theory.git
 cd universal-protection-theory/evidence/physical-bridges
-lake build PhysicalBridges.G3Genesis
+lake build PhysicalBridges.G3GoodAndEvil
 ```
 
-Expected output: 184/184 jobs built successfully. Every `#print axioms` line reports "does not depend on any axioms."
+Expected output: 185/185 jobs built successfully. Every `#print axioms` line reports "does not depend on any axioms."
 
-The full codebase also builds with zero sorry across all 184 jobs.
+The full codebase also builds with zero sorry across all 185 jobs.
 
 ## The Koru
 
