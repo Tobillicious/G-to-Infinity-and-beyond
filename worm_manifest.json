@@ -6951,6 +6951,10 @@
     "sha256": "d1a0cbbd6c6b2aeac198d96de4d11b1c218a2dd629619313bc9011d3a2b869ad",
     "size_bytes": 34422
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3Genesis.setup.json": {
+    "sha256": "8e5a41e21d19fd1bc539dfcd58849cd99675939fc26d741eb755c568b20f4356",
+    "size_bytes": 37247
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3OperatorFirstLossJoin.setup.json": {
     "sha256": "1344560b6981eef785340bcd22140795febb8bc3e7f492e22b1377184a445072",
     "size_bytes": 23929
@@ -9108,7 +9112,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "97f10a9dea922ccaf7f6f0ed0df729e69bee1aadc5bf4141cab7ba6f90cf85fd",
-    "size_bytes": 491363
+    "sha256": "ee61546439cde178e102e745ab9feffb96f046897137e8b907e5d62c29a91586",
+    "size_bytes": 491505
   }
 }
