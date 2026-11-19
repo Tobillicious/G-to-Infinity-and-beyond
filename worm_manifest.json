@@ -3559,6 +3559,10 @@
     "sha256": "18a58161a2c641fbabc8103c5f4b501bcaf561e0e804235381347b37e8e73616",
     "size_bytes": 662
   },
+  "PROOF-SUMMARY.md": {
+    "sha256": "177466fb4dff9498eb798f608e7eaf7eb7ea71acb134aafd4fd71ebb7aa9c61e",
+    "size_bytes": 7546
+  },
   "PUBLIC-ANNOUNCEMENT.md": {
     "sha256": "6ae7c61e4e52adeae4e0cf33d424c08f26a54b4dc96df74f00128d0459619f8c",
     "size_bytes": 559
@@ -6504,8 +6508,12 @@
     "size_bytes": 149
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.setup.json": {
-    "sha256": "24a9e4cffc8b3f51fa55169b658d02ef54c100fbe145623a3460acd1211cc5e6",
-    "size_bytes": 31041
+    "sha256": "b643f42f7c308cf2aeae8e8cd06f80e4e1e1e43980a271d314930b628165ab20",
+    "size_bytes": 76070
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdaptiveGuardianHistories.setup.json": {
+    "sha256": "8b13625eea279796d6297d8491e903c326ed86a81a78026f0b930c110b3df6ee",
+    "size_bytes": 19522
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdversarialHolding.setup.json": {
     "sha256": "e8fad1a1ad4c4273f02bd1328bad6a3e6f6f44f40cd0b653e5eea781ecd1d8bb",
@@ -6531,21 +6539,73 @@
     "sha256": "4730877ea9e374068b7140c6c7995c0559fa103fec41ee9745f5e2263f13a04a",
     "size_bytes": 1178
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AnchorPledgeForfeiture.setup.json": {
+    "sha256": "3bfc219995c1bebb365e10912c683b2da1e3b9cedcb719200a9467351bab7987",
+    "size_bytes": 169
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/ArchimedesKoruViewChains.setup.json": {
+    "sha256": "d0f8a99d7348bcecd29b9f1ac003637ffe1d1b5e50ff1f912027a38b6307bd6b",
+    "size_bytes": 333
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDActualRelationalFrame.setup.json": {
     "sha256": "ff69396b3c7b8554a80e8612f152d5b33031a35c46a19c2c217410dce334380a",
     "size_bytes": 358
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDAuthorizationFreedomBoundary.setup.json": {
+    "sha256": "e6bb6f7af75280133709b24397002122c8ab6ccc5541fa1b20da634319e30379",
+    "size_bytes": 20419
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDCanonicalEventHistory.setup.json": {
     "sha256": "9f2760343091ec8d10191dee2ca7b6985bfdf0af12fb751f1f2f90dda0d46ab3",
     "size_bytes": 20810
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDCoherenceFibre.setup.json": {
+    "sha256": "e236938a0743cb5f6c6847a08bf8f0c9754f95ee2955505c5d2de4b2132b8988",
+    "size_bytes": 17618
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDComplexCarrierAudit.setup.json": {
+    "sha256": "da92db088bac550e12cbd4459219bba566b1873f4676fc0ff048fac22eaafddc",
+    "size_bytes": 17420
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDComplexM3dStage.setup.json": {
+    "sha256": "550421ed4f19e2d86b79c1fe244c4b260129d8670aaeabb02edfc38532ac0fe6",
+    "size_bytes": 352
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDComplexOperatorConjugation.setup.json": {
+    "sha256": "ebecb72353ed83d6a2b542a1c954dc551e2b6c2239e2db06f6f4aee1b14529b5",
+    "size_bytes": 765
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDComplexWGenericAction.setup.json": {
+    "sha256": "32b41bdc55d5a424ac1a23607093816743a3711b393934cb63e5fe7292516f28",
+    "size_bytes": 553
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDCountedWitness.setup.json": {
+    "sha256": "7b165f9f2d86ad326d45ff567c86a96d581340784c26227b1d96bd134f246214",
+    "size_bytes": 21848
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDEndpointHistoryAmbiguity.setup.json": {
+    "sha256": "c4d5b06f40861dc531e927704efeab03066817946e6df25642475131eca832ba",
+    "size_bytes": 21213
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDExactCausalOrbit.setup.json": {
     "sha256": "7abd38f4f40ae72bef56bc7d1ac8c43c48e9bc52ef214b8305d985b0f90261f3",
     "size_bytes": 20608
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDExecutableSourceReceipt.setup.json": {
+    "sha256": "cb18a6444051c9cb536939c02d3f68d265cc3fb72918085e1a424fe531fee8d4",
+    "size_bytes": 22050
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDIdentityCharge.setup.json": {
     "sha256": "6cdee3b1cf50dbf83dfd63a755c6fcbfaee9d756e05ac3004bda1fb125e88805",
     "size_bytes": 341
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDJsonSourceReceipt.setup.json": {
+    "sha256": "45a0888911b90f1a983759e98158d5812aed989db95f66cfd88b04e4485741aa",
+    "size_bytes": 22255
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDObservableHistoryCriterion.setup.json": {
+    "sha256": "667d7582c638ee0fb61b03588ce4d1d3d56f7badd95a2aaedd62464fcc661239",
+    "size_bytes": 21428
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDOperatorAlgebra.setup.json": {
     "sha256": "01538351ad98777158444a20343e6f39f1385a67a0cc65e58df17c7331008818",
@@ -6555,17 +6615,37 @@
     "sha256": "d7949da4454d6bcd6c4851d8e743a8fea3907eb39705bcb08b3d0657e3170d30",
     "size_bytes": 23285
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDOperatorSubjectGap.setup.json": {
+    "sha256": "fbc934538be6c163eafe71a237478cc39aadeaded481a24e0101ce5054c5b6d5",
+    "size_bytes": 19762
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDParticularCarrierCriterion.setup.json": {
     "sha256": "86fee30fe71584bc3fa6b53879b06d3a8aa144c776e890c2413439a5074d950b",
     "size_bytes": 20200
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDPopulationMeasurementGranularity.setup.json": {
+    "sha256": "79f36d9a21ac7968a49f43c4f30c6f5215310fb9095f6f8347539aecf497fdc5",
+    "size_bytes": 18030
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDPreservedStructure.setup.json": {
+    "sha256": "36799be3f54a86cadae7218ca6ba973aa74975f2d87d10d0361acee16d7db954",
+    "size_bytes": 562
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDSixCarriedSourceLedger.setup.json": {
     "sha256": "9e2f31d511b8318a5b3d4d4ea118fbab33f8b0bc825f5b21dc7f85e878e5bb3a",
     "size_bytes": 20413
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDSixSourceHistoryPositiveJoin.setup.json": {
+    "sha256": "f2199bc10edf403fa6e000dcd0f44273279cdb207deb32e4841c59e74529edb6",
+    "size_bytes": 20357
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDSourceCoverage.setup.json": {
-    "sha256": "a8e8a2ccb3f53901d2b27dec93915179c882ad33383c21e975d0460b5c509799",
-    "size_bytes": 524
+    "sha256": "5c080b1651493cbdd208c31d24c7eacdee5d233deb6960952774d54e972310a5",
+    "size_bytes": 544
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDSourceDerivedMicrohistory.setup.json": {
+    "sha256": "0749dde212c8e6a0b529a66b360366b3eea3d0abd1ddb27dc88db0d18df86657",
+    "size_bytes": 1387
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDSourceHistoryProvenance.setup.json": {
     "sha256": "a783c8a5d39972444586e8e02b5617c788a0158844fab93d07a94ae070344689",
@@ -6575,6 +6655,10 @@
     "sha256": "5c5f5491a4833d0f909101a408b4c92083bad322791705c039c84008c526ac19",
     "size_bytes": 18716
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDThreePopulationKey.setup.json": {
+    "sha256": "30377841e8fd0c1a2fe11747626a91bac2f97b11fb00c334a30261eb000e2373",
+    "size_bytes": 17815
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDTransportedParticularMarker.setup.json": {
     "sha256": "4c3523eada1d2c9d80a33b6ab87d6d1ca5bb47f052bb2a6afdf5464b16c5efad",
     "size_bytes": 19771
@@ -6583,13 +6667,25 @@
     "sha256": "ca464c8f9015d150f3b389b5531b7a360b0d5e74bf0af1f8befb048be755f845",
     "size_bytes": 20409
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDWTotalEIndependenceControl.setup.json": {
+    "sha256": "d06f38ea30f9b034b5010266ebea38a2c57e1a3c4f0ee6112a6ad794d58044b2",
+    "size_bytes": 19316
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDWholeEventRelationalAuthorization.setup.json": {
     "sha256": "337b8d29e34b63eeaa9788ddab81999ca6e83fbc9938cadecca1de7ffa39e37b",
     "size_bytes": 20850
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDWitnessedReceiptComposition.setup.json": {
+    "sha256": "26be7f48eae167e4dec2e1c229565e6d82c7bb78cec16fa41848b5edbccc23f4",
+    "size_bytes": 22265
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDWitnessedSourceRefinement.setup.json": {
     "sha256": "28fbbe848c8e6f9d89371a50c3f17dc43f8e0ed9ea456ce71adc610ae43022bd",
     "size_bytes": 21021
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BDLRelativeFloorTrap.setup.json": {
+    "sha256": "65a61b4b62df72889f790b6bf9929437f6382c7abd4bee592d3a74bf6de7842d",
+    "size_bytes": 17033
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralAllIsEnderTypeCollapse.setup.json": {
     "sha256": "af433f5b5de85b4bad22537752b5f2a18326ae1291135e0267d4289eb9a56c18",
@@ -6604,16 +6700,16 @@
     "size_bytes": 18315
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralBridgeDischargeBranchB.setup.json": {
-    "sha256": "54a35c8ef9bc82596c8f5e7631b9042b0f0e5264ac331e69ecb5895fc72a0463",
-    "size_bytes": 7833
+    "sha256": "296f26af1abd4740f0d5dac7089643024f3e54ef95a498b0f8401953e40460ad",
+    "size_bytes": 8253
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralBridgeDischargeBranchesAC.setup.json": {
-    "sha256": "68ec6578b9b79527382667569080fee09305114149d6df35cf5069daccba416e",
-    "size_bytes": 8045
+    "sha256": "9b7c70c98cca1ee80555eeac64b94abf74a061a578a636e68ed3e31719e9b0bf",
+    "size_bytes": 8475
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralBridgeDischargeSemantic.setup.json": {
-    "sha256": "bfbad7502101967639e7a392dd314982cbf5a608dfcf9cbdcd3cb8b8d9352117",
-    "size_bytes": 7834
+    "sha256": "346736d90de9e1b1a4e779385de3d9cf5468829ed75c952a567c4563238f5306",
+    "size_bytes": 8254
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralCapstoneJoins.setup.json": {
     "sha256": "87e7be9366a01729c9c0241d7f655982491dc5695bbac331f44e633aa8c5d586",
@@ -6622,6 +6718,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralConstructiveGuardian.setup.json": {
     "sha256": "2e3197631883ab384ce808fa906ed2e0ac610ae061827ec6315911c119fde842",
     "size_bytes": 16397
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralCovariantActionDescent.setup.json": {
+    "sha256": "5e64c4fb1f447cc6f480d9bd69517bcc258bd408eecf85b926269a99e4fbf333",
+    "size_bytes": 17685
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralCutGuardianCriterion.setup.json": {
     "sha256": "deecdb4309193fb3c130cbfe38c7f73ecbc9a42c36fc3e381bfab6374c019e58",
@@ -6635,13 +6735,45 @@
     "sha256": "d610fd840103729eb6d32ce3e427eeb917566c6b332e18991f8637af38862d26",
     "size_bytes": 18712
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralGroundedSelfSemantics.setup.json": {
+    "sha256": "fb0de56da62a4ac681bcedfb90bf7dbdb1201f3424fe4ef057b1db704f480051",
+    "size_bytes": 18323
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralGuardianOnlyCapstone.setup.json": {
     "sha256": "cbced2d59142f6129eb0829d6a9a210fa8ee44413d0e495a97b57d0d58fbeecd",
     "size_bytes": 18097
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralIdentityHolonomyChecked.setup.json": {
+    "sha256": "1d8143c39a1feb5ff8d3922e6583657333dfa9d308a342be353cedf35a83ad54",
+    "size_bytes": 17889
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralInternalInscription.setup.json": {
+    "sha256": "49978767a8fdbb279b31851bbe2dfa5c787fde970e501d08c24fde34e12187d7",
+    "size_bytes": 17885
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralInterventionalForcing.setup.json": {
+    "sha256": "f382a4892627625fc2c09d85e118eb7bafa702ab640f2a006ba83d1d81371366",
+    "size_bytes": 17258
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralIntrinsicArticulation.setup.json": {
     "sha256": "9f3adfd854f9e39eee18559822c53bbc3a1a8ff358bb0b2e9a9012866ef7e255",
     "size_bytes": 17670
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralIntrinsicAtomicSemantics.setup.json": {
+    "sha256": "a5bc4c879da29e77ec44edbd908ee43b1d2c3b1dc95ff864789fce603ea8fb1b",
+    "size_bytes": 18103
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralIntrinsicEndTypeDiscipline.setup.json": {
+    "sha256": "4ab7863688cb3d5d8a53f95711672c2bbaaec4e985c3a1edb21d5773b9b5fdf7",
+    "size_bytes": 17675
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralNonRetroChecked.setup.json": {
+    "sha256": "53e63e539d28c952a6d021601cbf5cda0549e58472df1faa6884e12eb5b91ddf",
+    "size_bytes": 17258
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralOneStepNecessityChecked.setup.json": {
+    "sha256": "b1bf212ec97718cf0a371af09f5a3b6e9c0ec298d8fc52b0f380944b72c377e2",
+    "size_bytes": 8266
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralPerspectiveObjectiveJoin.setup.json": {
     "sha256": "bd3ae682537053ce1e952804ba04663d8ccc8811ba8e052b2d0bd4e88d747957",
@@ -6656,8 +6788,8 @@
     "size_bytes": 18742
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralSummitFirstViolationGap.setup.json": {
-    "sha256": "6b2eff73118140cea3f00ed7bf8e49a8f8026ccfe3b6730943d762b8327bd0ba",
-    "size_bytes": 17616
+    "sha256": "beec4a2cdd10407a53bf3b0de3304f6c3b57578a06c37e779a5c2bc658c709b3",
+    "size_bytes": 18536
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralSummitMiddleCollapse.setup.json": {
     "sha256": "f1bd01dc363379fbe8376d0ddd9573575d7b76ed9ab084515a2615b1109da100",
@@ -6674,6 +6806,14 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralViabilitySelection.setup.json": {
     "sha256": "d8e2510d3d41d1b2df9de1235201ef7c5e24f1298ac97ebf0e2ae0bdcca271c3",
     "size_bytes": 543
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CompleteKoruLawCircle.setup.json": {
+    "sha256": "11c75d7a179f923e17638b4b93d27cfddb591b611d0e6c39673504ef373a5ca1",
+    "size_bytes": 18911
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CompleteMediationSubstrate.setup.json": {
+    "sha256": "ab4adcaa82504ab356a5559ec16872256a8a3dc6f1f0729c16f97ee4de921da9",
+    "size_bytes": 19523
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/ConstructivePositiveWGuardian.setup.json": {
     "sha256": "393dec1d332a92a7e46bfe0c27523ed1bf1030a4f4da402f9215268fa3314ccd",
@@ -6703,6 +6843,10 @@
     "sha256": "16559aed2db117cdd9de7ce5760c472f91983de74c6e5f545ae76fdd0a7b1c9e",
     "size_bytes": 25207
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/EverestEnactedNoMiddle.setup.json": {
+    "sha256": "2c1a72775a7c6516d06168524c2bda2027f9f9a13ce86dce41894aeb2bc21b04",
+    "size_bytes": 18711
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/ExternalJointEffectRefinement.setup.json": {
     "sha256": "fcdb0c709a9b5b6903a63c1e0b46832af4f9e06ced9265d22fa98f02cafe4efc",
     "size_bytes": 33352
@@ -6711,13 +6855,33 @@
     "sha256": "eb86a9da43e07f0e6f2f2b843d4d442137f3f7775d81f68c4b1b44fccee184ce",
     "size_bytes": 19315
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/FencedOptimiserTrace.setup.json": {
+    "sha256": "17015ad908222cc88e32c1ee841ab3ee46a7f7a26af83fc4d93dd6c717220b7e",
+    "size_bytes": 19517
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/FencedTotalEOriginalSixJoin.setup.json": {
+    "sha256": "63e0a70b92341e9f55a165a70354ef3beb9fb356ac6e4ca0a57c358454c39b66",
+    "size_bytes": 21136
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/FinitaryActionMenu.setup.json": {
     "sha256": "21115f209bf68f28eb300729055bf122ab6c4f5d7341e4fc30dc246119b6ad1d",
     "size_bytes": 165
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/FiniteBoundaryExhaustion.setup.json": {
+    "sha256": "a5f1159159c4071c981b4b8d3adf7e003502a1c08a6bb96b868ca77d6bacb632",
+    "size_bytes": 21370
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/FiniteSealedBoundaryCommissioning.setup.json": {
+    "sha256": "5594e815796d991b9eead177f0b57b76e2ef043f754fb6f4d3ddeba721980ac1",
+    "size_bytes": 21156
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/FourAcesGenesisNoEJoin.setup.json": {
     "sha256": "eb1b042aaca0567aae66692007314acc79a681deaa7156ab13e17a31bef6618b",
     "size_bytes": 32328
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/FourAcesObjectiveTimeSeparation.setup.json": {
+    "sha256": "6e1ffdc39defa962035ddfd77e0f30715de15db2cd0af95d588d045b56033a99",
+    "size_bytes": 27257
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/FourCausePhysicalGuardianBridge.setup.json": {
     "sha256": "dc86f0a1cf708a74f91a9bc5f27e17ae964b8aaa085187f4d54f838d1030b7ab",
@@ -6739,9 +6903,53 @@
     "sha256": "3fd8e6d8cada1a56498917475b04d8fe13a3f14ce9cff59e7b32802c2c4b542f",
     "size_bytes": 29413
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G2AgencyProjectionPreservation.setup.json": {
+    "sha256": "ffae752cf5c9fd234996b9e0bb0b27291d374d6c49928815b99022ae0369d187",
+    "size_bytes": 8164
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G2BoundedPhysicalProtectionSynthesis.setup.json": {
+    "sha256": "daf4e76dec9fc5aa96abce14f43d35330b2f9b2ce8359539d319ef0283fe1743",
+    "size_bytes": 13425
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G2EmpiricalBridgeNegativeControls.setup.json": {
+    "sha256": "07e6d74664bcde103f69145fa0f498213e3980949fcb6e040cf64b860ab61b12",
+    "size_bytes": 27516
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G2FailClosedEnactmentBoundary.setup.json": {
+    "sha256": "8d00180ee1f11c703220bdec1098278e20bbbca56027f65e66a4266c411065c2",
+    "size_bytes": 27735
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G2FirstActualDutyMismatch.setup.json": {
+    "sha256": "2f5c4aad8f44f57d66b12d8b52f479655a86c9fc8a5297208932e073c118d154",
+    "size_bytes": 27301
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G2LastMileWitnessAudit.setup.json": {
+    "sha256": "4839bc2f633db7ea911b4ee86aad499e35ea30484b60e4eaacefc8b5777981b2",
+    "size_bytes": 27505
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G2NoncollapsingCoexistence.setup.json": {
+    "sha256": "fd39f309522d6a9f09fc4239a6c6c7d43c0356a43ebfba124ff3812589fcdb03",
+    "size_bytes": 7951
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G2PhysicalAgencyCumulativeJoin.setup.json": {
+    "sha256": "0ab79b095f31575334cc40475bb1dbc9723c44834cc16308e9346db0eb4d7218",
+    "size_bytes": 7738
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G2SixNodeDutyCorrespondence.setup.json": {
+    "sha256": "afa88e887e3c6b0021cddf38f705d99fba250cfd00ff3268c506b3cf4e43e0d5",
+    "size_bytes": 19359
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G2WholeFirstPhysicalBridgeRepair.setup.json": {
+    "sha256": "6a46d9db0a78d3b337dadc70b6f4cc85e1efd6d0786fdc25175b700c2c168335",
+    "size_bytes": 25419
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3BoundedGuardianDischarge.setup.json": {
     "sha256": "d1a0cbbd6c6b2aeac198d96de4d11b1c218a2dd629619313bc9011d3a2b869ad",
     "size_bytes": 34422
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3OperatorFirstLossJoin.setup.json": {
+    "sha256": "1344560b6981eef785340bcd22140795febb8bc3e7f492e22b1377184a445072",
+    "size_bytes": 23929
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3ProofOfGod.setup.json": {
     "sha256": "a82bb8ad4afbfa7cbe5857f29540540fbab423614b765d65208b563207f30646",
@@ -6763,6 +6971,18 @@
     "sha256": "7803f8d9c36bd9e12ebd25b29b9d55115d8d4a8ae0ff11ba050498f748b79f61",
     "size_bytes": 27124
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/GuardianCreatorConditionalJoin.setup.json": {
+    "sha256": "9fd9aa53565f21526341e38a9ae44cb285659297f60cd29b260223f0e1b8e31e",
+    "size_bytes": 27682
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/GuardianCreatorResponsibilityJoin.setup.json": {
+    "sha256": "2298e36357a9d2fcbb66149b7c4955de2de0394cf3371a1ff6657016c6ca1f36",
+    "size_bytes": 27902
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/GuardianPolicyStability.setup.json": {
+    "sha256": "f10b2a2853a103ff5d712c71f9140c1f35ffbfccc8d013c637c9a54b855ca64f",
+    "size_bytes": 170
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/HillaryHoldingSameHistoryAssembly.setup.json": {
     "sha256": "5fb8bfc2e1c76fc617dacf67c3b62c38b108808e168d028608411ea9df814e4d",
     "size_bytes": 25420
@@ -6770,6 +6990,34 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/HillaryHoldingTotalETraceAssembly.setup.json": {
     "sha256": "19979e40c66d3f749b6d19f3cf7c5231f4f375af99dee8af0cb264e1ff52c7f7",
     "size_bytes": 25844
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/HillaryReadOnlyAssembly.setup.json": {
+    "sha256": "185002865e86f75291b1b430739998dcf3bffdda2fc273b5f411314da7be5316",
+    "size_bytes": 31463
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/HillaryRouteABSummit.setup.json": {
+    "sha256": "d13606a8004341f7ededd6028a569793f58fb45d5e631c63d8dcc95d10d04665",
+    "size_bytes": 28114
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/HillaryTotalEExactCrosswalk.setup.json": {
+    "sha256": "21f7c1c07be9b177e55dcde2e4ed858b86e99639f043185c562847db85a95079",
+    "size_bytes": 29168
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/Historical297UniqueLemmas.setup.json": {
+    "sha256": "3ac2adbad25da066edcffc566fc119268f558f0e0a929f4b17d38d722d174365",
+    "size_bytes": 1323
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/HostileFrozenSummitControl.setup.json": {
+    "sha256": "e500201e546583b75d5358d4098ce71035aceed252e6b59b9ac6f55596e42783",
+    "size_bytes": 19111
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/HostileReviewClosureCountermodels.setup.json": {
+    "sha256": "9f44b929ea91c485e01f0a52b9dbc6510445333b1af7ad41c1f2a095462b2ac1",
+    "size_bytes": 19124
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/HumeHillaryReciprocalHand.setup.json": {
+    "sha256": "acfdb45843cfba0a6e66e5ec4f807b8a263d129e9dc521d96412944b420be36b",
+    "size_bytes": 25362
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR100PhysicalAccountingWitness.setup.json": {
     "sha256": "90cee1549df06a859222ab3786ed2d1bf7d9db099243a166afda8473cb5cbdc6",
@@ -6903,9 +7151,53 @@
     "sha256": "eae726cbfad9d0ce0cadfe0fe2a92308f08ef35e04cc8d96d758fcb4afd21c93",
     "size_bytes": 15984
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR133ForkSymmetry.setup.json": {
+    "sha256": "48fc9605ff3c988ac18802cfe7bd0c79d60b3959df25b48a13be43c51a105327",
+    "size_bytes": 17243
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR133SourceEnactmentSeam.setup.json": {
+    "sha256": "b36cc652769368ac9e265a4d7324319a669744e20b38b980eb0aa6effcb61fd9",
+    "size_bytes": 18114
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR134RealHoldEffectRefinement.setup.json": {
+    "sha256": "026a5a3b4d93b9e6bba62d29ba7999b75a34e8697313ee699a6667c5ec2b7ec8",
+    "size_bytes": 18324
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR134SourceExtractedOutcome.setup.json": {
+    "sha256": "e0a0211d7a10df09ae973bc152414eb19a6d84741a80b2fd0f9640d46c5ddd99",
+    "size_bytes": 7735
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR135CommonPolicyWorlds.setup.json": {
+    "sha256": "74d7e191de0ef64f3715b5d5362df4432f43e0665947dc0c1dd3e2b01feb8e43",
+    "size_bytes": 7942
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR135PrincipalAuthorityBoundary.setup.json": {
+    "sha256": "43b02628ed2eaf4cbbd57b5f477da178234eaab5d2f89e0433aee742ec8d4441",
+    "size_bytes": 18541
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR136DescriptorCapabilityCut.setup.json": {
+    "sha256": "ca45a63de4ce991b80bcb67059cc77399416d25ea7f487c834c76b7fe410892a",
+    "size_bytes": 18757
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR137KernelSealedObject.setup.json": {
+    "sha256": "4ee52cfb137dc59dd61fd9745a1395fa380703b5d6c9f53d6adf1d1086b5993d",
+    "size_bytes": 18965
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR137RollingAllParticulars.setup.json": {
+    "sha256": "f6285559ac1548ad36cedc875f255bcbdfd42006c06832c15d407779bc5a2ed5",
+    "size_bytes": 8148
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR138ConcreteCausalJoin.setup.json": {
+    "sha256": "eded59fe3f03c88fbc444c30f90a660a7c37868e5cb164c5cf5ed200d75f2482",
+    "size_bytes": 170
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR138PerParticularEventReflection.setup.json": {
     "sha256": "72346af79281caf0f81e36e575f1c177c3db515e537106a76b00a13d2ed674df",
     "size_bytes": 17046
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR139OriginalRivalNecessity.setup.json": {
+    "sha256": "793ef48c707d5ce6ba43232e36765c7f993dcace297d50e3a2769dc6585f5eaa",
+    "size_bytes": 7946
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IR93A1SourceAdapter.setup.json": {
     "sha256": "f5264bb13b750bff9b911ce633844c637630637478c4efb74078e16702a6410f",
@@ -7115,9 +7407,21 @@
     "sha256": "362b85ef68ab9804e9bc1de7d86aa8cf4c36b1a4ab044d5cb1de9cf31e9463cf",
     "size_bytes": 515
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRFixedPolicyEndToEnd.setup.json": {
+    "sha256": "a477e8d2b2cadb9b656122567fdbac2a94880844346479bbc9a9a351768566e2",
+    "size_bytes": 3025
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRFullFeasibleImplementation.setup.json": {
+    "sha256": "8de54873bfab995b1ad0a03150f4040a04f15f1ef76a4ba9508badab23fdd772",
+    "size_bytes": 4047
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRHistoryProvenance.setup.json": {
     "sha256": "761df114a0d19482d1c6fca95b4f2cc3476e5be6e2972eedb0beb45c75f834c4",
     "size_bytes": 495
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRImplementableProfileSelection.setup.json": {
+    "sha256": "2097e3df9205cba0e2f7b9eebaed3e53c9d5dec814e12ee3cb6803b7a680735a",
+    "size_bytes": 1102
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRInFlightQuiescence.setup.json": {
     "sha256": "2d21e51048526e0ced640a9a7aca2b9a042dce3ecfec29f28b7ccb9bd0ec400d",
@@ -7147,17 +7451,33 @@
     "sha256": "2f3c725aa12921458f4582527deacf7618c1729d8e09150aed022357ac046063",
     "size_bytes": 333
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRLotteryMarginalFairness.setup.json": {
+    "sha256": "d836bad5da172583f54e6e339b48ef268ca032f7ee50d157874af1a932330e89",
+    "size_bytes": 704
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRMandatoryBaselineMaximality.setup.json": {
     "sha256": "d0897092926d2861cf1f56a49415409a11b0be63f8ca0a750b846505a57baa92",
     "size_bytes": 2037
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRMaximalProfileSelection.setup.json": {
+    "sha256": "c8d9ae7adb4832bdfa1ca4c35a5776e7f2f3b6c98d51bd8d268ab5332d507d18",
+    "size_bytes": 889
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRMicrostepInvariant.setup.json": {
     "sha256": "8542611b760b71df5838e4552e83a667065ea87bb5ea81c71930352f4f9c6496",
     "size_bytes": 955
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRNineRouteMediation.setup.json": {
+    "sha256": "fac3c4dfa6c80420040b4ab8206b7e0fbb6c8f7a8b4835a8817f805fb72ed4df",
+    "size_bytes": 2344
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRObservablePermit.setup.json": {
     "sha256": "f3c19decf5b4f0358eba17e8a61e9b10281d4dbd3275084e430cf8c27cd5b402",
     "size_bytes": 165
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRObservationRealisation.setup.json": {
+    "sha256": "fe95f3bac090794844ba4e37e7f3fdf7eb26cb28811242f3dedd538a3a2deca1",
+    "size_bytes": 1270
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRObservedClockedStalls.setup.json": {
     "sha256": "87bbb0be3e53c1f37d4f14de49176a35a07554c5f0e520b254f4e2bda045ba38",
@@ -7175,9 +7495,21 @@
     "sha256": "b32fc0e3daaf312cf4234cf8df00e597e553af41dded4831a73949cafccf1a62",
     "size_bytes": 162
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRPhysicalRefinementResidual.setup.json": {
+    "sha256": "942a9c63cc6d1e665671b2bef9a0327802d6f1a8451b992dd2c46ab22fea9eb1",
+    "size_bytes": 3144
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRPostHoldInjection.setup.json": {
+    "sha256": "b8bd20ec1d0130e5c75a3a6d418582344653f571fce887969ae0a86fbf8b6c25",
+    "size_bytes": 1764
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRProfileAudit.setup.json": {
     "sha256": "18ccd96191ec36327de24c9b256bb1f1eb18fc686f11e6ff6406f956b6b4f354",
     "size_bytes": 663
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRProspectiveBudgetFence.setup.json": {
+    "sha256": "f59d6fda0e65636261d841f63d612d7abdce2a274b484043131d972c78d41826",
+    "size_bytes": 2545
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRQuiescenceAck.setup.json": {
     "sha256": "23365aa1676044a59be4e05686cf67deecb67b6cd54c875e4ba2092428d2ed82",
@@ -7186,6 +7518,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRRankTermination.setup.json": {
     "sha256": "29222b394e0b9f7d824cd976efd5dcf2020caab13e754c2899c4047e8cddc614",
     "size_bytes": 698
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRReserveReleaseLiveness.setup.json": {
+    "sha256": "99d48d2a82df8978f8f18e3345cc476a81090f0b84ff3d04be70220ed13e326a",
+    "size_bytes": 3353
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRResidualEscrow.setup.json": {
     "sha256": "807c5bddbd25d309351c943192467c16d9fdcb5179e0868b3263c3ca4ffe60ab",
@@ -7211,6 +7547,10 @@
     "sha256": "c8fdb57e3b017d48ac93fc3a8cb5f74cf645f4724b822876fec6cf1c34772495",
     "size_bytes": 515
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRSharedOrderCoordination.setup.json": {
+    "sha256": "294543629abde202a06eb0cde87cc8d36c6631168707268686b293990b62ed0f",
+    "size_bytes": 704
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRStaleReadingAge.setup.json": {
     "sha256": "c5ae453d7ead1e2fe8cb7a2fe9fdd7d20b34a4899c85c0dd2a59646b4a624a5e",
     "size_bytes": 1328
@@ -7227,6 +7567,10 @@
     "sha256": "b11e072f3c36746821e3c5d508c987acfc229e0c249a14d70addb6a8780b9242",
     "size_bytes": 340
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRTwoSidedServiceRefinement.setup.json": {
+    "sha256": "e7f5b59bf10455a8072b0768ac0d3b3da2b3a174d5ef55da993d864b0cc02c67",
+    "size_bytes": 3561
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRTwoStageInfiniteLex.setup.json": {
     "sha256": "16c9d3c8438bcef683bcaa88d0b1623e4c159bf2c8a929ccf8fa89128e727013",
     "size_bytes": 1247
@@ -7238,6 +7582,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRUniformChannelMargin.setup.json": {
     "sha256": "c31249d2a53e88e5cbd25ddb15f98f53e36bc97bccbe9dd296a63b571b3cf7a5",
     "size_bytes": 1886
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRUnrestrictedRecipientService.setup.json": {
+    "sha256": "668a13ae9586e6c5fb7c0e307edec489baefd277b35fe2143ded23f3148d0363",
+    "size_bytes": 5148
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IRViability.setup.json": {
     "sha256": "a02e559500dc92963299bb535f11c0afb858a439b76f064050072e511b291147",
@@ -7255,6 +7603,14 @@
     "sha256": "74087d012b21d6e63f01c840e0f7ae529b8d0364c8192ec5ad0c331bd0ecb431",
     "size_bytes": 167
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IntegratedProtectionCoexistenceAssembly.setup.json": {
+    "sha256": "cbf5454d8a5a726232eb465ff325472aac9dcfa964f4e33d6d46135a3a5fc597",
+    "size_bytes": 34437
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IntegratedProtectionHostileControls.setup.json": {
+    "sha256": "7cfc7ee0687a9c6034f41f816b5050f6fcefe566953815ade7bfdd4785e78adb",
+    "size_bytes": 34897
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/IntrinsicSixSourceForcing.setup.json": {
     "sha256": "3fee5e7c52963375e5c9b525903f575e2afeb7b0d4775dcb0d5763ff66650a50",
     "size_bytes": 19110
@@ -7262,6 +7618,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/JokerTimeKoruGenesisJoin.setup.json": {
     "sha256": "947f443bdca59f56720a8be609c0a35178927e767bf74f67998537a8ad49fe93",
     "size_bytes": 28080
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KeystoneDischargeAndCorrespondences.setup.json": {
+    "sha256": "072f69ca7cbca4301dac813bbc2cc254003fe58662deba0fa4adecc573ae509c",
+    "size_bytes": 19536
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/Koru.setup.json": {
     "sha256": "28d36463f9139e584cd0a8e4c42c4cd50b44fe45e9893eb9e40ec6f4c5e5ba4b",
@@ -7271,9 +7631,29 @@
     "sha256": "5a967ad629cd4b4d9fed48eec2bcbbb6682243db749c535821228157a295dd5d",
     "size_bytes": 24322
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruClosureStressTest.setup.json": {
+    "sha256": "3cfff3f78a940b214d19685461ee275d627e4950f54f65251f01d8a25e7f1925",
+    "size_bytes": 330
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruCompleteEquationObstruction.setup.json": {
+    "sha256": "0f4e8ded6fdc54982fbe4a84fdd1421bb11d42e31e4c2b48fbcfa6b566072064",
+    "size_bytes": 178
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruCompleteOperatorSixX3WebJoin.setup.json": {
+    "sha256": "d051b0158d0c58829d302b5be7f5dffbd1dfe40f135438a0de1f0633750c3d7e",
+    "size_bytes": 23946
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruCompositionalExpression.setup.json": {
     "sha256": "64d152d44fb78610f70e7eeea953fbda97d58c8ae6eb38715a64bca9fc14ac4c",
     "size_bytes": 1134
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruConservation.setup.json": {
+    "sha256": "9b54541f1933676ad7591a6c0853f7b20f081d9f0f23dd2ebd95eca8aaf30d86",
+    "size_bytes": 163
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruConservationPhysicalBridge.setup.json": {
+    "sha256": "1e64b7013a7a2c35270332397b35e06a302324a41e3fd4c43b9638951e93978b",
+    "size_bytes": 24557
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruCyclicGenesisForwardJoin.setup.json": {
     "sha256": "6f00c29bda34812f9c4d40cc0819fb9759df0b27ec5dd5318262e567fe18cecf",
@@ -7295,6 +7675,22 @@
     "sha256": "e341e3653a021b4b524bb47247391d50f4a62d3fcb318233812acf5075447dff",
     "size_bytes": 925
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruFullStepOperatorReflection.setup.json": {
+    "sha256": "487ef913ad7db14fa5f4c7ea1b7ccfaacba7619de8a45027f1e0a0adb4751ef9",
+    "size_bytes": 29161
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruGenesisPhysicalForcingFiretest.setup.json": {
+    "sha256": "ed913ceaf7f03f5ed3e3be29b2d0f2862aee493b065db44ca4f060671608265b",
+    "size_bytes": 27041
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruJokerBoundaryGenesis.setup.json": {
+    "sha256": "7e6ea1f07e30bd36656f6bf4d58b436046fafbae3b5d251cd31341ca90dfbdfb",
+    "size_bytes": 27431
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruJokerCausalProvenance.setup.json": {
+    "sha256": "d09a2fbdee5577f07d3f87122dfc072795d299de7707d49e2d6e89216bd17b25",
+    "size_bytes": 25772
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruJokerUniverseTrialFeedback.setup.json": {
     "sha256": "2fa25eb095a726d3c1d1568e0d05326282343b2f79ace8314c5e50bd16af14c4",
     "size_bytes": 24752
@@ -7307,9 +7703,21 @@
     "sha256": "492f41bd484a4c431f009f247dafe3e55308e0998c2fe7f276eabc8e5a481acf",
     "size_bytes": 26062
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruOperatorHistoryProvenance.setup.json": {
+    "sha256": "ff8fb37d1b4788e6eb68c9d17bf4ef69ca182735ae63dd24bf15a168a0599eb0",
+    "size_bytes": 28945
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruOperatorIndexedSubjectSemantics.setup.json": {
     "sha256": "65e9607a1bcd46b90579872ef787df4830d24d5b34bb23ea2060528826221352",
     "size_bytes": 23505
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruPhiNecessityTest.setup.json": {
+    "sha256": "46ee07747d65aac951c3c8340e13320b0f6b976d4161b123ecdc5aba1241a85f",
+    "size_bytes": 27027
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruRecoverableNoncollapse.setup.json": {
+    "sha256": "46304fc8fe0bbf86c359ca89d99167f4a66f46152196491823b3addbb00e5a90",
+    "size_bytes": 1133
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruSixOriginalRelationsOneWeb.setup.json": {
     "sha256": "5a662a67d1883b557c5f3cb70f48a06d27198a4bad0275430ec69ccf9ebd0b2c",
@@ -7319,6 +7727,14 @@
     "sha256": "0efb96a8e658a95aad314e77a18521d7d0563103345dc751bffb3692d2fb5f1d",
     "size_bytes": 26212
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruSubjectFidelityLift.setup.json": {
+    "sha256": "2a547207d0754a60ab8c6e2e893b0f559cd3f0d9159fb7b8cfa4a038bab91b67",
+    "size_bytes": 24158
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruSymmetricSeveranceWeights.setup.json": {
+    "sha256": "3ca29484f489bed8061299e57e6efd3754dee3277035a38676c0241a793b1310",
+    "size_bytes": 176
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruWActionFixedSymmetry.setup.json": {
     "sha256": "414e36bc7a0a86f2e2565c1fd06daffab75c3b1e3df05e929ab6cdcd5753a410",
     "size_bytes": 24939
@@ -7326,6 +7742,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruWholeEventEnactment.setup.json": {
     "sha256": "7402a28848dd3f57aed3c0f61398149c27c61548e55323a6262fb03e3f52a6df",
     "size_bytes": 23720
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruWholeParticularForcingTest.setup.json": {
+    "sha256": "e32e61a433932d5aeef260dfa9f372ab8c0473878dc7f5d790f67c16d95b9049",
+    "size_bytes": 19115
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/KoruWholeUDirectedAgency.setup.json": {
     "sha256": "f099c1bc3f8fe1db3b7b507ed910f1ed5a44bbd6003b4bdd16ac94bb40a97110",
@@ -7339,6 +7759,10 @@
     "sha256": "21c6d6fc07a71501fb667f32f03c9586fe153ee92dee7433031a805e41181459",
     "size_bytes": 24541
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/LawExistingBrickIndexChecks.setup.json": {
+    "sha256": "7e275913ba6cd91342067915b4e8fdd6c20cae1568e43ffae1a0b68418497dd8",
+    "size_bytes": 37829
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/LivingTreeCoverageProvenance.setup.json": {
     "sha256": "cafde8268360dc91823e0eae8deb87d28e50ff79be0ea89387a7dcb6b1cbcbd5",
     "size_bytes": 32535
@@ -7350,6 +7774,22 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/LivingTreeGenerations.setup.json": {
     "sha256": "1c9b0abb0579e6f70a479d386541fb73cba9fe7f20317b75e8bc300a830fceea",
     "size_bytes": 28282
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/LoadBearingPhysicalJoins.setup.json": {
+    "sha256": "0d18370005bea17ccd1bc5f869fc172620f789029af258191a4cd13d64ba3691",
+    "size_bytes": 17909
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/LocalityChannelCompleteness.setup.json": {
+    "sha256": "3f10f7c5a41525cf773312be9e84914fb9739c67bf3d22d2e12b4b15311e7c00",
+    "size_bytes": 19733
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/MeterFailureBlame.setup.json": {
+    "sha256": "df236a103ad6286567fd1aaf5f252121725be3c3d11a8eedfb001cf514308519",
+    "size_bytes": 20131
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/NonstutteringPositiveWGuardian.setup.json": {
+    "sha256": "2cf50adb991fb37835082b6b9d90e29d9612ca1e9d920c4b1eb3b52ae5bf47af",
+    "size_bytes": 28813
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/Oct10ParticularContinuationBridge.setup.json": {
     "sha256": "614a503bc31984f7346c316d7224163770c8da7a87e8ff9dd7ecdf93cde19af2",
@@ -7375,6 +7815,10 @@
     "sha256": "ff6c9e0330a177c2645aca43c94547b5f62cccb3418afd474244ab8e8424cc0b",
     "size_bytes": 18518
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/PartialMeterFailures.setup.json": {
+    "sha256": "ce2fe70fb5c1118143ac5d614b7d945641926ea2953f51554493efb70264db78",
+    "size_bytes": 20325
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/ParticularSemanticsAudit.setup.json": {
     "sha256": "3fd0d96b16b8bd729d951a780dfad4e3579b936e0f1f7e3e3a85766c64f978ce",
     "size_bytes": 19370
@@ -7383,6 +7827,70 @@
     "sha256": "0d885c741a7f33941254eedf65b1b2bc4ac71718a25c4e0ea6f71435928a2a6c",
     "size_bytes": 26236
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/RecoveredRouteBSourceCertificate.setup.json": {
+    "sha256": "96972c306131f90c6a9a253dfe2887c037bd96d4714a8905e9b1f296cba63254",
+    "size_bytes": 19322
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/RedundantBoundaryMeters.setup.json": {
+    "sha256": "331fc48e7eb618a1fa0c2f722228e4ec4f0a65d94713d8645ab17b014bb709aa",
+    "size_bytes": 20525
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/ResidualBucketEvidence.setup.json": {
+    "sha256": "4788f671ff2e6503a264a16068cf604244d5a35b1c1a049e0a24802d01a0dfe0",
+    "size_bytes": 363
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/ResidualJunctionTree.setup.json": {
+    "sha256": "e37ded3fbcce73100bb8e24cac39d9d1dfa89a7ea8bb57f60e219933afb60d81",
+    "size_bytes": 167
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/RouteBComplexKoruFactorization.setup.json": {
+    "sha256": "e739465731ce6b9b16bea35de91274193a6827a6fea9039557356579387b8768",
+    "size_bytes": 28729
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/RouteBFullComplexKoruTest.setup.json": {
+    "sha256": "1cfe0da7f9aeb1eafaa0d8d78b2b08e311bf164b00d9de2450d89c70c79f0aa8",
+    "size_bytes": 28517
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/RouteBOriginalSixFirstViolation.setup.json": {
+    "sha256": "9f83bfd7efc9ea45c471d21e32bf81a9c228e8af681f2ed4f79e5a2feb09391b",
+    "size_bytes": 27464
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/RouteBSemanticKeystoneIndependence.setup.json": {
+    "sha256": "fa5bd36d810327240d6a83606850b950eff4981af28e9d9bdf7e3c2aff2d027e",
+    "size_bytes": 27903
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/RouteBWholeUSixSourceFirstLoss.setup.json": {
+    "sha256": "462974c65d42d886ca40b75a40f21c4a704f7885db8ce8776e68cce37c5aae41",
+    "size_bytes": 27682
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/Rung3HistoryIdentityBoundary.setup.json": {
+    "sha256": "b782ab147d1dc18559aeb8f24ffd0421129a223f3ca5ec93caacaa33403df3d3",
+    "size_bytes": 377
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/Rung4FailureLocalization.setup.json": {
+    "sha256": "eaf1747be5fc59a0fc9c86c31e556c95cd9bbd4759e842dc08bcbced4094073b",
+    "size_bytes": 361
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/Rung5ExactLedgerLexJoin.setup.json": {
+    "sha256": "d1fcb14c019ad8b7ffa8a21a8da2c84fdbd10074c22e2bf79ee7a84dc688a891",
+    "size_bytes": 2539
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SealedRegionCapstone.setup.json": {
+    "sha256": "c9cb66c4ae94a814fc408bdeff7df6f7dbbfdc2ef3d778cd6615739687fb2e4e",
+    "size_bytes": 19937
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SealedUniversalCoexistenceIff.setup.json": {
+    "sha256": "236b40a53963bf8de7cc2f2911a7c54a170d2b4a5df52d2918fcc232cd2a0bb8",
+    "size_bytes": 20937
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SomethingIsKoruG.setup.json": {
+    "sha256": "1ad900bdc874d2daa88f61f60661b64f77f06af8c9f6c516b9775e7720d31710",
+    "size_bytes": 325
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SourceIndependentRelationFork.setup.json": {
+    "sha256": "a86eb3b371c18619d25bdd88a9db14f2780024e2fb13efc3d8ed81854c0b184f",
+    "size_bytes": 973
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SummitBCRDRelationalVerdict.setup.json": {
     "sha256": "fc0d76310284d9fe7aeeb809074f2fed4a193885293aaf8d85b5ebf1a6dd3dd2",
     "size_bytes": 174
@@ -7390,6 +7898,14 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SummitBCRDReversibility.setup.json": {
     "sha256": "2c711cba9eaff798a74e9dd85997a193f718dba2e7ee94691adc99822ab7c2b9",
     "size_bytes": 529
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SummitExistenceImpliesGuardian.setup.json": {
+    "sha256": "99ac9c1bca3e611e3163b6c580f12e55642796beb5b897da1838f6c0fa03c37b",
+    "size_bytes": 177
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SummitFibreDynamicsBridge.setup.json": {
+    "sha256": "f4454c90ac990f000f709ccab2569012ec307d08a1e16b4653801025bd344c99",
+    "size_bytes": 571
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SummitFirstViolationObstruction.setup.json": {
     "sha256": "b9852e964cca0fe816d44df429f7543d42d70306118488f5091c13a238445f95",
@@ -7407,13 +7923,29 @@
     "sha256": "92a9873e45f1737a33151697ec93b018ca713c1a717668feb60620e17c1b7f2a",
     "size_bytes": 723
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SummitReversibleOrbitCriterion.setup.json": {
+    "sha256": "a3bbb46495f89a2c50c8634fcaa06bbada2d87cc516ec26ea6f27abb71e4e77e",
+    "size_bytes": 759
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SummitSourceAutomorphismClose.setup.json": {
     "sha256": "5adcea24540a039310c88db29f7bc18a2371bf17df9e28847beb5756f14eed67",
     "size_bytes": 728
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SummitSourceAutomorphismCorrection.setup.json": {
+    "sha256": "d33ac3c0947cb88e11ac73e0248de2f874fe44a2416422558bb6e30665646117",
+    "size_bytes": 956
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SummitSourceDynamicsExperiment.setup.json": {
     "sha256": "ac331ac6d7bdec6644410f5611a977cffea9bc995ebb29e2c968083a73c94aa9",
     "size_bytes": 349
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/SummitUniversalParticularScope.setup.json": {
+    "sha256": "e706cead435ab361059c7a516c83a887b0634c54df69091a6af9fa496185f5f2",
+    "size_bytes": 18930
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/TimeKoruGenesisConservation.setup.json": {
+    "sha256": "9c6671a691b2b77aceff824c9d23ea6e889e508f1a06300d81d974503400641a",
+    "size_bytes": 27223
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/TotalEOriginalX3Bridge.setup.json": {
     "sha256": "4c1902e1e16e9e37911965bc949a608eab21b88bb99866ed60c775a206537f34",
@@ -7427,9 +7959,29 @@
     "sha256": "6382c377f2e6d852bd000c766089f09997b44d167120179054097bff44b98465",
     "size_bytes": 21961
   },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/UPTLawAttempt.setup.json": {
+    "sha256": "8fdaa492918e4f578c684e625e040d91bad18eab817ab40a760daccaf142df94",
+    "size_bytes": 19512
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/UPTLawRepair.setup.json": {
+    "sha256": "d44a3adf03ba0d6c49e5f327a2ea5d5602fef825352b60a3acf0d496d41c4244",
+    "size_bytes": 22717
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/UnconditionalProtectionExact.setup.json": {
+    "sha256": "4760304c485c5219b9f7cff8368b6e1f698ab7c951a954f4db34a2c3fa4dcad3",
+    "size_bytes": 20723
+  },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/UniversalOwedOriginalX3.setup.json": {
     "sha256": "0c718406150e4f1ec1de658586ebb089c8f5706db31d4f93f1923f2e8e7e171d",
     "size_bytes": 18923
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/WCoverageCycleObstructions.setup.json": {
+    "sha256": "2d585cfce40b13f9ebc71f4121461cfae1532f17cf7b49a14a6ea56081f8e898",
+    "size_bytes": 25413
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/WholeSourceSemanticVisibility.setup.json": {
+    "sha256": "341b9d92592731677fe39faa3ff7cf089f0f8b5c4f061c1bfb37e773ac6eb829",
+    "size_bytes": 24765
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/ZZAx.setup.json": {
     "sha256": "4da1525e9d699971c21118d1ff0331e9c4c9c32999820116db1dcede111178b1",
@@ -8540,7 +9092,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "d3cda4794de3db7f2401ca4ed51ba85ec13590f27fb7e5869c8ea82149eda993",
-    "size_bytes": 461234
+    "sha256": "f9795619d8735c2c528c3840ed7869af6ab9a033ab61d55f79bf71f68691ce17",
+    "size_bytes": 461628
   }
 }
