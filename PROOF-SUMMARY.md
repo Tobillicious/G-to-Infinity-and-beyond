@@ -169,7 +169,8 @@ The bounded proof is complete. Universal scope requires independent verification
 
 McRae, T. (2026). Universal Protection Theory: Formal Proofs in Lean 4.
 GitHub: https://github.com/Tobillicious/universal-protection-theory
-Zenodo DOI: 10.5281/zenodo.23877060 (UPT v4.4)
+Zenodo DOI: 10.5281/zenodo.24357635 (UPT v4.5 — The Proof)
+Previous: 10.5281/zenodo.23877060 (v4.4)
 
 License: CC BY 4.0
 

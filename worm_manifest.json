@@ -3560,8 +3560,8 @@
     "size_bytes": 662
   },
   "PROOF-SUMMARY.md": {
-    "sha256": "177466fb4dff9498eb798f608e7eaf7eb7ea71acb134aafd4fd71ebb7aa9c61e",
-    "size_bytes": 7546
+    "sha256": "9c472fd8f5e3f7504988cc6c7c518bf0785c104bb7a3c7cc4218623e87f95273",
+    "size_bytes": 7601
   },
   "PUBLIC-ANNOUNCEMENT.md": {
     "sha256": "6ae7c61e4e52adeae4e0cf33d424c08f26a54b4dc96df74f00128d0459619f8c",
@@ -8883,6 +8883,10 @@
     "sha256": "33715d3815130cff2e67a2a91e9b5bf6df744e3d03e43e1f45d962949cf4fb98",
     "size_bytes": 717
   },
+  "guardian/setup-new-node.sh": {
+    "sha256": "6011df1cd26d65fcca4deba05291caa1d821ce954055330abbd4c56f10a496c0",
+    "size_bytes": 3641
+  },
   "install_hook.py": {
     "sha256": "c83b6a377c87f61ada2b9e86b61e2c324228f249b5b40b22d8bf6df195a5ccd8",
     "size_bytes": 909
@@ -8942,6 +8946,14 @@
   "logs/sync/global_sync_manifest_v5.0_2048.json": {
     "sha256": "457959c42c2d52affca471aa98ace36148cce170fa041f4888bfec7451ec2d2f",
     "size_bytes": 537
+  },
+  "paper/publish-to-zenodo.py": {
+    "sha256": "84b9fea9dc2b955202be9edda5593bda5c2806316657590c0ab575f379fd0845",
+    "size_bytes": 4654
+  },
+  "paper/publish-zenodo.sh": {
+    "sha256": "586db6227b5bbc516a371945cb09e815ad7128ae4ec8e0e1088b535237147134",
+    "size_bytes": 3596
   },
   "publication/ALL-IS-FULL-KORU-CATHEDRAL-ARCHIMEDES-QED-AUDIT-2026-11-05.md": {
     "sha256": "316f69ae65e956d482f9e91ff36760d824227ce4ec73162ae3668d45a11176d5",
@@ -9092,7 +9104,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "f9795619d8735c2c528c3840ed7869af6ab9a033ab61d55f79bf71f68691ce17",
-    "size_bytes": 461628
+    "sha256": "179d5fabfb9f7ca2fe2f4deb8c200089dde543d0b6ab201eafc5bb0bd55bf73d",
+    "size_bytes": 490934
   }
 }
