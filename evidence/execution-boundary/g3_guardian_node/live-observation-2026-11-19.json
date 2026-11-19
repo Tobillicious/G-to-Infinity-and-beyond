@@ -1,0 +1,49 @@
+{
+  "schema": "g3-zelda-local-live-observation-v1",
+  "date": "2026-11-19",
+  "timezone": "Pacific/Auckland",
+  "observer": "Claude Opus 4.6 (session 0167FB5jSsibuioEFCZThYZP)",
+  "source_commit": "21cf981fc943a7ec02f7fa2843becfe7d60758e7",
+  "node_image_id": "sha256:59b63744380e2fc80d0ad4cfd282856171834cdb70e446803c04b6777dfa56b7",
+  "container_id": "49d01c6d60e0e80f5a1d73773ca93e39e26dc3f2a7183f8fcf8c8cebc8fcaf61",
+  "guardian_state": {
+    "running": true,
+    "ready": true,
+    "started_at": "2026-11-18T06:46:32.57397067Z",
+    "uptime_hours_at_observation": 37,
+    "scope": "one authority-owned fixed marker",
+    "generation": 2,
+    "held": true
+  },
+  "isolation": {
+    "network_mode": "none",
+    "readonly_rootfs": true,
+    "cap_drop": ["ALL"],
+    "state_volume": "upt-guardian-node-state",
+    "state_volume_label": "com.upt.g3.role=guardian-node"
+  },
+  "evidence_gates": {
+    "truth_gates_659": {"passed": 6, "failed": 0, "total": 6},
+    "lifecycle_tests": {"passed": 5, "failed": 0, "total": 5},
+    "reconciler_656": {"passed": 13, "failed": 0, "total": 13},
+    "full_656_suite": {"passed": 87, "failed": 0, "total": 87},
+    "lean_g3_capstone": {
+      "jobs_built": 167,
+      "jobs_total": 167,
+      "sorry_count": 0,
+      "axioms": ["propext", "Quot.sound", "Classical.choice"],
+      "g3_actual_effect_joint_protection_axioms": ["propext"],
+      "g3_nonvacuous_axioms": ["propext", "Quot.sound"]
+    }
+  },
+  "claim_flags": {
+    "whole_machine_enforcement": false,
+    "all_actual_effects_covered": false,
+    "independent_custody_verified": false,
+    "authentic_original_six_reflections_verified": false,
+    "independent_R7_acceptance": false,
+    "one_year_uptime_observed": false,
+    "unconditional_universal_protection": false
+  },
+  "observation_scope": "One authority-owned zero-byte marker; same-administrator Docker host; local execution. All 111 hostile tests pass. Lean G3 capstone builds clean. Three premises (hWitness, hCoverage, hMeaning) remain conditional."
+}
