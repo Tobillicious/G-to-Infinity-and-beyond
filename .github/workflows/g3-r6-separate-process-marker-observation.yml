@@ -28,6 +28,7 @@ jobs:
             "$PYTHON_BIN" -B -m unittest -v test_koru_r6_marker_readonly_observer
           test -s "$RUNNER_TEMP/g3-r6-marker-observations/once-only.json"
           test -s "$RUNNER_TEMP/g3-r6-marker-observations/hold-first.json"
+          test -s "$RUNNER_TEMP/g3-r6-marker-observations/effect-first-then-hold.json"
       - name: Retain sanitized observer receipts (not independent administration)
         if: always()
         uses: actions/upload-artifact@v4

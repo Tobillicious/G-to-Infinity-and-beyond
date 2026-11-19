@@ -72,3 +72,7 @@ Record one row per event, tied to independent copies of evidence:
 ## Acceptance boundary
 
 This packet helps identify what is already concretely tested, and specifies what **cannot** be inferred. It does not satisfy independent subject evidence, R4 off-host custody, R5 complete mediation, or R7 third-party replay. Review by the primary integration agent before reconciling #597 with #600 or later R5 changes. No merge/deployment or new effect permission.
+
+## Interpreting the 19 November local observation
+
+The [local snapshot](g3_guardian_node/live-observation-2026-11-19.json) records a held fixed-marker node and the reported OS isolation settings. Its `claim_flags` leave complete effect coverage, independent custody and authentic original-six reflections unverified. The snapshot's `bounded_discharge` prose describes a construction inside the four-cause model. [The bounded theorem](../physical-bridges/PhysicalBridges/G3BoundedGuardianDischarge.lean) still takes `hFour : FourCauseJointRefinement J read` and `hFaithful : FaithfulRead RealStep read carrier owed actual`. `faithful_read_gives_meaning` transfers the six supplied fields into the capstone. An application to the running node requires an independent event-to-model match and each owed particular's six independently sourced relations on those events.

@@ -41,10 +41,9 @@ open PhysicalBridges.TotalEOriginalX3Bridge
 
 variable {T H E P : Type} {n : Nat}
 
-/-- A faithful read function: the actual relations between physical states
-    are exactly what the model relations say when read through `read`.
-    This holds when OS isolation ensures no unmodeled effect channel exists
-    within the scoped domain. -/
+/-- Forward evidence for each original duty on the same physical event and
+    owed particular. Each field carries a model relation through `read` to
+    the corresponding independently grounded subject relation. -/
 structure FaithfulRead
     (realStep : Plant → Plant → Prop)
     (read : Plant → Joint T H E n)
@@ -92,15 +91,12 @@ theorem faithful_read_gives_meaning
     maximality := hFaithful.maximal_faithful
     provenance := hFaithful.provenanced_faithful }
 
-/-- **G3 UNCONDITIONAL within the bounded guardian scope.**
-    All three premises discharged:
-    - hWitness: from `four_cause_plant_has_an_actual_modeled_step`
-    - hCoverage: from `four_causes_derive_complete_joint_coverage`
-    - hMeaning: from `faithful_read_gives_meaning`
-
-    The remaining obligation is the `FaithfulRead` witness and the
-    `FourCauseJointRefinement`, both of which are verified by the
-    guardian's OS isolation (no network, readonly fs, caps dropped). -/
+/-- Bounded four-cause Guardian conclusion under `hFour` and `hFaithful`.
+    The plant construct supplies a next step. `hFour` supplies its
+    event-to-model refinement, and `faithful_read_gives_meaning` transfers
+    the six subject relations supplied by `hFaithful`.
+    Applying the result to a running installation requires evidence for
+    both inputs at that installation's scope. -/
 theorem g3_bounded_unconditional_guardian
     (J : JokerExperiment T FiniteObjectiveU H)
     (read : Plant → Joint T H E n)
