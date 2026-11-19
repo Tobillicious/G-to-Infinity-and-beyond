@@ -1144,7 +1144,7 @@ being consumed by anything.
 \section{Constructive Formalisation in the Pure $G$ State}
 \label{sec:pure-g-formalisation}
 
-We present a constructive, axiom-free formalisation matching \texttt{PureG.lean}. All bounds are expressed in $\mathbb{N}$ via rational pairs $(k_{\mathrm{num}}, k_{\mathrm{den}})$ with $k_{\mathrm{num}} < k_{\mathrm{den}}$, avoiding real/rational division, Hilbert spaces, and external slack parameters in Koru-native quasi-commutation. Where relational unfolding across coupled levels replaces flat equality, we write $\koruG$ for outward-spiral Koru correspondence.
+We present a constructive formalisation of the Pure~$G$ hinge in natural-number arithmetic, without introducing external physical postulates, Hilbert-space assumptions, or additive $\Delta$ slack parameters. The principal pillar and quasi-hinge invariants have no reported axiomatic dependencies; certain derived contraction and zero-distance results depend on Lean's standard propositional extensionality axiom (\texttt{propext}), as identified by \texttt{\#print axioms}. All bounds are expressed in $\mathbb{N}$ via rational pairs $(k_{\mathrm{num}}, k_{\mathrm{den}})$ with $k_{\mathrm{num}} < k_{\mathrm{den}}$, avoiding real/rational division. We write $\koruG$ for the \emph{fixed-point radial Koru correspondence} defined below.
 
 For any type $A$, step map $g : A \to A$, and natural number $n \in \mathbb{N}$, write $\mathrm{iterate}\;g\;0\;x \coloneq x$ and $\mathrm{iterate}\;g\;(n+1)\;x \coloneq g(\mathrm{iterate}\;g\;n\;x)$. Write $\mathrm{powNat}(b, 0) \coloneq 1$ and $\mathrm{powNat}(b, n+1) \coloneq \mathrm{powNat}(b, n) \cdot b$.
 
@@ -1162,8 +1162,10 @@ A \emph{contraction pillar} $\mathcal{C} = (M, \phi, d, k_{\mathrm{num}}, k_{\ma
 and a fixed point $G : M$ satisfying $\phi(G) = G$.
 \end{definition}
 
-\begin{definition}[Koru Correspondence and Hinges]
-Given $\mathcal{C}$, \emph{Koru correspondence} relative to $G$ is defined on $x, y : M$ by
+\begin{definition}[Fixed-Point Radial Koru Correspondence and Hinges]
+The relation $\koruG$ is a derived radial correspondence associated with the contraction pillar and its distinguished fixed point~$G$. It provides a natural-number ordering sufficient for the contraction, transitivity and zero-distance theorems. It is not identified with the Complete Koru itself; Complete Koru concerns the lossless relational whole, including particulars, operators, enactments, histories and provenance, established separately in the existing Koru/W formalisation.
+
+Given $\mathcal{C}$, the \emph{fixed-point radial Koru correspondence} relative to $G$ is defined on $x, y : M$ by
 \[
 x \mathrel{\koruG} y \iff d(x, G) \cdot k_{\mathrm{den}} \le d(y, G) \cdot k_{\mathrm{den}}.
 \]
@@ -1185,7 +1187,7 @@ Given a cut $c : M \to O$ into an observation type $O$ and a liveness predicate 
 For any process pillar $\mathcal{P}$, contraction pillar $\mathcal{C}$, and strict hinge $\mathrm{hinge}_{\mathrm{str}}$ with projection $\pi$:
 \begin{enumerate}
   \item \emph{Process invariants on $S$:} $(S \to \bot) \to \bot$, and for all $n \in \mathbb{N}$, $E(\mathrm{iterate}\;f\;n\;s_0) = E(s_0)$ and $\Sigma(s_0) \le \Sigma(\mathrm{iterate}\;f\;n\;s_0)$.
-  \item \emph{Contraction invariants on $M$:} for any fixed point $G' : M$ ($\phi(G') = G'$), $d(G, G') = 0$, and for all $n \in \mathbb{N}$, $\mathrm{iterate}\;\phi\;n\;G = G$.
+  \item \emph{Contraction invariants on $M$:} every fixed point $G' : M$ ($\phi(G') = G'$) satisfies $d(G, G') = 0$ (uniqueness up to zero modeled distance; when the distance separates points, $G' = G$), and for all $n \in \mathbb{N}$, $\mathrm{iterate}\;\phi\;n\;G = G$.
   \item \emph{Coupled step contraction via $\pi$:} for all $n \in \mathbb{N}$,
   \[
   d\bigl(\pi(\mathrm{iterate}\;f\;(n+1)\;s_0), G\bigr) \cdot k_{\mathrm{den}} \le k_{\mathrm{num}} \cdot d\bigl(\pi(\mathrm{iterate}\;f\;n\;s_0), G\bigr).
