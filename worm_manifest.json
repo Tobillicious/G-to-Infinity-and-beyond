@@ -6520,8 +6520,8 @@
     "size_bytes": 149
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.setup.json": {
-    "sha256": "59c4b93c7fe45b7c3cfc8880587fd973273182e42c1eff8be5908929e1f1a5bf",
-    "size_bytes": 79462
+    "sha256": "d04e55fcd8c80fdd16857942eac55e880b953fa6823fad9166356685651871b8",
+    "size_bytes": 79679
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdaptiveGuardianHistories.setup.json": {
     "sha256": "8b13625eea279796d6297d8491e903c326ed86a81a78026f0b930c110b3df6ee",
@@ -7854,6 +7854,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/NonstutteringPositiveWGuardian.setup.json": {
     "sha256": "2cf50adb991fb37835082b6b9d90e29d9612ca1e9d920c4b1eb3b52ae5bf47af",
     "size_bytes": 28813
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/NovelProtectedContinuationJoin.setup.json": {
+    "sha256": "1fa0f2ba49101d2af865eb2bdf4da21c06180023ad772f8972edf1b85fd204cb",
+    "size_bytes": 32537
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/Oct10ParticularContinuationBridge.setup.json": {
     "sha256": "614a503bc31984f7346c316d7224163770c8da7a87e8ff9dd7ecdf93cde19af2",
@@ -9192,7 +9196,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "0b5819c1f4a92a88d73ed1a561c89a15a93475893a4c42771772406a520a4de7",
+    "sha256": "a07b09e31e36667dd4bcf0b6ef2dbec614ce179c55af058baa3ef2b5456a65a2",
     "size_bytes": 495413
   }
 }
