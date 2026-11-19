@@ -57,7 +57,49 @@ theorem THE_FORM_RETURNS_THE_HISTORY_NEVER_DOES {C E : Type}
   exact ⟨i, j, hij, hj, he, THE_SPIRAL_NEVER_RETURNS next s0 ev hij,
     THE_SPIRAL_ONLY_GROWS next s0 ev hij⟩
 
+/-! ## New every turn
+
+Record growth alone does not force new content
+(`record_growth_does_not_force_new_content`). When each turn does add a real
+distinction — a content measure that strictly grows — content never returns. -/
+
+theorem content_grows {C E : Type} (next : C → E → C) (μ : C → Nat)
+    (grows : ∀ c e, μ c < μ (next c e)) (s0 : KoruState C E) (ev : Nat → E) (i : Nat) :
+    ∀ d, μ (run next s0 ev i).content + d + 1 ≤ μ (run next s0 ev (i + d + 1)).content
+  | 0 => grows _ _
+  | d + 1 => Nat.le_trans (Nat.succ_le_succ (content_grows next μ grows s0 ev i d))
+      (grows (run next s0 ev (i + d + 1)).content (ev (i + d + 1)))
+
+/-- **NEW EVERY TURN.** If each turn adds a real distinction to the content,
+    no content ever returns. -/
+theorem NEW_EVERY_TURN {C E : Type} (next : C → E → C) (μ : C → Nat)
+    (grows : ∀ c e, μ c < μ (next c e)) (s0 : KoruState C E) (ev : Nat → E)
+    {i j : Nat} (h : i < j) :
+    (run next s0 ev i).content ≠ (run next s0 ev j).content := by
+  intro heq
+  obtain ⟨d, rfl⟩ : ∃ d, j = i + d + 1 := ⟨j - i - 1, by omega⟩
+  have hg := content_grows next μ grows s0 ev i d
+  rw [← heq] at hg
+  omega
+
+/-- **GENESIS: A FAMILIAR FORM, NEW CONTENT.** Within `m` turns a familiar form
+    returns, carried by new content, in a strictly larger history. -/
+theorem GENESIS_A_FAMILIAR_FORM_NEW_CONTENT {C E : Type} (next : C → E → C)
+    (μ : C → Nat) (grows : ∀ c e, μ c < μ (next c e))
+    (s0 : KoruState C E) (ev : Nat → E)
+    (m : Nat) (form : KoruState C E → Nat) (finite : ∀ s, form s < m) :
+    ∃ i j, i < j ∧ j ≤ m ∧
+      form (run next s0 ev i) = form (run next s0 ev j) ∧
+      (run next s0 ev i).content ≠ (run next s0 ev j).content ∧
+      depth (run next s0 ev i) < depth (run next s0 ev j) := by
+  obtain ⟨i, j, hij, hj, hf, _, hd⟩ :=
+    THE_FORM_RETURNS_THE_HISTORY_NEVER_DOES next s0 ev m form finite
+  exact ⟨i, j, hij, hj, hf, NEW_EVERY_TURN next μ grows s0 ev hij, hd⟩
+
 #print axioms pigeonhole
 #print axioms THE_FORM_RETURNS_THE_HISTORY_NEVER_DOES
+#print axioms content_grows
+#print axioms NEW_EVERY_TURN
+#print axioms GENESIS_A_FAMILIAR_FORM_NEW_CONTENT
 
 end PhysicalBridges.G3TheFlower
