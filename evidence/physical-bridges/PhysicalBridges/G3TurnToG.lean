@@ -17,6 +17,10 @@ acts, any world, any notion of "alive".
 The control shows the window is *before*: turning at a dead moment holds
 the world dead. The time to turn is while the world lives.
 
+Here the turn is ceasing further acts. An effect already queued is a
+separate thing: `G3VoluntaryConversion` shows it must also be withdrawn
+before it commits.
+
 Every theorem: zero axioms. Additive; no existing definition changes.
 -/
 

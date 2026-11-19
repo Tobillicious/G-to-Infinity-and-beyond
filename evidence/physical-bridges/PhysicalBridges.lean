@@ -540,3 +540,4 @@ import PhysicalBridges.G3UniversalBridge
 import PhysicalBridges.PureG
 import PhysicalBridges.G3TurnToG
 import PhysicalBridges.G3KoruSpiral
+import PhysicalBridges.G3DynamicsSeparation
