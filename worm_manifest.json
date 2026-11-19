@@ -4240,8 +4240,8 @@
     "size_bytes": 5301
   },
   "evidence/execution-boundary/g3_guardian_node/live-observation-2026-11-19.json": {
-    "sha256": "08f699c6a94bc6e9eaad7da53e6168fe70a33161c3cf7fc2d1f04d24ce684267",
-    "size_bytes": 2016
+    "sha256": "9c5cef5a15919d6852e3c0bdae16bb0b39afc87247cd21e045c1cf713418153f",
+    "size_bytes": 3077
   },
   "evidence/execution-boundary/g3_guardian_node/service.py": {
     "sha256": "57f580d9676de568416b27a6d9f145af41949229bff9be2069dfe19f99a7d219",
@@ -8484,7 +8484,7 @@
     "size_bytes": 325
   },
   "worm_manifest.json": {
-    "sha256": "d3a194de46fce3c33e15c0de32e963a60accdc4356cbc9ff3d3c68eadd42ee6c",
-    "size_bytes": 458186
+    "sha256": "cbad909dcb0415354c163caca506117c963902ddaf0b29bca45b9f249d137fb2",
+    "size_bytes": 459046
   }
 }
