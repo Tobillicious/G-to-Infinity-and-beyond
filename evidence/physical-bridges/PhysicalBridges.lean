@@ -550,3 +550,5 @@ import PhysicalBridges.G3BoundaryGrowth
 import PhysicalBridges.G3InductiveCompleteness
 import PhysicalBridges.G3KoruCarriesDuties
 import PhysicalBridges.G3KoruCircleJoin
+import PhysicalBridges.G3CompleteKoruOperatorX3Join
+import PhysicalBridges.G3KoruShapeAdversarialGate
