@@ -557,3 +557,6 @@ import PhysicalBridges.G3MatterspacetimeRealizationGate
 import PhysicalBridges.CompleteKoruMatterspacetimeCoverage
 import PhysicalBridges.G3KoruVsEnergyConservation
 import PhysicalBridges.G3FeasibleMaximalityRenewal
+
+-- Garden: bilateral authentic Hume-Hillary hand; retain explicit semantic gates.
+import PhysicalBridges.G3GardenAuthenticBilateralHand
