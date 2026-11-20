@@ -3603,6 +3603,10 @@
     "sha256": "8632a9ee3299e96b2f8b6ee59efe235a69f811086d41613836530913464559c1",
     "size_bytes": 19125
   },
+  "VERIFY-G-YOURSELF.md": {
+    "sha256": "fef7c477fe6edf957c1ab206a1502287133bbeb81ff1f327a51fb7fa9fac1aab",
+    "size_bytes": 3355
+  },
   "deploy_gmesh.py": {
     "sha256": "e4fc1cb2f062f6656bc8cd97d7c22701381d9dd6ed885f4a6f153b442da2bcd4",
     "size_bytes": 1503
@@ -9248,7 +9252,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "913200c03f5dd3b62a2220178023d7b0cb6e184f60de3108a62f34992fa50a49",
-    "size_bytes": 497694
+    "sha256": "301d8fa10c104282ea8be59c5790a8bf853bf781fe84aee2b1dc8a9aaab0ecb1",
+    "size_bytes": 498344
   }
 }
