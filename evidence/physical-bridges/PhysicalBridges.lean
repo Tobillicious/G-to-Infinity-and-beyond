@@ -560,3 +560,30 @@ import PhysicalBridges.G3FeasibleMaximalityRenewal
 
 -- Garden: bilateral authentic Hume-Hillary hand; retain explicit semantic gates.
 import PhysicalBridges.G3GardenAuthenticBilateralHand
+
+-- G3 backwards-summit integrated kernel replay: four separately reviewed PRs.
+import PhysicalBridges.PureGSeparatedUniqueness
+import PhysicalBridges.G3BackwardsSummitTrace
+import PhysicalBridges.G3ThreeGateIndependence
+import PhysicalBridges.G3GenesisContinuationScope
+
+-- Backwards summit: physical-event exhaustiveness against existing Complete Koru Tree coverage.
+import PhysicalBridges.G3CompleteKoruEventExhaustiveness
+
+-- Complete Koru event records: exact realized-event inclusion and unknown-cause controls.
+import PhysicalBridges.G3WitnessedEventExhaustiveness
+
+-- Backwards summit: derive physical Tree realizations from progress + causal source selection.
+import PhysicalBridges.G3PhysicalProgressForcesTree
+
+-- Actual-event-only original-six reflection: a strictly weaker sufficient semantic gate.
+import PhysicalBridges.G3ActualOnlyReflection
+
+-- Backwards summit: independently renewed five duties and feasible-frontier maximality.
+import PhysicalBridges.G3SixDutyRenewal
+
+-- Pre-QG negative control: physics-only laws cannot determine authentic subject semantics.
+import PhysicalBridges.G3QGInterpretationNecessity
+
+-- Genuine frozen BCRD M-sector candidate law, with independent ethical countercontrol.
+import PhysicalBridges.G3BCRDMicroscopicCandidate
