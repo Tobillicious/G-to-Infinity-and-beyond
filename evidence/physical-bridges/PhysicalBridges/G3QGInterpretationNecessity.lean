@@ -35,6 +35,9 @@ open PhysicalBridges.EverestActualWEventJoin
 open PhysicalBridges.CathedralFullX3Assembly
 open PhysicalBridges.OriginalX3Full
 open PhysicalBridges.FrozenBCRDEvents
+open PhysicalBridges.KoruSixOriginalRelationsOneWeb
+open PhysicalBridges.KoruWholeUSixDutyWebJoin
+open PhysicalBridges.OriginalKeystoneForwardSemanticReflection
 
 /-- This QG candidate interface is deliberately physics-only.
 It mentions transitions, source states, and physical stage, not
@@ -151,6 +154,42 @@ theorem canonical_source_does_not_determine_authorization :
       validatingSubjects.authorized s t () ∧
       ¬ withholdingSubjects.authorized s t ()) := by
   exact ⟨0, 1, rfl, rfl, fun h => h⟩
+
+
+/-- Exact scope audit for the newer actual-event reflection condition.
+For the existing six-positive whole, this reflection obligation is
+LOGICALLY EQUIVALENT to the authentic original-six conclusion on all
+actual owed events, with NO physical-coverage premise needed.
+
+Therefore this reflection field cannot count as an *independently
+derived physical law* until some separate physical-subject theorem
+justifies it. The equivalence exposes, rather than hides, that gate. -/
+theorem actual_reflection_iff_original_six_on_actual_events
+    {S P : Type}
+    (physicalStep : S → S → Prop)
+    (stage : S → Nat)
+    (carrier : P → Index) (r : ParticularRelations S P)
+    (owed : P → Prop) :
+    ActualForwardReflection physicalStep stage
+      positiveWholeU sixDiagonalRoles carrier r owed ↔
+      (∀ s t, physicalStep s t →
+        ∀ p, owed p →
+          OriginalX3 r.continues r.authorized r.free
+            r.restrained r.maximal r.provenanced s t p) := by
+  constructor
+  · intro hReflect s t hs p hp
+    apply (complete_profile_iff_original_x3 r s t p).mp
+    intro tag
+    exact hReflect s t p tag hs hp
+      (PhysicalBridges.OriginalKeystoneForwardSemanticReflection.positive_origin_transports_every_six_source_field
+        positiveWholeU sixDiagonalRoles carrier owed
+        (fun p _ => all_six_source_fields_true_at_origin (carrier p))
+        (stage s) p hp tag)
+  · intro hSix s t p tag hs hp _
+    exact (complete_profile_iff_original_x3 r s t p).mpr
+      (hSix s t hs p hp) tag
+
+#print axioms actual_reflection_iff_original_six_on_actual_events
 
 #print axioms canonical_physics_has_W_coverage
 #print axioms canonical_physics_is_nonterminal
