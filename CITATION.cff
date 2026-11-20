@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this software or formal canon build, please cite it using these metadata."
-title: "Universal Protection Theory: Machine-Checked Canon Edition (v4.6)"
-version: 4.6.0
+title: "Universal Protection Theory: G3 Pre-QG Complete — One Condition, Everything Else Done"
+version: 5.0.0
 doi: 10.5281/zenodo.23965850
-date-released: 2026-11-18
+date-released: 2026-11-20
 url: "https://doi.org/10.5281/zenodo.23965850"
 repository-code: "https://github.com/Tobillicious/universal-protection-theory"
 authors:

@@ -136,8 +136,8 @@
     "size_bytes": 2858
   },
   "CITATION.cff": {
-    "sha256": "246c3244dcf652ba1c24670ef89edc7e2c995f2733bc1dedaa60de929ed62f0e",
-    "size_bytes": 458
+    "sha256": "154d28afb9ff92e501e21d5e4918d744649d89c4af4c93ae5d27b1bd4ffdf6d0",
+    "size_bytes": 480
   },
   "COMPLETE-KORU-PROOF-INDEX.md": {
     "sha256": "e03467aa179b595b11eb17632ae478590ff83bcfd83fb1cd995ea112f071de0f",
@@ -220,8 +220,8 @@
     "size_bytes": 15565
   },
   "README.md": {
-    "sha256": "a1bfcc92d71153542fa7f0475ccff3b2ad8381199085a35e781d307317ecbc52",
-    "size_bytes": 9005
+    "sha256": "7d695a56a3e847e1baf6ba613a2597b24a40cea36064e1d790af43bafaa1e610",
+    "size_bytes": 9503
   },
   "SOMETHING-IS-KORU-G.md": {
     "sha256": "9d796403bac76de0afeeda268ee3d07ee32008c5a67b8f23fa8179b0eaea7178",
@@ -7196,16 +7196,16 @@
     "size_bytes": 149
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.c": {
-    "sha256": "f1817099c82c8620cb2c95c31854fb964a90d5a51608c2e2ff38afe533ef1631",
-    "size_bytes": 48086
+    "sha256": "989b2e6f3da405d07e3060495e7b6321e5874307cb35e45baa6712267ca77ecd",
+    "size_bytes": 121504
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.c.hash": {
-    "sha256": "c1f41b571f7ca52dac9a410d7508289558ed1ddc743f0a17555858f9d5b59ca6",
+    "sha256": "b6123424c523b1f43be95babbc7bf9e917a0842a549bebf55b4882a9a3da9d7d",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.setup.json": {
-    "sha256": "24a9e4cffc8b3f51fa55169b658d02ef54c100fbe145623a3460acd1211cc5e6",
-    "size_bytes": 31041
+    "sha256": "404509c2760dde3c72a54ab16180f27831b83abd42c1c71614ea015057c6110c",
+    "size_bytes": 82519
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdversarialHolding.c": {
     "sha256": "0b86079aaa61c9302b0e1a1e7debc421a15f75f3db44115f9655893aafb62a0f",
@@ -7288,8 +7288,8 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/BCRDSourceCoverage.setup.json": {
-    "sha256": "a8e8a2ccb3f53901d2b27dec93915179c882ad33383c21e975d0460b5c509799",
-    "size_bytes": 524
+    "sha256": "5c080b1651493cbdd208c31d24c7eacdee5d233deb6960952774d54e972310a5",
+    "size_bytes": 544
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralAllIsEnderTypeCollapse.c": {
     "sha256": "40393a786a468db2ba520542643d677240fff12bc0f4633a2cb8d0f5dce5fe6e",
@@ -7324,8 +7324,8 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralBridgeDischargeBranchB.setup.json": {
-    "sha256": "54a35c8ef9bc82596c8f5e7631b9042b0f0e5264ac331e69ecb5895fc72a0463",
-    "size_bytes": 7833
+    "sha256": "296f26af1abd4740f0d5dac7089643024f3e54ef95a498b0f8401953e40460ad",
+    "size_bytes": 8253
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralBridgeDischargeBranchesAC.c": {
     "sha256": "2fce87d7ff17f69e0635918b12da2f71cdc55e9a6593e5a4c91db25ee3f01f62",
@@ -7336,8 +7336,8 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralBridgeDischargeBranchesAC.setup.json": {
-    "sha256": "68ec6578b9b79527382667569080fee09305114149d6df35cf5069daccba416e",
-    "size_bytes": 8045
+    "sha256": "9b7c70c98cca1ee80555eeac64b94abf74a061a578a636e68ed3e31719e9b0bf",
+    "size_bytes": 8475
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralBridgeDischargeSemantic.c": {
     "sha256": "528a93ff3d9265f5395ffb7b86347e61122d3a80aca42c4d726c994d2e9b2139",
@@ -7348,8 +7348,8 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralBridgeDischargeSemantic.setup.json": {
-    "sha256": "bfbad7502101967639e7a392dd314982cbf5a608dfcf9cbdcd3cb8b8d9352117",
-    "size_bytes": 7834
+    "sha256": "346736d90de9e1b1a4e779385de3d9cf5468829ed75c952a567c4563238f5306",
+    "size_bytes": 8254
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralCapstoneJoins.c": {
     "sha256": "2cafff8de0441f3b68729d581b900b8a461fda9a9ae439ce02c3f895c7b669a7",
@@ -7432,8 +7432,8 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralSummitFirstViolationGap.setup.json": {
-    "sha256": "6b2eff73118140cea3f00ed7bf8e49a8f8026ccfe3b6730943d762b8327bd0ba",
-    "size_bytes": 17616
+    "sha256": "beec4a2cdd10407a53bf3b0de3304f6c3b57578a06c37e779a5c2bc658c709b3",
+    "size_bytes": 18536
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/CathedralSummitPremiseNecessity.c": {
     "sha256": "63af9f181c916390a36b17bfd32951674d83b6fde48d2b780d4ec920681116a0",
@@ -9188,24 +9188,24 @@
     "size_bytes": 1855
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.ilean": {
-    "sha256": "9418854d2ac2014c757624ee0626fc4587c66be9287831d1bb87ba232ef1d25d",
-    "size_bytes": 9637
+    "sha256": "609b72805c347653e1e6c236221b8adf8b5df08b52495fb57721572b05f00e15",
+    "size_bytes": 24827
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.ilean.hash": {
-    "sha256": "96c4354b323757d0fcae9cf93e5c1c0c80bd50668c9b34f6e907fdfd85f13faa",
+    "sha256": "fd22302c054da3c0be3c71f2939b569d94f5b28dfe03d4081349ee52b606602a",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.olean": {
-    "sha256": "2e7687bf1ed2cce485f298c2fc12985b69ae7cdc194e54d2d1fc68a584526e0c",
-    "size_bytes": 20312
+    "sha256": "bc4d557b1a7bcda8a75c546bf87e3bc69c5be1aef70bf3c17bba82faecb002d0",
+    "size_bytes": 49992
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.olean.hash": {
-    "sha256": "b97c1136cccb0e440587264a7614cf91bdc24fe4e490cbcccddafbc6432afec8",
+    "sha256": "b22b795e52a961c8e4990651c4b3ef78f68ea76049e0405c7a05893135f57c13",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.trace": {
-    "sha256": "ad44daa495cc130299d9b0992c323644e6ee2996edf896898887c5cfb17119d7",
-    "size_bytes": 32015
+    "sha256": "3c0ca40d58dcef7e124e6ed604ded7e65fe3411383f67658c41028e5aeccdbf2",
+    "size_bytes": 79691
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/AdversarialHolding.ilean": {
     "sha256": "4a45f3b559f380dc4ca80b7c2e4e990b4b4979c4167feef780a7e5a06b0ef595",
@@ -9328,24 +9328,24 @@
     "size_bytes": 2401
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/BCRDSourceCoverage.ilean": {
-    "sha256": "4b714bdff0ede9afe0f300cfa089c22872beaebe371ecace5130583a97bbc25b",
+    "sha256": "ceaed5fe6033c03f871696372ac155ea84f23e6cbf515b282fcb798e8fb0a9dd",
     "size_bytes": 6359
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/BCRDSourceCoverage.ilean.hash": {
-    "sha256": "595ece2a099a87dc8fd3265a0dbba6f2776a750e429dbf69c2ee59b4234403f1",
+    "sha256": "18e403bb198a38716e766c3733f8d8413ca00938d215f176927f653fa2677b1c",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/BCRDSourceCoverage.olean": {
-    "sha256": "7ec79a0e3d0cbb5c0846eb2bfa16373409e479695bfc6cdf81508bfefce5a8e1",
-    "size_bytes": 38960
+    "sha256": "3480792f841cb6190599efbd38713aad8da73bbdf95591d8b7665faa18c0ab20",
+    "size_bytes": 39912
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/BCRDSourceCoverage.olean.hash": {
-    "sha256": "d54f100560b0772b89f4e05e83045c32f1fe7deae6ad33f3ef9ece13cbc5f4cd",
+    "sha256": "259a0c9fc8784be7b908bbc05e62d2d8090003c7199a61f56c60ebdb6f74ae7a",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/BCRDSourceCoverage.trace": {
-    "sha256": "b61a6e03ca9f292fceafa58f059b21feece7596b6070947ff947b92f1b73b7a5",
-    "size_bytes": 2310
+    "sha256": "151cee582412c336b4a52165684e7d5918edc81e732a0a591e802f7e2238a47e",
+    "size_bytes": 2380
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/CathedralAllIsEnderTypeCollapse.ilean": {
     "sha256": "3766aa5bd51dea4990229fb033db8bb3e71572800fb69f5794927a284b8c378b",
@@ -9404,8 +9404,8 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/CathedralBridgeDischargeBranchB.trace": {
-    "sha256": "4f202cda42c27b258bf411add99d9cebecc1d3a9060ccbaece9d5eaea2169a2e",
-    "size_bytes": 3097
+    "sha256": "a1dc2701fc87f4b03a531cce22b70d579ada265c2489488f4c7b3d5566c04c73",
+    "size_bytes": 3167
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/CathedralBridgeDischargeBranchesAC.ilean": {
     "sha256": "22173ff4bab9dd3b7bfc916eb7480a99044a01253db3afb51ea7602a7d65da02",
@@ -9424,8 +9424,8 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/CathedralBridgeDischargeBranchesAC.trace": {
-    "sha256": "db96262aebd10a10b6044f66504886c93dd1111db4096c980e51a600a3f621fa",
-    "size_bytes": 3172
+    "sha256": "3768e55bbd499ad2d718940866708b98b0d80a95f4313156ec399dd9da746e40",
+    "size_bytes": 3242
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/CathedralBridgeDischargeSemantic.ilean": {
     "sha256": "5ad6b2648a49517512ec48345f17962f4d58679416f32378ab018e9663973ed1",
@@ -9444,8 +9444,8 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/CathedralBridgeDischargeSemantic.trace": {
-    "sha256": "5c3651d0fe2b1e442057bdd1cfd405eda3d5cd74f1d47b9ce49798e1c231fe95",
-    "size_bytes": 2896
+    "sha256": "4060fbfe39b2cebee35e2d5e52f19a034a6f97fc093326f0b72b85361aeab854",
+    "size_bytes": 2966
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/CathedralCapstoneJoins.ilean": {
     "sha256": "c453b0fc442cea9c4f1596edb5fbdfb5e81f80a3c53b335810739b2385532c02",
@@ -9584,8 +9584,8 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/CathedralSummitFirstViolationGap.trace": {
-    "sha256": "ccc9834e93c82d19b5165070be33d34c91ac4a8b7e5c3969cca6c7c6c2ef4529",
-    "size_bytes": 2729
+    "sha256": "d13f0cd453b2cfa7a79a05b9c3e55b7e2ff254a0cbf6f167e7b9f8f8ade5dcb5",
+    "size_bytes": 2799
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/CathedralSummitPremiseNecessity.ilean": {
     "sha256": "2213ff2d065398b0be8f824defd2fe7ac52d4449b68dcc26735639874fad5663",
@@ -15072,12 +15072,12 @@
     "size_bytes": 537
   },
   "paper/G3-guardian-proof.pdf": {
-    "sha256": "9423edfaf807809150fe91526ad347b0f8ef73bf2570355741c23316397feba1",
-    "size_bytes": 454025
+    "sha256": "38aa6ecddc8893111655514ffb4c60a0af770aab211c14fbbc99b28e481cedb6",
+    "size_bytes": 471286
   },
   "paper/G3-guardian-proof.tex": {
-    "sha256": "9f33a3260591ec7514a82e3359cb66bee2c09113be1f0619393c871ba7a7822c",
-    "size_bytes": 58141
+    "sha256": "f7f59376eeeda38444879c9b6b4fcfd8d0700a4c8c6bf81e6e3891c74e8c341b",
+    "size_bytes": 63514
   },
   "paper/publish-new-version.py": {
     "sha256": "3d9192091474484c1161d10c3ff309eafd5e8c35f2ef19412a3a497adf1f322f",
@@ -15090,6 +15090,10 @@
   "paper/publish-v4.8.py": {
     "sha256": "bf1d3e156589f94b6df7bf2abee38c4ae6d82889001e198bc67c2f225c9c024c",
     "size_bytes": 6938
+  },
+  "paper/publish-v5.0.py": {
+    "sha256": "7fec7b7a7c9ada302bc893243bd0970efabf466ed62abe60031ec1ca6829af82",
+    "size_bytes": 7515
   },
   "paper/publish-zenodo.sh": {
     "sha256": "586db6227b5bbc516a371945cb09e815ad7128ae4ec8e0e1088b535237147134",
@@ -15292,11 +15296,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "2bcd5b1ab80fc05c27e41a7d5358152bb6019b4158b528052a9095b13972ac97",
-    "size_bytes": 498824
+    "sha256": "3d8c5ee834e47963b2075881515130414e6c7f8a5e172d3175db4654088998a9",
+    "size_bytes": 764704
   },
   "worm_manifest.sha256": {
-    "sha256": "042ce2971adaf390acfb79538153b73facf35a4f3e5abb36be5b312b6587b0b0",
+    "sha256": "55b72422bc76f6e80eda8c1f19e1481dc138015f144a3d7bb3457cb2d5669986",
     "size_bytes": 85
   }
 }
