@@ -566,3 +566,6 @@ import PhysicalBridges.PureGSeparatedUniqueness
 import PhysicalBridges.G3BackwardsSummitTrace
 import PhysicalBridges.G3ThreeGateIndependence
 import PhysicalBridges.G3GenesisContinuationScope
+
+-- Backwards summit: physical-event exhaustiveness against existing Complete Koru Tree coverage.
+import PhysicalBridges.G3CompleteKoruEventExhaustiveness
