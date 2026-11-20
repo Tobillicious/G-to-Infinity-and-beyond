@@ -13635,6 +13635,10 @@
     "sha256": "192757ef95f4b0f4a9dba4136f82e7527a3a3b289b8b7ee1fa372c50b24bdd10",
     "size_bytes": 3767
   },
+  "evidence/physical-bridges/PhysicalBridges/G3TreeGrowth.lean": {
+    "sha256": "ef484a5ec3627d9f35db17db3d581338afaeaf2afaab3b299edc13ac233a70ac",
+    "size_bytes": 18973
+  },
   "evidence/physical-bridges/PhysicalBridges/G3TreeOfLifeUnconditional.lean": {
     "sha256": "098571708474c8c51bbc8cb195156f4d5a6ad77490be0204d6a3c93ad6d65c2d",
     "size_bytes": 7144
@@ -15300,11 +15304,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "900424888eaae7a58b041ea3009f413599cc275418dba38f3b3ce46a5f9c97bf",
-    "size_bytes": 764845
+    "sha256": "06518eca1dc602498161caec5cd28c6a5b39f3ff072977795e471f4d43728f31",
+    "size_bytes": 765030
   },
   "worm_manifest.sha256": {
-    "sha256": "cb3f2ff51dc4fff335ac8db12c650429afb62168d8aa9d981d55a542d6f7fd80",
+    "sha256": "3e86e441e6055f9022319dd1cb54b650e810eea89ea666bfaf95ca1f16018024",
     "size_bytes": 85
   }
 }
