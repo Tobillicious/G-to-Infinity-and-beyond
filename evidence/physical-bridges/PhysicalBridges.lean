@@ -553,3 +553,6 @@ import PhysicalBridges.G3KoruCircleJoin
 import PhysicalBridges.G3CompleteKoruOperatorX3Join
 import PhysicalBridges.G3KoruShapeAdversarialGate
 import PhysicalBridges.G3ExactMismatchClosure
+import PhysicalBridges.G3MatterspacetimeRealizationGate
+import PhysicalBridges.CompleteKoruMatterspacetimeCoverage
+import PhysicalBridges.G3KoruVsEnergyConservation
