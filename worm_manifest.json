@@ -6520,8 +6520,8 @@
     "size_bytes": 149
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.setup.json": {
-    "sha256": "d4cc8b6af30ab5192c7eeba872ad18cef69d266ca1e572fbe7f7a5e7bb48fa46",
-    "size_bytes": 79872
+    "sha256": "82d6d6ca3150e28000498c652a19cb9bc14dade9d55b7beb1af40e5c9859c5a5",
+    "size_bytes": 80067
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdaptiveGuardianHistories.setup.json": {
     "sha256": "8b13625eea279796d6297d8491e903c326ed86a81a78026f0b930c110b3df6ee",
@@ -6986,6 +6986,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3KoruUnifiedNStep.setup.json": {
     "sha256": "26cd97c3796b5ec46fb02ae35e01951ee993b999d9c0376c71b9f9ef222543d6",
     "size_bytes": 544
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3LivingTreeGenesis.setup.json": {
+    "sha256": "a6cb9c1d2ce262d4a6a79427f32512947e721435c7d27ad53b6e40624559256a",
+    "size_bytes": 28479
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3NecessaryGenesis.setup.json": {
     "sha256": "002ca81ad91db44cca60d80fb848d347ec913160da61fc7f399a9c25408eda98",
@@ -9200,7 +9204,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "91dbf13d9c034e8b2935ca5399e82dd51285de85e96782414c18accd27b9828d",
-    "size_bytes": 495630
+    "sha256": "c76875abb1bc00967f0c3d2389e42c7872f56cf4b2cfea4d6e2d67d8cc6ea52d",
+    "size_bytes": 495833
   }
 }
