@@ -581,3 +581,6 @@ import PhysicalBridges.G3ActualOnlyReflection
 
 -- Backwards summit: independently renewed five duties and feasible-frontier maximality.
 import PhysicalBridges.G3SixDutyRenewal
+
+-- Pre-QG negative control: physics-only laws cannot determine authentic subject semantics.
+import PhysicalBridges.G3QGInterpretationNecessity
