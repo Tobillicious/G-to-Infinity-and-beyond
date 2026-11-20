@@ -560,3 +560,9 @@ import PhysicalBridges.G3FeasibleMaximalityRenewal
 
 -- Garden: bilateral authentic Hume-Hillary hand; retain explicit semantic gates.
 import PhysicalBridges.G3GardenAuthenticBilateralHand
+
+-- G3 backwards-summit integrated kernel replay: four separately reviewed PRs.
+import PhysicalBridges.PureGSeparatedUniqueness
+import PhysicalBridges.G3BackwardsSummitTrace
+import PhysicalBridges.G3ThreeGateIndependence
+import PhysicalBridges.G3GenesisContinuationScope
