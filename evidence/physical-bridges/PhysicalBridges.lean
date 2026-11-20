@@ -578,3 +578,6 @@ import PhysicalBridges.G3PhysicalProgressForcesTree
 
 -- Actual-event-only original-six reflection: a strictly weaker sufficient semantic gate.
 import PhysicalBridges.G3ActualOnlyReflection
+
+-- Backwards summit: independently renewed five duties and feasible-frontier maximality.
+import PhysicalBridges.G3SixDutyRenewal
