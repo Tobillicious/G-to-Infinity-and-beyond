@@ -569,3 +569,6 @@ import PhysicalBridges.G3GenesisContinuationScope
 
 -- Backwards summit: physical-event exhaustiveness against existing Complete Koru Tree coverage.
 import PhysicalBridges.G3CompleteKoruEventExhaustiveness
+
+-- Complete Koru event records: exact realized-event inclusion and unknown-cause controls.
+import PhysicalBridges.G3WitnessedEventExhaustiveness
