@@ -593,3 +593,6 @@ import PhysicalBridges.G3IdentityPreservation
 
 -- Genesis and new-particular obligations (Step 3 of pre-QG campaign).
 import PhysicalBridges.G3GenesisObligations
+
+-- Strengthened authentic agency and maximality (Step 4 of pre-QG campaign).
+import PhysicalBridges.G3AuthenticAgencyStrengthened
