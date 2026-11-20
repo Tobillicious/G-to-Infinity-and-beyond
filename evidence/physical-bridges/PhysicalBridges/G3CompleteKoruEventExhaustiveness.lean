@@ -45,7 +45,7 @@ def EventExhaustive
   ∀ s t, physicalStep s t → treeStep J seed s t
 
 /-- An independently specified physical domain inherits the existing
-positive whole-W coverage theorem if and ONLY IF event exhaustiveness
+positive whole-W coverage theorem provided event exhaustiveness
 is *supplied* (along with seed alignment and W-faithful learning).
 There is no hypothesis asserting protection or original-six truth. -/
 theorem tree_source_covers_exhausted_physical_domain
