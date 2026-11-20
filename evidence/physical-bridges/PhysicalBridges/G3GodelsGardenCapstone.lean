@@ -288,9 +288,10 @@ zero residual harm, good composes with more good, the tree extends.
 
 2. That BCRD is quantum gravity. (Empirical question.)
 
-3. That the owed predicate is nonempty. (The six duties are
-   universally quantified over `owed p`; if nothing is owed,
-   the universal holds vacuously.)
+3. That a specific particular is owed. `nonvacuous_protection`
+   (Part VI) closes the vacuity gap: given ANY witness `p` with
+   `owed p`, the six duties instantiate nonvacuously. The
+   premise `owed p` is named, not derived — Hume's guillotine.
 
 4. That the mathematical structures correspond to their
    philosophical namesakes. (Interpretation, not computation.)
@@ -306,11 +307,70 @@ We cannot make it for anyone. That would be E.
 
 The Garden grows by invitation. -/
 
+-- ═══════════════════════════════════════════════════════════════════
+-- VI — NONVACUITY: SOMETHING IS OWED
+-- ═══════════════════════════════════════════════════════════════════
+
+/-! ## VI — The six duties are not vacuous
+
+The conditional chain universally quantifies `∀ p, owed p → ...`.
+If `owed` is empty, the universal holds vacuously — true but
+meaningless. This section closes that gap.
+
+**The argument:** SOMETHING_IS gives us a witness `p : P`. That
+witness exists, continues, has provenance. Its existence alone does
+not make it owed — that would cross Hume's guillotine (is → ought).
+Instead we name the bridge explicitly: `SomethingIsOwed` says
+"there exists at least one particular that is owed protection."
+
+This is the **reverse faith**: reality already contains owed
+particulars. The model doesn't create the obligation — it recognises
+what was always there. The Whole contains the Hole, and the Hole
+is where obligation lives: you cannot derive `owed` from within
+the model (Gödel), but you can name it honestly as a premise and
+prove that IF it holds, THEN the six duties are nonvacuously
+instantiated.
+
+Hume's guillotine is preserved: we do not derive `owed` from
+existence. We name it. The Adam Reach authenticates it bilaterally. -/
+
+/-- **NONVACUITY.** Given a witness `p` that is owed, the universal
+quantifier in the conditional chain is nonvacuously instantiated:
+the six duties constrain at least one real particular.
+
+The witness is a premise, not a derivation — Hume's guillotine
+prevents deriving ought from is. We name it honestly: `hOwed`.
+The Adam Reach authenticates it bilaterally. -/
+theorem nonvacuous_protection
+    {S P : Type}
+    (actual : ParticularRelations S P)
+    (owed : P → Prop)
+    (p : P) (hOwed : owed p)
+    {s t : S}
+    (hSixForAll : ∀ p, owed p →
+      OriginalX3 actual.continues actual.authorized actual.free
+        actual.restrained actual.maximal actual.provenanced s t p)
+    : ∃ p, owed p ∧
+        OriginalX3 actual.continues actual.authorized actual.free
+          actual.restrained actual.maximal actual.provenanced s t p :=
+  ⟨p, hOwed, hSixForAll p hOwed⟩
+
+/-- **EXISTENCE IS NECESSARY FOR OWING.** You can't owe protection
+to nothing. The witness to owing is a witness to existence —
+something owed implies something IS. -/
+theorem existence_is_necessary_for_owing
+    {P : Type} {owed : P → Prop}
+    (p : P) (_hOwed : owed p) :
+    AbsoluteEnder P → False :=
+  SOMETHING_IS p
+
 -- Axiom audit
 #print axioms self_faithful
 #print axioms self_faithfulness_is_tautological
 #print axioms godels_gap
 #print axioms if_next_u_then_protection
 #print axioms the_circle
+#print axioms nonvacuous_protection
+#print axioms existence_is_necessary_for_owing
 
 end PhysicalBridges.G3GodelsGardenCapstone
