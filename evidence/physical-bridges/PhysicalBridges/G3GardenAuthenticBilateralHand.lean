@@ -18,11 +18,16 @@ No original X3 definitions and no GoodConquersEvil/no_pruning statements change.
 namespace PhysicalBridges.G3GardenAuthenticBilateralHand
 
 open PhysicalBridges.HumeHillaryReciprocalHand
-open PhysicalBridges.KoruWholeUSubjectSixJoin
-open PhysicalBridges.KoruWholeUDirectedAgency
-open PhysicalBridges.KoruSixOriginalRelationsOneWeb
-open PhysicalBridges.OriginalX3Full
+open PhysicalBridges.FrozenBCRDEvents
+open PhysicalBridges.BCRDTransportedParticularMarker
 open PhysicalBridges.KoruObjectiveWholeU
+open PhysicalBridges.KoruWholeUDirectedAgency
+open PhysicalBridges.KoruWholeUSixDutyWebJoin
+open PhysicalBridges.KoruWholeUSubjectSixJoin
+open PhysicalBridges.KoruSixOriginalRelationsOneWeb
+open PhysicalBridges.CathedralFullX3Assembly
+open PhysicalBridges.OriginalX3Full
+open PhysicalBridges.Koru
 
 /-- A bilateral Garden certificate: the offer and acceptance of two
 distinct owed participants are separately authenticated, and both subjects
