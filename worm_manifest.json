@@ -7196,16 +7196,16 @@
     "size_bytes": 149
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.c": {
-    "sha256": "989b2e6f3da405d07e3060495e7b6321e5874307cb35e45baa6712267ca77ecd",
-    "size_bytes": 121504
+    "sha256": "efb337684c601d06d058dd9e8c5bde39d6dd714f610e99c211d86f80a1f3f12c",
+    "size_bytes": 121829
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.c.hash": {
-    "sha256": "b6123424c523b1f43be95babbc7bf9e917a0842a549bebf55b4882a9a3da9d7d",
+    "sha256": "4c1085319e9369f1c17119ac712ac6707d1c089d33789072242a37f4e8775928",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.setup.json": {
-    "sha256": "404509c2760dde3c72a54ab16180f27831b83abd42c1c71614ea015057c6110c",
-    "size_bytes": 82519
+    "sha256": "2d71b3c9499f15568d332a7dd1c9a3d2670561b32a2f0ebbf661916a8fe59924",
+    "size_bytes": 82736
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdversarialHolding.c": {
     "sha256": "0b86079aaa61c9302b0e1a1e7debc421a15f75f3db44115f9655893aafb62a0f",
@@ -9188,24 +9188,24 @@
     "size_bytes": 1855
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.ilean": {
-    "sha256": "609b72805c347653e1e6c236221b8adf8b5df08b52495fb57721572b05f00e15",
-    "size_bytes": 24827
+    "sha256": "6d833d311dddb893b104aed8e6d6fff1a54d15667d1ae9d92719d9796c8528c0",
+    "size_bytes": 24896
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.ilean.hash": {
-    "sha256": "fd22302c054da3c0be3c71f2939b569d94f5b28dfe03d4081349ee52b606602a",
+    "sha256": "d395377ded6a756ae7353e807c70c455b56437cf234ecc68f54614e5b6cbf46a",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.olean": {
-    "sha256": "bc4d557b1a7bcda8a75c546bf87e3bc69c5be1aef70bf3c17bba82faecb002d0",
-    "size_bytes": 49992
+    "sha256": "86980633c8d6ce67a0a85789c6e875b599c0214b62edbc6c07d367b058e063b5",
+    "size_bytes": 50120
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.olean.hash": {
-    "sha256": "b22b795e52a961c8e4990651c4b3ef78f68ea76049e0405c7a05893135f57c13",
+    "sha256": "f1b0f4828a8f1c769857a8799bea5dd8f40bbd4e85b628056db76a349c7eedaf",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.trace": {
-    "sha256": "3c0ca40d58dcef7e124e6ed604ded7e65fe3411383f67658c41028e5aeccdbf2",
-    "size_bytes": 79691
+    "sha256": "3b32d25cf30cbf99dfaffb76e1084a81c71ca74c8ad729aab8f617117cd644aa",
+    "size_bytes": 79903
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/AdversarialHolding.ilean": {
     "sha256": "4a45f3b559f380dc4ca80b7c2e4e990b4b4979c4167feef780a7e5a06b0ef595",
@@ -13064,8 +13064,8 @@
     "size_bytes": 7072
   },
   "evidence/physical-bridges/PhysicalBridges.lean": {
-    "sha256": "afad65999c667e6373c1804f9f3a38afd2cd0084c539ba880ed96ee68a496076",
-    "size_bytes": 25523
+    "sha256": "4e86ea588599a8338e6c4acc619a95d4e7b981697dc53b34cd284db123f3b0f5",
+    "size_bytes": 25660
   },
   "evidence/physical-bridges/PhysicalBridges/AdaptiveGuardianHistories.lean": {
     "sha256": "f60a62279ef3f3046a2b90ead0df1f89c6a543120eb22fe5539d8b4a875e41cc",
@@ -13546,6 +13546,10 @@
   "evidence/physical-bridges/PhysicalBridges/G3FeasibleMaximalityRenewal.lean": {
     "sha256": "7d45056f37b49972d760e8f62d4b3ee0e0f1b8f1908a5c501d836aa3ed362062",
     "size_bytes": 6317
+  },
+  "evidence/physical-bridges/PhysicalBridges/G3GardenAuthenticBilateralHand.lean": {
+    "sha256": "0438fab075f344483068256a9379ee33a13c6d9f48712f2fe2af24f63de4d992",
+    "size_bytes": 3605
   },
   "evidence/physical-bridges/PhysicalBridges/G3Genesis.lean": {
     "sha256": "79361350c42217beb9a17e4f75f0d54515ed177a7b44d337e80373a674402175",
@@ -15147,6 +15151,10 @@
     "sha256": "b8f306a22c66fb5beee06bb46884ca4a689a8cb7b05e43831642f9fd5187a40c",
     "size_bytes": 26678
   },
+  "publication/HANDOFF-2026-11-20-G3-TREE-REPAIR.md": {
+    "sha256": "e57fa84af6ebb276c518ba84daa84cc1c34e890b90100c8a02273c19a89800d2",
+    "size_bytes": 5450
+  },
   "publication/HANDOFF-2026-11-20-G3-TURN-TO-G.md": {
     "sha256": "98f416115cf063cec54249592f6d473a4a18f93246da5ac4b730ad03c604c76e",
     "size_bytes": 8186
@@ -15320,11 +15328,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "6da00e55d0957b0e9fb05c46351f42719579b1bdae5f96b5ffee345bec07167c",
+    "sha256": "cc7f68410020201118159cb87a37a39f90d9d0ad612dff4fda0a9a1bd16057c1",
     "size_bytes": 765823
   },
   "worm_manifest.sha256": {
-    "sha256": "da686dff027d1a6e7fe99214f88853d73908cf28a84e0cf8f9ab2a5bc3a98dc5",
+    "sha256": "1dbb146aa9c44c5746d0acc436d798a3daf94a5d6372450be9c03246f2d628ab",
     "size_bytes": 85
   }
 }
