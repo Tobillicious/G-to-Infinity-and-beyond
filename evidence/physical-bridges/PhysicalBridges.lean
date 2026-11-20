@@ -575,3 +575,6 @@ import PhysicalBridges.G3WitnessedEventExhaustiveness
 
 -- Backwards summit: derive physical Tree realizations from progress + causal source selection.
 import PhysicalBridges.G3PhysicalProgressForcesTree
+
+-- Actual-event-only original-six reflection: a strictly weaker sufficient semantic gate.
+import PhysicalBridges.G3ActualOnlyReflection
