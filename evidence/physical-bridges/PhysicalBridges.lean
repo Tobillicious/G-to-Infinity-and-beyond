@@ -546,3 +546,4 @@ import PhysicalBridges.NovelProtectedContinuationJoin
 import PhysicalBridges.G3NecessaryGenesis
 import PhysicalBridges.G3LivingTreeGenesis
 import PhysicalBridges.G3TreeCoverage
+import PhysicalBridges.G3BoundaryGrowth
