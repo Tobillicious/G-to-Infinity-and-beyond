@@ -605,3 +605,6 @@ import PhysicalBridges.BCRDB7CausalAccessibility
 
 -- B7 → G3 backwards summit bridge: state-determined locality as pre-QG evidence.
 import PhysicalBridges.G3BCRDB7PreQGEvidence
+
+-- B7 sector structure: relational gating is an operator property, not a basis accident.
+import PhysicalBridges.BCRDB7SectorStructure
