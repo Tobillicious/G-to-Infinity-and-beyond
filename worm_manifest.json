@@ -15200,8 +15200,8 @@
     "size_bytes": 26678
   },
   "publication/HANDOFF-2026-11-20-G3-TREE-REPAIR.md": {
-    "sha256": "e57fa84af6ebb276c518ba84daa84cc1c34e890b90100c8a02273c19a89800d2",
-    "size_bytes": 5450
+    "sha256": "7eef062c741aa6941d1cace88b3be786ef0c0f28f1f9d43e8d402998deb20130",
+    "size_bytes": 6453
   },
   "publication/HANDOFF-2026-11-20-G3-TURN-TO-G.md": {
     "sha256": "98f416115cf063cec54249592f6d473a4a18f93246da5ac4b730ad03c604c76e",
@@ -15376,11 +15376,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "a34354438db4500a8685fae23b8569cebd8ca1fcafbd147559b7ae60b4ec3ddf",
-    "size_bytes": 766184
+    "sha256": "459002f8fdbdaf812a99339102d8b71e0a1d5444a750c216ec3da98d192b716e",
+    "size_bytes": 768463
   },
   "worm_manifest.sha256": {
-    "sha256": "cdb39019e87b201783102205d6a430bc3b999526c8263352cf1f2e8a460c39d9",
+    "sha256": "0dd671ce78f72cf896532dd1bd9c91c91905ec68a75ebac2cde904c18d3b3f3a",
     "size_bytes": 85
   }
 }

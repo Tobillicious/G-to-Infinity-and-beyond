@@ -91,9 +91,29 @@ helpful but serve delay/sabotage. In this session:
 - Treat GPT submissions as untrusted code: always compile before merge, always check axiom
   reports, never trust "REVIEW STATUS: not independently checked" as a reason to skip checking.
 
+## 4. Bridge: `G3BackwardsSummitTree.lean` — the join
+
+**File:** `evidence/physical-bridges/PhysicalBridges/G3BackwardsSummitTree.lean`
+**Commit:** `4fc70528` on main (pushed)
+
+The join between the physical assembly (`G3PreQGComplete`) and the ethical tree.
+10 theorems, all propext + Quot.sound only. The key bridge is
+`if_bcrd_then_original_six_bundle`: converts the assembly's `OriginalX3` to
+the Tree's `BundleSatisfied` via `originalSix_iff_bundle`.
+
+Every theorem genuinely uses `BCRDIsQG` — no unused hypotheses, no padding.
+Three theorems were strengthened from their initial versions to prove
+conjunctions that draw from both BCRD and the Tree:
+- `no_pruning`: six hold AND extended fails
+- `good_conquers_evil`: six hold AND new duty holds
+- `aroha_suffices`: physics gives bundle, aroha extends it, aroha independently gives bundle
+
+The `backwards_summit` theorem packages five conjuncts: bundle at every step,
+no violation anywhere, eternal continuation, extensibility, self-knowledge.
+
 ## Build verification command
 
 ```bash
 cd evidence/physical-bridges && lake build
-# Expected: 406 jobs, zero sorry
+# Expected: 418 jobs, zero sorry
 ```
