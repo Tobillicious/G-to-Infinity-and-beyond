@@ -548,3 +548,4 @@ import PhysicalBridges.G3LivingTreeGenesis
 import PhysicalBridges.G3TreeCoverage
 import PhysicalBridges.G3BoundaryGrowth
 import PhysicalBridges.G3InductiveCompleteness
+import PhysicalBridges.G3KoruCarriesDuties
