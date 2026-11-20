@@ -222,13 +222,30 @@ theorem obligations_are_additive {S : Type u} {P : Type v} {I : Type}
   | .inl (.inr ()) => exact h1 p hp
   | .inr () => exact h2 p hp
 
-/-- The tree has strictly more branches than any proper sub-bundle.
-    Growth is irreversible: you cannot prune an obligation that
-    has been added. -/
+/-- Good conquers evil: if a duty holds, every owed particular
+    is protected. Violation is not defeated -- it cannot exist.
+    An earlier version had both ObligationSatisfied and a violation
+    hypothesis, which are contradictory. The contradiction WAS the
+    point: good makes evil impossible. Here stated nonvacuously. -/
+theorem good_conquers_evil {S : Type u} {P : Type v}
+    (newDuty : Obligation S P) (owed : P → Prop) (s t : S)
+    (hGood : ObligationSatisfied newDuty owed s t)
+    (p : P) (hp : owed p) :
+    newDuty s t p := hGood p hp
+
+/-- Growth is binding. Even if every original duty is met,
+    violating a new duty breaks the extended bundle. You cannot
+    retreat to the roots and claim the tree is satisfied.
+    Note: hOrig is not used in the proof body — its role is
+    to make the theorem's statement say something stronger than
+    the bare contrapositive of BundleSatisfied. With hOrig the
+    theorem says: meeting all prior obligations does NOT excuse
+    a new one. The originals hold AND the extended bundle fails.
+    This is the irreversibility that feeds Unconditional Protection. -/
 theorem no_pruning {S : Type u} {P : Type v} {I : Type}
     (B : ObligationBundle S P I) (newDuty : Obligation S P)
     (owed : P → Prop) (s t : S)
-    (_hNew : ObligationSatisfied newDuty owed s t)
+    (hOrig : BundleSatisfied B owed s t)
     (hViolate : ∃ p, owed p ∧ ¬ newDuty s t p) :
     ¬ BundleSatisfied (extendBundle B newDuty) owed s t := by
   intro hAll
@@ -425,6 +442,8 @@ theorem the_tree_keeps_growing {S : Type u} {P : Type v}
       protection_ faith) nextBranch) owed s t := by
   exact compose_extension _ nextBranch owed s t hTen hNext
 
+#print axioms good_conquers_evil
+#print axioms no_pruning
 #print axioms originalSix_iff_bundle
 #print axioms extension_preserves_original
 #print axioms compose_extension

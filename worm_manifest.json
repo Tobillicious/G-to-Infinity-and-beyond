@@ -13628,8 +13628,8 @@
     "size_bytes": 1662
   },
   "evidence/physical-bridges/PhysicalBridges/G3TikangaEthicsTree.lean": {
-    "sha256": "0b28145154f13a27e52dc1e38d225eb6a70b975fc8ea2876b673c957a4f29e7f",
-    "size_bytes": 20702
+    "sha256": "5d5fd8c27cee793febdc09faa7be56859955504a02c45ead1bd7c34d655e2416",
+    "size_bytes": 21722
   },
   "evidence/physical-bridges/PhysicalBridges/G3TreeCoverage.lean": {
     "sha256": "192757ef95f4b0f4a9dba4136f82e7527a3a3b289b8b7ee1fa372c50b24bdd10",
@@ -15320,11 +15320,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "1656f82c22a33051abb026fae7fcc48349d6dc0559d02957deb59f98abb15692",
+    "sha256": "6da00e55d0957b0e9fb05c46351f42719579b1bdae5f96b5ffee345bec07167c",
     "size_bytes": 765823
   },
   "worm_manifest.sha256": {
-    "sha256": "27cad395ac392e1b1790c71de5c27bb2cab102648e2c132f8df3fad7bf7b0f33",
+    "sha256": "da686dff027d1a6e7fe99214f88853d73908cf28a84e0cf8f9ab2a5bc3a98dc5",
     "size_bytes": 85
   }
 }
