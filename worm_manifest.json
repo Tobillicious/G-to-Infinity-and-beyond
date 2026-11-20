@@ -6520,8 +6520,8 @@
     "size_bytes": 149
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.setup.json": {
-    "sha256": "1efba2779555b743cd660d45e5f90c579c6cd0c3313455b5f3dd83a44a0c100a",
-    "size_bytes": 80441
+    "sha256": "3cc67a2a9e36168c1362a501014d7e4d10b1f52e2e1caf182b7e17381619d530",
+    "size_bytes": 80644
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdaptiveGuardianHistories.setup.json": {
     "sha256": "8b13625eea279796d6297d8491e903c326ed86a81a78026f0b930c110b3df6ee",
@@ -6982,6 +6982,10 @@
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3HingeCategoryError.setup.json": {
     "sha256": "6d6a50465fc0b0c36ff96d0df687d86f0a9cb99259ba3624f2615e87e787c0de",
     "size_bytes": 733
+  },
+  "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3InductiveCompleteness.setup.json": {
+    "sha256": "2f3f25c447ec07c31e1cac2ce2ba133b8f2c9613e9fa477a21737b2eff155943",
+    "size_bytes": 170
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/G3KoruSpiral.setup.json": {
     "sha256": "bc0faadf77ec4bebf0ea4d8fac51e7fe81bcb7516f4f72e8d35e37c540a40cf0",
@@ -9212,7 +9216,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "ffb8f16862286a79a792a854e03e741e21c271f72d9ee8c326a0be15c722f45d",
-    "size_bytes": 496240
+    "sha256": "5c67f9efb4284a6a4cc7e263d15d345b87e1e8c40dbfe0d5d3b9209ab1c2faac",
+    "size_bytes": 496441
   }
 }
