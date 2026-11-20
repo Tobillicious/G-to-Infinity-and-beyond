@@ -608,3 +608,7 @@ import PhysicalBridges.G3BCRDB7PreQGEvidence
 
 -- B7 sector structure: relational gating is an operator property, not a basis accident.
 import PhysicalBridges.BCRDB7SectorStructure
+
+-- The Adam Reach: bilateral authentic agency closes the Tree of Life.
+-- DRAFT: not yet in build root — koru field type needs alignment.
+-- import PhysicalBridges.G3AdamReachBridge
