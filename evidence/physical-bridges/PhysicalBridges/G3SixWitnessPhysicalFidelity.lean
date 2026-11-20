@@ -36,6 +36,7 @@ open PhysicalBridges.ExternalJointEffectRefinement
 open PhysicalBridges.G3SameEventCapstone
 open PhysicalBridges.IR124
 open PhysicalBridges.HumeHillaryReciprocalHand
+open PhysicalBridges.KoruWholeUSubjectSixJoin
 open PhysicalBridges.LivingTreeFencedEffects
 open PhysicalBridges.LivingTreeGenerations
 open PhysicalBridges.KoruJokerUniverseTrialFeedback
