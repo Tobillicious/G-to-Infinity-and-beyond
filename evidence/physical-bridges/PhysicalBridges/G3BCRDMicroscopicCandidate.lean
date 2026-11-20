@@ -83,7 +83,7 @@ theorem physical_successor_returns_under_second_W
     (s t : SourceState) (h : WSourcePhysicalLaw s t) :
     WSourcePhysicalLaw t s := by
   subst t
-  exact W_generator_is_reversible s
+  exact (W_generator_is_reversible s).symm
 
 /-- All intrinsic SAME-VALUE relations, including their falsity,
 are transported by this physically specified W step.
