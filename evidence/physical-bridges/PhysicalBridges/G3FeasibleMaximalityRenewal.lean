@@ -63,6 +63,28 @@ theorem maximality_renews_under_complete_frontier_check
     have hEarlier : F.feasible n p a := hFrontier a ha hbetter
     exact (hOld.2 a hEarlier) hbetter
 
+/-- **Exact frontier gate.** For a retained feasible choice that was
+    maximal in the previous world, the NO-new-superior check is equivalent
+    to maximality in the expanded world. No assumption that all newly
+    possible options are harmless is hidden in the definition. -/
+theorem maximality_iff_no_new_superior_alternative
+    {P : Type u} {A : Type v}
+    (F : FeasibleOrder P A) (n : Nat) (p : P)
+    (hOld : MaximalAt F n p)
+    (hSame : F.selected (n+1) p = F.selected n p)
+    (hFeasible : F.feasible (n+1) p (F.selected n p)) :
+    MaximalAt F (n+1) p ↔ NoNewSuperiorAlternative F n p := by
+  constructor
+  · intro hMax a ha hBetter
+    have hNoBetter := hMax.2 a ha
+    have hBetterNew : F.better p (F.selected (n+1) p) a := by
+      rw [hSame]
+      exact hBetter
+    exact False.elim (hNoBetter hBetterNew)
+  · intro hFrontier
+    exact maximality_renews_under_complete_frontier_check
+      F n p hOld hSame hFeasible hFrontier
+
 /-- One newly feasible strictly superior option is a complete,
 explicit refutation of the retained choice's maximality. -/
 theorem new_superior_option_refutes_old_choice
@@ -123,6 +145,7 @@ theorem every_owed_maximality_renews
       · exact hNew n p hp hPreviouslyOwed
 
 #print axioms maximality_renews_under_complete_frontier_check
+#print axioms maximality_iff_no_new_superior_alternative
 #print axioms new_superior_option_refutes_old_choice
 #print axioms initially_maximal
 #print axioms newly_feasible_option_breaks_maximality
