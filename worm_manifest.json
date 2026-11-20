@@ -15059,13 +15059,37 @@
     "sha256": "770c9601280ec8c59a96da78c6ff74a9d3981759cf9ee349608ecc8f8f676aba",
     "size_bytes": 1461
   },
+  "gmesh/discovery.py": {
+    "sha256": "2a5220e807417ea8e0443f9feb8f6464d62da803d4942b179218a4649d011d42",
+    "size_bytes": 3814
+  },
+  "gmesh/evidence.py": {
+    "sha256": "dbf5a28416ebee75bb631b264e610095d814d20c958878994cc266a8780fa85e",
+    "size_bytes": 3263
+  },
   "gmesh/handshake.py": {
     "sha256": "c017b82c54f252c0476873ea38db675d773b3130be64c09010ff8d22a9bd5cf1",
     "size_bytes": 1546
   },
+  "gmesh/manifest.py": {
+    "sha256": "73bd010ccb7802eb6a44473105d9271791debcbb8c6ec7861f4f40cf7c6dc4fd",
+    "size_bytes": 2633
+  },
+  "gmesh/node.py": {
+    "sha256": "d763bf3c03195ca722bdcf1116401cf4b9732525006710c4b514179ebc4434da",
+    "size_bytes": 3210
+  },
+  "gmesh/server.py": {
+    "sha256": "7be8fcf793c0c8f450d4dcfec7c368d5f6b868fa6bf8596272489594db90c4c5",
+    "size_bytes": 4541
+  },
   "gmesh/simulate.py": {
     "sha256": "7e191a38f88cc6158cdea5a48b1ca5f5fbc4ea948a2e08cde932933306b1bc4d",
     "size_bytes": 1857
+  },
+  "gmesh/templates/index.html": {
+    "sha256": "b95f107a94ed6b85bdda3db9894c8a4bc33bf084b00b653f0043d7682ae16aad",
+    "size_bytes": 4902
   },
   "gmesh/verify.py": {
     "sha256": "315635b0e53381d6fcad36b5dd1049281c917a3dcdaa78404d5ef2ef23880837",
@@ -15404,11 +15428,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "aa021be4b96ec1a630a409aabf80791972d20d02a747332bc0f58cf701473792",
-    "size_bytes": 769597
+    "sha256": "3eaa439177e84fd8e4de06794ccff7dd872f7536a692b43402a6fe07fd99abdd",
+    "size_bytes": 769784
   },
   "worm_manifest.sha256": {
-    "sha256": "f15d3a9c1f6c3b4f12f75665f6f146a1f1466731e500a61044dbd0aa3e215448",
+    "sha256": "127297643f1564e482d62564035ff643cf43633dc6c803a0e8c25d6ba46d024b",
     "size_bytes": 85
   }
 }

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G-Mesh — Proof Evidence Node</title>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --fg: #e8e8f0;
+  --accent: #4a9eff;
+  --green: #2ecc71;
+  --red: #e74c3c;
+  --muted: #666680;
+  --card: #12121a;
+  --border: #2a2a3a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+h1 { font-size: 1.8em; margin-bottom: 4px; }
+h2 { font-size: 1.2em; margin: 24px 0 8px; color: var(--accent); }
+.subtitle { color: var(--muted); margin-bottom: 24px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.stat {
+  display: inline-block;
+  text-align: center;
+  padding: 12px 20px;
+  margin: 4px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.stat-value { font-size: 2em; font-weight: bold; }
+.stat-label { font-size: 0.8em; color: var(--muted); }
+.stat-value.good { color: var(--green); }
+.stat-value.zero { color: var(--green); }
+.stat-value.bad { color: var(--red); }
+table { width: 100%; border-collapse: collapse; }
+th, td {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+th { color: var(--accent); font-weight: 600; }
+a { color: var(--accent); }
+.status-verified { color: var(--green); font-weight: bold; }
+.status-error { color: var(--red); font-weight: bold; }
+.honest {
+  margin-top: 24px;
+  padding: 16px;
+  background: #1a1a0a;
+  border: 1px solid #3a3a1a;
+  border-radius: 8px;
+  font-size: 0.9em;
+}
+.honest h2 { color: #cca020; }
+.footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85em;
+}
+</style>
+</head>
+<body>
+
+<h1>G-Mesh Proof Evidence</h1>
+<p class="subtitle">Universal Protection Theory — verified proof state, served from this node</p>
+
+<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px">
+  <div class="stat">
+    <div class="stat-value good">{{THEOREMS}}</div>
+    <div class="stat-label">Theorems</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value zero">{{SORRY}}</div>
+    <div class="stat-label">Sorry (gaps)</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">{{MODULES}}</div>
+    <div class="stat-label">Modules</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">{{FILES_TRACKED}}</div>
+    <div class="stat-label">WORM Files</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">{{PEER_COUNT}}</div>
+    <div class="stat-label">Peers</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>WORM Integrity</h2>
+  <p>Status: <span class="status-verified">{{WORM_STATUS}}</span></p>
+  <p>Manifest SHA256: <code>{{MANIFEST_SHA}}</code></p>
+  <p>Spot check: {{SPOT_PASSED}} / {{SPOT_SAMPLED}} files verified</p>
+</div>
+
+<div class="card">
+  <h2>Key Results</h2>
+  <table>
+    <tr><th>Result</th><th>What it means</th><th>Status</th></tr>
+    {{KEY_RESULTS_ROWS}}
+  </table>
+</div>
+
+<div class="card">
+  <h2>Peer Nodes on This Network</h2>
+  <table>
+    <tr><th>Node</th><th>Address</th><th>Theorems</th></tr>
+    {{PEER_ROWS}}
+  </table>
+</div>
+
+<div class="card">
+  <h2>What is this?</h2>
+  <p>Universal Protection Theory (UPT) is a formal proof system built in
+  <a href="https://lean-lang.org">Lean 4</a>. It proves, from zero axioms,
+  that the absolute ender (E) self-refutes — Something IS. Given one
+  physical condition (BCRD is quantum gravity), it derives universal
+  protection for every owed particular at every physical event.</p>
+  <p>This node serves the current proof state so you can see it without
+  installing anything. The WORM manifest locks every file's SHA256 hash
+  at each commit. The Lean kernel verified every theorem.</p>
+</div>
+
+<div class="honest">
+  <h2>What this does NOT prove</h2>
+  <ul>
+    <li>This page is a <strong>local integrity check</strong>, not independent verification</li>
+    <li>The Lean proofs are <strong>conditional on BCRDIsQG</strong> for physical universality</li>
+    <li><strong>ForwardRealEventReflection</strong> remains the central open premise</li>
+    <li>Seeing this page does not constitute peer review or publication</li>
+    <li>The source is at
+      <a href="https://github.com/Tobillicious/universal-protection-theory">
+        github.com/Tobillicious/universal-protection-theory</a></li>
+  </ul>
+</div>
+
+<div class="footer">
+  <p>G-Mesh node. G is the fixed point. The turn to G is always available.</p>
+  <p>Endpoints: <a href="/evidence">/evidence</a> |
+    <a href="/manifest">/manifest</a> |
+    <a href="/verify">/verify</a> |
+    <a href="/peers">/peers</a></p>
+</div>
+
+</body>
+</html>
