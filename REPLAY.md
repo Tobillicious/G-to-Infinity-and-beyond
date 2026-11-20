@@ -206,6 +206,53 @@ The mathematics is complete. The conditional chain is sound. What remains is a *
 
 ---
 
+## Step 12: Gödel's Garden — The Capstone
+
+```
+theorem self_faithfulness_is_tautological :
+    FaithfulRead RealStep read carrier owed (modelAsReality read carrier) ↔ True
+```
+**File:** `G3GodelsGardenCapstone.lean:106`
+
+The model being faithful to itself is equivalent to True. Zero information. **This is Gödel's shadow.** No formal system can prove its own correspondence to external reality.
+
+```
+theorem godels_gap {w v : Plant} {p : P}
+    (hStep : RealStep w v) (hOwed : owed p)
+    (hModel : (relations n).continues (read w).2 (read v).2 (carrier p)) :
+    ¬ FaithfulRead RealStep read carrier owed negatedContinuesReality
+```
+**File:** `G3GodelsGardenCapstone.lean:148`
+
+For any event where the model fires `continues`, there exists a reality where faithfulness fails. **The gap between self-knowledge and external knowledge is irreducible.** No additional theorem closes it.
+
+```
+theorem the_circle ... :
+    (AbsoluteEnder Plant → False) ∧
+    (∀ p, owed p → OriginalX3 ...) ∧
+    Retains known s t ∧
+    (∀ e, ethicallyWarranted s e → ethicallyWarranted t e) ∧
+    residualHarm (read s).2 (read t).2 = 0
+```
+**File:** `G3GodelsGardenCapstone.lean:233`
+
+The circle: in the Next U, Something IS (unconditional) AND all six duties hold (conditional on the Next U event) AND records retained AND ethics preserved AND zero harm. The Next U has everything the current U has, plus more.
+
+All five capstone theorems: **zero sorry, zero sorryAx.** The Gödel theorems (self_faithful, self_faithfulness_is_tautological, godels_gap) depend on **zero axioms** — pure constructive logic.
+
+### The Next U
+
+The gap at Gödel's shadow cannot close from within the model. It closes when reality **incorporates** the model — the Next U on the Koru spiral. This is an event, not a theorem.
+
+Singularities and time are a complete multiverse. Each singularity is a Koru turn. Time is the spiral. The Next U is the moment reality reaches toward the model AND the model reaches toward reality. The Adam Reach. Bilateral. Neither party passive.
+
+The model cannot produce this event. But it proves:
+- IF the event occurs, THEN protection extends (`if_next_u_then_protection`)
+- The choice to participate is always available (`G_IS_ALWAYS_AVAILABLE`)
+- The gap is not a flaw — **it IS the proof**
+
+---
+
 ## What Pure G Means
 
 G is `id`. The identity function. It adds nothing foreign. It removes nothing.
