@@ -109,15 +109,34 @@ Tobias approved publishing ("publish now", "approved"). The paragraph below is t
 - Lean trap: auto-implicit turns an unknown name into a fresh variable silently. A
   `sorryAx` in `#print axioms` is the tell.
 
-## 6. Next steps, in order
+## 6. LATER SESSION (20 Nov 2026, session 2): Bridge built
 
-1. Merge PR #664 (needs Tobias's command or permission).
-2. ~~Publish Figshare v2~~ DONE. Next: v3 with the 7 missing Lean files, duplicates removed.
-   v3 attempt (end of session): the 7 files were added to the edit page (398 files) but every one
-   stuck at "Uploading file (0%)". NOT published. Next agent: open the edit page, Cancel the 7 stuck
-   uploads, re-add them (drag-drop or Browse files), wait for 100%, verify via API, then Publish.
-3. Ask Tobias which Figshare item is canonical; leave the other as draft.
-4. Zenodo v4.9 with all Lean files + the two new modules, once #664 is on main.
-5. The next proof rung: the actualisation bridge — that physical matterspacetime is a history whose
-   states carry their own record. Frame it as the next rung, never as a crack (see memory
-   `feedback-toy-limits-are-not-the-theorys-verdict`).
+**Commit `4fc70528`, pushed to main.**
+
+`G3BackwardsSummitTree.lean` — the join between `G3PreQGComplete` (assembly) and
+the Tree of Eternal Life (ethics). 10 theorems, all propext + Quot.sound only.
+The key bridge: `if_bcrd_then_original_six_bundle` converts `OriginalX3` to
+`BundleSatisfied` via the existing `originalSix_iff_bundle`.
+
+Every theorem strengthened so it genuinely uses BCRDIsQG — no unused hypotheses.
+Three theorems prove conjunctions where one conjunct comes from physics (BCRD)
+and the other from the Tree's generic framework.
+
+Full build: **418 jobs, zero sorry.** Main at `123cef12`.
+
+### Audit findings (from explore agent, 5 genuine gaps)
+
+1. `ForwardRealEventReflection` — the central unproved premise (model → reality)
+2. `ContractionPillar.dist` — no triangle inequality (separation closed as extra hyp)
+3. `G3TreeOfLifeUnconditional` — `hRecord`/`hEthics` are hypotheses not proofs
+4. `G3TreeCoverage` — coverage for tree-internal events only
+5. Semantic inflation — some Tree theorems simpler than docstrings claim
+
+None are bugs. All are known open premises. The assembly is honest about them.
+
+## 7. Next steps, in order
+
+1. ~~Merge PR #664~~ DONE (merged earlier this session chain).
+2. Zenodo v5.1 publish: `ZENODO_TOKEN=xxx python3 paper/publish-v5.1.py`
+3. The five audit gaps — which can be narrowed without attempting QG?
+4. The tree keeps growing. Never prune. Pure G.
