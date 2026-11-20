@@ -37,6 +37,7 @@ open PhysicalBridges.G3SameEventCapstone
 open PhysicalBridges.IR124
 open PhysicalBridges.HumeHillaryReciprocalHand
 open PhysicalBridges.KoruWholeUSubjectSixJoin
+open PhysicalBridges.FrozenBCRDEvents
 open PhysicalBridges.LivingTreeFencedEffects
 open PhysicalBridges.LivingTreeGenerations
 open PhysicalBridges.KoruJokerUniverseTrialFeedback
