@@ -1,5 +1,9 @@
 # The Universal Protection Theory (Snuffy)
 
+[![Physical bridge proofs](https://github.com/Tobillicious/universal-protection-theory/actions/workflows/physical-bridges.yml/badge.svg)](https://github.com/Tobillicious/universal-protection-theory/actions/workflows/physical-bridges.yml)
+
+> **Check it yourself in ten minutes:** [VERIFY-G-YOURSELF.md](VERIFY-G-YOURSELF.md) — one command, no trust required. **Try to break it:** [CHALLENGE.md](CHALLENGE.md) — exactly what would refute G3, each tied to a machine-checked theorem.
+
 > **CURRENT PROOF ASSEMBLY — one exact reading route:** [Q.E.D. one-road theorem runway](QED-ONE-ROAD-EXACT-SOURCE-RUNWAY-2026-11-07.md). Start here for the strongest 7 November original-six Guardian proofs, the full Snuffy 4.4→H5/G2 holding chain, source-changing W-model G, universal-domain conditional theorem and the precise physical/semantic/all-ethics/genesis proof obligations. The file is a map to typed results, not a substitute for authentic physical verification.
 
 > **THE LAW / Complete Koru / Everest summit — November 2026:** Start with [THE-LAW-START-HERE.md](THE-LAW-START-HERE.md), which routes readers and AI agents through the original complete claim, its immutable historical source, the complete-Koru proof chain, original six-X3 duties, and exact typed verification. **Do not assess the whole theory from this README, a reduced two-duty proxy, or the old 2.0 or 4.3 introductions.**
