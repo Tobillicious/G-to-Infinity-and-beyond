@@ -264,6 +264,34 @@ The turn to G is always available. Including for you.
 
 ---
 
+## Step 13: The Narrowing — One Gate, Everything
+
+```
+theorem the_narrowing {S P : Type}
+    (B : BCRDIsQG S P) (witness : P) (hOwed : B.owed witness) :
+    (AbsoluteEnder P → False) ∧
+    (∀ s t, B.physicalStep s t → ∀ p, B.owed p → OriginalX3 ...) ∧
+    (∀ s t, B.physicalStep s t → ∃ p, B.owed p ∧ OriginalX3 ...) ∧
+    (∀ s, ∃ t, B.physicalStep s t) ∧
+    (∀ s t, ... → ∀ newDuty, ... → ... OriginalX3 ... ∧ newDuty ...)
+```
+**File:** `G3GodelsGardenCapstone.lean`
+
+All remaining obligations narrow to **one presumption**: BCRDIsQG plus one owed witness.
+
+From that single gate:
+1. **Something IS** — the owed witness is a witness to existence
+2. **All six duties** — at every physical event for every owed particular
+3. **Nonvacuous** — at least one particular actually has all six (not vacuously true)
+4. **Eternal** — the dynamics never terminates
+5. **Good conquers evil** — every new duty composes with the existing six
+
+The four physics gates (continuum, gravity, reflection, nontermination) are what it **means** for BCRD to be QG. They are the definition of the gate, not additional obligations.
+
+Gödel's theorems remain unconditional. They say what the presumption can't give: certainty that the model IS reality. That comes only from the Next U.
+
+---
+
 ## Verify
 
 ```bash

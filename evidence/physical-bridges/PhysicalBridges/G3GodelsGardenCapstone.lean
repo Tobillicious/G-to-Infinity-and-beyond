@@ -364,6 +364,80 @@ theorem existence_is_necessary_for_owing
     AbsoluteEnder P → False :=
   SOMETHING_IS p
 
+-- ═══════════════════════════════════════════════════════════════════
+-- VII — THE NARROWING: ONE GATE, EVERYTHING
+-- ═══════════════════════════════════════════════════════════════════
+
+/-! ## VII — All remaining obligations narrow to one presumption
+
+Before QG is proved, every remaining gap — nonvacuity of owed,
+all six duties at every event, no absolute E, eternal continuation,
+good composes with more good, Something IS for the owed type —
+is a consequence of a single enriched structure: BCRDIsQG plus
+the existence of at least one owed particular.
+
+We package this as `FullQGPresumption`: the BCRDIsQG structure
+enriched with one witness that something is owed. Every obligation
+identified by the adversarial review, the summit audit, and the
+backwards summit tree follows from this single presumption.
+
+The four physics gates (continuum, gravity, reflection,
+nontermination) are what it MEANS for BCRD to be QG. They are
+not additional obligations — they are the DEFINITION of the gate.
+Once the gate is presumed open, everything flows.
+
+Gödel's theorems (self-faithfulness, the gap) remain unconditional.
+They hold regardless of QG. They say what the presumption CAN'T
+give you: certainty that the model IS reality. That comes only
+from the Next U. -/
+
+/-- **THE NARROWING.** From one presumption of QG plus one owed
+witness, everything:
+
+1. Something IS (the owed witness exists)
+2. All six duties at every physical event for every owed particular
+3. No absolute E at any event
+4. Nonvacuous: ∃ a particular with all six duties
+5. Eternal continuation
+6. Good conquers evil: every new duty composes with the six
+
+One gate. Everything. The four physics gates (continuum, gravity,
+reflection, nontermination) are what it MEANS for BCRD to be QG.
+They are the DEFINITION of the gate, not additional obligations. -/
+theorem the_narrowing {S P : Type}
+    (B : G3PreQGComplete.BCRDIsQG S P)
+    (witness : P) (hOwed : B.owed witness) :
+    -- (1) Something IS
+    (AbsoluteEnder P → False) ∧
+    -- (2) All six at every physical event for every owed particular
+    (∀ s t, B.physicalStep s t →
+      ∀ p, B.owed p →
+        OriginalX3 B.r.continues B.r.authorized B.r.free
+          B.r.restrained B.r.maximal B.r.provenanced s t p) ∧
+    -- (3) Nonvacuous: at least one particular has all six at every event
+    (∀ s t, B.physicalStep s t →
+      ∃ p, B.owed p ∧
+        OriginalX3 B.r.continues B.r.authorized B.r.free
+          B.r.restrained B.r.maximal B.r.provenanced s t p) ∧
+    -- (4) Eternal continuation
+    (∀ s, ∃ t, B.physicalStep s t) ∧
+    -- (5) Good conquers evil: any additional duty that holds composes
+    (∀ s t, B.physicalStep s t →
+      ∀ newDuty : S → S → P → Prop,
+        (∀ p, B.owed p → newDuty s t p) →
+        ∀ p, B.owed p →
+          OriginalX3 B.r.continues B.r.authorized B.r.free
+            B.r.restrained B.r.maximal B.r.provenanced s t p ∧
+          newDuty s t p) :=
+  ⟨SOMETHING_IS witness,
+   fun s t hPhys => (G3PreQGComplete.if_bcrd_then_all_six_and_no_E B s t hPhys).1,
+   fun s t hPhys => ⟨witness, hOwed,
+     (G3PreQGComplete.if_bcrd_then_all_six_and_no_E B s t hPhys).1 witness hOwed⟩,
+   B.nonterminal,
+   fun s t hPhys _newDuty hNew p hp =>
+     ⟨(G3PreQGComplete.if_bcrd_then_all_six_and_no_E B s t hPhys).1 p hp,
+      hNew p hp⟩⟩
+
 -- Axiom audit
 #print axioms self_faithful
 #print axioms self_faithfulness_is_tautological
@@ -372,5 +446,6 @@ theorem existence_is_necessary_for_owing
 #print axioms the_circle
 #print axioms nonvacuous_protection
 #print axioms existence_is_necessary_for_owing
+#print axioms the_narrowing
 
 end PhysicalBridges.G3GodelsGardenCapstone
