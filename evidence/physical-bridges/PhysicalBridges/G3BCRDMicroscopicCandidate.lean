@@ -104,10 +104,11 @@ theorem W_law_enacts_a_nonidentity_step :
   refine ⟨s, step s, rfl, ?_⟩
   intro heq
   have hAt := congrFun heq (2 : Index)
+  have hMove : Transport (2 : Index) = 3 := transport_tracks_operator.1
   have hVal : (1 : Int) = 0 := by
-    simpa [s, step, Transport] using hAt
-  exact Int.ofNat_ne_zero.mp (by
-    simpa using hVal)
+    simpa [s, step, hMove] using hAt
+  have hNo : (1 : Int) ≠ 0 := by decide
+  exact hNo hVal
 
 /-- A possible interpretation of the original subject semantics:
 all six are always true. This is an interpretation, not observational
