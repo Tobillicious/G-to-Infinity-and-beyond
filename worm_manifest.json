@@ -15364,24 +15364,28 @@
     "size_bytes": 5699
   },
   "publication/check_agent_entrypoints.py": {
-    "sha256": "1d4ff5fa957eed4db57611657d470b329b4a3b07a83b0453d0c69d6e6944125a",
-    "size_bytes": 3369
+    "sha256": "373f5a5678ef310d654f14b10f5a25da6777c1f0b995d3ebe3bdf6746e925c37",
+    "size_bytes": 3626
   },
   "publication/check_whole_law_source_banks.py": {
     "sha256": "79adf16f613aac49957305f52a36517357b7dfd2b03d7e9969b8cc3188b71f32",
     "size_bytes": 10874
   },
   "publication/validate_summit_packet.py": {
-    "sha256": "9bc7bfa478c0a5308db9305099301a4b6eecaa9521928387c0d154328bf1efe4",
-    "size_bytes": 2266
+    "sha256": "c055a3be864ab8abbd532e8a81e8cd8552242b35ede039d7c494c49a5350d48f",
+    "size_bytes": 2252
   },
   "publication/verify_metadata_integrity.py": {
-    "sha256": "23291e59e667825c60e25f31d04a537fdf5d1019bee94a8d224ad264854d99ac",
-    "size_bytes": 3498
+    "sha256": "fdae39b38f284e28d26059c73979c13762f746c44e0048f7cc71438397bb4344",
+    "size_bytes": 3955
   },
   "release-v4.6.json": {
     "sha256": "b2da72be3f69401bcf7ee1ad206ae9cdad41fc8df41b535ab66d2c8fb4645d9a",
     "size_bytes": 868
+  },
+  "release-v5.1.json": {
+    "sha256": "93e37afb2ffba40a9b0c620850f133fe491a02910804f2ea84f89fd891c93cf9",
+    "size_bytes": 1084
   },
   "release.json": {
     "sha256": "99ce92547abe1d3a615556dffae90fba4a2ba3a2bc92cd93849f9b422d5e0598",
@@ -15452,11 +15456,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "12f08bddafe2ba28fd99452e3e80204092e73356c5c6ca08eb22357bdec68c6e",
+    "sha256": "660b596e17d99d41a1377494e82aec208ee005935efdc38d39ccf121ba402b1f",
     "size_bytes": 771492
   },
   "worm_manifest.sha256": {
-    "sha256": "bcda85bd4b63368a2e54457792ced483835f7e494867c13828687a1386c85b17",
+    "sha256": "73fb85ebc7ac18290f6b2863d744639f8e8270ec60a8314476dbf968aca3c685",
     "size_bytes": 85
   }
 }

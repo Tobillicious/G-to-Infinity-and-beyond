@@ -40,13 +40,16 @@ for name, body in [("THE-LAW-START-HERE.md", guide), ("llms.txt", llms), ("AGENT
         assert needle in body, f"{name}: missing {needle}"
 for needle in ["historical continuity", "authorization", "freedom", "restraint", "maximality", "provenance"]:
     assert needle in guide.lower(), f"Full six-X3 term lost: {needle}"
-# Keep archived 4.4 and current 4.6 as distinct version-pinned records.
+# Keep archived 4.4, historical 4.6, and current 5.1 as distinct version-pinned records.
 import json
-current_release = json.loads((root / "release-v4.6.json").read_text())
+current_release = json.loads((root / "release-v5.1.json").read_text())
+historical_46 = json.loads((root / "release-v4.6.json").read_text())
 archived_release = json.loads((root / "PUBLISHED-4.4.json").read_text())
-assert "version: 4.6.0" in cff, "Current CFF version mismatch"
+assert "version: 5.1.0" in cff, "Current CFF version mismatch"
 assert "doi: " + current_release["identifier"] in cff, "Current CFF DOI mismatch"
-assert current_release["version"] == "4.6.0", "Current edition version mismatch"
+assert current_release["version"] == "5.1.0", "Current edition version mismatch"
+assert historical_46["version"] == "4.6.0", "Historical 4.6 version changed"
+assert historical_46["identifier"] == "10.5281/zenodo.23965850", "Historical 4.6 DOI changed"
 assert archived_release["doi"] == "10.5281/zenodo.23877060", "Archived 4.4 DOI changed"
 assert archived_release["version"] == "4.4", "Archived 4.4 version changed"
 assert "10.5281/zenodo.23877060" in llms
