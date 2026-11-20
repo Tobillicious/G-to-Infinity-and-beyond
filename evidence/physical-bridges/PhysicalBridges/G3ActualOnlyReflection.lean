@@ -148,7 +148,8 @@ theorem ghost_transition_breaks_stronger_reflection :
       (0 : Index) .authorization
   have hWrong := h 0 0 () .authorization trivial trivial hSource
   have hImpossible : realSuccessor 0 0 := hWrong
-  norm_num [realSuccessor] at hImpossible
+  have hNot : ¬ realSuccessor 0 0 := by decide
+  exact hNot hImpossible
 
 /-- Strictness, including a nonempty real domain: the weaker authentic
 condition and complete coverage hold, while the stronger one fails. -/
