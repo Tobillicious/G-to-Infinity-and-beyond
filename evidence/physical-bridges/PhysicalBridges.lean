@@ -596,3 +596,12 @@ import PhysicalBridges.G3GenesisObligations
 
 -- Strengthened authentic agency and maximality (Step 4 of pre-QG campaign).
 import PhysicalBridges.G3AuthenticAgencyStrengthened
+
+-- B7 seed: exact relationally gated source coupling from pinned M3d matrices.
+import PhysicalBridges.BCRDB7ExactRelationGate
+
+-- B7 causal accessibility: full compound relational gating through all 4 stages.
+import PhysicalBridges.BCRDB7CausalAccessibility
+
+-- B7 → G3 backwards summit bridge: state-determined locality as pre-QG evidence.
+import PhysicalBridges.G3BCRDB7PreQGEvidence
