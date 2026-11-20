@@ -572,3 +572,6 @@ import PhysicalBridges.G3CompleteKoruEventExhaustiveness
 
 -- Complete Koru event records: exact realized-event inclusion and unknown-cause controls.
 import PhysicalBridges.G3WitnessedEventExhaustiveness
+
+-- Backwards summit: derive physical Tree realizations from progress + causal source selection.
+import PhysicalBridges.G3PhysicalProgressForcesTree
