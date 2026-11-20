@@ -610,5 +610,4 @@ import PhysicalBridges.G3BCRDB7PreQGEvidence
 import PhysicalBridges.BCRDB7SectorStructure
 
 -- The Adam Reach: bilateral authentic agency closes the Tree of Life.
--- DRAFT: not yet in build root — koru field type needs alignment.
--- import PhysicalBridges.G3AdamReachBridge
+import PhysicalBridges.G3AdamReachBridge

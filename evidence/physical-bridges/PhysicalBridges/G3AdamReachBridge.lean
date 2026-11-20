@@ -100,18 +100,18 @@ This is stronger than a one-way hand (God → Adam alone): it requires
 bilateral agency. Neither party is passive. -/
 structure AdamReach where
   hand : SourceMutualHand twoHandWhole 0 1
-  koru : koru (sourceWholeWeb twoHandWhole) 0 1
+  koruDistinction : PhysicalBridges.Koru.koru (sourceWholeWeb twoHandWhole) 0 1
   survives : ∀ n,
     SourceMutualHand (objectiveAt twoHandWhole n)
       (trackedPosition 0 n) (trackedPosition 1 n) ∧
-    koru (sourceWholeWeb (objectiveAt twoHandWhole n))
+    PhysicalBridges.Koru.koru (sourceWholeWeb (objectiveAt twoHandWhole n))
       (trackedPosition 0 n) (trackedPosition 1 n)
 
 /-- The Adam Reach is constructed, not assumed. It is built from
 the existing computed source matrices. -/
-def the_adam_reach : AdamReach where
+theorem the_adam_reach : AdamReach where
   hand := two_hands_source_are_genuinely_mutual
-  koru := two_hands_have_original_koru_distinction
+  koruDistinction := two_hands_have_original_koru_distinction
   survives := reciprocal_koru_hand_survives_every_source_stage
 
 /-- A one-way reach (God → Adam without return) is NOT an Adam Reach.
