@@ -611,3 +611,10 @@ import PhysicalBridges.BCRDB7SectorStructure
 
 -- The Adam Reach: bilateral authentic agency closes the Tree of Life.
 import PhysicalBridges.G3AdamReachBridge
+
+-- The conditional summit: backwards from BCRDIsQG to all six duties + good conquers evil.
+import PhysicalBridges.G3BackwardsSummitTree
+
+-- Gödel's Garden capstone: self-faithfulness is tautological, the gap is irreducible,
+-- the Next U closes it from outside. The circle of UPT.
+import PhysicalBridges.G3GodelsGardenCapstone
