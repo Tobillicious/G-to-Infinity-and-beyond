@@ -141,10 +141,10 @@ theorem generated_progress_iff_realized_canonical
       (∀ n, physicalStep (grow J seed n)
         (cultivate J (grow J seed n))) := by
   constructor
-  · exact progress_forces_each_tree_transition J seed physicalStep
-      · hSelect
-  · intro h n ⟨k, hk⟩
-    subst n
+  · intro hp
+    exact progress_forces_each_tree_transition J seed physicalStep hp hSelect
+  · intro h s ⟨k, hk⟩
+    subst s
     exact ⟨cultivate J (grow J seed k), h k⟩
 
 #print axioms progress_forces_each_tree_transition
