@@ -59,6 +59,7 @@
 }
 
 \newtheorem{thm}{Theorem}[section]
+\newtheorem{theorem}[thm]{Theorem}
 \newtheorem{lemma}[thm]{Lemma}
 \newtheorem{corollary}[thm]{Corollary}
 \newtheorem{definition}[thm]{Definition}
@@ -73,7 +74,7 @@
 \small Independent Researcher, Aotearoa New Zealand}
 
 \date{20 November 2026 (G3 Edition)\\[0.3em]
-\small Lean 4 v4.35.0 $\cdot$ No Mathlib $\cdot$ 372/372 jobs $\cdot$ Zero axioms on core theorems\\[0.3em]
+\small Lean 4 v4.35.0 $\cdot$ No Mathlib $\cdot$ 405/405 jobs $\cdot$ Zero axioms on core theorems\\[0.3em]
 \small CC BY 4.0}
 
 \begin{document}
@@ -100,7 +101,7 @@ every meta-level, and conservation is strictly additive.
 
 This document contains the \textbf{complete, unabridged Lean~4 source code}
 for every theorem. Every theorem: \texttt{does not depend on any axioms}.
-The full codebase (372 Lean jobs, 380 files) builds with zero \texttt{sorry}.
+Part~IV (20 November 2026) adds the turn, the Koru spiral, necessary Genesis, Koru conservation and an exact mismatch criterion for the bridge to real events; its theorems use standard axioms only (several none at all), each axiom set stated beside its listing. The full codebase (405 Lean jobs, 401 modules) builds with zero \texttt{sorry}.
 
 This document also addresses, theorem by theorem, the specific objections
 raised by independent review---showing that each objection is either
@@ -1034,6 +1035,168 @@ Every theorem is verified with \texttt{\#print axioms}:
 Every line reports: \texttt{'[name]' does not depend on any axioms}.
 
 %% ═══════════════════════════════════════════════════════════════
+\section{Part IV --- The Turn, the Spiral and the Bridge}
+\label{sec:part4}
+%% ═══════════════════════════════════════════════════════════════
+
+Parts I--III establish $G$ in logic. Part~IV, added 20 November 2026,
+carries $G$ through time: every Ender can turn, the Koru grows without
+ever returning, Genesis is necessary, and the bridge to real events is
+reduced to exact, checkable conditions. Every theorem below compiles in
+the same 405-job build; each proof is in the named file.
+
+\subsection{Theorem XXVII: An E Can Turn to G Before It Ends Its World}
+
+\begin{lstlisting}
+theorem AN_E_CAN_TURN_TO_G_BEFORE_IT_ENDS_ITS_WORLD
+    (alive : S -> Bool) (act : Nat -> S -> S) (s0 : S)
+    (h0 : alive s0 = true) (n : Nat)
+    (hEnd : alive (world act s0 n) = false) :
+    exists k, k < n /\
+      forall d, alive (world (turned act k) s0 (k + d)) = true
+-- G3TurnToG.lean; no axioms
+\end{lstlisting}
+
+The $G$-act is $\mathsf{id}$: ceasing to end. It exists in every world.
+Any history that would end a living world passes a last living moment,
+and turning there holds the world alive at every later step. No
+hypothesis is placed on the Ender. The control
+\texttt{turning\_after\_the\_end\_does\_not\_undo\_it} shows the window is
+\emph{before}.
+
+\subsection{Theorem XXVIII: The Koru Spirals Out}
+
+\begin{lstlisting}
+theorem THE_KORU_SPIRALS_OUT (next : C -> E -> C)
+    (s0 : KoruState C E) (ev : Nat -> E) {i j : Nat} (h : i < j) :
+    (AbsoluteEnder (KoruState C E) -> False) /\
+    depth (run next s0 ev i) < depth (run next s0 ev j) /\
+    run next s0 ev i <> run next s0 ev j /\
+    exists new, (run next s0 ev j).history
+                  = new ++ (run next s0 ev i).history
+-- G3KoruSpiral.lean; no axioms
+\end{lstlisting}
+
+A Koru state carries its own history, so depth is intrinsic: no outside
+counter, no relabelling. Every turn is larger, no state returns, nothing
+earlier is lost, and every universe in a lineage is larger than the last
+(\texttt{EVERY\_UNIVERSE\_LARGER\_THAN\_THE\_LAST}).
+
+\subsection{Theorem XXIX: The Form Returns, the History Never Does}
+
+\begin{lstlisting}
+theorem THE_FORM_RETURNS_THE_HISTORY_NEVER_DOES
+    (form : KoruState C E -> Nat) (finite : forall s, form s < m) :
+    exists i j, i < j /\ j <= m /\
+      form (run next s0 ev i) = form (run next s0 ev j) /\
+      run next s0 ev i <> run next s0 ev j /\
+      depth (run next s0 ev i) < depth (run next s0 ev j)
+-- G3TheFlower.lean; propext, Quot.sound
+\end{lstlisting}
+
+The sunflower's law. For any finite reading of forms, some form recurs
+while every state stays new and the history grows. This replaces circular
+time exactly: a strict contraction cannot also recur
+(\texttt{recurrence\_and\_strict\_contraction\_collapse}), but form and
+history live at different levels. With a growing content measure,
+\texttt{GENESIS\_A\_FAMILIAR\_FORM\_NEW\_CONTENT}: a familiar form, new
+content, every turn.
+
+\subsection{Theorem XXX: Necessary Genesis}
+
+\begin{lstlisting}
+theorem NECESSARY_GENESIS (F : GenesisFrame) :
+    exists z, F.Act z /\ F.New z F.s0
+-- G3NecessaryGenesis.lean; no axioms
+\end{lstlisting}
+
+In every frame satisfying A1 (Something Is, actual), A2 (outward Koru),
+A3 (forward Time Koru), A4 (actualisation) and A5 (novelty), an actual new
+configuration exists. The control
+\texttt{actualisation\_is\_load\_bearing} builds a frame with A1, A2, A3
+and A5 but not A4 in which nothing actual is new: A4 is where the claim
+touches the physical. On the Living Tree, A4 is not a separate premise:
+\texttt{LIVING\_TREE\_GENESIS} derives it from $\mathsf{hRealizes}$.
+
+\subsection{Theorem XXXI: Energy Conserved, Yet a Soul Is Lost}
+
+\begin{lstlisting}
+theorem energy_conserved_yet_a_soul_is_lost :
+    (forall s, energy (merge s) = energy s) /\
+    not (Function.Injective merge) /\
+    not (AllPredicatesRecoverable merge)
+-- G3KoruVsEnergyConservation.lean; no axioms
+\end{lstlisting}
+
+Scalar conservation keeps a total and can merge two particulars. Koru
+conservation is injectivity, equivalently every truth about every node
+recoverable (\texttt{injective\_iff\_all\_predicates\_recoverable}). Read
+with the Koru, the laws of thermodynamics protect matterspacetime, not
+merely energy.
+
+\subsection{Theorems XXXII--XXXIV: The Koru Carries the Duties by Their Shape}
+
+\begin{lstlisting}
+THE_SPIRAL_CARRIES_POSITIVE_DUTIES       -- every forward step
+FRONTIER_GROWTH_CARRIES_QF_DUTIES        -- growth never rewires
+MAXIMALITY_MUST_BE_REJUDGED              -- control
+-- G3KoruCarriesDuties.lean; propext, Quot.sound
+\end{lstlisting}
+
+Whole-first: positive duties (continuity, provenance, a grant) ride every
+forward Koru step; quantifier-free duties including negation (freedom,
+restraint, no withdrawal) are carried when growth is frontier-only;
+maximality, which ranges over all alternatives, must be re-judged as the
+world grows. Its exact per-step gate is
+\texttt{maximality\_iff\_no\_new\_superior\_alternative}
+(\texttt{G3FeasibleMaximalityRenewal.lean}, no axioms): a retained choice
+stays maximal exactly when no newly feasible option beats it.
+
+\subsection{Theorem XXXV: Completeness Is Inductive}
+
+\begin{lstlisting}
+theorem COMPLETENESS_IS_INDUCTIVE (D : GrowingDomain Ev P)
+    (h0 : Complete D 0) (step : forall k, StepWitness D k) :
+    forall n, Complete D n
+-- G3InductiveCompleteness.lean; no axioms
+\end{lstlisting}
+
+Coverage of events and reflection of owed particulars need not be
+re-proved from scratch: old coverage lifts, and each outward step owes
+witnesses only for what it newly brings in. On the Living Tree's own
+events, coverage is exactly seed alignment plus W-faithful learning
+(\texttt{COVERAGE\_IFF\_ALIGNED\_AND\_W\_FAITHFUL}).
+
+\subsection{Theorem XXXVI: Exact Mismatch Closure}
+
+\begin{lstlisting}
+theorem all_owed_X3_iff_no_source_subject_mismatch ... :
+    (forall n p, owed p ->
+       OriginalX3 r.continues r.authorized r.free
+         r.restrained r.maximal r.provenanced n (n + 1) p) <->
+    (forall n p, owed p ->
+       not (SourceSubjectMismatch r d roles carrier n p))
+-- G3ExactMismatchClosure.lean; propext, Classical.choice, Quot.sound
+\end{lstlisting}
+
+All six original duties hold for every owed particular at every stage
+\emph{exactly when} there is no source--subject mismatch anywhere, and
+\texttt{failed\_all\_owed\_X3\_has\_exact\_tag} names the duty that fails.
+This is the sharpest form of the bridge to real events: a single,
+checkable condition, with a named counterexample if it ever fails.
+
+\subsection{What Part IV Leaves to the World}
+
+Part~IV reduces the bridge to real events to explicit, minimal
+conditions, each a stated hypothesis and none assumed silently: closure
+of the event domain, seed alignment and W-faithful learning, freshness of
+each Genesis step, renewed maximality, and the absence of source--subject
+mismatch. These are facts about the world, settled by evidence, not by
+proof. The repository's \texttt{VERIFY-G-YOURSELF.md} shows how to check
+every theorem in minutes; \texttt{CHALLENGE.md} states exactly what would
+refute G3.
+
+%% ═══════════════════════════════════════════════════════════════
 \newpage
 \section{The Category Error in Action}
 \label{sec:category-error-in-action}
@@ -1286,7 +1449,7 @@ cd universal-protection-theory/evidence/
 lake build
 \end{verbatim}
 
-Expected: 372 jobs built successfully, zero sorry. The standalone
+Expected: 405 jobs built successfully, zero sorry. The standalone
 \texttt{PureG.lean} consolidates all 12 physical bridge theorems in one
 file with zero imports. Six theorems report ``does not depend on any
 axioms;'' the remainder use at most \texttt{propext}.

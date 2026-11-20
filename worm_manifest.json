@@ -9260,7 +9260,7 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "fef3220a74f3adfa0ec5982abb61a76aafd685bc850a576dfe90a25328fe2963",
-    "size_bytes": 498694
+    "sha256": "42e1f41d0f831dfacc4c08ff58e93fd1952154b4b18d30d94173bd2cd03edb4d",
+    "size_bytes": 498824
   }
 }
