@@ -544,3 +544,4 @@ import PhysicalBridges.G3DynamicsSeparation
 import PhysicalBridges.G3TheFlower
 import PhysicalBridges.NovelProtectedContinuationJoin
 import PhysicalBridges.G3NecessaryGenesis
+import PhysicalBridges.G3LivingTreeGenesis
