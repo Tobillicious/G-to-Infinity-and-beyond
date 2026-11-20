@@ -15092,8 +15092,8 @@
     "size_bytes": 63514
   },
   "paper/publish-figshare-v5.1.py": {
-    "sha256": "7f83a9e01e1965643d1767e672491ba8e275d8297c6fe80a3b31a9193b138cbb",
-    "size_bytes": 8300
+    "sha256": "11ec14662bd476520e0d0bdc171bfd892a18eb9fc29e3163b8ae5c43acd5d122",
+    "size_bytes": 8375
   },
   "paper/publish-new-version.py": {
     "sha256": "3d9192091474484c1161d10c3ff309eafd5e8c35f2ef19412a3a497adf1f322f",
@@ -15320,11 +15320,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "f269d59d9309d2f1738b92bd0d743870d4a0a6aef82782b28bf6c3d9fd15029d",
-    "size_bytes": 765391
+    "sha256": "1656f82c22a33051abb026fae7fcc48349d6dc0559d02957deb59f98abb15692",
+    "size_bytes": 765823
   },
   "worm_manifest.sha256": {
-    "sha256": "83275eca0ed4ac3bd0cf33aeddb6172a612609a5181f857072a29d2a096f7b25",
+    "sha256": "27cad395ac392e1b1790c71de5c27bb2cab102648e2c132f8df3fad7bf7b0f33",
     "size_bytes": 85
   }
 }

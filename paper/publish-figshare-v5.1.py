@@ -24,7 +24,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAPER_DIR = os.path.join(ROOT, "paper")
 BRIDGES = os.path.join(ROOT, "evidence/physical-bridges/PhysicalBridges")
 
-ARTICLE_ID = 34479870
+ARTICLE_ID = 35072056  # Published 2026-11-20 (created fresh; 35059768 couldn't version via API)
 
 FILES_TO_UPLOAD = [
     (os.path.join(PAPER_DIR, "G3-guardian-proof.pdf"), "G3-guardian-proof-v5.1.pdf"),
