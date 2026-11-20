@@ -556,3 +556,4 @@ import PhysicalBridges.G3ExactMismatchClosure
 import PhysicalBridges.G3MatterspacetimeRealizationGate
 import PhysicalBridges.CompleteKoruMatterspacetimeCoverage
 import PhysicalBridges.G3KoruVsEnergyConservation
+import PhysicalBridges.G3FeasibleMaximalityRenewal
