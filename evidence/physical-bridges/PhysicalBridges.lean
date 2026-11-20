@@ -584,3 +584,6 @@ import PhysicalBridges.G3SixDutyRenewal
 
 -- Pre-QG negative control: physics-only laws cannot determine authentic subject semantics.
 import PhysicalBridges.G3QGInterpretationNecessity
+
+-- Genuine frozen BCRD M-sector candidate law, with independent ethical countercontrol.
+import PhysicalBridges.G3BCRDMicroscopicCandidate
