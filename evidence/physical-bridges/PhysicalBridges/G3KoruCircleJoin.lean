@@ -4,7 +4,7 @@ import PhysicalBridges.KoruWholeUSixDutyWebJoin
 
 /-!
 # G3 Koru circle: independently specified physical facts -> preserved Genesis
-Additive, source-exact assembly. No new axiom, `sorry`, or redefinition of Koru,
+Additive, source-exact assembly. No new axiom, no placeholder proof, and no redefinition of Koru,
 OriginalX3, modeled steps, or the six meanings.
 
 This module makes explicit the otherwise bundled `hCoverage` and `hReflection`
