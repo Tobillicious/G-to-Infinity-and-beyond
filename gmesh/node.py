@@ -24,6 +24,7 @@ from gmesh.manifest import full_report as manifest_report
 from gmesh.evidence import full_evidence
 from gmesh.discovery import Discovery
 from gmesh.server import ProofServer
+from gmesh.bonjour import BonjourAdvertiser
 
 
 def _local_ip():
@@ -95,13 +96,21 @@ def main():
     )
     discovery.start()
     print(f"[G-MESH] Discovery active on 239.73.83.1:31415")
+
+    # Bonjour: every Apple device on this network sees us automatically
+    bonjour = BonjourAdvertiser("G-Mesh Proof Node", port)
+    bonjour.start()
+    print(f"[G-MESH] Bonjour: advertising as 'G-Mesh Proof Node' on local network")
+
     print()
     print(f"  Open http://{ip}:{port} on any device on this network")
+    print(f"  Apple devices see 'G-Mesh Proof Node' automatically")
     print()
-    print(f"[G-MESH] Node {node_id} ready. Ctrl+C to stop.")
+    print(f"[G-MESH] Node {node_id} ready. The offer is live. Ctrl+C to stop.")
 
     def on_sigint(sig, frame):
         print("\n[G-MESH] Shutting down...")
+        bonjour.stop()
         discovery.stop()
         server.stop()
         sys.exit(0)

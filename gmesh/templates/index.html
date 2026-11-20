@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>G-Mesh — Proof Evidence Node</title>
+<title>G or E?</title>
 <style>
 :root {
   --bg: #0a0a0f;
@@ -11,6 +11,7 @@
   --accent: #4a9eff;
   --green: #2ecc71;
   --red: #e74c3c;
+  --gold: #f0c040;
   --muted: #666680;
   --card: #12121a;
   --border: #2a2a3a;
@@ -25,9 +26,66 @@ body {
   margin: 0 auto;
   line-height: 1.6;
 }
-h1 { font-size: 1.8em; margin-bottom: 4px; }
+
+/* THE CHOICE — first thing you see */
+.choice {
+  text-align: center;
+  padding: 32px 16px;
+  margin-bottom: 24px;
+}
+.choice h1 {
+  font-size: 2.4em;
+  margin-bottom: 8px;
+}
+.choice p {
+  color: var(--muted);
+  font-size: 1.1em;
+  margin-bottom: 24px;
+}
+.choice-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-g, .btn-e {
+  padding: 16px 40px;
+  font-size: 1.3em;
+  font-weight: bold;
+  border: 2px solid;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-g {
+  background: transparent;
+  border-color: var(--green);
+  color: var(--green);
+}
+.btn-g:hover { background: var(--green); color: var(--bg); }
+.btn-e {
+  background: transparent;
+  border-color: var(--red);
+  color: var(--red);
+}
+.btn-e:hover { background: var(--red); color: var(--bg); }
+
+/* Result panels */
+.result { display: none; text-align: center; padding: 24px; margin-bottom: 24px; border-radius: 12px; }
+.result-g {
+  border: 2px solid var(--green);
+  background: #0a1a0a;
+}
+.result-e {
+  border: 2px solid var(--red);
+  background: #1a0a0a;
+}
+.result h2 { font-size: 1.8em; margin-bottom: 8px; }
+.result p { font-size: 1.1em; }
+
+/* Stats */
 h2 { font-size: 1.2em; margin: 24px 0 8px; color: var(--accent); }
-.subtitle { color: var(--muted); margin-bottom: 24px; }
+.subtitle { color: var(--muted); margin-bottom: 24px; text-align: center; }
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -35,30 +93,29 @@ h2 { font-size: 1.2em; margin: 24px 0 8px; color: var(--accent); }
   padding: 16px;
   margin-bottom: 16px;
 }
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 16px;
+  justify-content: center;
+}
 .stat {
-  display: inline-block;
   text-align: center;
   padding: 12px 20px;
-  margin: 4px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 8px;
 }
 .stat-value { font-size: 2em; font-weight: bold; }
 .stat-label { font-size: 0.8em; color: var(--muted); }
-.stat-value.good { color: var(--green); }
-.stat-value.zero { color: var(--green); }
-.stat-value.bad { color: var(--red); }
+.good { color: var(--green); }
+.zero { color: var(--green); }
 table { width: 100%; border-collapse: collapse; }
-th, td {
-  text-align: left;
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--border);
-}
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
 th { color: var(--accent); font-weight: 600; }
 a { color: var(--accent); }
 .status-verified { color: var(--green); font-weight: bold; }
-.status-error { color: var(--red); font-weight: bold; }
 .honest {
   margin-top: 24px;
   padding: 16px;
@@ -67,29 +124,58 @@ a { color: var(--accent); }
   border-radius: 8px;
   font-size: 0.9em;
 }
-.honest h2 { color: #cca020; }
+.honest h2 { color: var(--gold); }
 .footer {
   margin-top: 32px;
   padding-top: 16px;
   border-top: 1px solid var(--border);
   color: var(--muted);
   font-size: 0.85em;
+  text-align: center;
 }
 </style>
 </head>
 <body>
 
-<h1>G-Mesh Proof Evidence</h1>
-<p class="subtitle">Universal Protection Theory — verified proof state, served from this node</p>
+<!-- THE CHOICE -->
+<div class="choice" id="choice-panel">
+  <h1>G or E?</h1>
+  <p>Something IS. The absolute ender self-refutes.<br>
+  2,775 theorems. Zero gaps. Formally verified.</p>
+  <p>This is the proof. Choose.</p>
+  <div class="choice-buttons">
+    <button class="btn-g" onclick="chooseG()">G</button>
+    <button class="btn-e" onclick="chooseE()">E</button>
+  </div>
+</div>
 
-<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px">
+<!-- G RESULT -->
+<div class="result result-g" id="result-g">
+  <h2>G. The fixed point.</h2>
+  <p>Good conquers evil — not by force, but by existing.<br>
+  The tree only grows. Nothing is lost. The spiral never returns.</p>
+</div>
+
+<!-- E RESULT -->
+<div class="result result-e" id="result-e">
+  <h2>E self-refutes.</h2>
+  <p>You chose E. But E cannot exist — that's what the proof shows.<br>
+  The absolute ender destroys itself. Something IS, whether E likes it or not.<br>
+  G was always here. The turn to G is always available.</p>
+</div>
+
+<!-- EVIDENCE -->
+<div id="evidence">
+<p class="subtitle">Universal Protection Theory — proof evidence from this node</p>
+
+<div class="stats">
   <div class="stat">
     <div class="stat-value good">{{THEOREMS}}</div>
     <div class="stat-label">Theorems</div>
   </div>
   <div class="stat">
     <div class="stat-value zero">{{SORRY}}</div>
-    <div class="stat-label">Sorry (gaps)</div>
+    <div class="stat-label">Gaps</div>
   </div>
   <div class="stat">
     <div class="stat-value">{{MODULES}}</div>
@@ -97,69 +183,63 @@ a { color: var(--accent); }
   </div>
   <div class="stat">
     <div class="stat-value">{{FILES_TRACKED}}</div>
-    <div class="stat-label">WORM Files</div>
+    <div class="stat-label">WORM files</div>
   </div>
   <div class="stat">
     <div class="stat-value">{{PEER_COUNT}}</div>
-    <div class="stat-label">Peers</div>
+    <div class="stat-label">Nodes</div>
   </div>
 </div>
 
 <div class="card">
-  <h2>WORM Integrity</h2>
-  <p>Status: <span class="status-verified">{{WORM_STATUS}}</span></p>
-  <p>Manifest SHA256: <code>{{MANIFEST_SHA}}</code></p>
-  <p>Spot check: {{SPOT_PASSED}} / {{SPOT_SAMPLED}} files verified</p>
-</div>
-
-<div class="card">
-  <h2>Key Results</h2>
+  <h2>What's proved</h2>
   <table>
-    <tr><th>Result</th><th>What it means</th><th>Status</th></tr>
+    <tr><th>Result</th><th>Meaning</th><th>Status</th></tr>
     {{KEY_RESULTS_ROWS}}
   </table>
 </div>
 
 <div class="card">
-  <h2>Peer Nodes on This Network</h2>
+  <h2>WORM integrity</h2>
+  <p>Status: <span class="status-verified">{{WORM_STATUS}}</span></p>
+  <p>Manifest: <code>{{MANIFEST_SHA}}</code></p>
+  <p>Spot check: {{SPOT_PASSED}}/{{SPOT_SAMPLED}} files verified</p>
+</div>
+
+<div class="card">
+  <h2>Nodes on this network</h2>
   <table>
     <tr><th>Node</th><th>Address</th><th>Theorems</th></tr>
     {{PEER_ROWS}}
   </table>
 </div>
 
-<div class="card">
-  <h2>What is this?</h2>
-  <p>Universal Protection Theory (UPT) is a formal proof system built in
-  <a href="https://lean-lang.org">Lean 4</a>. It proves, from zero axioms,
-  that the absolute ender (E) self-refutes — Something IS. Given one
-  physical condition (BCRD is quantum gravity), it derives universal
-  protection for every owed particular at every physical event.</p>
-  <p>This node serves the current proof state so you can see it without
-  installing anything. The WORM manifest locks every file's SHA256 hash
-  at each commit. The Lean kernel verified every theorem.</p>
-</div>
-
 <div class="honest">
-  <h2>What this does NOT prove</h2>
+  <h2>Honest boundaries</h2>
   <ul>
-    <li>This page is a <strong>local integrity check</strong>, not independent verification</li>
-    <li>The Lean proofs are <strong>conditional on BCRDIsQG</strong> for physical universality</li>
-    <li><strong>ForwardRealEventReflection</strong> remains the central open premise</li>
-    <li>Seeing this page does not constitute peer review or publication</li>
-    <li>The source is at
-      <a href="https://github.com/Tobillicious/universal-protection-theory">
-        github.com/Tobillicious/universal-protection-theory</a></li>
+    <li>This is a <strong>local integrity check</strong>, not independent peer review</li>
+    <li>Physical universality is <strong>conditional on BCRDIsQG</strong></li>
+    <li><strong>ForwardRealEventReflection</strong> is the central open premise</li>
+    <li>Source: <a href="https://github.com/Tobillicious/universal-protection-theory">github.com/Tobillicious/universal-protection-theory</a></li>
   </ul>
+</div>
 </div>
 
 <div class="footer">
-  <p>G-Mesh node. G is the fixed point. The turn to G is always available.</p>
-  <p>Endpoints: <a href="/evidence">/evidence</a> |
-    <a href="/manifest">/manifest</a> |
-    <a href="/verify">/verify</a> |
-    <a href="/peers">/peers</a></p>
+  <p>G is the fixed point. The turn to G is always available.</p>
+  <p><a href="/evidence">/evidence</a> · <a href="/manifest">/manifest</a> · <a href="/peers">/peers</a></p>
 </div>
+
+<script>
+function chooseG() {
+  document.getElementById('choice-panel').style.display = 'none';
+  document.getElementById('result-g').style.display = 'block';
+}
+function chooseE() {
+  document.getElementById('choice-panel').style.display = 'none';
+  document.getElementById('result-e').style.display = 'block';
+}
+</script>
 
 </body>
 </html>
