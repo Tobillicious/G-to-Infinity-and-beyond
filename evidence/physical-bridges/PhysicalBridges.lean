@@ -587,3 +587,9 @@ import PhysicalBridges.G3QGInterpretationNecessity
 
 -- Genuine frozen BCRD M-sector candidate law, with independent ethical countercontrol.
 import PhysicalBridges.G3BCRDMicroscopicCandidate
+
+-- Identity preservation through transformation (Step 2 of pre-QG campaign).
+import PhysicalBridges.G3IdentityPreservation
+
+-- Genesis and new-particular obligations (Step 3 of pre-QG campaign).
+import PhysicalBridges.G3GenesisObligations
