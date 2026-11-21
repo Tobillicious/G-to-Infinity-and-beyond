@@ -140,8 +140,8 @@
     "size_bytes": 2858
   },
   "CITATION.cff": {
-    "sha256": "7c02b233c6ff94eed645bb8e147ee452796cdd11601f8076d752e8f881e21a2c",
-    "size_bytes": 465
+    "sha256": "4817c306535917d8c3d6e3654566f8e23f6e755fc2c2f015c3e4de993d8a69b1",
+    "size_bytes": 487
   },
   "COMPLETE-KORU-PROOF-INDEX.md": {
     "sha256": "e03467aa179b595b11eb17632ae478590ff83bcfd83fb1cd995ea112f071de0f",
@@ -15415,6 +15415,10 @@
     "sha256": "182f8639a0c02f5a99e48679de5152ae1179b9224307b65eba1966ce62c5c30f",
     "size_bytes": 8476
   },
+  "publication/UPT-v5.4-COMPLETE-RELEASE-2026-11-21.md": {
+    "sha256": "68fd30517f7bbd4fccf80ae3be6fda578bc7a083877b219a9b58e9fffdf5ffc0",
+    "size_bytes": 5142
+  },
   "publication/ZENODO-STRONG-GE-KORU-METADATA-2026-11-05.md": {
     "sha256": "914fc4aae6c4a935ec5e582e78642bf3bf05f6bb69fbe34e92fd50c3d3abdcdf",
     "size_bytes": 6760
@@ -15536,11 +15540,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "00c8e733f295cf55b44e2e06ff2e6401d66e7e798b637a2c98e44b9097779cf3",
-    "size_bytes": 774917
+    "sha256": "3ced35c070fa274c210d5aeb0c80f06a384b079195fd5156bfe058278dd4eb3c",
+    "size_bytes": 775102
   },
   "worm_manifest.sha256": {
-    "sha256": "3e4e0d6f990914d5bbc7b20d8a4b5b6f35a0e1a8cff48b8071ee227fe80096a6",
+    "sha256": "f9f3be9a72d44abc77a48082ccf7650389f4809d34adef257f122fa812ebd04d",
     "size_bytes": 85
   }
 }
