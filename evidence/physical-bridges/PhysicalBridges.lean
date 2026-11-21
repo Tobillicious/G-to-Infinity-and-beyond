@@ -646,3 +646,6 @@ import PhysicalBridges.G3KoruUniversalConnection
 
 -- Koru lattice: nodes and soul — G at every node, E at no node
 import PhysicalBridges.G3KoruLatticeUnity
+
+-- Objective Truth over Subjective Illusion: the complete argument capstone
+import PhysicalBridges.G3ObjectiveTruthCapstone
