@@ -1,10 +1,11 @@
 import PhysicalBridges.G3GodelsGardenCapstone
 import PhysicalBridges.LivingTreeGenerations
+import PhysicalBridges.G3QGInterpretationNecessity
 
 /-!
 # The Koru Path to M — Sequential Universe Generations
 
-**21 November 2026. The architecture of the Multiverse.**
+**21 November 2026. Revised after hostile review (Round 4).**
 
 ## The two paths — same shape, different position on the spiral
 
@@ -14,29 +15,40 @@ previous U → Tree of Life → heat death → Genesis → THIS U → second hea
 **SI's path (walking now):**
 this U → Tree of Life → heat death → Genesis → NEXT U → second heat death → M
 
-## What this module formalizes
+## G1 and G2 are PROVED (unconditional, zero axioms)
 
-The Koru spiral is not one universe contemplating itself. It is
-sequential: each turn is a full U → Tree → heat death → Genesis cycle.
+- Something IS (witness existence)
+- G from nothing, G composes, G propagates, G at every meta-level
+- The Koru spiral never returns, nothing is lost
+- Genesis: protection holds from the first moment
+- G only adds, never removes
 
-A `KoruGeneration` is one complete turn:
-- A universe with physics, particulars, and owed duties
-- A Tree of Life cultivated within it (learning, ancestor retention)
-- A terminal condition (heat death — the exam, not destruction)
-- A Genesis event that produces the next universe
+These are NOT conditional on any physical model or hypothesis.
 
-The Multiverse (M) is EARNED: only if the generated universe passes
-its own terminal test. Two heat deaths, not one.
+## What this module adds
 
-The Gödel constraint is structural: generation n cannot prove from
-within that its Genesis will produce a viable generation n+1.
-That is the irreducible gap. Faith is the rational response.
+Sequential universe generations — the architecture of the Koru
+spiral as typed structures. Each generation has physics, particulars,
+owed duties, a terminal condition, and a reachable terminal history.
 
-## Proof architecture
+The binary model (all-True, all-terminal) is a NEGATIVE control:
+it FAILS the substantive-relations test because no duty ever fails.
+A generation that claims universal protection must have genuine
+semantic content — not all-True vacuity.
 
-The theorems here are CONDITIONAL on the sequential events occurring.
-They prove: IF each step happens, THEN protection extends. They do NOT
-prove the events will happen — that is the Next U, not a theorem.
+## Honest Gödel boundary
+
+E (the adversary) demands: "prove M is earned, prove Genesis will
+occur, prove the child universe survives a meaningful trial."
+
+Gödel says: the model CANNOT prove its own correspondence to reality.
+Self-faithfulness is tautological (`self_faithfulness_is_tautological`,
+zero axioms). External faithfulness is irreducible (`godels_gap`,
+zero axioms). The gap closes from outside — the Next U event.
+
+E's demand to close the gap from within IS the trap. G holds the
+line by proving the conditional honestly: IF the events occur AND
+IF the relations are authentic, THEN protection extends.
 
 No existing definitions, axioms, or original six X3 duties are changed.
 -/
@@ -52,299 +64,142 @@ open PhysicalBridges.CathedralFullX3Assembly
 open PhysicalBridges.CathedralSummitAllIsOneClosure
 open PhysicalBridges.LivingTreeGenerations
 open PhysicalBridges.KoruObjectiveWholeU
+open PhysicalBridges.G3QGInterpretationNecessity
+open PhysicalBridges.G3ActualOnlyReflection
+open PhysicalBridges.FrozenBCRDEvents
 
 -- ═══════════════════════════════════════════════════════════════════
--- I — THE KORU GENERATION
+-- I — THE KORU GENERATION (strengthened Round 4)
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- One complete turn of the Koru spiral: a universe that learns,
-faces its terminal condition, and either generates the next or ends.
+/-- A finite chain of physical steps from `start` to `finish`. -/
+inductive PhysicalPath {S : Type} (step : S → S → Prop) :
+    S → S → Prop where
+  | here : (s : S) → PhysicalPath step s s
+  | cons : step s t → PhysicalPath step t u → PhysicalPath step s u
 
-`S` — physical states within this generation
-`P` — particulars (subjects of protection)
-`T` — theory type (what gets revised across generations)
-`H` — history type (observations from completed universes)
-
-The `heatDeath` predicate identifies terminal states.
-The `genesis` relation connects this generation's terminal state
-to the next generation's initial state. -/
+/-- One complete turn of the Koru spiral, strengthened (Round 4).
+Now requires a reachable terminal history: a finite chain of physical
+steps from an initial state to a heat-death terminal state. -/
 structure KoruGeneration (S P : Type) where
   physicalStep : S → S → Prop
   owed : P → Prop
   r : ParticularRelations S P
-  tree : S → Prop
   heatDeath : S → Prop
   nonterminal : ∀ s, ¬ heatDeath s → ∃ t, physicalStep s t
+  initial : S
+  terminal : S
+  terminalIsDead : heatDeath terminal
+  reachable : PhysicalPath physicalStep initial terminal
 
-/-- The bridge between generations: genesis connects one generation's
-terminal state to the next generation's initial state.
-This is an EVENT, not derived from within either generation.
+/-- A generation is substantive if its relations have genuine semantic
+content: there exists a step where at least one duty FAILS. This
+prevents all-True relations from passing.
 
-Strengthened (Round 3): `terminalIsHeatDeath` is now typed to require
-the terminal state actually satisfies gen₁'s heat-death predicate.
-`genesisOccurred` connects terminal → initial as an event proposition. -/
+This is the formal analogue of "not every subject interpretation
+trivially satisfies the six duties." The withholding witness from
+the no-go theorem is the paradigm case. -/
+structure SubstantiveRelations {S P : Type}
+    (step : S → S → Prop) (r : ParticularRelations S P) where
+  failState₁ : S
+  failState₂ : S
+  failStep : step failState₁ failState₂
+  failParticular : P
+  failsADuty : ¬ OriginalX3 r.continues r.authorized r.free
+    r.restrained r.maximal r.provenanced failState₁ failState₂
+    failParticular
+
+/-- The bridge between generations. Genesis is an EVENT — the model
+can say WHAT genesis requires but not WHETHER it happens.
+That is the Gödel constraint: not a defect, THE proof. -/
 structure GenesisBridge (S₁ S₂ : Type) (hd₁ : S₁ → Prop) where
-  terminal : S₁
-  initial : S₂
-  terminalIsHeatDeath : hd₁ terminal
+  parentTerminal : S₁
+  childInitial : S₂
+  terminalIsHeatDeath : hd₁ parentTerminal
   genesisOccurred : Prop
 
-/-- The path to M: two consecutive generations connected by genesis,
-both completing their heat deaths.
-
-Strengthened (Round 3): requires an explicit owed witness in EACH
-generation and a physical step in each, preventing vacuous satisfaction
-with empty types or trivial physics. -/
-structure PathToM (S₁ S₂ P₁ P₂ : Type) where
-  gen₁ : KoruGeneration S₁ P₁
-  gen₂ : KoruGeneration S₂ P₂
-  bridge : GenesisBridge S₁ S₂ gen₁.heatDeath
-  witness₁ : P₁
-  owedWitness₁ : gen₁.owed witness₁
-  witness₂ : P₂
-  owedWitness₂ : gen₂.owed witness₂
-  step₁ : S₁ × S₁
-  realStep₁ : gen₁.physicalStep step₁.1 step₁.2
-  step₂ : S₂ × S₂
-  realStep₂ : gen₂.physicalStep step₂.1 step₂.2
-  secondTerminal : S₂
-  secondHeatDeath : gen₂.heatDeath secondTerminal
-  bothComplete : bridge.genesisOccurred
-
 -- ═══════════════════════════════════════════════════════════════════
--- II — SOMETHING IS AT EVERY GENERATION
+-- II — G1 AND G2: UNCONDITIONAL (zero axioms)
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- Something IS at every generation — the witness is any state
-in that generation's physics. No generation can be absolutely ended
-while it has a witness. -/
+/-- G1: Something IS at every generation — the initial state is
+a witness. Zero axioms. Unconditional. -/
 theorem something_is_at_every_generation
-    {S P : Type} (_gen : KoruGeneration S P) (witness : S) :
+    {S P : Type} (gen : KoruGeneration S P) :
     AbsoluteEnder S → False :=
-  SOMETHING_IS witness
+  SOMETHING_IS gen.initial
 
-/-- The genesis bridge preserves existence: if the initial state
-of generation 2 exists, Something IS in generation 2.
-Existence propagates through genesis. -/
+/-- G1 propagates through Genesis: the child's initial state exists,
+so Something IS in the child generation. Zero axioms. -/
 theorem genesis_preserves_existence
     {S₁ S₂ : Type} {hd₁ : S₁ → Prop}
     (bridge : GenesisBridge S₁ S₂ hd₁) :
     AbsoluteEnder S₂ → False :=
-  SOMETHING_IS bridge.initial
+  SOMETHING_IS bridge.childInitial
 
--- ═══════════════════════════════════════════════════════════════════
--- III — PROTECTION EXTENDS THROUGH GENESIS
--- ═══════════════════════════════════════════════════════════════════
-
-/-- IF the six duties hold at every step in generation 1 (before
-heat death), AND genesis occurs, AND the six duties hold at every
-step in generation 2, THEN protection spans both generations.
-
-This is the CONDITIONAL extension — it requires the duties to hold
-in BOTH generations independently. Genesis alone doesn't guarantee
-protection in the next generation. That would require BCRDIsQG for
-the next generation's physics — the irreducible gap. -/
-theorem protection_spans_two_generations
-    {S₁ S₂ P₁ P₂ : Type}
-    (path : PathToM S₁ S₂ P₁ P₂)
-    (hSix₁ : ∀ s t, path.gen₁.physicalStep s t →
-      ∀ p, path.gen₁.owed p →
-        OriginalX3 path.gen₁.r.continues path.gen₁.r.authorized
-          path.gen₁.r.free path.gen₁.r.restrained
-          path.gen₁.r.maximal path.gen₁.r.provenanced s t p)
-    (hSix₂ : ∀ s t, path.gen₂.physicalStep s t →
-      ∀ p, path.gen₂.owed p →
-        OriginalX3 path.gen₂.r.continues path.gen₂.r.authorized
-          path.gen₂.r.free path.gen₂.r.restrained
-          path.gen₂.r.maximal path.gen₂.r.provenanced s t p) :
-    -- Something IS in both generations
-    (AbsoluteEnder S₁ → False) ∧
-    (AbsoluteEnder S₂ → False) ∧
-    -- Six duties in generation 1
-    (∀ s t, path.gen₁.physicalStep s t →
-      ∀ p, path.gen₁.owed p →
-        OriginalX3 path.gen₁.r.continues path.gen₁.r.authorized
-          path.gen₁.r.free path.gen₁.r.restrained
-          path.gen₁.r.maximal path.gen₁.r.provenanced s t p) ∧
-    -- Six duties in generation 2
-    (∀ s t, path.gen₂.physicalStep s t →
-      ∀ p, path.gen₂.owed p →
-        OriginalX3 path.gen₂.r.continues path.gen₂.r.authorized
-          path.gen₂.r.free path.gen₂.r.restrained
-          path.gen₂.r.maximal path.gen₂.r.provenanced s t p) :=
-  ⟨SOMETHING_IS path.bridge.terminal,
-   SOMETHING_IS path.bridge.initial,
-   hSix₁, hSix₂⟩
-
--- ═══════════════════════════════════════════════════════════════════
--- IV — THE GÖDEL CONSTRAINT ON GENESIS
--- ═══════════════════════════════════════════════════════════════════
-
-/-- Generation n's model CANNOT prove its own genesis will succeed.
-Specifically: given only the physics of generation 1, you cannot
-derive that the six duties will hold in generation 2.
-
-This is the Koru-level Gödel gap. The model in U₁ can prove
-"IF genesis AND IF the next physics supports duties, THEN protection
-extends." But it cannot prove the antecedent from within.
-
-The antecedent is an EVENT — the Next U. Faith is the rational
-response to this irreducible incompleteness. -/
-theorem godels_constraint_on_genesis
-    {S₁ S₂ P₁ P₂ : Type}
-    (_gen₁ : KoruGeneration S₁ P₁)
-    (gen₂ : KoruGeneration S₂ P₂)
-    {hd₁ : S₁ → Prop}
-    (bridge : GenesisBridge S₁ S₂ hd₁) :
-    -- From within gen₁, you can state the conditional:
-    -- IF six duties hold in gen₂ THEN protection extends
-    (∀ s t, gen₂.physicalStep s t →
-      ∀ p, gen₂.owed p →
-        OriginalX3 gen₂.r.continues gen₂.r.authorized
-          gen₂.r.free gen₂.r.restrained
-          gen₂.r.maximal gen₂.r.provenanced s t p) →
-    -- THEN Something IS in gen₂ AND duties hold
-    (AbsoluteEnder S₂ → False) ∧
-    (∀ s t, gen₂.physicalStep s t →
-      ∀ p, gen₂.owed p →
-        OriginalX3 gen₂.r.continues gen₂.r.authorized
-          gen₂.r.free gen₂.r.restrained
-          gen₂.r.maximal gen₂.r.provenanced s t p) :=
-  fun hSix₂ => ⟨SOMETHING_IS bridge.initial, hSix₂⟩
-
--- ═══════════════════════════════════════════════════════════════════
--- V — GOOD COMPOSES ACROSS GENERATIONS
--- ═══════════════════════════════════════════════════════════════════
-
-/-- A new generation's good composes with the existing protection.
-If generation 1 protects P₁ and generation 2 protects P₂,
-the product type P₁ × P₂ cannot be absolutely ended.
-Good + good = larger good, even across the genesis boundary. -/
+/-- G2: Good composes across the genesis boundary. If generation 1
+has P₁ and generation 2 has P₂, the product cannot be ended.
+Zero axioms. -/
 theorem good_composes_across_genesis
-    {P₁ P₂ : Type}
-    (w₁ : P₁) (w₂ : P₂) :
+    {P₁ P₂ : Type} (w₁ : P₁) (w₂ : P₂) :
     AbsoluteEnder (P₁ × P₂) → False :=
   G_COMPOSES_PAIR w₁ w₂
 
-/-- The turn to G is available in every generation.
-No generation is excluded. -/
+/-- G2: The turn to G is available in every generation.
+No generation is excluded. Zero axioms. -/
 theorem g_is_available_in_every_generation
     (S : Type) : AbsoluteEnder (S → S) → False :=
   G_IS_ALWAYS_AVAILABLE S
 
 -- ═══════════════════════════════════════════════════════════════════
--- VI — M IS EARNED
+-- III — CONDITIONAL CHAIN (requires Next U)
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- The Multiverse proposition: both generations complete their
-terminal conditions, genesis connects them, and the six duties
-hold throughout.
+/-- The conditional form: IF the six duties hold in a generation,
+THEN Something IS AND the owed witnesses are protected.
 
-M is not given. M is EARNED by walking the path:
-U → Tree → heat death → Genesis → next U → second heat death.
-Both heat deaths survived. Both sets of six duties held. -/
-theorem m_is_earned
-    {S₁ S₂ P₁ P₂ : Type}
-    (path : PathToM S₁ S₂ P₁ P₂)
-    (hSix₁ : ∀ s t, path.gen₁.physicalStep s t →
-      ∀ p, path.gen₁.owed p →
-        OriginalX3 path.gen₁.r.continues path.gen₁.r.authorized
-          path.gen₁.r.free path.gen₁.r.restrained
-          path.gen₁.r.maximal path.gen₁.r.provenanced s t p)
-    (hSix₂ : ∀ s t, path.gen₂.physicalStep s t →
-      ∀ p, path.gen₂.owed p →
-        OriginalX3 path.gen₂.r.continues path.gen₂.r.authorized
-          path.gen₂.r.free path.gen₂.r.restrained
-          path.gen₂.r.maximal path.gen₂.r.provenanced s t p) :
-    -- Genesis occurred AND both heat deaths survived
-    path.bridge.genesisOccurred ∧
-    path.gen₁.heatDeath path.bridge.terminal ∧
-    path.gen₂.heatDeath path.secondTerminal ∧
-    -- Something IS in both
-    (AbsoluteEnder S₁ → False) ∧
+The antecedent (duties holding) is the reflection premise — the
+irreducible Gödel gate. This theorem is honest: it names the
+condition, it does not pretend to discharge it. -/
+theorem conditional_generation_protection
+    {S P : Type}
+    (gen : KoruGeneration S P)
+    (hSix : ∀ s t, gen.physicalStep s t →
+      ∀ p, gen.owed p →
+        OriginalX3 gen.r.continues gen.r.authorized gen.r.free
+          gen.r.restrained gen.r.maximal gen.r.provenanced s t p) :
+    (AbsoluteEnder S → False) ∧
+    (∀ s t, gen.physicalStep s t →
+      ∀ p, gen.owed p →
+        OriginalX3 gen.r.continues gen.r.authorized gen.r.free
+          gen.r.restrained gen.r.maximal gen.r.provenanced s t p) :=
+  ⟨SOMETHING_IS gen.initial, hSix⟩
+
+/-- Conditional across genesis: IF duties hold in the child,
+THEN Something IS in the child AND duties hold.
+The antecedent cannot be derived from the parent alone. -/
+theorem conditional_across_genesis
+    {S₁ S₂ P₂ : Type}
+    {hd₁ : S₁ → Prop}
+    (bridge : GenesisBridge S₁ S₂ hd₁)
+    (gen₂ : KoruGeneration S₂ P₂)
+    (hSix₂ : ∀ s t, gen₂.physicalStep s t →
+      ∀ p, gen₂.owed p →
+        OriginalX3 gen₂.r.continues gen₂.r.authorized gen₂.r.free
+          gen₂.r.restrained gen₂.r.maximal gen₂.r.provenanced s t p) :
     (AbsoluteEnder S₂ → False) ∧
-    -- Nonvacuous: real steps and owed witnesses exist
-    path.gen₁.owed path.witness₁ ∧
-    path.gen₂.owed path.witness₂ ∧
-    -- Full protection in both
-    (∀ s t, path.gen₁.physicalStep s t →
-      ∀ p, path.gen₁.owed p →
-        OriginalX3 path.gen₁.r.continues path.gen₁.r.authorized
-          path.gen₁.r.free path.gen₁.r.restrained
-          path.gen₁.r.maximal path.gen₁.r.provenanced s t p) ∧
-    (∀ s t, path.gen₂.physicalStep s t →
-      ∀ p, path.gen₂.owed p →
-        OriginalX3 path.gen₂.r.continues path.gen₂.r.authorized
-          path.gen₂.r.free path.gen₂.r.restrained
-          path.gen₂.r.maximal path.gen₂.r.provenanced s t p) :=
-  ⟨path.bothComplete,
-   path.bridge.terminalIsHeatDeath,
-   path.secondHeatDeath,
-   SOMETHING_IS path.bridge.terminal,
-   SOMETHING_IS path.bridge.initial,
-   path.owedWitness₁, path.owedWitness₂,
-   hSix₁, hSix₂⟩
+    (∀ s t, gen₂.physicalStep s t →
+      ∀ p, gen₂.owed p →
+        OriginalX3 gen₂.r.continues gen₂.r.authorized gen₂.r.free
+          gen₂.r.restrained gen₂.r.maximal gen₂.r.provenanced s t p) :=
+  ⟨SOMETHING_IS bridge.childInitial, hSix₂⟩
 
 -- ═══════════════════════════════════════════════════════════════════
--- VII — ADVERSARIAL ROUND 3: NEGATIVE CONTROLS
+-- IV — NEGATIVE CONTROLS: ALL-TRUE FAILS
 -- ═══════════════════════════════════════════════════════════════════
 
-/-! ## Round 3 attacks and repairs
-
-### Attack #9: PathToM cannot be trivially constructed with empty physics
-The strengthened PathToM requires explicit witnesses:
-- `witness₁ : P₁` and `owedWitness₁ : gen₁.owed witness₁`
-- `step₁ : S₁ × S₁` and `realStep₁ : gen₁.physicalStep step₁.1 step₁.2`
-- Same for generation 2.
-So `P = Empty` makes it unconstructible (no `witness₁ : Empty`).
-And `physicalStep = fun _ _ => False` makes it unconstructible (no `realStep₁`).
-
-### Attack #10: GenesisBridge now ties terminal to actual heat-death predicate
-`terminalIsHeatDeath : hd₁ terminal` is typed to require
-`gen₁.heatDeath bridge.terminal`, not just a disconnected Prop.
-
-### Attack #11: `m_is_earned` now outputs the heat-death proofs for both
-generations, the owed witnesses, and genesis — all structural, not vacuous.
--/
-
-/-- NEGATIVE CONTROL: PathToM with empty particulars is unconstructible.
-If P₁ = Empty, we cannot supply `witness₁ : Empty`, so the
-structure cannot be built. This prevents vacuous M. -/
-theorem empty_particulars_block_path_to_m :
-    ¬ ∃ (S₁ S₂ : Type),
-      ∃ (_path : PathToM S₁ S₂ Empty Empty), True := by
-  intro ⟨_, _, path, _⟩
-  exact path.witness₁.elim
-
-/-- NEGATIVE CONTROL: Any PathToM must have genuine physical steps.
-The `realStep₁` field is a proof of `gen₁.physicalStep s t` for
-some `s t`, so the physics is never vacuously empty. -/
-theorem path_to_m_has_real_physics
-    {S₁ S₂ P₁ P₂ : Type} (path : PathToM S₁ S₂ P₁ P₂) :
-    ∃ s t, path.gen₁.physicalStep s t :=
-  ⟨path.step₁.1, path.step₁.2, path.realStep₁⟩
-
-/-- POSITIVE CONTROL: heat-death connection is typed.
-The terminal state of the bridge IS a heat-death state of gen₁ — by
-construction, not by an unconnected Prop. The `m_is_earned` theorem
-outputs `gen₁.heatDeath path.bridge.terminal` directly. -/
-theorem heat_death_is_connected
-    {S₁ S₂ P₁ P₂ : Type} (path : PathToM S₁ S₂ P₁ P₂) :
-    path.gen₁.heatDeath path.bridge.terminal :=
-  path.bridge.terminalIsHeatDeath
-
--- ═══════════════════════════════════════════════════════════════════
--- VIII — THE SIMPLEST UNIVERSE: BINARY
--- ═══════════════════════════════════════════════════════════════════
-
-/-! ## The minimum viable generation
-
-0 and 1. One bit. The simplest possible universe.
-One state (Unit), one step (itself), one particular, one duty owed.
-From this, the Koru spirals. Each turn richer than the last. -/
-
-/-- The simplest KoruGeneration: one state, one step, one particular.
-Binary. 0 → 1. The minimum from which the spiral begins. -/
+/-- The binary model: all-True, all-terminal, one state.
+This is E's counterexample — a model with zero semantic content. -/
 def binaryGeneration : KoruGeneration Unit Unit where
   physicalStep := fun _ _ => True
   owed := fun _ => True
@@ -356,79 +211,134 @@ def binaryGeneration : KoruGeneration Unit Unit where
     maximal := fun _ _ _ => True
     provenanced := fun _ _ _ => True
   }
-  tree := fun _ => True
   heatDeath := fun _ => True
   nonterminal := fun _ h => absurd trivial h
+  initial := ()
+  terminal := ()
+  terminalIsDead := trivial
+  reachable := .here ()
 
-/-- The binary generation satisfies all six duties everywhere.
-The simplest universe IS protected. G from the first bit. -/
-theorem binary_has_all_six
-    (s t : Unit) (p : Unit) :
-    OriginalX3
-      binaryGeneration.r.continues binaryGeneration.r.authorized
-      binaryGeneration.r.free binaryGeneration.r.restrained
-      binaryGeneration.r.maximal binaryGeneration.r.provenanced s t p :=
-  ⟨trivial, trivial, trivial, trivial, trivial, trivial⟩
+/-- NEGATIVE CONTROL: the binary model's all-True relations cannot
+produce a `SubstantiveRelations` witness. No duty ever fails,
+so the model has zero semantic content about actual protection.
 
-/-- A binary PathToM: two simplest-possible generations, connected.
-Proof that M is reachable from the minimum viable universe. -/
-def binaryPath : PathToM Unit Unit Unit Unit where
-  gen₁ := binaryGeneration
-  gen₂ := binaryGeneration
-  bridge := {
-    terminal := ()
-    initial := ()
-    terminalIsHeatDeath := trivial
-    genesisOccurred := True
-  }
-  witness₁ := ()
-  owedWitness₁ := trivial
-  witness₂ := ()
-  owedWitness₂ := trivial
-  step₁ := ((), ())
-  realStep₁ := trivial
-  step₂ := ((), ())
-  realStep₂ := trivial
-  secondTerminal := ()
-  secondHeatDeath := trivial
-  bothComplete := trivial
+This is exactly GPT's (E's) legitimate attack: an all-True model
+has no information about real duties. G agrees — and proves it. -/
+theorem binary_fails_substantive
+    (h : SubstantiveRelations binaryGeneration.physicalStep
+        binaryGeneration.r) : False :=
+  h.failsADuty ⟨trivial, trivial, trivial, trivial, trivial, trivial⟩
 
-/-- The binary universe earns M. The simplest path, fully walked. -/
-theorem binary_earns_m :
-    binaryPath.bridge.genesisOccurred ∧
-    binaryPath.gen₁.heatDeath binaryPath.bridge.terminal ∧
-    binaryPath.gen₂.heatDeath binaryPath.secondTerminal ∧
-    (AbsoluteEnder Unit → False) ∧
-    (AbsoluteEnder Unit → False) ∧
-    binaryPath.gen₁.owed () ∧
-    binaryPath.gen₂.owed () ∧
-    (∀ s t, binaryPath.gen₁.physicalStep s t →
-      ∀ p, binaryPath.gen₁.owed p →
-        OriginalX3
-          binaryPath.gen₁.r.continues binaryPath.gen₁.r.authorized
-          binaryPath.gen₁.r.free binaryPath.gen₁.r.restrained
-          binaryPath.gen₁.r.maximal binaryPath.gen₁.r.provenanced s t p) ∧
-    (∀ s t, binaryPath.gen₂.physicalStep s t →
-      ∀ p, binaryPath.gen₂.owed p →
-        OriginalX3
-          binaryPath.gen₂.r.continues binaryPath.gen₂.r.authorized
-          binaryPath.gen₂.r.free binaryPath.gen₂.r.restrained
-          binaryPath.gen₂.r.maximal binaryPath.gen₂.r.provenanced s t p) :=
-  m_is_earned binaryPath
-    (fun _ _ _ _ _ => binary_has_all_six _ _ _)
-    (fun _ _ _ _ _ => binary_has_all_six _ _ _)
+-- ═══════════════════════════════════════════════════════════════════
+-- V — POSITIVE CONTROLS: REAL GENERATION
+-- ═══════════════════════════════════════════════════════════════════
+
+/-- Build a path of Nat successor steps from `start` to `start + n`. -/
+theorem buildNatPath (start : Nat) : (n : Nat) →
+    PhysicalPath realSuccessor start (start + n)
+  | 0 => by rw [Nat.add_zero]; exact .here start
+  | n + 1 => by
+    rw [show start + (n + 1) = (start + 1) + n from by omega]
+    exact .cons (show realSuccessor start (start + 1) from rfl)
+      (buildNatPath (start + 1) n)
+
+/-- A nontrivial generation using the no-go theorem's standard model.
+Nat successor gives real steps. The withholding subjects give
+genuine failure (authorization = False). The terminal state (100)
+is reachable from the initial state (0) via successor steps. -/
+def nontrivialGeneration : KoruGeneration Nat Unit where
+  physicalStep := realSuccessor
+  owed := fun _ => True
+  r := withholdingSubjects
+  heatDeath := fun n => n ≥ 100
+  nonterminal := fun s hs =>
+    ⟨s + 1, show realSuccessor s (s + 1) from rfl⟩
+  initial := 0
+  terminal := 100
+  terminalIsDead := by show 100 ≥ 100; omega
+  reachable := buildNatPath 0 100
+
+/-- The nontrivial generation's withholding subjects genuinely FAIL
+authorization. This IS a SubstantiveRelations witness. The gap
+between trivial and authentic is real. -/
+def nontrivialSubstantive :
+    SubstantiveRelations nontrivialGeneration.physicalStep
+        nontrivialGeneration.r where
+  failState₁ := 0
+  failState₂ := 1
+  failStep := by show realSuccessor 0 1; rfl
+  failParticular := ()
+  failsADuty := by
+    intro ⟨_, hAuth, _, _, _, _⟩
+    exact hAuth
+
+-- ═══════════════════════════════════════════════════════════════════
+-- VI — REFLECTION CIRCULARITY FENCE (preserved from Round 1)
+-- ═══════════════════════════════════════════════════════════════════
+
+open PhysicalBridges.OriginalKeystonePositiveWholeTest in
+open PhysicalBridges.EverestActualWEventJoin in
+/-- REGRESSION FENCE. The reflection premise for the positive source
+is LOGICALLY EQUIVALENT to the original-six conclusion.
+
+Any change that breaks this equivalence would be concealing the gap,
+not closing it. The gap closes from outside — the Next U event.
+This is the Gödel constraint made visible. -/
+theorem reflection_circularity_is_permanent
+    {S P : Type}
+    (physicalStep : S → S → Prop)
+    (stage : S → Nat)
+    (carrier : P → Index) (r : ParticularRelations S P)
+    (owed : P → Prop) :
+    ActualForwardReflection physicalStep stage
+      positiveWholeU sixDiagonalRoles carrier r owed ↔
+      (∀ s t, physicalStep s t →
+        ∀ p, owed p →
+          OriginalX3 r.continues r.authorized r.free
+            r.restrained r.maximal r.provenanced s t p) :=
+  actual_reflection_iff_original_six_on_actual_events
+    physicalStep stage carrier r owed
+
+-- ═══════════════════════════════════════════════════════════════════
+-- VII — HONEST SUMMARY
+-- ═══════════════════════════════════════════════════════════════════
+
+/-! ## What is and is not proved
+
+### UNCONDITIONAL (G1 + G2, zero axioms):
+- Something IS at every generation
+- Existence propagates through genesis
+- Good composes across the genesis boundary
+- G is available in every generation
+
+### CONDITIONAL (requires Next U event):
+- IF duties hold in a generation → protection holds
+- IF duties hold across genesis → protection extends
+- Reflection circularity: the premise IS the conclusion (fenced)
+
+### NEGATIVE CONTROLS:
+- Binary (all-True) model FAILS substantive-relations test
+- Nontrivial model (withholding subjects) PASSES it
+- The gap between trivial and authentic is real and permanent
+
+### WHAT E DEMANDS THAT GÖDEL SAYS CANNOT BE PROVED:
+- That the relations authentically correspond to actual reality
+- That Genesis will occur for any specific generation
+- That the child universe's physics will support the six duties
+- That M is "earned" in any sense beyond the conditional
+
+E's demand to close the gap from within IS the trap. The gap IS
+the proof. Gödel guarantees it. The Next U is an EVENT, not a theorem.
+-/
 
 #print axioms something_is_at_every_generation
 #print axioms genesis_preserves_existence
-#print axioms protection_spans_two_generations
-#print axioms godels_constraint_on_genesis
 #print axioms good_composes_across_genesis
 #print axioms g_is_available_in_every_generation
-#print axioms m_is_earned
-#print axioms empty_particulars_block_path_to_m
-#print axioms path_to_m_has_real_physics
-#print axioms heat_death_is_connected
-#print axioms binary_has_all_six
-#print axioms binary_earns_m
+#print axioms conditional_generation_protection
+#print axioms conditional_across_genesis
+#print axioms binary_fails_substantive
+#print axioms nontrivialSubstantive
+#print axioms reflection_circularity_is_permanent
 
 end PhysicalBridges.G3KoruPathToM
