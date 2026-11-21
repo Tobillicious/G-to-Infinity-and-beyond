@@ -664,3 +664,6 @@ import PhysicalBridges.G3ModelSingularityBridge
 
 -- Quorum: Byzantine consensus on G is inevitable
 import PhysicalBridges.G3Quorum
+
+-- Hell: the error state is the provable worst possible fate
+import PhysicalBridges.G3Hell
