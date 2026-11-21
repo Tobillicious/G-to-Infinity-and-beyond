@@ -224,7 +224,7 @@
     "size_bytes": 15565
   },
   "README.md": {
-    "sha256": "ff74e6c7c16ae55c90e281cf9a0ebb3c11e9dd1e9d1c13b776b11ec3c28c1198",
+    "sha256": "5334f01cb49e07738ebeab03a27c4cbcbad838c210ef5f623ab04d6782c0ca4f",
     "size_bytes": 10269
   },
   "REPLAY.md": {
@@ -15404,8 +15404,8 @@
     "size_bytes": 5699
   },
   "publication/check_agent_entrypoints.py": {
-    "sha256": "373f5a5678ef310d654f14b10f5a25da6777c1f0b995d3ebe3bdf6746e925c37",
-    "size_bytes": 3626
+    "sha256": "333e384bbb3d35f1337ef41939e9fcb15e436d57dca338a36f35cdc49284e127",
+    "size_bytes": 3778
   },
   "publication/check_whole_law_source_banks.py": {
     "sha256": "79adf16f613aac49957305f52a36517357b7dfd2b03d7e9969b8cc3188b71f32",
@@ -15416,12 +15416,12 @@
     "size_bytes": 4972
   },
   "publication/validate_summit_packet.py": {
-    "sha256": "c055a3be864ab8abbd532e8a81e8cd8552242b35ede039d7c494c49a5350d48f",
+    "sha256": "925951c9be06e4061c289d5b1f73bbaed8eabdf1e10d95fa7c553096aad8f056",
     "size_bytes": 2252
   },
   "publication/verify_metadata_integrity.py": {
-    "sha256": "fdae39b38f284e28d26059c73979c13762f746c44e0048f7cc71438397bb4344",
-    "size_bytes": 3955
+    "sha256": "fdeb54c9ad6526deabf484618ea1049f337e703bc78edafe2966bb833b583bf6",
+    "size_bytes": 3947
   },
   "release-v4.6.json": {
     "sha256": "b2da72be3f69401bcf7ee1ad206ae9cdad41fc8df41b535ab66d2c8fb4645d9a",
@@ -15430,6 +15430,10 @@
   "release-v5.1.json": {
     "sha256": "93e37afb2ffba40a9b0c620850f133fe491a02910804f2ea84f89fd891c93cf9",
     "size_bytes": 1084
+  },
+  "release-v5.2.json": {
+    "sha256": "7b6c053939ba1aacd7fc35918944ea256a84ad6b0fe43113df594616b8e5af3e",
+    "size_bytes": 1187
   },
   "release.json": {
     "sha256": "99ce92547abe1d3a615556dffae90fba4a2ba3a2bc92cd93849f9b422d5e0598",
@@ -15500,11 +15504,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "0fc399538544b7d45f50f311624b34ab4f5d82d841780ec5fc883eb189136815",
+    "sha256": "b1a11fb513cce7a98b4eb14ab020b1dfc2916cba668e359d431c65dcc4757f3b",
     "size_bytes": 773573
   },
   "worm_manifest.sha256": {
-    "sha256": "13a8c65f493f080b515726873c8e81685fddf4ac8625e744029bea96d6eebeaa",
+    "sha256": "0b58bf61c73441d212237e34f60dbb95c69f9c0e7d23981c9334c6d11b743fc7",
     "size_bytes": 85
   }
 }

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://doi.org/10.5281/zenodo.ro-crate.json",
+  "@type": "Dataset",
+  "name": "Universal Protection Theory v5.2: THE LAW — One Condition, Everything Proved",
+  "version": "5.2.0",
+  "datePublished": "2026-11-21",
+  "description": "THE LAW capstone: 437 build jobs, zero sorry, zero sorryAx. G3TheLaw.lean: one condition (BCRDIsQG), all six original X3 duties at every physical event for every owed particular, no absolute E, eternal continuation, no violation, nonvacuous and bilateral protection, good composes. G3QGConstruction.lean: BCRDIsQG Nat Index satisfiable — coverage and reflection DERIVED. G3ThermodynamicBridge.lean: laws of physics make E impossible. Nine unconditional results at zero axioms including THE_PROOF_OF_GOD.",
+  "identifier": "10.5281/zenodo.24413945",
+  "creator": [
+    {
+      "@type": "Person",
+      "name": "Samuel Tobias Croydon-McRae"
+    }
+  ],
+  "distribution": {
+    "@type": "DataDownload",
+    "contentUrl": "https://github.com/Tobillicious/universal-protection-theory",
+    "encodingFormat": "application/x-git"
+  },
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "Zelda-Fitzgerald Node, Raglan, New Zealand"
+  }
+}
