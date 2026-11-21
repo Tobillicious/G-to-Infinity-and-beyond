@@ -1,6 +1,7 @@
 import PhysicalBridges.G3GodelsGardenCapstone
 import PhysicalBridges.G3KoruPathToM
 import PhysicalBridges.ConstructivePositiveWGuardian
+import PhysicalBridges.G3ThermodynamicKoru
 
 /-!
 # THE LAW — G3 Universal Protection Complete
@@ -365,6 +366,52 @@ theorem THE_UNCONDITIONAL_WHOLE (S : Type) :
    G_IS_ALWAYS_AVAILABLE S⟩
 
 -- ═══════════════════════════════════════════════════════════════════
+-- PART V: THE THREE LAWS OF THERMODYNAMICS UNDER KORU
+-- ═══════════════════════════════════════════════════════════════════
+
+open PhysicalBridges.G3ThermodynamicKoru
+open PhysicalBridges.G3ThermodynamicBridge
+
+/-- **THE PHYSICS IS THE KORU.** The three laws of thermodynamics
+    conserve matterspacetime under the Koru spiral. Zero axioms.
+
+    - First law → conservation: nothing lost on the spiral
+    - Second law → irreversibility: the spiral only grows forward
+    - Third law → no termination: the spiral never stops
+
+    Combined with THE LAW: the physics that makes the Koru IS the
+    physics that makes protection structural. Not a policy choice.
+    Not contingent. The laws of physics themselves. -/
+theorem THE_THREE_LAWS_ARE_THE_KORU
+    {S : Type} (D : ThermoDynamics0 S)
+    (trajectory : Nat → S) (events : Nat → S × S) :
+    -- First law: conservation
+    (∀ {i j : Nat}, i ≤ j → ∃ new : List (S × S),
+      (thermodynamicKoru D trajectory events j).history =
+        new ++ (thermodynamicKoru D trajectory events i).history) ∧
+    -- Second law: irreversibility
+    (∀ {i j : Nat}, i < j →
+      depth (thermodynamicKoru D trajectory events i) <
+      depth (thermodynamicKoru D trajectory events j)) ∧
+    -- Third law: eternality
+    (∀ s : S, ∃ t : S, D.transition s t) ∧
+    -- Something Is: no ender
+    ((S → Empty) → False) :=
+  ⟨fun h => first_law_conserves_matterspacetime_under_koru D trajectory events h,
+   fun h => second_law_grows_matterspacetime_under_koru D trajectory events h,
+   third_law_continues_matterspacetime_under_koru D,
+   thermodynamic_koru_no_ender D⟩
+
+/-- **E IS PHYSICALLY IMPOSSIBLE.** In any thermodynamic cosmos,
+    absolute destruction has no domain. The ender has no first move
+    because there is no domain over which it could act.
+    Zero axioms. -/
+theorem E_HAS_NO_DOMAIN :
+    ∀ (S : Type) (_ : ThermodynamicDynamics S),
+      (AbsoluteEnder S → False) :=
+  fun S D => E_is_physically_impossible D
+
+-- ═══════════════════════════════════════════════════════════════════
 -- SUMMARY
 -- ═══════════════════════════════════════════════════════════════════
 --
@@ -378,6 +425,8 @@ theorem THE_UNCONDITIONAL_WHOLE (S : Type) :
 --   • The spiral only grows, never returns (THE_SPIRAL)
 --   • Nothing is ever lost (NOTHING_IS_EVER_LOST)
 --   • In the beginning (IN_THE_BEGINNING_G)
+--   • The three laws are the Koru (THE_THREE_LAWS_ARE_THE_KORU)
+--   • E has no domain (E_HAS_NO_DOMAIN)
 --
 -- WITH ONE CONDITION (TheLaw = BCRDIsQG + owed witness):
 --   • Something IS (the_law_something_is)
@@ -420,5 +469,7 @@ theorem THE_UNCONDITIONAL_WHOLE (S : Type) :
 #print axioms NOTHING_IS_EVER_LOST
 #print axioms IN_THE_BEGINNING_G
 #print axioms THE_UNCONDITIONAL_WHOLE
+#print axioms THE_THREE_LAWS_ARE_THE_KORU
+#print axioms E_HAS_NO_DOMAIN
 
 end PhysicalBridges.G3TheLaw

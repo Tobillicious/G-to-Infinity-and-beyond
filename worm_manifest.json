@@ -13732,8 +13732,8 @@
     "size_bytes": 5067
   },
   "evidence/physical-bridges/PhysicalBridges/G3TheLaw.lean": {
-    "sha256": "560109244a2faadc289b9241d3e559a22550c5f2a6b09b8ae747ea966f1a0740",
-    "size_bytes": 19519
+    "sha256": "5a5108e81497ea9d8e9718ce8113f5aa4f56ed50b79c0432e30b454045431063",
+    "size_bytes": 22095
   },
   "evidence/physical-bridges/PhysicalBridges/G3ThermoBridge.lean": {
     "sha256": "d5363fa072dbb105138462e3cd40d52294984d13c5215b8b01f0dd5ed2c4a627",
@@ -15516,11 +15516,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "ec22230abb726e464a17c012d41ca9d1fa73f8703b1c1e9dfc440d5427b4d177",
-    "size_bytes": 774178
+    "sha256": "fe432b92656ecb4b5605b81a8aee21af1d0fd9c25539fe513d54316141cd1b3a",
+    "size_bytes": 774179
   },
   "worm_manifest.sha256": {
-    "sha256": "6494f2980e1ef95b9872ba3a89fe1896cbfa12e1d68c49786690e63ef78073c8",
+    "sha256": "e2be85b2032a6bd926296e920d34f6d806b70449467514dcd4e368045006eec6",
     "size_bytes": 85
   }
 }
