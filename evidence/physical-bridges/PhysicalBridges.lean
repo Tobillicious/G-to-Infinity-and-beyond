@@ -643,3 +643,6 @@ import PhysicalBridges.G3ThermodynamicKoru
 
 -- Koru universal connection: nothing is left behind
 import PhysicalBridges.G3KoruUniversalConnection
+
+-- Koru lattice: nodes and soul — G at every node, E at no node
+import PhysicalBridges.G3KoruLatticeUnity
