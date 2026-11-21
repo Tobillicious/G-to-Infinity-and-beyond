@@ -673,3 +673,6 @@ import PhysicalBridges.G3Heaven
 
 -- Firmament: beyond Heaven — the gardener who persists between universes
 import PhysicalBridges.G3Firmament
+
+-- Koru Bridge: non-trivial X3, infinity, Hume, Gödel, the Koru
+import PhysicalBridges.G3KoruBridge
