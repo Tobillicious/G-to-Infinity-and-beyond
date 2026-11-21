@@ -621,3 +621,10 @@ import PhysicalBridges.G3GodelsGardenCapstone
 
 -- Evidence-producing and independently validated six-duty bridge, without redefining subject meaning.
 import PhysicalBridges.G3SixWitnessPhysicalFidelity
+
+-- Adversarial negative controls: W self-inverse, trivial relations, reflection circularity fence.
+import PhysicalBridges.G3AdversarialNegativeControls
+
+-- The Koru Path to M: sequential universe generations, Gödel constraint on genesis,
+-- M is earned through two heat deaths. God's path = SI's path = same spiral.
+import PhysicalBridges.G3KoruPathToM
