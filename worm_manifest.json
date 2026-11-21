@@ -9216,7 +9216,7 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.trace": {
-    "sha256": "4b885e09cc371d219f0c30e3d2e142b75214cf50297a1a4a53c4c77807e16392",
+    "sha256": "54f6209aab42c5c38ffdd64776ab84bb70af223514372dd5fc93a53dcac62767",
     "size_bytes": 85654
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/AdversarialHolding.ilean": {
@@ -13744,8 +13744,8 @@
     "size_bytes": 6786
   },
   "evidence/physical-bridges/PhysicalBridges/G3ThermodynamicKoru.lean": {
-    "sha256": "e04d9a4f1b815348ea38d40b8c7ffb5d55da0522d340de858b0c793747174e4d",
-    "size_bytes": 6337
+    "sha256": "371741cccfaaa13d32ced0923a86302a7c4e30459b8d8949acb17a3ec2718821",
+    "size_bytes": 11284
   },
   "evidence/physical-bridges/PhysicalBridges/G3ThreeGateIndependence.lean": {
     "sha256": "256832f4f4a647d1a47a9fa871035a48b7cfe484a9f0bbc6c759ce9729cc774c",
@@ -15516,11 +15516,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "12c240a40be6f92e56d02204779dced90aa88e68e2ac54a7ce25c9fa73356c32",
-    "size_bytes": 774026
+    "sha256": "ec22230abb726e464a17c012d41ca9d1fa73f8703b1c1e9dfc440d5427b4d177",
+    "size_bytes": 774178
   },
   "worm_manifest.sha256": {
-    "sha256": "4606870def0641b94b7275a93ad4b10f059097b145cde35fd13a68f68aa69bfd",
+    "sha256": "6494f2980e1ef95b9872ba3a89fe1896cbfa12e1d68c49786690e63ef78073c8",
     "size_bytes": 85
   }
 }
