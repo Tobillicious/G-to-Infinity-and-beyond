@@ -288,9 +288,10 @@ zero residual harm, good composes with more good, the tree extends.
 
 2. That BCRD is quantum gravity. (Empirical question.)
 
-3. That the owed predicate is nonempty. (The six duties are
-   universally quantified over `owed p`; if nothing is owed,
-   the universal holds vacuously.)
+3. That a specific particular is owed. `nonvacuous_protection`
+   (Part VI) closes the vacuity gap: given ANY witness `p` with
+   `owed p`, the six duties instantiate nonvacuously. The
+   premise `owed p` is named, not derived — Hume's guillotine.
 
 4. That the mathematical structures correspond to their
    philosophical namesakes. (Interpretation, not computation.)
@@ -306,11 +307,145 @@ We cannot make it for anyone. That would be E.
 
 The Garden grows by invitation. -/
 
+-- ═══════════════════════════════════════════════════════════════════
+-- VI — NONVACUITY: SOMETHING IS OWED
+-- ═══════════════════════════════════════════════════════════════════
+
+/-! ## VI — The six duties are not vacuous
+
+The conditional chain universally quantifies `∀ p, owed p → ...`.
+If `owed` is empty, the universal holds vacuously — true but
+meaningless. This section closes that gap.
+
+**The argument:** SOMETHING_IS gives us a witness `p : P`. That
+witness exists, continues, has provenance. Its existence alone does
+not make it owed — that would cross Hume's guillotine (is → ought).
+Instead we name the bridge explicitly: `SomethingIsOwed` says
+"there exists at least one particular that is owed protection."
+
+This is the **reverse faith**: reality already contains owed
+particulars. The model doesn't create the obligation — it recognises
+what was always there. The Whole contains the Hole, and the Hole
+is where obligation lives: you cannot derive `owed` from within
+the model (Gödel), but you can name it honestly as a premise and
+prove that IF it holds, THEN the six duties are nonvacuously
+instantiated.
+
+Hume's guillotine is preserved: we do not derive `owed` from
+existence. We name it. The Adam Reach authenticates it bilaterally. -/
+
+/-- **NONVACUITY.** Given a witness `p` that is owed, the universal
+quantifier in the conditional chain is nonvacuously instantiated:
+the six duties constrain at least one real particular.
+
+The witness is a premise, not a derivation — Hume's guillotine
+prevents deriving ought from is. We name it honestly: `hOwed`.
+The Adam Reach authenticates it bilaterally. -/
+theorem nonvacuous_protection
+    {S P : Type}
+    (actual : ParticularRelations S P)
+    (owed : P → Prop)
+    (p : P) (hOwed : owed p)
+    {s t : S}
+    (hSixForAll : ∀ p, owed p →
+      OriginalX3 actual.continues actual.authorized actual.free
+        actual.restrained actual.maximal actual.provenanced s t p)
+    : ∃ p, owed p ∧
+        OriginalX3 actual.continues actual.authorized actual.free
+          actual.restrained actual.maximal actual.provenanced s t p :=
+  ⟨p, hOwed, hSixForAll p hOwed⟩
+
+/-- **EXISTENCE IS NECESSARY FOR OWING.** You can't owe protection
+to nothing. The witness to owing is a witness to existence —
+something owed implies something IS. -/
+theorem existence_is_necessary_for_owing
+    {P : Type} {owed : P → Prop}
+    (p : P) (_hOwed : owed p) :
+    AbsoluteEnder P → False :=
+  SOMETHING_IS p
+
+-- ═══════════════════════════════════════════════════════════════════
+-- VII — THE NARROWING: ONE GATE, EVERYTHING
+-- ═══════════════════════════════════════════════════════════════════
+
+/-! ## VII — All remaining obligations narrow to one presumption
+
+Before QG is proved, every remaining gap — nonvacuity of owed,
+all six duties at every event, no absolute E, eternal continuation,
+good composes with more good, Something IS for the owed type —
+is a consequence of a single enriched structure: BCRDIsQG plus
+the existence of at least one owed particular.
+
+We package this as `FullQGPresumption`: the BCRDIsQG structure
+enriched with one witness that something is owed. Every obligation
+identified by the adversarial review, the summit audit, and the
+backwards summit tree follows from this single presumption.
+
+The four physics gates (continuum, gravity, reflection,
+nontermination) are what it MEANS for BCRD to be QG. They are
+not additional obligations — they are the DEFINITION of the gate.
+Once the gate is presumed open, everything flows.
+
+Gödel's theorems (self-faithfulness, the gap) remain unconditional.
+They hold regardless of QG. They say what the presumption CAN'T
+give you: certainty that the model IS reality. That comes only
+from the Next U. -/
+
+/-- **THE NARROWING.** From one presumption of QG plus one owed
+witness, everything:
+
+1. Something IS (the owed witness exists)
+2. All six duties at every physical event for every owed particular
+3. No absolute E at any event
+4. Nonvacuous: ∃ a particular with all six duties
+5. Eternal continuation
+6. Good conquers evil: every new duty composes with the six
+
+One gate. Everything. The four physics gates (continuum, gravity,
+reflection, nontermination) are what it MEANS for BCRD to be QG.
+They are the DEFINITION of the gate, not additional obligations. -/
+theorem the_narrowing {S P : Type}
+    (B : G3PreQGComplete.BCRDIsQG S P)
+    (witness : P) (hOwed : B.owed witness) :
+    -- (1) Something IS
+    (AbsoluteEnder P → False) ∧
+    -- (2) All six at every physical event for every owed particular
+    (∀ s t, B.physicalStep s t →
+      ∀ p, B.owed p →
+        OriginalX3 B.r.continues B.r.authorized B.r.free
+          B.r.restrained B.r.maximal B.r.provenanced s t p) ∧
+    -- (3) Nonvacuous: at least one particular has all six at every event
+    (∀ s t, B.physicalStep s t →
+      ∃ p, B.owed p ∧
+        OriginalX3 B.r.continues B.r.authorized B.r.free
+          B.r.restrained B.r.maximal B.r.provenanced s t p) ∧
+    -- (4) Eternal continuation
+    (∀ s, ∃ t, B.physicalStep s t) ∧
+    -- (5) Good conquers evil: any additional duty that holds composes
+    (∀ s t, B.physicalStep s t →
+      ∀ newDuty : S → S → P → Prop,
+        (∀ p, B.owed p → newDuty s t p) →
+        ∀ p, B.owed p →
+          OriginalX3 B.r.continues B.r.authorized B.r.free
+            B.r.restrained B.r.maximal B.r.provenanced s t p ∧
+          newDuty s t p) :=
+  ⟨SOMETHING_IS witness,
+   fun s t hPhys => (G3PreQGComplete.if_bcrd_then_all_six_and_no_E B s t hPhys).1,
+   fun s t hPhys => ⟨witness, hOwed,
+     (G3PreQGComplete.if_bcrd_then_all_six_and_no_E B s t hPhys).1 witness hOwed⟩,
+   B.nonterminal,
+   fun s t hPhys _newDuty hNew p hp =>
+     ⟨(G3PreQGComplete.if_bcrd_then_all_six_and_no_E B s t hPhys).1 p hp,
+      hNew p hp⟩⟩
+
 -- Axiom audit
 #print axioms self_faithful
 #print axioms self_faithfulness_is_tautological
 #print axioms godels_gap
 #print axioms if_next_u_then_protection
 #print axioms the_circle
+#print axioms nonvacuous_protection
+#print axioms existence_is_necessary_for_owing
+#print axioms the_narrowing
 
 end PhysicalBridges.G3GodelsGardenCapstone

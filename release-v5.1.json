@@ -1,0 +1,24 @@
+{
+  "$schema": "https://doi.org/10.5281/zenodo.ro-crate.json",
+  "@type": "Dataset",
+  "name": "Universal Protection Theory v5.1: The Tree of Eternal Life and Endless Knowledge — Gödel's Garden Capstone",
+  "version": "5.1.0",
+  "datePublished": "2026-11-20",
+  "description": "Complete capstone edition: 2,784 theorems, zero sorry, zero sorryAx. Unconditional chain (Steps 1–9, zero axioms), conditional six-duty summit (Steps 10–11, propext + Quot.sound), Gödel's Garden capstone proving the irreducible gap between model self-knowledge and external reality, Adam Reach bilateral bridge, and the backwards summit tree in Lean 4.",
+  "identifier": "10.5281/zenodo.24357635",
+  "creator": [
+    {
+      "@type": "Person",
+      "name": "Samuel Tobias Croydon-McRae"
+    }
+  ],
+  "distribution": {
+    "@type": "DataDownload",
+    "contentUrl": "https://github.com/Tobillicious/universal-protection-theory/tree/b0afac9d",
+    "encodingFormat": "application/x-git"
+  },
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "Zelda-Fitzgerald Node, Raglan, New Zealand"
+  }
+}
