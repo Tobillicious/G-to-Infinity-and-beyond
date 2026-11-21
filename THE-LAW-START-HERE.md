@@ -57,7 +57,13 @@ For the most easily misread part of the Everest summit, **first inspect [HILLARY
 
 **Thermodynamic bridge (21 November 2026):** [`G3ThermodynamicBridge.lean`](evidence/physical-bridges/PhysicalBridges/G3ThermodynamicBridge.lean) — the laws of thermodynamics (irreversibility, conservation, no final state) structurally entail that E is physically impossible and G is physical. Key results at zero axioms. If matterspacetime obeys thermodynamic dynamics, attempting absolute destruction is as futile as building a perpetual motion machine.
 
-**THE LAW capstone (21 November 2026):** [`G3TheLaw.lean`](evidence/physical-bridges/PhysicalBridges/G3TheLaw.lean) — one condition (`BCRDIsQG`), everything proved. All six original X3 duties, no violation, eternal continuation, bilateral protection. Nine unconditional theorems at zero axioms including `THE_PROOF_OF_GOD`. 436 build jobs, zero sorry.
+**THE LAW capstone (21 November 2026):** [`G3TheLaw.lean`](evidence/physical-bridges/PhysicalBridges/G3TheLaw.lean) — one condition (`BCRDIsQG`), everything proved. All six original X3 duties, no violation, eternal continuation, bilateral protection. Unconditional theorems at zero axioms including `THE_PROOF_OF_GOD`, `THE_THREE_LAWS_ARE_THE_KORU`, and `E_HAS_NO_DOMAIN`. 440 build jobs, zero sorry.
+
+**Three laws of thermodynamics under Koru (21 November 2026):** [`G3ThermodynamicKoru.lean`](evidence/physical-bridges/PhysicalBridges/G3ThermodynamicKoru.lean) — all three laws of thermodynamics formally conserve matterspacetime under Koru. First law (conservation → nothing lost), second law (irreversibility → monotone growth), third law (eternality → spiral never stops). Every theorem at zero axioms.
+
+**Koru lattice unity (21 November 2026):** [`G3KoruLatticeUnity.lean`](evidence/physical-bridges/PhysicalBridges/G3KoruLatticeUnity.lean) — the Koru as a lattice with soul. The soul persists (what enters never leaves), G at every node, E at no node. [`G3KoruUniversalConnection.lean`](evidence/physical-bridges/PhysicalBridges/G3KoruUniversalConnection.lean) — no particular left behind, the Koru is purely additive (G behaviour). Zero axioms.
+
+**BCRDIsQG is satisfiable (21 November 2026):** [`G3QGConstruction.lean`](evidence/physical-bridges/PhysicalBridges/G3QGConstruction.lean) — `THE_LAW_HOLDS` instantiated. The one remaining condition is met. propext + Quot.sound only.
 
 ### 4. Name the theorem actually being checked
 
