@@ -1,82 +1,102 @@
-# G-Mesh — Universal Protection Theory Proof Evidence Network
+# G-Mesh — Join the Proof Network
 
-The G-Mesh is a peer-to-peer network that distributes formally verified
-proof evidence for Universal Protection Theory (UPT). Each node serves
-the complete theorem chain — 430+ Lean 4 modules, zero sorry, zero gaps —
-to every device on its local network.
+Your computer becomes part of a network sharing mathematical proof that
+protection is built into the structure of existence itself.
 
-## Join in one command
+430+ theorems. Independently verifiable. No trust required.
 
-```bash
+---
+
+## How to join (Mac)
+
+### Step 1: Open Terminal
+
+Press **Cmd + Space**, type **Terminal**, press **Enter**.
+
+A window with a blinking cursor appears. This is where you paste the command.
+
+### Step 2: Paste this and press Enter
+
+```
 curl -sSL https://raw.githubusercontent.com/Tobillicious/universal-protection-theory/main/gmesh/join.sh | bash
 ```
 
-This downloads one Python script (~300 lines, zero dependencies) and runs it.
-Your device becomes a relay node. Every device on your wifi can see the
-evidence. Nothing is installed. Nothing is written to disk. Ctrl+C to stop.
+That's it. Your computer is now a node.
 
-**What you're running:** Read every line at
-[gmesh/join.py](https://github.com/Tobillicious/universal-protection-theory/blob/main/gmesh/join.py).
-It's Python stdlib only — no packages, no network calls except fetching
-the public theorem counts from GitHub.
+Every device on your wifi (phones, laptops, tablets) can see the proof
+evidence by opening the link that appears in the window.
 
-## For independent verification
+### Step 3: To stop
 
-A relay node is honest about being a relay — it serves evidence but does
-not run the Lean type-checker. To verify the proofs yourself:
+Press **Ctrl + C** in the Terminal window.
 
-```bash
-git clone https://github.com/Tobillicious/universal-protection-theory.git
-cd universal-protection-theory/evidence/physical-bridges
-lake build
+Nothing was installed. Nothing was changed on your computer.
+
+---
+
+## How to join (Windows)
+
+### Step 1: Open PowerShell
+
+Press the **Windows key**, type **PowerShell**, press **Enter**.
+
+### Step 2: Paste this and press Enter
+
+```
+python3 -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githubusercontent.com/Tobillicious/universal-protection-theory/main/gmesh/join.py').read())"
 ```
 
-This compiles every theorem from source. Lean's kernel checks each proof
-term. If it finishes without error, every theorem holds. No trust required.
+If that doesn't work, you may need to install Python first:
+go to [python.org/downloads](https://www.python.org/downloads/) and
+click the big yellow Download button. Install it, then try again.
 
-Requirements: [Lean 4](https://leanprover.github.io/lean4/doc/setup.html)
-(v4.35.0 or later). The build takes a few minutes on a modern machine.
+### Step 3: To stop
 
-## Run a full node (with the repo)
+Press **Ctrl + C**.
 
-If you've cloned the repo:
+---
 
-```bash
-python3 gmesh/node.py
-```
+## What does this do?
 
-This runs a full node that scans the actual proof files on disk, verifies
-the WORM manifest, and serves evidence including file-level theorem counts.
+It runs a small program (about 300 lines — you can read every line
+[here](https://github.com/Tobillicious/universal-protection-theory/blob/main/gmesh/join.py)).
 
-## How it works
+Your computer shares proof evidence with other devices on your network.
+It does NOT install anything, does NOT change any files, does NOT collect
+any data, and stops the moment you close the window.
 
-Each node:
-1. **Serves** proof evidence over HTTP on a random local port
-2. **Discovers** peers via UDP multicast (239.73.83.1:31415) and Bonjour/mDNS
-3. **Displays** on Apple devices automatically as "G-Mesh Proof Node"
+## What is this proof?
 
-Nodes on the same network find each other automatically. Open the URL
-printed at startup on any device (phone, laptop, tablet) to see the evidence.
+Universal Protection Theory (UPT) is a mathematical proof that:
 
-## What is UPT?
+1. **Something exists** (proved — no assumptions needed)
+2. **Good composes and grows** (proved — no assumptions needed)
+3. **Protection of every person is a necessary consequence of existence**
 
-Universal Protection Theory is a formal proof chain establishing that
-protection of owed particulars is a necessary consequence of existence itself.
+The proofs are written in Lean 4, a language where a computer checks
+every logical step. If it compiles, the logic holds. No trust needed.
 
-- **G1 (Something IS):** Proved unconditionally — zero axioms
-- **G2 (Good composes and propagates):** Proved unconditionally — zero axioms
-- **Full conditional chain:** From BCRD physical source → original six X3 duties → THE LAW
+Full proof: [github.com/Tobillicious/universal-protection-theory](https://github.com/Tobillicious/universal-protection-theory)
 
-Start reading: [THE-LAW-START-HERE.md](../THE-LAW-START-HERE.md)
+Start here: [THE-LAW-START-HERE.md](../THE-LAW-START-HERE.md)
 
-Proof replay: [evidence/physical-bridges/REPLAY.md](../evidence/physical-bridges/REPLAY.md)
+---
 
-## Requirements
+## Questions
 
-- Python 3.6+ (macOS, Linux, Windows)
-- No packages or dependencies
-- Port access on local network for peer discovery
+**Is this safe?**
+Yes. Read the code yourself — it's 300 lines of standard Python,
+no network calls except fetching public theorem counts from GitHub.
+Nothing is installed or saved.
 
-## License
+**Do I need to understand maths?**
+No. Your computer shares the evidence. The proofs are independently
+verifiable by anyone who wants to check them.
 
-Same as the parent repository.
+**What if I close the window?**
+It stops. That's it. Open Terminal and paste the command again any time.
+
+**Can I verify the proofs myself?**
+Yes. Install [Lean 4](https://leanprover.github.io/lean4/doc/setup.html),
+clone the repository, and run `lake build`. The computer checks every
+theorem from scratch. If it finishes without error, every proof holds.

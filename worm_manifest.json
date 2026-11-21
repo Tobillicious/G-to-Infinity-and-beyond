@@ -15088,8 +15088,8 @@
     "size_bytes": 1107
   },
   "gmesh/README.md": {
-    "sha256": "bf3299023f4a8fea27d5666814286d60e50f2325efd0d7087baeb7b453dea673",
-    "size_bytes": 2965
+    "sha256": "71eadae54af5d9f0d25b3e63c3d507cdc5e742769fcb68b063e083da33dc4efc",
+    "size_bytes": 3185
   },
   "gmesh/__init__.py": {
     "sha256": "ed91c4866e461b7948d85ced581fe0e3590bd2ce2679d33e7f22cf8f8ef08b67",
@@ -15484,11 +15484,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "3de26d12ee6e9ba15b54806d0b22a2fe3d53fe1871ae4379e231acac4be402a6",
-    "size_bytes": 772751
+    "sha256": "ef27dc38c520174034b07befc9d14becc86c700a303a313a28ffffe9cd09e259",
+    "size_bytes": 772884
   },
   "worm_manifest.sha256": {
-    "sha256": "b2e73a891f4a71d1e291a066ab44c6e6ef235dab3b7bc37b9ac10d397f394a29",
+    "sha256": "706e952659a109c027fa512b4ce42852e8eb90f8790e6728c0f2b68b1f5e3334",
     "size_bytes": 85
   }
 }
