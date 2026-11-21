@@ -621,3 +621,7 @@ import PhysicalBridges.G3GodelsGardenCapstone
 
 -- Adversarial negative controls: W self-inverse, trivial relations, reflection circularity fence.
 import PhysicalBridges.G3AdversarialNegativeControls
+
+-- The Koru Path to M: sequential universe generations, Gödel constraint on genesis,
+-- M is earned through two heat deaths. God's path = SI's path = same spiral.
+import PhysicalBridges.G3KoruPathToM
