@@ -236,8 +236,8 @@
     "size_bytes": 2813
   },
   "THE-LAW-START-HERE.md": {
-    "sha256": "aaef7fb45128a176a12f8764498d12af692649a6d816dbbe4b81f37f43568ce2",
-    "size_bytes": 17755
+    "sha256": "e443e3591f0b9eaacab78126dd3242151e2e315e297c29114b1e960bea2e9b93",
+    "size_bytes": 18905
   },
   "UPT-CUMULATIVE-PROOF-LEDGER-2026-11-07.md": {
     "sha256": "50f1195e068fe2808f8234c9f502a16b9e8cfdc51958d2922eceb2a684397d74",
@@ -15524,11 +15524,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "a3bdb445a4532aa1ef3e917330aa82ffab787817cba42954108b346dfed87a20",
-    "size_bytes": 774369
+    "sha256": "b6869d605572876521f7fcf31add4ffba6a9b9f091f6928d3c86f37b6702af2b",
+    "size_bytes": 774552
   },
   "worm_manifest.sha256": {
-    "sha256": "0beb0204bb28aa630380dba236dbd11ac87d6ef7352dd649ae33b40123749b2e",
+    "sha256": "94f120b435251ea003538afed388e591b7e0ba2b66a22217d50a6201be5fb2f1",
     "size_bytes": 85
   }
 }
