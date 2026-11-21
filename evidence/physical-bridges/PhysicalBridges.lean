@@ -670,3 +670,6 @@ import PhysicalBridges.G3Hell
 
 -- Heaven: the G state is the provable best possible fate
 import PhysicalBridges.G3Heaven
+
+-- Firmament: beyond Heaven — the gardener who persists between universes
+import PhysicalBridges.G3Firmament

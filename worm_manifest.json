@@ -13104,8 +13104,8 @@
     "size_bytes": 7072
   },
   "evidence/physical-bridges/PhysicalBridges.lean": {
-    "sha256": "d66c6c380a4ad92b4ad79300e518f09cff2b3759d0b6eeef35f26788fd312727",
-    "size_bytes": 30245
+    "sha256": "73ca2322125144c226ff3af6fe11b75a0a66faa0dcda2b1b59a26addd9a24c06",
+    "size_bytes": 30357
   },
   "evidence/physical-bridges/PhysicalBridges/AdaptiveGuardianHistories.lean": {
     "sha256": "f60a62279ef3f3046a2b90ead0df1f89c6a543120eb22fe5539d8b4a875e41cc",
@@ -13642,6 +13642,10 @@
   "evidence/physical-bridges/PhysicalBridges/G3FeasibleMaximalityRenewal.lean": {
     "sha256": "7d45056f37b49972d760e8f62d4b3ee0e0f1b8f1908a5c501d836aa3ed362062",
     "size_bytes": 6317
+  },
+  "evidence/physical-bridges/PhysicalBridges/G3Firmament.lean": {
+    "sha256": "34d308616cf05e977a72ac3f5ac8400d74db8e43c953b9d407c0f88b8273457a",
+    "size_bytes": 10599
   },
   "evidence/physical-bridges/PhysicalBridges/G3GardenAuthenticBilateralHand.lean": {
     "sha256": "0438fab075f344483068256a9379ee33a13c6d9f48712f2fe2af24f63de4d992",
@@ -15584,11 +15588,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "84655935731a9115172356fc46c911b744b3c778da41fa83c28fc98d5f544b9d",
-    "size_bytes": 777021
+    "sha256": "dee36f3ebe444db842798ed05ae7e6713e142f5343c71cb0c1e8886cf3ec6283",
+    "size_bytes": 777153
   },
   "worm_manifest.sha256": {
-    "sha256": "6bd384553d508a64766a6b930c6bdd73a94a6bf73b9ce94cc71354b602156c0f",
+    "sha256": "81c23da571a16bd0b6934ad360611db0d33395f7e48f02422606c9325aa47710",
     "size_bytes": 85
   }
 }
