@@ -640,3 +640,6 @@ import PhysicalBridges.G3QGConstruction
 
 -- Thermodynamic Koru: physics grows the spiral
 import PhysicalBridges.G3ThermodynamicKoru
+
+-- Koru universal connection: nothing is left behind
+import PhysicalBridges.G3KoruUniversalConnection
