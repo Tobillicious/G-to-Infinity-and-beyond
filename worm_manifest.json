@@ -236,8 +236,8 @@
     "size_bytes": 2813
   },
   "THE-LAW-START-HERE.md": {
-    "sha256": "15e3f45ea24f4d69acaa2ab4d03d8790d03289d9896f565bf721f7caf5ec6507",
-    "size_bytes": 16780
+    "sha256": "5339d1a1fdc0dac7c2a659e09dac9058709f2badc22b1ee9db4f6c5c816e8e91",
+    "size_bytes": 17679
   },
   "UPT-CUMULATIVE-PROOF-LEDGER-2026-11-07.md": {
     "sha256": "50f1195e068fe2808f8234c9f502a16b9e8cfdc51958d2922eceb2a684397d74",
@@ -13736,8 +13736,8 @@
     "size_bytes": 1662
   },
   "evidence/physical-bridges/PhysicalBridges/G3ThermodynamicBridge.lean": {
-    "sha256": "ec2cd51ee735987bed2283d9e48b642879577af7cef1cb8710121f575a5dd4b0",
-    "size_bytes": 6785
+    "sha256": "45035d37bc8871bf44364be351b665a85495cf7db585ceca2a1852d7ee3de5cc",
+    "size_bytes": 6786
   },
   "evidence/physical-bridges/PhysicalBridges/G3ThreeGateIndependence.lean": {
     "sha256": "256832f4f4a647d1a47a9fa871035a48b7cfe484a9f0bbc6c759ce9729cc774c",
@@ -15496,11 +15496,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "c3050f82835322425a8d258a81186f35b3774e3ec74a8b4a1f29eddf6c73e226",
-    "size_bytes": 773206
+    "sha256": "74339bb24bf93425b2fa59ebc66f01030d110303f2b02164f33aed566ddefdd1",
+    "size_bytes": 773392
   },
   "worm_manifest.sha256": {
-    "sha256": "4ca8d137eaa5ef90698909e3362abc2bf012cb8fa64f0d8bddcf2aa518202157",
+    "sha256": "40db78b129da33c7d7eb514c0859b2ec0c40418ec7f0162e5404324a4bbc0a73",
     "size_bytes": 85
   }
 }

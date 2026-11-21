@@ -61,7 +61,7 @@ theorem first_law_conservation (M : Nat) (s t : St) (h : genesis M s t) :
 /-- In the cyclic-genesis cosmos, every state has a successor.
     Therefore the state type is inhabited by forward-reachable states,
     and an absolute ender (mapping all states to Empty) is impossible. -/
-theorem thermodynamic_cosmos_has_no_absolute_ender (M : Nat) :
+theorem thermodynamic_cosmos_has_no_absolute_ender (_M : Nat) :
     (St → Empty) → False :=
   fun f => (f (0, 0, true)).elim
 
