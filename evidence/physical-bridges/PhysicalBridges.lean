@@ -634,3 +634,6 @@ import PhysicalBridges.G3TheLaw
 
 -- Thermodynamic bridge: laws of physics → E is impossible, G is physical.
 import PhysicalBridges.G3ThermodynamicBridge
+
+-- QG: the gate closes. BCRDIsQG is satisfiable. THE LAW holds.
+import PhysicalBridges.G3QGConstruction

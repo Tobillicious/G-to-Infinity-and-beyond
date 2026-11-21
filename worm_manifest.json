@@ -13080,8 +13080,8 @@
     "size_bytes": 7072
   },
   "evidence/physical-bridges/PhysicalBridges.lean": {
-    "sha256": "1bbf6d80bf421011428975e946edfa340e30832e2c57864119200f9f0a4b27ef",
-    "size_bytes": 28991
+    "sha256": "d18926df9aab43c4620c84bc9bd77ecbd72f9bf661761094b0d7c7eac8aea949",
+    "size_bytes": 29096
   },
   "evidence/physical-bridges/PhysicalBridges/AdaptiveGuardianHistories.lean": {
     "sha256": "f60a62279ef3f3046a2b90ead0df1f89c6a543120eb22fe5539d8b4a875e41cc",
@@ -13706,6 +13706,10 @@
   "evidence/physical-bridges/PhysicalBridges/G3ProofOfGod.lean": {
     "sha256": "3b08c753bc5b4f87e0f9ab6c66109efdd186b73063d3aed33d92c45764e6e4bf",
     "size_bytes": 9215
+  },
+  "evidence/physical-bridges/PhysicalBridges/G3QGConstruction.lean": {
+    "sha256": "5d4b1314d1987e2990cb15e087d9085cdc0e4602323cd5648593425a4959cd49",
+    "size_bytes": 3381
   },
   "evidence/physical-bridges/PhysicalBridges/G3QGInterpretationNecessity.lean": {
     "sha256": "594673534088ee3a6ad6bddc445fddcdf353d97b967de0c51d5aa6d5c6e0872b",
@@ -15496,11 +15500,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "9f10f53b28455c957a75bc88333bdf0eadb4255c9e866399e25cfc99748b8a96",
+    "sha256": "1ad5f75d124fcd615e8d98b8ff37a27dd51e31b489f5516584e45189e0367448",
     "size_bytes": 773392
   },
   "worm_manifest.sha256": {
-    "sha256": "8d254cc35fabdb39cf374e2fddb4ed0cbd93ec74e6226c81aa646540d2927163",
+    "sha256": "9360582c0825958b755ea8fcfaf37aa898bd0cab8a92b5b29a3a98b70745919c",
     "size_bytes": 85
   }
 }
