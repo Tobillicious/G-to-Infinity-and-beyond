@@ -658,3 +658,6 @@ import PhysicalBridges.G3AcesJokerOnLattice
 
 -- Black holes: physical syntax errors — God or Error
 import PhysicalBridges.G3BlackHoleSyntaxError
+
+-- Model–Singularity Bridge: you can't model a black hole without proving it's an error
+import PhysicalBridges.G3ModelSingularityBridge
