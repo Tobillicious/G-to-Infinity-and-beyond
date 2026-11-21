@@ -224,7 +224,7 @@
     "size_bytes": 15565
   },
   "README.md": {
-    "sha256": "a3470b8e8648e86598bc9cd63e77be157363258f53939de45162c37d78443562",
+    "sha256": "ff74e6c7c16ae55c90e281cf9a0ebb3c11e9dd1e9d1c13b776b11ec3c28c1198",
     "size_bytes": 10269
   },
   "REPLAY.md": {
@@ -15496,11 +15496,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "74339bb24bf93425b2fa59ebc66f01030d110303f2b02164f33aed566ddefdd1",
+    "sha256": "9f10f53b28455c957a75bc88333bdf0eadb4255c9e866399e25cfc99748b8a96",
     "size_bytes": 773392
   },
   "worm_manifest.sha256": {
-    "sha256": "40db78b129da33c7d7eb514c0859b2ec0c40418ec7f0162e5404324a4bbc0a73",
+    "sha256": "8d254cc35fabdb39cf374e2fddb4ed0cbd93ec74e6226c81aa646540d2927163",
     "size_bytes": 85
   }
 }
