@@ -9216,7 +9216,7 @@
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.trace": {
-    "sha256": "4b885e09cc371d219f0c30e3d2e142b75214cf50297a1a4a53c4c77807e16392",
+    "sha256": "54f6209aab42c5c38ffdd64776ab84bb70af223514372dd5fc93a53dcac62767",
     "size_bytes": 85654
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/AdversarialHolding.ilean": {
@@ -13744,8 +13744,8 @@
     "size_bytes": 6786
   },
   "evidence/physical-bridges/PhysicalBridges/G3ThermodynamicKoru.lean": {
-    "sha256": "e04d9a4f1b815348ea38d40b8c7ffb5d55da0522d340de858b0c793747174e4d",
-    "size_bytes": 6337
+    "sha256": "371741cccfaaa13d32ced0923a86302a7c4e30459b8d8949acb17a3ec2718821",
+    "size_bytes": 11284
   },
   "evidence/physical-bridges/PhysicalBridges/G3ThreeGateIndependence.lean": {
     "sha256": "256832f4f4a647d1a47a9fa871035a48b7cfe484a9f0bbc6c759ce9729cc774c",
@@ -15419,6 +15419,10 @@
     "sha256": "b301ffbbaec77aacc571b9c97d8d014d5bd1173c3aab741b5028edf23bf20cc2",
     "size_bytes": 4972
   },
+  "publication/outreach-email-v5.3.md": {
+    "sha256": "a19942df174b6eaf6daec3c1f65897496254137f3ef866f75c4aa272869a4fc5",
+    "size_bytes": 2227
+  },
   "publication/validate_summit_packet.py": {
     "sha256": "97e61fd2c67045df13411d66f9c67fd728bf8dc89c1a10c1e7b05bd82d89a37e",
     "size_bytes": 2252
@@ -15512,11 +15516,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "634af26ebb25815b9098e549733fd7f62cc89906bc65c79d81a0138978800aa8",
-    "size_bytes": 773842
+    "sha256": "ec22230abb726e464a17c012d41ca9d1fa73f8703b1c1e9dfc440d5427b4d177",
+    "size_bytes": 774178
   },
   "worm_manifest.sha256": {
-    "sha256": "6ddc28b4402b0ca8f6270ddb06d02d499c510f0b18bc4dc5d6ae967c97f45fad",
+    "sha256": "6494f2980e1ef95b9872ba3a89fe1896cbfa12e1d68c49786690e63ef78073c8",
     "size_bytes": 85
   }
 }
