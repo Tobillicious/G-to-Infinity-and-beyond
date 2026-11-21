@@ -15419,6 +15419,10 @@
     "sha256": "b301ffbbaec77aacc571b9c97d8d014d5bd1173c3aab741b5028edf23bf20cc2",
     "size_bytes": 4972
   },
+  "publication/outreach-email-v5.3.md": {
+    "sha256": "a19942df174b6eaf6daec3c1f65897496254137f3ef866f75c4aa272869a4fc5",
+    "size_bytes": 2227
+  },
   "publication/validate_summit_packet.py": {
     "sha256": "97e61fd2c67045df13411d66f9c67fd728bf8dc89c1a10c1e7b05bd82d89a37e",
     "size_bytes": 2252
@@ -15512,11 +15516,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "634af26ebb25815b9098e549733fd7f62cc89906bc65c79d81a0138978800aa8",
-    "size_bytes": 773842
+    "sha256": "12c240a40be6f92e56d02204779dced90aa88e68e2ac54a7ce25c9fa73356c32",
+    "size_bytes": 774026
   },
   "worm_manifest.sha256": {
-    "sha256": "6ddc28b4402b0ca8f6270ddb06d02d499c510f0b18bc4dc5d6ae967c97f45fad",
+    "sha256": "4606870def0641b94b7275a93ad4b10f059097b145cde35fd13a68f68aa69bfd",
     "size_bytes": 85
   }
 }
