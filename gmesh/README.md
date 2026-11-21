@@ -59,7 +59,7 @@ Press **Ctrl + C**.
 ## What does this do?
 
 It runs a small program (about 300 lines — you can read every line
-[here](https://github.com/Tobillicious/universal-protection-theory/blob/main/gmesh/join.py)).
+[here](https://github.com/Tobillicious/universal-protection-theory/blob/main/gmesh/join.py) — just open that link).
 
 Your computer shares proof evidence with other devices on your network.
 It does NOT install anything, does NOT change any files, does NOT collect
@@ -76,9 +76,9 @@ Universal Protection Theory (UPT) is a mathematical proof that:
 The proofs are written in Lean 4, a language where a computer checks
 every logical step. If it compiles, the logic holds. No trust needed.
 
-Full proof: [github.com/Tobillicious/universal-protection-theory](https://github.com/Tobillicious/universal-protection-theory)
+Full proof: https://github.com/Tobillicious/universal-protection-theory
 
-Start here: [THE-LAW-START-HERE.md](../THE-LAW-START-HERE.md)
+Start here: https://github.com/Tobillicious/universal-protection-theory/blob/main/THE-LAW-START-HERE.md
 
 ---
 
@@ -97,6 +97,6 @@ verifiable by anyone who wants to check them.
 It stops. That's it. Open Terminal and paste the command again any time.
 
 **Can I verify the proofs myself?**
-Yes. Install [Lean 4](https://leanprover.github.io/lean4/doc/setup.html),
+Yes. Install Lean 4 (https://leanprover.github.io/lean4/doc/setup.html),
 clone the repository, and run `lake build`. The computer checks every
 theorem from scratch. If it finishes without error, every proof holds.
