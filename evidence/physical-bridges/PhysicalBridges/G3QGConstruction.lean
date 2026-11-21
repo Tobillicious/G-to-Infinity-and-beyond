@@ -46,16 +46,17 @@ open PhysicalBridges.KoruObjectiveWholeU
     reflection are DERIVED (not assumed) from the constructive
     positive-W Guardian model. Nontermination is trivial on Nat. -/
 def QG : BCRDIsQG Nat Index :=
-  { physicalStep := canonicalPositiveWStep
-    modeledStep := canonicalPositiveWStep
-    source := fun (n : Nat) => objectiveAt positiveWholeU n
-    stage := fun (n : Nat) => n
-    carrier := fun (i : Index) => i
-    r := canonicalPositiveWSubjects
-    owed := fun (_ : Index) => True
-    coverage := canonical_positive_W_has_complete_model_coverage
-    reflection := canonical_positive_W_has_formal_six_reflection
-    nonterminal := fun s => ⟨s + 1, rfl⟩ }
+  @BCRDIsQG.mk Nat Index
+    canonicalPositiveWStep
+    canonicalPositiveWStep
+    (fun (n : Nat) => objectiveAt positiveWholeU n)
+    (fun (n : Nat) => n)
+    (fun (i : Index) => i)
+    canonicalPositiveWSubjects
+    (fun (_ : Index) => True)
+    canonical_positive_W_has_complete_model_coverage
+    canonical_positive_W_has_formal_six_reflection
+    (fun s => ⟨s + 1, rfl⟩)
 
 /-- QG exists. The condition is not vacuous. -/
 theorem QG_is_satisfiable : ∃ _ : BCRDIsQG Nat Index, True :=
@@ -76,10 +77,8 @@ theorem QG_eternal : ∀ s, ∃ t, QG.physicalStep s t :=
   if_bcrd_then_eternal QG
 
 /-- **THE LAW is instantiated.** -/
-def THE_LAW_HOLDS : TheLaw Nat Index where
-  qg := QG
-  witness := (⟨0, by omega⟩ : Fin 6)
-  witnessOwed := by unfold QG; trivial
+def THE_LAW_HOLDS : TheLaw Nat Index :=
+  @TheLaw.mk Nat Index QG (⟨0, by omega⟩ : Fin 6) trivial
 
 /-! ## Axiom audit -/
 

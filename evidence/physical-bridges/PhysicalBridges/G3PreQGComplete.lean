@@ -32,6 +32,8 @@ This is ASSEMBLY of what already exists.
 QG comes last. Everything else is done.
 -/
 
+set_option autoImplicit false
+
 namespace PhysicalBridges.G3PreQGComplete
 
 open PhysicalBridges.FullPhysicalDomainGuardianAssembly
@@ -43,6 +45,7 @@ open PhysicalBridges.G3KoruSpiral
 open PhysicalBridges.G3Genesis
 open PhysicalBridges.Koru
 open PhysicalBridges.KoruObjectiveWholeU
+open PhysicalBridges.OriginalKeystonePositiveWholeTest
 open PhysicalBridges.BCRDTransportedParticularMarker
 open PhysicalBridges.FrozenBCRDEvents
 open PhysicalBridges.CathedralFullX3Assembly
