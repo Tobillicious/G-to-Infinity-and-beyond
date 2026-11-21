@@ -655,3 +655,6 @@ import PhysicalBridges.G3InfiniteG
 
 -- Four Aces and Joker on the Koru lattice: universe generations as spiral
 import PhysicalBridges.G3AcesJokerOnLattice
+
+-- Black holes: physical syntax errors — God or Error
+import PhysicalBridges.G3BlackHoleSyntaxError
