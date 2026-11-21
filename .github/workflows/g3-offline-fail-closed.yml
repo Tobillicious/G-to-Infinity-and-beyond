@@ -1,0 +1,76 @@
+name: G3 offline cross-component fail-closed acceptance
+
+on:
+  pull_request:
+    paths:
+      - 'evidence/execution-boundary/g3_offline_acceptance/**'
+      - '.github/workflows/g3-offline-fail-closed.yml'
+      - 'evidence/execution-boundary/g3_authority_evidence/**'
+      - 'evidence/execution-boundary/g3_rights_review/**'
+      - 'evidence/execution-boundary/g3_rights_veto/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  isolated-negative-controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned offline crypto dependency
+        run: python -m pip install 'cryptography==46.0.4'
+      - name: Run independent authority-record rejection tests
+        run: |
+          cd evidence/execution-boundary/g3_authority_evidence
+          python -B -m unittest -v test_authority_evidence.py
+      - name: Run subject-specific rights-review rejection tests
+        run: |
+          cd evidence/execution-boundary/g3_rights_review
+          python -B -m unittest -v test_rights_review.py
+      - name: Run durable withdrawal and rollback rejection tests
+        run: |
+          cd evidence/execution-boundary/g3_rights_veto
+          python -B -m unittest -v test_rights_veto.py test_external_checkpoint.py
+
+  physical-readiness-gate:
+    needs: isolated-negative-controls
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned offline crypto dependency
+        run: python -m pip install 'cryptography==46.0.4'
+      - name: Run cross-component probe — expected to block physical readiness
+        shell: bash
+        run: |
+          set +e
+          python -B evidence/execution-boundary/g3_offline_acceptance/fail_closed_acceptance.py > readiness.json
+          status=$?
+          cat readiness.json
+          echo "probe_exit_code=$status" >> "$GITHUB_STEP_SUMMARY"
+          cp readiness.json "$RUNNER_TEMP/readiness.json"
+          if [ "$status" -eq 1 ]; then
+            echo "ERROR: negative control failed; inspect readiness.json"
+            exit 1
+          fi
+          if [ "$status" -ne 2 ]; then
+            echo "ERROR: readiness gate unexpectedly passed or crashed"
+            exit 1
+          fi
+          echo "Physical readiness correctly BLOCKED; external evidence still missing"
+          echo "Expected physical readiness = FAIL-CLOSED" >> "$GITHUB_STEP_SUMMARY"
+      - name: Preserve expected-blocked readiness evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g3-physical-readiness-blocked
+          path: readiness.json
+          if-no-files-found: error
