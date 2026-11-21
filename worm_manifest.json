@@ -19,6 +19,10 @@
     "sha256": "fa4bd1feb097b61f12661f3fc0620897bf0eecd6a110c350152590c3b6de2193",
     "size_bytes": 1292
   },
+  ".github/workflows/g3-offline-fail-closed.yml": {
+    "sha256": "3510b18c549dd7c3afdd745a533fc23902c84d7f20d3d8f84278c0bb3b8989fe",
+    "size_bytes": 2869
+  },
   ".github/workflows/g3-prod-01.yml": {
     "sha256": "2994b287fb4734b301675b6cd6ad3c7a5d259ea3ae330ac53a4acf5aec654f46",
     "size_bytes": 1091
@@ -2554,6 +2558,10 @@
   "evidence/execution-boundary/g3_joint_physical_acceptance.py": {
     "sha256": "a74853de3569119b26e54d6f5c8fb88353d225ef951cff664c3166521ecd9680",
     "size_bytes": 3700
+  },
+  "evidence/execution-boundary/g3_offline_acceptance/fail_closed_acceptance.py": {
+    "sha256": "f923cdab7c333a0bfd8b5499731dba96bcd6d5613a423a9ec13ce07f9638cff2",
+    "size_bytes": 5446
   },
   "evidence/execution-boundary/g3_prod_01/README.md": {
     "sha256": "72cee672303e935fc24aea1661a0357bb8d8055cc82531bde54ea2db0f228865",
@@ -7200,16 +7208,16 @@
     "size_bytes": 149
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.c": {
-    "sha256": "27a9309b13c39968f02faa3380d724e4c54b9b3ebf7edad50d1471a2b1e326ba",
-    "size_bytes": 128854
+    "sha256": "c95e1a6976c68499ef96f51dbf1e996c11766d468d2ac981636cf55e66566eb3",
+    "size_bytes": 129173
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.c.hash": {
-    "sha256": "b1105e05fee69a29ce3a166b65f03e71616ea81d6f5a103811a85caaaf7b3010",
+    "sha256": "337626ec39b88aa5f3b41de37dc835cd3732890c9c43d6bd34368afb5692de19",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.setup.json": {
-    "sha256": "fcd26d3c1b032a72d27ece10b31c581a67e655fdc8dbfc237362485ce857f4de",
-    "size_bytes": 104521
+    "sha256": "c89368d2dddcbb48d3b2b8c58d9473975b5d276d0a818bae64d3d684286e6736",
+    "size_bytes": 104772
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdversarialHolding.c": {
     "sha256": "0b86079aaa61c9302b0e1a1e7debc421a15f75f3db44115f9655893aafb62a0f",
@@ -9192,24 +9200,24 @@
     "size_bytes": 1855
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.ilean": {
-    "sha256": "13189d6b70b47523532f3523f8952dcbd4f9280ea3804e12cb7ef411e5ba547a",
-    "size_bytes": 26333
+    "sha256": "0f9f306358e28edbc10b2b0a31d8602ff5122c8cb47284a3a9095a6925f25948",
+    "size_bytes": 26400
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.ilean.hash": {
-    "sha256": "e615d8e816692fdf93e2fb39e08162430141910bfbedacf5c31facb3ac94c5ce",
+    "sha256": "d14c271cbfe25dc0e049133455ae68de621756cd3bbf083d63dfe8938fd561d8",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.olean": {
-    "sha256": "652f6559acb68710cb608f6282edf3a5725e6f786cbe5fb83e557aa0c811aaa5",
-    "size_bytes": 52960
+    "sha256": "53a2906621fbb7212418b381f6a2500b1823329aeb3c373e5735eb5c6e80c97a",
+    "size_bytes": 53088
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.olean.hash": {
-    "sha256": "7a32cf82d78dec9a88b80b8d678bd32412892c590e20dc6b901948963b96095d",
+    "sha256": "5610ee56c2d5d1300b1b0838ca3e69cbf50b249aa546dd1ea380d420df03c53b",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.trace": {
-    "sha256": "21b3b7fba383fbfd331f19899e9ed4c7919f53ed04eb444cbd68c3804ee6e542",
-    "size_bytes": 84724
+    "sha256": "c4b430a6960083b6bebbd80ab2e1adfffff46277d0b62faf0c6d9fc958f8c63f",
+    "size_bytes": 84932
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/AdversarialHolding.ilean": {
     "sha256": "4a45f3b559f380dc4ca80b7c2e4e990b4b4979c4167feef780a7e5a06b0ef595",
@@ -12571,6 +12579,10 @@
     "sha256": "7c5a2ee17a2a7f2c3e9c1de1b82f0669ae38dee6a07d6fdf6b5257ba6ea507f2",
     "size_bytes": 6804
   },
+  "evidence/physical-bridges/G3-SIX-WITNESS-HUME-HILLARY-KORU-FOUR-CAUSE-2026-11-21.md": {
+    "sha256": "3773d0e4cebec594d9f0f02310badf153235231a290ff1edeb1be5bef208c9c0",
+    "size_bytes": 5598
+  },
   "evidence/physical-bridges/GITHUB-PR-STEWARDSHIP-AND-CLOSED-HISTORY-2026-11-07.md": {
     "sha256": "238f765316e920932a0f8d6e798ce6b8c07ba2fac161c87544419a35a6a2f1ae",
     "size_bytes": 14086
@@ -13068,8 +13080,8 @@
     "size_bytes": 7072
   },
   "evidence/physical-bridges/PhysicalBridges.lean": {
-    "sha256": "3212d3ccfb21bee09d267d1dc6db1e6bec43f3875ac44ab4c7b2cff15f870fc5",
-    "size_bytes": 28623
+    "sha256": "edc93b2fbfc406b76369c160178f21e8d4fc166f508a301e4164e70c5e237073",
+    "size_bytes": 28779
   },
   "evidence/physical-bridges/PhysicalBridges/AdaptiveGuardianHistories.lean": {
     "sha256": "f60a62279ef3f3046a2b90ead0df1f89c6a543120eb22fe5539d8b4a875e41cc",
@@ -13706,6 +13718,10 @@
   "evidence/physical-bridges/PhysicalBridges/G3SixDutyRenewal.lean": {
     "sha256": "bec349bf281453e4d90bfe1c57ccc4a705335908f4a73a714c63e0f7595d6881",
     "size_bytes": 5681
+  },
+  "evidence/physical-bridges/PhysicalBridges/G3SixWitnessPhysicalFidelity.lean": {
+    "sha256": "656620330d06fb772d2ca265969656f2761268d7969ea577b75d785e8add9eac",
+    "size_bytes": 10350
   },
   "evidence/physical-bridges/PhysicalBridges/G3TheFlower.lean": {
     "sha256": "b91adfe946659d8c41c7ee0ff27faf93b01d8b1d5561d5adb608f73b8dba46a2",
@@ -15464,11 +15480,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "ed956bccf0c0b44cfd4d9d2ea0e023b29cb02290d7eab8e4c83fffd61e6a628f",
+    "sha256": "cb090750669ecb40e115a12cfabd57c1c075e05571b442c949b17d6ee6bbeb31",
     "size_bytes": 772001
   },
   "worm_manifest.sha256": {
-    "sha256": "9a7febcee381531dab720d92d152ee8c2179e0f2b3731eabf0390abaaa25deec",
+    "sha256": "cbff63bfb2d140ad56ec676f978f65925147d1437dba258dfda49d7f02f5ccd7",
     "size_bytes": 85
   }
 }

@@ -619,6 +619,9 @@ import PhysicalBridges.G3BackwardsSummitTree
 -- the Next U closes it from outside. The circle of UPT.
 import PhysicalBridges.G3GodelsGardenCapstone
 
+-- Evidence-producing and independently validated six-duty bridge, without redefining subject meaning.
+import PhysicalBridges.G3SixWitnessPhysicalFidelity
+
 -- Adversarial negative controls: W self-inverse, trivial relations, reflection circularity fence.
 import PhysicalBridges.G3AdversarialNegativeControls
 
