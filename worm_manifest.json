@@ -136,8 +136,8 @@
     "size_bytes": 5664
   },
   "BLACKHOLE-PHYSICAL-SYNTAX-ERROR.md": {
-    "sha256": "e669e1077662dbacd54ad69688e0c2021e8a1b0b5fa587df050e29c444d2c449",
-    "size_bytes": 9844
+    "sha256": "feb547c78029e88f512af0db6264773f91d05687fc2881e3aac6321825926a7b",
+    "size_bytes": 11158
   },
   "CHALLENGE.md": {
     "sha256": "b6996533e9c5b62a20fd7a5a5285c3100239f09f5f9054547f38d69467676c72",
@@ -15552,11 +15552,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "f56954a7e02ea19073ad5d94101fb348e233dc41a9d8bb43bf8bcc1cc87c0f6f",
-    "size_bytes": 775612
+    "sha256": "37a7bdaf864ae5931d6e34f8294fb48a1aed5c2ec0d55ad5efcc8a43e70b67bc",
+    "size_bytes": 775760
   },
   "worm_manifest.sha256": {
-    "sha256": "bdc1ee985a40c2c2ee2ef1b88648eb0658ba53085132e8628163a7720853d273",
+    "sha256": "47c987dd53fba577b86b15b0e63d5641eed463855fbe99b291779a577476080f",
     "size_bytes": 85
   }
 }
