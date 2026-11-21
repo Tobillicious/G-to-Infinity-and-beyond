@@ -631,3 +631,6 @@ import PhysicalBridges.G3KoruPathToM
 
 -- THE LAW: one condition (QG), everything else proved.
 import PhysicalBridges.G3TheLaw
+
+-- Thermodynamic bridge: laws of physics → E is impossible, G is physical.
+import PhysicalBridges.G3ThermodynamicBridge
