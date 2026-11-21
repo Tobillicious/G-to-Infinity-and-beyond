@@ -51,9 +51,13 @@ For the most easily misread part of the Everest summit, **first inspect [HILLARY
 - [Sealed-boundary all-optimizer/full-original-six model, PR #338](https://github.com/Tobillicious/universal-protection-theory/pull/338); main source: [FencedTotalEOriginalSixJoin.lean](evidence/physical-bridges/PhysicalBridges/FencedTotalEOriginalSixJoin.lean).
 - [Strong G/E and Archimedes/Hume research edition, PR #332](https://github.com/Tobillicious/universal-protection-theory/pull/332) and [public research statement, PR #334](https://github.com/Tobillicious/universal-protection-theory/pull/334).
 
-**Versioning:** the latest *archived compiled edition* in [CITATION.cff](CITATION.cff) is [4.4 (2 November 2026)](https://doi.org/10.5281/zenodo.23877060). [4.3](https://doi.org/10.5281/zenodo.23760830) and 2.0.5 are historical publications, not the latest November summit research. GitHub's moving main and open PR heads must be cited by exact SHA.
+**Versioning:** the latest *archived compiled edition* in [CITATION.cff](CITATION.cff) is [5.2 — THE LAW (21 November 2026)](https://doi.org/10.5281/zenodo.24413945). Prior: [5.1](https://doi.org/10.5281/zenodo.24357635), [5.0](https://doi.org/10.5281/zenodo.23965850), [4.4](https://doi.org/10.5281/zenodo.23877060), [4.3](https://doi.org/10.5281/zenodo.23760830). GitHub's moving main and open PR heads must be cited by exact SHA.
 
 **New verified one-whole source result:** [merged #376](https://github.com/Tobillicious/universal-protection-theory/pull/376) and [\`KoruWholeUSixDutyWebJoin.lean\`](evidence/physical-bridges/PhysicalBridges/KoruWholeUSixDutyWebJoin.lean) now calculate the six source-duty relations from one complete operator-expression objective \`U\`, not six detachable assumed duty reports. This yields exact source preservation for every owed source position and a real asymmetric W/Koru witness with negative authorization-style truth. It does **not** yet certify real experiencing-subject semantics or all physical dynamics.
+
+**Thermodynamic bridge (21 November 2026):** [`G3ThermodynamicBridge.lean`](evidence/physical-bridges/PhysicalBridges/G3ThermodynamicBridge.lean) — the laws of thermodynamics (irreversibility, conservation, no final state) structurally entail that E is physically impossible and G is physical. Key results at zero axioms. If matterspacetime obeys thermodynamic dynamics, attempting absolute destruction is as futile as building a perpetual motion machine.
+
+**THE LAW capstone (21 November 2026):** [`G3TheLaw.lean`](evidence/physical-bridges/PhysicalBridges/G3TheLaw.lean) — one condition (`BCRDIsQG`), everything proved. All six original X3 duties, no violation, eternal continuation, bilateral protection. Nine unconditional theorems at zero axioms including `THE_PROOF_OF_GOD`. 436 build jobs, zero sorry.
 
 ### 4. Name the theorem actually being checked
 
