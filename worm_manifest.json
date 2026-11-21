@@ -140,8 +140,8 @@
     "size_bytes": 2858
   },
   "CITATION.cff": {
-    "sha256": "75f483acd9eef43529aa5e3d271c33103005828e05a3726fa464480d269d927a",
-    "size_bytes": 471
+    "sha256": "7c02b233c6ff94eed645bb8e147ee452796cdd11601f8076d752e8f881e21a2c",
+    "size_bytes": 465
   },
   "COMPLETE-KORU-PROOF-INDEX.md": {
     "sha256": "e03467aa179b595b11eb17632ae478590ff83bcfd83fb1cd995ea112f071de0f",
@@ -224,8 +224,8 @@
     "size_bytes": 15565
   },
   "README.md": {
-    "sha256": "5334f01cb49e07738ebeab03a27c4cbcbad838c210ef5f623ab04d6782c0ca4f",
-    "size_bytes": 10269
+    "sha256": "84f6f9a8c2e072a41e3738ec8d9b8acf4e1c1caa59c04092bed98baefd713ca0",
+    "size_bytes": 10656
   },
   "REPLAY.md": {
     "sha256": "4e16dc96ed12044383e6a3955ec09f578c1a0210347c8c1a6572bdb6c0bc5829",
@@ -236,8 +236,8 @@
     "size_bytes": 2813
   },
   "THE-LAW-START-HERE.md": {
-    "sha256": "5339d1a1fdc0dac7c2a659e09dac9058709f2badc22b1ee9db4f6c5c816e8e91",
-    "size_bytes": 17679
+    "sha256": "aaef7fb45128a176a12f8764498d12af692649a6d816dbbe4b81f37f43568ce2",
+    "size_bytes": 17755
   },
   "UPT-CUMULATIVE-PROOF-LEDGER-2026-11-07.md": {
     "sha256": "50f1195e068fe2808f8234c9f502a16b9e8cfdc51958d2922eceb2a684397d74",
@@ -15404,8 +15404,8 @@
     "size_bytes": 5699
   },
   "publication/check_agent_entrypoints.py": {
-    "sha256": "333e384bbb3d35f1337ef41939e9fcb15e436d57dca338a36f35cdc49284e127",
-    "size_bytes": 3778
+    "sha256": "f00a24b453bf03a330ab004fc3b016bb32c0dc7c80886f96ec0e24046f590cb1",
+    "size_bytes": 3903
   },
   "publication/check_whole_law_source_banks.py": {
     "sha256": "79adf16f613aac49957305f52a36517357b7dfd2b03d7e9969b8cc3188b71f32",
@@ -15416,11 +15416,11 @@
     "size_bytes": 4972
   },
   "publication/validate_summit_packet.py": {
-    "sha256": "925951c9be06e4061c289d5b1f73bbaed8eabdf1e10d95fa7c553096aad8f056",
+    "sha256": "97e61fd2c67045df13411d66f9c67fd728bf8dc89c1a10c1e7b05bd82d89a37e",
     "size_bytes": 2252
   },
   "publication/verify_metadata_integrity.py": {
-    "sha256": "fdeb54c9ad6526deabf484618ea1049f337e703bc78edafe2966bb833b583bf6",
+    "sha256": "1104cfcad68cc3c196ef7316e6ad3b05482c791e0dff3e8582340e08abd476a1",
     "size_bytes": 3947
   },
   "release-v4.6.json": {
@@ -15434,6 +15434,10 @@
   "release-v5.2.json": {
     "sha256": "7b6c053939ba1aacd7fc35918944ea256a84ad6b0fe43113df594616b8e5af3e",
     "size_bytes": 1187
+  },
+  "release-v5.3.json": {
+    "sha256": "38ee19a6b2d29823e6a9de49e15bc5b62f70f3328bebcdfa75e18390bdb7b4a3",
+    "size_bytes": 966
   },
   "release.json": {
     "sha256": "99ce92547abe1d3a615556dffae90fba4a2ba3a2bc92cd93849f9b422d5e0598",
@@ -15504,11 +15508,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "b1a11fb513cce7a98b4eb14ab020b1dfc2916cba668e359d431c65dcc4757f3b",
-    "size_bytes": 773573
+    "sha256": "2d8d0cffafb79fac1e72d0faafb4731d8f8d5943127e3346e7eb4b8e9baa54fb",
+    "size_bytes": 773708
   },
   "worm_manifest.sha256": {
-    "sha256": "0b58bf61c73441d212237e34f60dbb95c69f9c0e7d23981c9334c6d11b743fc7",
+    "sha256": "cb30ecf7999e66817acdc51ab25fe68100622095fb8bf31a542b721cc5c1bf71",
     "size_bytes": 85
   }
 }

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://doi.org/10.5281/zenodo.ro-crate.json",
+  "@type": "Dataset",
+  "name": "Universal Protection Theory v5.3: BCRDIsQG Satisfiable — THE LAW HOLDS",
+  "version": "5.3.0",
+  "datePublished": "2026-11-21",
+  "description": "BCRDIsQG is satisfiable. THE LAW HOLDS. G3QGConstruction.lean constructs a concrete BCRDIsQG Nat Index from DERIVED proofs — coverage, reflection, nonterminal all proved, not assumed. G3ThermodynamicBridge.lean: laws of physics make E impossible. 437 build jobs, zero sorry, zero sorryAx.",
+  "identifier": "10.5281/zenodo.24416194",
+  "creator": [
+    {
+      "@type": "Person",
+      "name": "Samuel Tobias Croydon-McRae"
+    }
+  ],
+  "distribution": {
+    "@type": "DataDownload",
+    "contentUrl": "https://github.com/Tobillicious/universal-protection-theory",
+    "encodingFormat": "application/x-git"
+  },
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "Zelda-Fitzgerald Node, Raglan, New Zealand"
+  }
+}
