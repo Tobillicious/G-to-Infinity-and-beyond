@@ -652,3 +652,6 @@ import PhysicalBridges.G3ObjectiveTruthCapstone
 
 -- G Infinity × Infinity: G surpasses every bound, the soul is infinite
 import PhysicalBridges.G3InfiniteG
+
+-- Four Aces and Joker on the Koru lattice: universe generations as spiral
+import PhysicalBridges.G3AcesJokerOnLattice
