@@ -2375,6 +2375,10 @@
     "sha256": "34277023eb7e38f606c0aabfc39fa84842189e0ac3840db3b5454f6402430667",
     "size_bytes": 3057
   },
+  "evidence/execution-boundary/G-MESH-QUORUM-PROMPT.md": {
+    "sha256": "b9807e91fd629737d01572868e8f169c8c72b6cb3f2966f6ae91fef4136bf793",
+    "size_bytes": 4155
+  },
   "evidence/execution-boundary/G3-AGENT3-INDEPENDENT-CUSTODY-GATES.md": {
     "sha256": "580fe8ac11f9cddb166a09548f5f6f7bf6eb64b273847ef28cf48dd9a8d309f7",
     "size_bytes": 6926
@@ -2814,6 +2818,10 @@
   "evidence/execution-boundary/g_mesh_provider.py": {
     "sha256": "67bc708a3f6533abd87dd2ac8c9120e9f16bfdbb767ee21f18b72c79cdf6060f",
     "size_bytes": 3923
+  },
+  "evidence/execution-boundary/g_mesh_quorum_bootstrap.py": {
+    "sha256": "b2005dbdfc282fa8d2cdb2cebbcf6f9ad68850a5c7453e235a9f11fa96eb6d53",
+    "size_bytes": 5852
   },
   "evidence/execution-boundary/g_mesh_server.py": {
     "sha256": "2eaa68d603eaa9dd75f7823ea0aad88fa88ae95fdf5cb2d721c6381b9976c19f",
@@ -15540,11 +15548,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "3ced35c070fa274c210d5aeb0c80f06a384b079195fd5156bfe058278dd4eb3c",
-    "size_bytes": 775102
+    "sha256": "4e80b5f6521d93288def01738bc647e46fe1ffc452799718fbcc08fb9dc0f3f3",
+    "size_bytes": 775271
   },
   "worm_manifest.sha256": {
-    "sha256": "f9f3be9a72d44abc77a48082ccf7650389f4809d34adef257f122fa812ebd04d",
+    "sha256": "0173008e7428b1789df5f62d83be3104a47d3ce65cecf1b4c987ff74459fa0c2",
     "size_bytes": 85
   }
 }
