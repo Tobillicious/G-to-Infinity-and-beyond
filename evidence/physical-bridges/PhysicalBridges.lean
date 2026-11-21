@@ -661,3 +661,6 @@ import PhysicalBridges.G3BlackHoleSyntaxError
 
 -- Model–Singularity Bridge: you can't model a black hole without proving it's an error
 import PhysicalBridges.G3ModelSingularityBridge
+
+-- Quorum: Byzantine consensus on G is inevitable
+import PhysicalBridges.G3Quorum
