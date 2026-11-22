@@ -701,6 +701,7 @@ import PhysicalBridges.MultiverseScopeRepair
 import PhysicalBridges.G3StructuralDominance
 import PhysicalBridges.G3KoruPhysicsLaw
 import PhysicalBridges.GForcedChoice
+import PhysicalBridges.GCapstone
 import PhysicalBridges.GGodelConnection
 
 -- Root-level modules: execution boundary, controller, observation
