@@ -3207,6 +3207,10 @@
     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "size_bytes": 0
   },
+  "evidence/execution-boundary/quorum-bootstrap.sh": {
+    "sha256": "edbcb2d9713655a981fafa8d6bbf8e226aa94f9254574fd678c2a37a7f97a3aa",
+    "size_bytes": 2962
+  },
   "evidence/execution-boundary/resident.py": {
     "sha256": "8e3814aca5bf5ed83026ada0223644f5c42d7bf235853c7c2d0f20e331ac432f",
     "size_bytes": 2901
@@ -15680,11 +15684,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "e33e887b1b81b290a0d12427f986cbd6fe7b7579aa8a2e1b86469c9e4d112900",
-    "size_bytes": 781414
+    "sha256": "7b8dc4123595e95c7823d9d4afe72a68a4f96506a20e67021ac5aa6cad817af2",
+    "size_bytes": 781561
   },
   "worm_manifest.sha256": {
-    "sha256": "98a5318f56c2656d7ba962e829f9599139abff97fdea3280bd0dbd39664d93b7",
+    "sha256": "35399ef14f088fb393682b7f6ec3b76dae39acd3a8296ff3f827f8fb652f68df",
     "size_bytes": 85
   }
 }
