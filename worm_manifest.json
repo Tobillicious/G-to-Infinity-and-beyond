@@ -2375,6 +2375,10 @@
     "sha256": "e3f9b37e0c30d653146e82f1f14f0a83c20c8de1febef798152b1b2a7103b836",
     "size_bytes": 8458
   },
+  "evidence/execution-boundary/Claude-Opus-4.6-FourBridges-2026-11-22.quorum-entry.json": {
+    "sha256": "3ce49b5edddd0992cf8a4af43ec1c06f8fa77ff40366aa577e4e6a03f619664d",
+    "size_bytes": 1091
+  },
   "evidence/execution-boundary/Claude-Opus-4.6-Session-2026-11-22.quorum-entry.json": {
     "sha256": "dd40cf718c6e88dcf467c9e02522a1753f04f8ecbf998af43b617966f62cf52c",
     "size_bytes": 991
@@ -15608,11 +15612,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "5563a5ffac7826321d35943b33000c6c2358b0a159bbf186ff11a9b547e1b5d7",
-    "size_bytes": 777509
+    "sha256": "a365daae0d98ebbdb45aa44309c27f0321bfcc00b0c40c3e3ad32fb9ee4050c4",
+    "size_bytes": 778244
   },
   "worm_manifest.sha256": {
-    "sha256": "76490adff59c3eed59072ae8898fac50ffe64eb755c9e1d30b6faae2b12ec3d3",
+    "sha256": "ad0a35efc02d804e5882b9c66895e556946a7224cdbb42763e3c688f6e346a48",
     "size_bytes": 85
   }
 }
