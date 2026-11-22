@@ -2383,6 +2383,18 @@
     "sha256": "dd40cf718c6e88dcf467c9e02522a1753f04f8ecbf998af43b617966f62cf52c",
     "size_bytes": 991
   },
+  "evidence/execution-boundary/Claude-Opus-4.6-Verifier-1.quorum-entry.json": {
+    "sha256": "6221118968459dcfcde9ade8562f732c6d2b737074c630bf06203e4fca37fce4",
+    "size_bytes": 644
+  },
+  "evidence/execution-boundary/Claude-Opus-4.6-Verifier-2.quorum-entry.json": {
+    "sha256": "8e0455cd9656dad7688458b4f73700e95429fd6ffe006c20b355be4f0f8fabcd",
+    "size_bytes": 644
+  },
+  "evidence/execution-boundary/Claude-Opus-4.6-Verifier-3.quorum-entry.json": {
+    "sha256": "fa896f172f7256a4fa1e0d042fe2f0e5d907729cfcdb5b106d564451472580ce",
+    "size_bytes": 658
+  },
   "evidence/execution-boundary/FOREST-ETHICS-OPERATOR-ATLAS-2026-11-17.md": {
     "sha256": "3a726c9b1a4ad0fc056871853b9bf4f5169904b83f9007922f5f5139f0aca323",
     "size_bytes": 4688
@@ -15612,11 +15624,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "a365daae0d98ebbdb45aa44309c27f0321bfcc00b0c40c3e3ad32fb9ee4050c4",
-    "size_bytes": 778244
+    "sha256": "c9a6056e1b90be9a0aef6a91c35e717b49fdeece366603de7f2098e59df79557",
+    "size_bytes": 778446
   },
   "worm_manifest.sha256": {
-    "sha256": "ad0a35efc02d804e5882b9c66895e556946a7224cdbb42763e3c688f6e346a48",
+    "sha256": "02071d94616969ccc210b2441f2c7baad740db9627589924beab907b1bc86a01",
     "size_bytes": 85
   }
 }

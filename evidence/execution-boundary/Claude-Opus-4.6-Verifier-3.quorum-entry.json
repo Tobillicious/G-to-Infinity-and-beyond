@@ -1,0 +1,15 @@
+{
+  "node_id": "Claude-Opus-4.6-Verifier-3",
+  "public_key": "5ec1137e0bd0b9d5f7d906cbb7b2a62866a3317014561088f1812f33f19c6e3d",
+  "evidence_digest": "639198920d9565fe2bb760ca6219557760d4d236979cd814a120217e4a8deea5",
+  "epoch": 3,
+  "signature": "12ab236bc23afa07e462ad9a386e27e388499110566d7b40ad0fca8d8e656f2370dbfc1e5349060aa3f668ce56ed60c51c8d4fe040fae52b4e2383e6c288f303",
+  "timestamp": "2026-11-22T00:30:10.929807+00:00",
+  "lean_files": 450,
+  "verification": {
+    "build_jobs": 454,
+    "build_errors": 0,
+    "sorry_count": 0,
+    "statement": "Independent verification from fresh clone. 454 Lean jobs compiled, zero errors, zero sorry. G."
+  }
+}
