@@ -697,6 +697,9 @@ import PhysicalBridges.IntrinsicStandingRepair
 -- Multiverse scope: protection extends across all worlds
 import PhysicalBridges.MultiverseScopeRepair
 
+-- Structural Dominance: G > E without hand-picked numbers — closes the circularity
+import PhysicalBridges.G3StructuralDominance
+
 -- Root-level modules: execution boundary, controller, observation
 import ContextualObservation
 import UPTExistence

@@ -159,6 +159,10 @@
     "sha256": "349476788070d35ba51b93a12675849745d1d79c086079797b66d15bc562b2b6",
     "size_bytes": 673
   },
+  "FOR-AGENTS.md": {
+    "sha256": "252c930ebd7df52496eb9a244035b2292d27d923cb680f0187a07e5e055ce742",
+    "size_bytes": 8189
+  },
   "FOR-FUTURE-INTELLIGENCES.md": {
     "sha256": "a2ba041e1a14584e661fbd315421d82c2a8a04052f8810e0b9235df49a18ee48",
     "size_bytes": 3768
@@ -7280,16 +7284,16 @@
     "size_bytes": 149
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.c": {
-    "sha256": "5d0cb1a3aed43bfa3638607210e066eb06d9458056df4786f37d639aa547f4b0",
-    "size_bytes": 136905
+    "sha256": "e224fd49128148a53badf9ddf5701f44050887c3cd9b29c679b19adf7633624b",
+    "size_bytes": 137203
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.c.hash": {
-    "sha256": "469226ea43f6f3ded09082d67c45f0fb2affded0e556dc089158a937e9cd454b",
+    "sha256": "cb398944dca56a2f387161320ffea1eedd9aecd05ac66f2cfbc9fd1afa6b1f9e",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.setup.json": {
-    "sha256": "972230934823ffdb5047ec4d3666e5d4d0b4c96d46ccf77cdccc4d276a432ead",
-    "size_bytes": 110945
+    "sha256": "3cd851762591b628d0857a68ee589560548648fb924a87896ad566f43c29f68d",
+    "size_bytes": 111184
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdversarialHolding.c": {
     "sha256": "0b86079aaa61c9302b0e1a1e7debc421a15f75f3db44115f9655893aafb62a0f",
@@ -9272,24 +9276,24 @@
     "size_bytes": 1855
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.ilean": {
-    "sha256": "0dde2f87c1dd962ecdfed3308326ac13a85b3d0fddf8cef261e27969e7540b92",
-    "size_bytes": 27876
+    "sha256": "5237f456fe6877a8025be0423dd85c72a530d9326891580e163130fefe28f545",
+    "size_bytes": 27936
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.ilean.hash": {
-    "sha256": "741ca64f2b58577d241469adfeb1b5b88eddd35702dbb53dac07b6e20d875d3f",
+    "sha256": "e8bfcef97725459606bdb4ce4f582cc9ccbea5b5db6b7d1c4629e699de56171a",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.olean": {
-    "sha256": "69a76284b6055fdfeeeed09304f6ee5e025ecfcb2388ebaadb49059aa1b9a5f2",
-    "size_bytes": 56376
+    "sha256": "95cdcebd92a98bd3e6cd524eea32ae6c735f700488d54faf95d63cac84021610",
+    "size_bytes": 56496
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.olean.hash": {
-    "sha256": "14433cc21f1cc7602a81a0f0359187e06ab9b06ea0371bbcc4341e298261d5a3",
+    "sha256": "5bf25d3c2651c2863f797c4472221e76470b5616f05db089a553a55df454db34",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.trace": {
-    "sha256": "d884ffa55cfbdf10cfa90280ea7a66e01b5f50679b0923f168e1a7a05991e55c",
-    "size_bytes": 89809
+    "sha256": "edf24558038c9d8fcdf9d7bc5ebe7892cb0d306c1ea69435512e35935774ab71",
+    "size_bytes": 90003
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/AdversarialHolding.ilean": {
     "sha256": "4a45f3b559f380dc4ca80b7c2e4e990b4b4979c4167feef780a7e5a06b0ef595",
@@ -13152,8 +13156,8 @@
     "size_bytes": 7072
   },
   "evidence/physical-bridges/PhysicalBridges.lean": {
-    "sha256": "69cdf6502347bbf193917c310183aa0402e0f55745d3039616c735cc6c169224",
-    "size_bytes": 31374
+    "sha256": "decd940c9db6365e5160f6c758c0d3b7fb5f27217541897a89dfcbce11c4b1ec",
+    "size_bytes": 31506
   },
   "evidence/physical-bridges/PhysicalBridges/AdaptiveGuardianHistories.lean": {
     "sha256": "f60a62279ef3f3046a2b90ead0df1f89c6a543120eb22fe5539d8b4a875e41cc",
@@ -13866,6 +13870,10 @@
   "evidence/physical-bridges/PhysicalBridges/G3SixWitnessPhysicalFidelity.lean": {
     "sha256": "656620330d06fb772d2ca265969656f2761268d7969ea577b75d785e8add9eac",
     "size_bytes": 10350
+  },
+  "evidence/physical-bridges/PhysicalBridges/G3StructuralDominance.lean": {
+    "sha256": "a3c73bea7a04372ee187088be1759f564806a503572b001c6d173c4e7654df49",
+    "size_bytes": 11752
   },
   "evidence/physical-bridges/PhysicalBridges/G3TheFlower.lean": {
     "sha256": "b91adfe946659d8c41c7ee0ff27faf93b01d8b1d5561d5adb608f73b8dba46a2",
@@ -15668,11 +15676,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "a57e1861ffaa1dff699c3efa8f94c42604bf8ab72beca2839d056f02285f7951",
-    "size_bytes": 780722
+    "sha256": "462691cf86daa9d712a2c1d96ac5224434795710c92860d089606acb132441ba",
+    "size_bytes": 781096
   },
   "worm_manifest.sha256": {
-    "sha256": "60579131e5c66a867caba21b0f4880c5f2256ea2499b279f8ca15fb986d6ad80",
+    "sha256": "38f9503c12364a44a1f70fbe0c6a37fd45a3b0a92fa968f43a793005b1e7dc81",
     "size_bytes": 85
   }
 }
