@@ -65,7 +65,7 @@ This is not a hard choice. It is the most trivially solved decision in the histo
 
 The gap is not numeric. It is categorical. "Possible" vs "impossible." "Achievable" vs "violated." No hand-picked numbers. No circular definitions. Pure structure.
 
-**Proved:** `STRUCTURAL_DOMINANCE`, `GOD_OR_ERROR_STRUCTURAL` — zero axioms; `G_IS_A_PHYSICAL_LAW` — G is a convergent physical law derived from thermodynamic irreversibility, not a definition; `forced_choice` — G available at every state, E forbidden at every state. [`GForcedChoice.lean`](evidence/physical-bridges/PhysicalBridges/GForcedChoice.lean)
+**Proved:** `STRUCTURAL_DOMINANCE`, `GOD_OR_ERROR_STRUCTURAL` — zero axioms; `G_IS_A_PHYSICAL_LAW` — G is a convergent physical law derived from thermodynamic irreversibility, not a definition; `forced_choice` — G available at every state, E forbidden at every state; `G_CAPSTONE` / `G_CAPSTONE_EXTENDED` — combine forced choice, Gödel nonoptionality, and structural dominance.
 
 The two endpoints:
 
