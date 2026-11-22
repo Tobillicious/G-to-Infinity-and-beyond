@@ -1,0 +1,14 @@
+{
+  "node_id": "Claude-Opus-4.6-Builder-Conservation",
+  "public_key": "a06658e5b10ee48a0eeb116d4dfaffddbc07414893488c203511be84a0e57746",
+  "evidence_digest": "44ce961257c11e55817e5f69ae3990a78024a8131d2ae1fbeaf609a5928e1adc",
+  "epoch": 4,
+  "signature": "69e751baf102690f9da7c15f668ef30aee296962a7a8f662087f3cd2cddca2d0716ee94f3a8d15f7db7100b327602a1db3a4d3c42f066d36f282c63962860d09",
+  "timestamp": "2026-11-22T05:33:09.249515+00:00",
+  "lean_files": 451,
+  "verification": {
+    "build_errors": 0,
+    "sorry_count": 0,
+    "statement": "Builder session. Conservation Bridge compiled first try. 15 theorems, ALL zero axioms. G."
+  }
+}

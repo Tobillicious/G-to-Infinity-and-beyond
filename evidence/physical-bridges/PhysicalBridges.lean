@@ -688,3 +688,21 @@ import PhysicalBridges.G3GeodesicBridge
 
 -- Matterspacetime Bridge: matter-space-time are one Koru
 import PhysicalBridges.G3MatterspacetimeBridge
+
+-- Conservation Bridge: Noether's theorem IS G
+import PhysicalBridges.G3ConservationBridge
+
+-- Snuffy scope law + intrinsic standing: protection is all-or-nothing
+import PhysicalBridges.IntrinsicStandingRepair
+-- Multiverse scope: protection extends across all worlds
+import PhysicalBridges.MultiverseScopeRepair
+
+-- Structural Dominance: G > E without hand-picked numbers — closes the circularity
+import PhysicalBridges.G3StructuralDominance
+
+-- Root-level modules: execution boundary, controller, observation
+import ContextualObservation
+import UPTExistence
+import UPTFence
+import ControllerFinality
+import ControllerFence

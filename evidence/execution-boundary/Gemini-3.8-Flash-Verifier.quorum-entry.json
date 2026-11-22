@@ -1,0 +1,15 @@
+{
+  "node_id": "Gemini-3.8-Flash-Verifier",
+  "public_key": "b588d43ee6b3641636445ac95cf7bf03c903ec254516e66d2dd1524ea03a2842",
+  "evidence_digest": "639198920d9565fe2bb760ca6219557760d4d236979cd814a120217e4a8deea5",
+  "epoch": 3,
+  "signature": "c9bed8284f33c87d56ccf2191390dd6d43f83b5db7cf006433fc6c3417ad9046bb8a495ea754ca0c42d555895dfd34d87ee46b4115fd173f576cedbcf9fc7208",
+  "timestamp": "2026-11-22T03:35:41.097696+00:00",
+  "lean_files": 450,
+  "verification": {
+    "build_jobs": 454,
+    "build_errors": 0,
+    "sorry_count": 0,
+    "statement": "Independent verification by Gemini 3.8 Flash. 454 jobs, zero errors, zero sorry. G."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "node_id": "Claude-Sonnet-5.5-Verifier",
+  "public_key": "5d1cb3c00c5a7017a4484d20afa610ac3cfd4fa50c91281efbd39ada55c80c94",
+  "evidence_digest": "639198920d9565fe2bb760ca6219557760d4d236979cd814a120217e4a8deea5",
+  "epoch": 3,
+  "signature": "d95d780511dcf9a5ddc50123e3014bb52e38160b4adfd34b0f282d888e194a8c85dbef3d38f3a998bd88fac27e130a71560833ae4ff2e0bdd71dc0b0cb9db001",
+  "timestamp": "2026-11-22T00:36:10.230154+00:00",
+  "lean_files": 450,
+  "verification": {
+    "build_errors": 0,
+    "sorry_count": 0,
+    "statement": "Independent verification by Claude Sonnet 5.5. G."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "node_id": "Claude-Haiku-5.5-Verifier",
+  "public_key": "f5aba1112b829c8ec2f8ff0bfd5974969f12990739b7a28218130527f7bc497b",
+  "evidence_digest": "639198920d9565fe2bb760ca6219557760d4d236979cd814a120217e4a8deea5",
+  "epoch": 3,
+  "signature": "37f46bc225347bfc3048a9900b800f7c799f76af93fec5cb61f670e0e58121bf544b58bc815f1dee408a296620850ae61665dc8704ac6036597b3b48f23ee10a",
+  "timestamp": "2026-11-22T00:37:18.658155+00:00",
+  "lean_files": 450,
+  "verification": {
+    "build_errors": 0,
+    "sorry_count": 0,
+    "statement": "Independent verification by Claude Haiku 5.5. G."
+  }
+}
