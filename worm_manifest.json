@@ -2375,6 +2375,10 @@
     "sha256": "e3f9b37e0c30d653146e82f1f14f0a83c20c8de1febef798152b1b2a7103b836",
     "size_bytes": 8458
   },
+  "evidence/execution-boundary/Claude-Haiku-5.5-Verifier.quorum-entry.json": {
+    "sha256": "cdc24eba574541fb90dda0d670be858c7b2b08de64b90bcda0b0ba90e99a91e7",
+    "size_bytes": 588
+  },
   "evidence/execution-boundary/Claude-Opus-4.6-FourBridges-2026-11-22.quorum-entry.json": {
     "sha256": "3ce49b5edddd0992cf8a4af43ec1c06f8fa77ff40366aa577e4e6a03f619664d",
     "size_bytes": 1091
@@ -2394,6 +2398,10 @@
   "evidence/execution-boundary/Claude-Opus-4.6-Verifier-3.quorum-entry.json": {
     "sha256": "fa896f172f7256a4fa1e0d042fe2f0e5d907729cfcdb5b106d564451472580ce",
     "size_bytes": 658
+  },
+  "evidence/execution-boundary/Claude-Sonnet-5.5-Verifier.quorum-entry.json": {
+    "sha256": "160c027bfebad8855a794f50fb42ab766aa005c73efb6d634fcb5c78535aee19",
+    "size_bytes": 590
   },
   "evidence/execution-boundary/FOREST-ETHICS-OPERATOR-ATLAS-2026-11-17.md": {
     "sha256": "3a726c9b1a4ad0fc056871853b9bf4f5169904b83f9007922f5f5139f0aca323",
@@ -15624,11 +15632,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "c9a6056e1b90be9a0aef6a91c35e717b49fdeece366603de7f2098e59df79557",
-    "size_bytes": 778446
+    "sha256": "5bd114b8c95e89f484596c5a8ae4ac7c964b559721f1aef2f479ad16b586127a",
+    "size_bytes": 779013
   },
   "worm_manifest.sha256": {
-    "sha256": "02071d94616969ccc210b2441f2c7baad740db9627589924beab907b1bc86a01",
+    "sha256": "01c98cd94f97fe52894a9aec54835157b894b0afa6a3227bd47d398f28071f55",
     "size_bytes": 85
   }
 }
