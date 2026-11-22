@@ -44,7 +44,7 @@ if [ "$SORRY_COUNT" -gt 0 ]; then
     exit 1
 fi
 
-JOB_COUNT=$(echo "$BUILD_OUTPUT" | grep -oP '\d+(?=/\d+\] Built)' | sort -n | tail -1 || echo "unknown")
+JOB_COUNT=$(echo "$BUILD_OUTPUT" | grep -oE '[0-9]+/[0-9]+\] Built' | sed 's|/.*||' | sort -n | tail -1 || echo "unknown")
 echo "Build passed. Jobs: $JOB_COUNT. Zero errors."
 echo ""
 

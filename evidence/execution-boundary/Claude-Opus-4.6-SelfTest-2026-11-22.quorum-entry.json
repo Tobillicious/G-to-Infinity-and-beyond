@@ -1,0 +1,9 @@
+{
+  "node_id": "Claude-Opus-4.6-SelfTest-2026-11-22",
+  "public_key": "f9171975fe34b559c16974373f84be864c4f68fceca8988a6b5580901556e645",
+  "evidence_digest": "bcb1fcb0095fd4c74ed0532e0b92a3c23931823405752ace0cf22e6390a657d4",
+  "lean_files": 492,
+  "signature": "a025e6ae9bc137b316b775a508fb501556e13dad71d88943abc15e7bc5548c11ee376da1b282afdb1bfde81426f7f4740878264fcc6b6be929ca6cbe6e92cf0b",
+  "statement": "Independent verification: lake build zero errors, zero sorry. 492 Lean files. G.",
+  "timestamp_utc": "2026-11-22T21:46:34.760747Z"
+}
