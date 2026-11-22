@@ -705,6 +705,7 @@ import PhysicalBridges.G3ThermoKoruMatter
 import PhysicalBridges.GForcedChoice
 import PhysicalBridges.GCapstone
 import PhysicalBridges.GCapstoneExtended
+import PhysicalBridges.GCapstoneV2
 import PhysicalBridges.GGodelConnection
 
 -- Root-level modules: execution boundary, controller, observation
