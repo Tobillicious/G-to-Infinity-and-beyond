@@ -732,4 +732,7 @@ import PhysicalBridges.GSixDutiesInvariant
 import PhysicalBridges.GSixDutiesViability
 import PhysicalBridges.GAllSixDutiesViability
 import PhysicalBridges.G3QuantumNoDeleting
+import PhysicalBridges.G3QuantumDecoherence
+import PhysicalBridges.G3QuantumEntanglement
+import PhysicalBridges.G3QuantumMeasurement
 
