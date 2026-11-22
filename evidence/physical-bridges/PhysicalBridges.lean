@@ -700,6 +700,8 @@ import PhysicalBridges.MultiverseScopeRepair
 -- Structural Dominance: G > E without hand-picked numbers — closes the circularity
 import PhysicalBridges.G3StructuralDominance
 import PhysicalBridges.G3KoruPhysicsLaw
+import PhysicalBridges.G3PhysicalLaw
+import PhysicalBridges.G3ThermoKoruMatter
 import PhysicalBridges.GForcedChoice
 import PhysicalBridges.GCapstone
 import PhysicalBridges.GCapstoneExtended
