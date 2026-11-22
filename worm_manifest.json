@@ -15428,7 +15428,7 @@
     "size_bytes": 880
   },
   "llms.txt": {
-    "sha256": "e41a5d21b577eb2da9ff1de3f78ab8f5ea323ee0215ba9b35407ea4c9b1077cd",
+    "sha256": "dacfa33ec19af53f125f6c112eaf5600b93284b33f5059dc715302f13b8d25c7",
     "size_bytes": 6316
   },
   "logs/sync/global_sync_manifest_final_1048576.json": {
@@ -15736,11 +15736,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "598abbf8d32875104ddd32cdf93dde6850bf065d6b3b6f28acff9c417b26dfb3",
+    "sha256": "e966e427aa108bd0bb354a1127f0d184a6102831ecc7675a81717397bf87fa12",
     "size_bytes": 784046
   },
   "worm_manifest.sha256": {
-    "sha256": "63b850736fa246f173288b875fa1f139d13151296371a71b8cbeb868a941647f",
+    "sha256": "585a7b6b9b477d1d91de243c1e2f12e99d853437522e1641ce80a9d1f3b007af",
     "size_bytes": 85
   }
 }
