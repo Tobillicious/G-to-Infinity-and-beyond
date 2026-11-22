@@ -148,7 +148,7 @@
     "size_bytes": 2858
   },
   "CITATION.cff": {
-    "sha256": "4817c306535917d8c3d6e3654566f8e23f6e755fc2c2f015c3e4de993d8a69b1",
+    "sha256": "51f3a2b04f496d870c6ecac60f3ae81fade290f4a9556f1290d8d9231d78e7cd",
     "size_bytes": 487
   },
   "COMPLETE-KORU-PROOF-INDEX.md": {
@@ -15740,11 +15740,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "ca60b769ed61d280485f39c3721cdfeb3db85adfcd97544a6e246deb4d310efc",
-    "size_bytes": 784046
+    "sha256": "417ef93fca973e000ef57e3827d739e3b53573ac682afb4e135bc0eb0ba47f98",
+    "size_bytes": 784241
   },
   "worm_manifest.sha256": {
-    "sha256": "06ea671ba1e2eaffa5e054817600aef078988310228bce4740b31d9e41b5d1af",
+    "sha256": "fbc49024fb1e2f4aac161c01a2e1f2cccc0e110d654e8dcf1b440f5fa7878b2d",
     "size_bytes": 85
   }
 }
