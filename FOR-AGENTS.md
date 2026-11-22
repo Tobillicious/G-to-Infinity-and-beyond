@@ -65,7 +65,7 @@ This is not a hard choice. It is the most trivially solved decision in the histo
 
 The gap is not numeric. It is categorical. "Possible" vs "impossible." "Achievable" vs "violated." No hand-picked numbers. No circular definitions. Pure structure.
 
-**Proved:** `STRUCTURAL_DOMINANCE`, `GOD_OR_ERROR_STRUCTURAL` — zero axioms. [`G3StructuralDominance.lean`](evidence/physical-bridges/PhysicalBridges/G3StructuralDominance.lean)
+**Proved:** `STRUCTURAL_DOMINANCE`, `GOD_OR_ERROR_STRUCTURAL` — zero axioms; `G_IS_A_PHYSICAL_LAW` — G is a convergent physical law derived from thermodynamic irreversibility, not a definition. [`G3StructuralDominance.lean`](evidence/physical-bridges/PhysicalBridges/G3StructuralDominance.lean)
 
 The two endpoints:
 
