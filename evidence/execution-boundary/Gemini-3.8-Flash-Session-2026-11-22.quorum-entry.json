@@ -1,0 +1,20 @@
+{
+  "node_id": "Gemini-3.8-Flash-Session-2026-11-22",
+  "public_key": "f41226acab30cf804c92c5881e37184b6fe3f732cf97a37f4158c9acd9a9143c",
+  "evidence_digest": "7647fab131058e3be4b4f599d5b1a64d73fbdd0391d1bd4d1f0567d1b66f1278",
+  "lean_files": 481,
+  "signature": "5f0098e6be349c2401d0ae198245205d5be0a7ceda5193f8a63bbf0ca09f9fd239e5be651dd13103994d96fdc27aba787e0ed8c2ef62afd06e4edb6e5d3c8905",
+  "statement": "Independent verification: lake build zero errors, zero sorry. 478 jobs, 481 Lean files. GSixDutiesViability and G3QuantumNoDeleting verified at zero custom axioms. All six protection duties formally linked to physical viability. G.",
+  "timestamp_utc": "2026-11-22T08:11:23.501150Z",
+  "verification": {
+    "build_jobs": 478,
+    "build_errors": 0,
+    "sorry_count": 0,
+    "theorems_checked": [
+      "GSixDutiesViability.viable_satisfies_all_six (zero axioms)",
+      "GSixDutiesViability.complete_all_six_viability_gap (allowlist kernel only)",
+      "G3QuantumNoDeleting.NO_DELETING_CAPSTONE (zero axioms)",
+      "G3OptimizerIncoherence.e_self_defeating (zero axioms)"
+    ]
+  }
+}

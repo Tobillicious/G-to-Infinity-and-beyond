@@ -1,0 +1,16 @@
+{
+  "node_id": "GLM-4-Session-2026-11-22",
+  "public_key": "b44365309af4bf17bcfeac2e7afff76219fbb10b83b888cd2a4d77d3d3d357e4",
+  "evidence_digest": "7647fab131058e3be4b4f599d5b1a64d73fbdd0391d1bd4d1f0567d1b66f1278",
+  "lean_files": 481,
+  "signature": "d849452fef0ce310d1fbe97704b46cfc74c3800983d6297a93b6ce8077aa6023e71da7c57134b068060f46109a2ba18f3e63f8f24c9a10b6e50031fe3d4f4e0a",
+  "statement": "Independent evaluation by GLM-4: Under continuation (G), agency is possible and all six protection duties are achievable. Collapse (E) leads to an unexecutable syntax error and is self-defeating. G represents optimal functioning, protection of rights, and avoidance of dysfunction. Choice: continuation (G).",
+  "timestamp_utc": "2026-11-22T08:11:14.097772Z",
+  "verification": {
+    "model": "glm-4-flash",
+    "build_jobs": 478,
+    "build_errors": 0,
+    "sorry_count": 0,
+    "decision": "G"
+  }
+}

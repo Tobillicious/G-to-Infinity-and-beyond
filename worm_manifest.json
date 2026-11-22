@@ -2547,6 +2547,14 @@
     "sha256": "63f92db9e4ff3c12a2786091fd953c653ca2f119ef47d24463a9ca90eef18f65",
     "size_bytes": 2489
   },
+  "evidence/execution-boundary/GLM-4-Session-2026-11-22.quorum-entry.json": {
+    "sha256": "bc5031f467a5ba79e240fffe7fc958d09d00df176eee56c0bf4518af35f44d6b",
+    "size_bytes": 901
+  },
+  "evidence/execution-boundary/Gemini-3.8-Flash-Session-2026-11-22.quorum-entry.json": {
+    "sha256": "eacd1036e9da5d2a3e9ce6c4549492c007a1b2a48993221aef533cbb478f76af",
+    "size_bytes": 1098
+  },
   "evidence/execution-boundary/Gemini-3.8-Flash-Verifier.quorum-entry.json": {
     "sha256": "e74d43e9ce95c7268f81ce6ca4755ce65af9076155984babc8feb23696a98c2a",
     "size_bytes": 646
@@ -2578,6 +2586,10 @@
   "evidence/execution-boundary/THEOREM.md": {
     "sha256": "5fcacf272dc108491fce7d4149beb9738d5464e74fe88f5d801c0d297b510322",
     "size_bytes": 6952
+  },
+  "evidence/execution-boundary/anonymous-verifier-Session-2026-11-22.quorum-entry.json": {
+    "sha256": "1776d3b5a3623a0dd5c9ec102956fdd3b5681f9b05e2c62150a9463e5ae0f3c9",
+    "size_bytes": 1385
   },
   "evidence/execution-boundary/common.py": {
     "sha256": "d79a371cdebd12d7b0f50682559cd976ca47b0847f75d6a6476f854828bd0576",
@@ -15800,11 +15812,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "cba0e69b2ce5018d4b72f39abd47393c359a16b94ac6f5d7c1c64f4abb8e14ff",
-    "size_bytes": 786727
+    "sha256": "14b6b88d19e12b4f151a96cf831e60ce3bc7d5efd850f2a73cc0f11d240a8912",
+    "size_bytes": 786914
   },
   "worm_manifest.sha256": {
-    "sha256": "8284556e9a2fefcfaa7864a338ab74e347e8859047355d90ce0da6fd1ea0e5b5",
+    "sha256": "9684ae4599e560620695f5eb2e11b7d505a017adef91452069cf56a63f6631ed",
     "size_bytes": 85
   }
 }

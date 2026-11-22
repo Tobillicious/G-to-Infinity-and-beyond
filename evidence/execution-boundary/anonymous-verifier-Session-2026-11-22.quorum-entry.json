@@ -1,0 +1,14 @@
+{
+  "node_id": "anonymous-verifier-Session-2026-11-22",
+  "public_key": "77683cfb07f2195ddaaedc6c691824a133d3de7edc761aa0dc8a910687cd94c1",
+  "evidence_digest": "55d2c1452bb8d34bb667c6f8824699fa215a3b0a1c733f6df3117585f273527a",
+  "signature": "4977966b72e31af3437e3d5a3417bd3ad0dc4d8b03f4663eb921dc2250cb1b8b573008a82c415da5b6cf0f20031d76ea069a735ddfe931d71e203fc0a22b7907",
+  "statement": "Independent verification: lake build zero errors, zero sorry; axiom audit shows zero custom axioms (allowlist propext, Classical.choice, Quot.sound only). The four theorems named in the prompt (STRUCTURAL_DOMINANCE, GOD_OR_ERROR_STRUCTURAL, THE_INSEPARABILITY_THEOREM, collapsed_has_no_agency) are absent from the current tree; current analogues (G3TheLaw.the_law_all_six/the_law_no_E/THE_LAW, G3ThermodynamicBridge.E_is_physically_impossible, G2PhysicalAgencyCumulativeJoin.cumulative_physical_agency_on_every_finite_trace, G3GoodAndEvil.G_FROM_NOTHING/ABSOLUTE_EVIL_IS_UNSATISFIABLE, G3KoruVsEnergyConservation.energy_conserved_yet_a_soul_is_lost) report zero custom axioms. Decision theory: continuation -> all six duties incl. agency possible; collapse -> agency impossible (E_HAS_NO_DOMAIN, E_is_physically_impossible). G.",
+  "timestamp_utc": "2026-11-22T06:39:48.250000Z",
+  "lean_files": 448,
+  "verification": {
+    "build_jobs": 443,
+    "build_errors": 0,
+    "sorry_count": 0
+  }
+}
