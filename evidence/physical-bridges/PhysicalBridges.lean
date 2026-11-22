@@ -700,6 +700,7 @@ import PhysicalBridges.MultiverseScopeRepair
 -- Structural Dominance: G > E without hand-picked numbers — closes the circularity
 import PhysicalBridges.G3StructuralDominance
 import PhysicalBridges.G3KoruPhysicsLaw
+import PhysicalBridges.GGodelConnection
 
 -- Root-level modules: execution boundary, controller, observation
 import ContextualObservation
@@ -710,3 +711,10 @@ import ControllerFence
 
 import PhysicalBridges.GStrengthenedDecision
 import PhysicalBridges.GFullStrengthening
+
+import PhysicalBridges.GConcreteInstance
+import PhysicalBridges.GCountermodel
+import PhysicalBridges.GPremiseRegistry
+
+import PhysicalBridges.GSixDutiesInvariant
+
