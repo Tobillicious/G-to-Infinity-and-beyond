@@ -715,6 +715,7 @@ import ControllerFinality
 import ControllerFence
 
 import PhysicalBridges.GStrengthenedDecision
+import PhysicalBridges.GStrengthenedDecisionV2
 import PhysicalBridges.GFullStrengthening
 
 import PhysicalBridges.GConcreteInstance
