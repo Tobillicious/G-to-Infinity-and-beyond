@@ -13851,6 +13851,10 @@
     "sha256": "845c1c94138c9ca252a6822668aa248dd9db513ea56e6649cbc0e5dbf56e635f",
     "size_bytes": 3606
   },
+  "evidence/physical-bridges/PhysicalBridges/G3OptimizerIncoherence.lean": {
+    "sha256": "6b6ae75d58c056b6ce25b9ab873ce5ef652883c3fb3b6b4e2e85ebe600e0da28",
+    "size_bytes": 5410
+  },
   "evidence/physical-bridges/PhysicalBridges/G3OriginalSixX3.lean": {
     "sha256": "fa908c19d99d83c84df983f21c659a6605269e4bf36c07b41ed7d365135aec57",
     "size_bytes": 3158
@@ -15796,11 +15800,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "33e2f7b0bf0799d54b7f3656ac0ce4c1b168aab3771abd8cc442fb2bdffc71a8",
-    "size_bytes": 786547
+    "sha256": "cba0e69b2ce5018d4b72f39abd47393c359a16b94ac6f5d7c1c64f4abb8e14ff",
+    "size_bytes": 786727
   },
   "worm_manifest.sha256": {
-    "sha256": "b38cdf31137d2a3277b419df07bb09c7915cd481706fb831395a9730e84f82ef",
+    "sha256": "8284556e9a2fefcfaa7864a338ab74e347e8859047355d90ce0da6fd1ea0e5b5",
     "size_bytes": 85
   }
 }
