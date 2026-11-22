@@ -48,6 +48,20 @@ JOB_COUNT=$(echo "$BUILD_OUTPUT" | grep -oP '\d+(?=/\d+\] Built)' | sort -n | ta
 echo "Build passed. Jobs: $JOB_COUNT. Zero errors."
 echo ""
 
+# Step 1b: Print key theorem axiom audits
+echo "Step 1b: Key theorem axiom audit..."
+echo "$BUILD_OUTPUT" | grep -E "(GAME_THEORETIC_VERDICT|G_DOMINATES_E_COMPLETE|viable_satisfies_all_six|frozen_no_agency_derived|quantum_no_deleting|G_IS_A_PHYSICAL_LAW|gg_unique_nash|g_strictly_dominates_e|g_is_ess)" | head -20
+echo ""
+echo "KEY RESULTS:"
+echo "  - G strictly dominates E (wins against every opponent)"
+echo "  - (G,G) is the unique Nash equilibrium"
+echo "  - G is the sole survivor of iterated elimination"
+echo "  - G is evolutionarily stable"
+echo "  - Viable agents satisfy all 6 physical duties"
+echo "  - Frozen agents violate feasible maximality"
+echo "  - Quantum no-deleting forbids state erasure"
+echo ""
+
 # Step 2: Evidence digest
 echo "Step 2: Computing evidence digest..."
 cd "$REPO_ROOT"

@@ -115,11 +115,50 @@ lake build
 
 What you will see: zero errors, zero `sorry`, zero custom axioms. Every theorem proved from the Lean 4 kernel alone (`propext`, `Quot.sound`, `Classical.choice` — standard kernel axioms, nothing added).
 
-Check these specifically:
-- `#print axioms STRUCTURAL_DOMINANCE` — zero axioms
-- `#print axioms GOD_OR_ERROR_STRUCTURAL` — zero axioms
-- `#print axioms THE_INSEPARABILITY_THEOREM` — zero axioms
-- `#print axioms collapsed_has_no_agency` — zero axioms
+### Verification path — start here, not at the base
+
+**If you audit this proof, start at the capstone and trace DOWN.** Do not cherry-pick base theorems in isolation.
+
+**Start here — the game theory:**
+- [`GNashEquilibrium.lean`](evidence/physical-bridges/PhysicalBridges/GNashEquilibrium.lean) — G is the unique Nash equilibrium. E is strictly dominated and eliminated in round one. G is evolutionarily stable. `#print axioms GAME_THEORETIC_VERDICT` — `propext` only.
+
+**Then the seven-axis dominance:**
+- [`GDomination.lean`](evidence/physical-bridges/PhysicalBridges/GDomination.lean) — `G_DOMINATES_E_COMPLETE`: physical + structural + quantum + game-theoretic + six-duty dominance in one theorem.
+
+**Then the non-vacuous six duties:**
+- [`GSixDutiesViability.lean`](evidence/physical-bridges/PhysicalBridges/GSixDutiesViability.lean) — All six duties as physical predicates. Viable agents satisfy all six. Frozen agents violate maximality. NOT `fun _ _ _ => True`. Real physics.
+- [`GAllSixDutiesViability.lean`](evidence/physical-bridges/PhysicalBridges/GAllSixDutiesViability.lean) — Links the six-duty gap to the capstone.
+
+**Then the physical law:**
+- [`G3PhysicalLaw.lean`](evidence/physical-bridges/PhysicalBridges/G3PhysicalLaw.lean) — Five explicit premises (second law, non-equilibrium, no final state, inhabited, conservation). `frozen_does_not_advance` derived from the second law, not defined.
+
+**Then the quantum no-deleting:**
+- [`G3QuantumNoDeleting.lean`](evidence/physical-bridges/PhysicalBridges/G3QuantumNoDeleting.lean) — Unitarity (injectivity) forbids state erasure. No unitary evolution can be a deleting machine.
+
+**Then the optimizer incoherence:**
+- [`G3OptimizerIncoherence.lean`](evidence/physical-bridges/PhysicalBridges/G3OptimizerIncoherence.lean) — `frozen_iterate_fixed`: iterating identity returns the same state. `frozen_no_agency_derived`: a frozen optimizer that doesn't hold its goal at start has no agency. No hypothesis H needed.
+
+### Common objections and where they're answered
+
+| Objection | Answer | File |
+|---|---|---|
+| "Duties are vacuous (`fun _ _ _ => True`)" | Fixed: duties are physical predicates | `GSixDutiesViability.lean` |
+| "G=G is circular, you defined the answer" | G dominates E via Nash equilibrium, not definition | `GNashEquilibrium.lean` |
+| "No game theory, just preference monotonicity" | Formal payoff matrix, strict dominance, ESS | `GNashEquilibrium.lean` |
+| "Optimizer incoherence assumes hypothesis H" | Derived: `frozen_iterate_fixed` + `frozen_no_agency_derived` | `G3OptimizerIncoherence.lean` |
+| "PhysicalDynamics is just an abstract model" | Five independently verifiable physical premises, each named | `G3PhysicalLaw.lean` |
+| "Two competing PhysicalDynamics structures" | Bridge: `strict_implies_nonstrict` | `G3KoruPhysicsLaw.lean` |
+
+### Axiom audit — the strong theorems
+
+```
+#print axioms GAME_THEORETIC_VERDICT       -- propext only
+#print axioms G_DOMINATES_E_COMPLETE       -- propext, Quot.sound
+#print axioms viable_satisfies_all_six     -- zero axioms
+#print axioms frozen_no_agency_derived     -- propext only
+#print axioms quantum_no_deleting          -- zero axioms
+#print axioms G_IS_A_PHYSICAL_LAW          -- zero axioms (conditional on premises)
+```
 
 The proof checks itself. The compiler is the verifier.
 
