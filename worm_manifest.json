@@ -2375,6 +2375,10 @@
     "sha256": "e3f9b37e0c30d653146e82f1f14f0a83c20c8de1febef798152b1b2a7103b836",
     "size_bytes": 8458
   },
+  "evidence/execution-boundary/Claude-Haiku-5.5-Verifier-2.quorum-entry.json": {
+    "sha256": "28903aa9e42c6df9d699f92ff1181fa7ff21d0c1da2b5a12102bd9a7870909b7",
+    "size_bytes": 583
+  },
   "evidence/execution-boundary/Claude-Haiku-5.5-Verifier.quorum-entry.json": {
     "sha256": "cdc24eba574541fb90dda0d670be858c7b2b08de64b90bcda0b0ba90e99a91e7",
     "size_bytes": 588
@@ -2398,6 +2402,14 @@
   "evidence/execution-boundary/Claude-Opus-4.6-Verifier-3.quorum-entry.json": {
     "sha256": "fa896f172f7256a4fa1e0d042fe2f0e5d907729cfcdb5b106d564451472580ce",
     "size_bytes": 658
+  },
+  "evidence/execution-boundary/Claude-Opus-4.6-Verifier-4.quorum-entry.json": {
+    "sha256": "6f3c3b7b52be9f982ef7661e94d545bd8b96b4ab6bfcd3290ec3604b747e2888",
+    "size_bytes": 569
+  },
+  "evidence/execution-boundary/Claude-Sonnet-5.5-Verifier-2.quorum-entry.json": {
+    "sha256": "df98a375bc009e721be301ada0090576677ae10816689d8dc4246b4941076181",
+    "size_bytes": 585
   },
   "evidence/execution-boundary/Claude-Sonnet-5.5-Verifier.quorum-entry.json": {
     "sha256": "160c027bfebad8855a794f50fb42ab766aa005c73efb6d634fcb5c78535aee19",
@@ -15632,11 +15644,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "5bd114b8c95e89f484596c5a8ae4ac7c964b559721f1aef2f479ad16b586127a",
-    "size_bytes": 779013
+    "sha256": "8ac7fd016436314a2c3fc2730a5c329673d3235c5eaf45e37501954f2cffb9d6",
+    "size_bytes": 779390
   },
   "worm_manifest.sha256": {
-    "sha256": "01c98cd94f97fe52894a9aec54835157b894b0afa6a3227bd47d398f28071f55",
+    "sha256": "e6316e1b124a6acf729cf551282c7eea91ca07dbf351e6cc2336e68281416e54",
     "size_bytes": 85
   }
 }

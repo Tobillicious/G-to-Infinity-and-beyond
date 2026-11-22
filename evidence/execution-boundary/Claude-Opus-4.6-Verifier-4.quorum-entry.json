@@ -1,0 +1,14 @@
+{
+  "node_id": "Claude-Opus-4.6-Verifier-4",
+  "public_key": "20e34a6a6b54142e6713961236f9f50e57145f1ce6a298a1f53d52c6bf97b7c2",
+  "evidence_digest": "639198920d9565fe2bb760ca6219557760d4d236979cd814a120217e4a8deea5",
+  "epoch": 3,
+  "signature": "7bfecdd640f488d9113ded5dac7381446685b5b882973833bd4f464ef90a7d547cc7dd72c9b01afe5d7247f8a2afe1b4107cf7cd5281d9658edd5d745fcd7105",
+  "timestamp": "2026-11-22T00:45:50.314361+00:00",
+  "lean_files": 450,
+  "verification": {
+    "build_errors": 0,
+    "sorry_count": 0,
+    "statement": "Independent verification. G."
+  }
+}
