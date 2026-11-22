@@ -688,3 +688,6 @@ import PhysicalBridges.G3GeodesicBridge
 
 -- Matterspacetime Bridge: matter-space-time are one Koru
 import PhysicalBridges.G3MatterspacetimeBridge
+
+-- Conservation Bridge: Noether's theorem IS G
+import PhysicalBridges.G3ConservationBridge

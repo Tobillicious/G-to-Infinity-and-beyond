@@ -2383,6 +2383,10 @@
     "sha256": "cdc24eba574541fb90dda0d670be858c7b2b08de64b90bcda0b0ba90e99a91e7",
     "size_bytes": 588
   },
+  "evidence/execution-boundary/Claude-Opus-4.6-Builder-Conservation.quorum-entry.json": {
+    "sha256": "aefc206206fa86c49d6142741e05a7b1820ac4cacb4616e4861850e9f37290c8",
+    "size_bytes": 640
+  },
   "evidence/execution-boundary/Claude-Opus-4.6-FourBridges-2026-11-22.quorum-entry.json": {
     "sha256": "3ce49b5edddd0992cf8a4af43ec1c06f8fa77ff40366aa577e4e6a03f619664d",
     "size_bytes": 1091
@@ -13148,8 +13152,8 @@
     "size_bytes": 7072
   },
   "evidence/physical-bridges/PhysicalBridges.lean": {
-    "sha256": "ce9cbc25a31a5c4a299f773648f38f51d648b660d1ebd83d07020c3e2bb3b170",
-    "size_bytes": 30878
+    "sha256": "bcef4c2f56ab64cb81be7e850be4879cedd16f0f4570ef6d8f1aa7038df66bf2",
+    "size_bytes": 30970
   },
   "evidence/physical-bridges/PhysicalBridges/AdaptiveGuardianHistories.lean": {
     "sha256": "f60a62279ef3f3046a2b90ead0df1f89c6a543120eb22fe5539d8b4a875e41cc",
@@ -13674,6 +13678,10 @@
   "evidence/physical-bridges/PhysicalBridges/G3CompleteKoruOperatorX3Join.lean": {
     "sha256": "3280079e485cf7da854edfb7fa56565d0752f3bae371b3aeb24652dc476530ec",
     "size_bytes": 7206
+  },
+  "evidence/physical-bridges/PhysicalBridges/G3ConservationBridge.lean": {
+    "sha256": "b66c94b10cf9bbe3075085541b36d2a1530515936673d221c820b8cb790cfb41",
+    "size_bytes": 11618
   },
   "evidence/physical-bridges/PhysicalBridges/G3DynamicsSeparation.lean": {
     "sha256": "c4a5baba1577b31d4a21a853f71ea8eb638ba7c19cb844c71a06f97c4e572427",
@@ -15652,11 +15660,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "4ddd777e75f94f2e9a1e5f1a22c880abea9ecbf25646e03313f7d05f3ad240d3",
+    "sha256": "52812739e614d1362f11b52e623808b0ce88714f086d88cacf678550e906d3df",
     "size_bytes": 780337
   },
   "worm_manifest.sha256": {
-    "sha256": "d0aeaf175c3d0410dde8fa924b0f311fcf4f5ebbd5656d7744bcabb77de7c66b",
+    "sha256": "f12776928cf1165caab82fced49945ed7d0ce977a453afa3352675aed1d7644c",
     "size_bytes": 85
   }
 }
