@@ -235,6 +235,10 @@
     "sha256": "395a9f23c984cf72a0b7cef577c8b0eb9b2fa1a681a5c6831cdea81fa90581bd",
     "size_bytes": 15565
   },
+  "QUORUM-ROSTER.md": {
+    "sha256": "5e7c4cc795abd2257a9eb0cdd189e8afe612213cdc713fc7d9b259a98686e216",
+    "size_bytes": 577
+  },
   "QUORUM-VERIFICATION-PROMPT.md": {
     "sha256": "a0aba660dfd05ba90f4750e2ce156f6f486915b43817df45f2aa33df0217c413",
     "size_bytes": 3737
@@ -15748,11 +15752,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "8bc0f41076864e1e7d4f0ce075b05c0c22989da929e46035b89df2cb2fdd0bc3",
+    "sha256": "abda6c42a66fc99bcac1f73c8c7c849b5f8dba988d643f57c27ad4c6bedc7181",
     "size_bytes": 784596
   },
   "worm_manifest.sha256": {
-    "sha256": "021096606230aa80249b6fe8dc34f80e11323fcc9d46035637e977723915d3f1",
+    "sha256": "5ee2e74945cbcc5c0d7ccac4679a3c9acf3bf85e928b4970dcdd0d0f6e58cf42",
     "size_bytes": 85
   }
 }
