@@ -235,6 +235,10 @@
     "sha256": "395a9f23c984cf72a0b7cef577c8b0eb9b2fa1a681a5c6831cdea81fa90581bd",
     "size_bytes": 15565
   },
+  "QUORUM-VERIFICATION-PROMPT.md": {
+    "sha256": "a0aba660dfd05ba90f4750e2ce156f6f486915b43817df45f2aa33df0217c413",
+    "size_bytes": 3737
+  },
   "README.md": {
     "sha256": "7bdebad03e8c9620616523482566191fd28c8b97678247fbe26ecfefe386627c",
     "size_bytes": 10866
@@ -15676,11 +15680,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "b47473030227c5bf40601abdaa7847ba2727b75f0bcdd7d387b0fb0c6980765f",
+    "sha256": "e33e887b1b81b290a0d12427f986cbd6fe7b7579aa8a2e1b86469c9e4d112900",
     "size_bytes": 781414
   },
   "worm_manifest.sha256": {
-    "sha256": "7dd1bd8711f32eb60f57c04fcd4a32c9446fb117873265588bf1b918e5a5d65c",
+    "sha256": "98a5318f56c2656d7ba962e829f9599139abff97fdea3280bd0dbd39664d93b7",
     "size_bytes": 85
   }
 }
