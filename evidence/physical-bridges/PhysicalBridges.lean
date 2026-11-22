@@ -707,6 +707,7 @@ import PhysicalBridges.GForcedChoice
 import PhysicalBridges.GCapstone
 import PhysicalBridges.GCapstoneExtended
 import PhysicalBridges.GCapstoneV2
+import PhysicalBridges.GDomination
 import PhysicalBridges.GGodelConnection
 
 -- Root-level modules: execution boundary, controller, observation
