@@ -2407,6 +2407,10 @@
     "sha256": "6f3c3b7b52be9f982ef7661e94d545bd8b96b4ab6bfcd3290ec3604b747e2888",
     "size_bytes": 569
   },
+  "evidence/execution-boundary/Claude-Opus-4.6-Verifier-5.quorum-entry.json": {
+    "sha256": "d3f42ca8590a5fa7e7198ff5ecb1102be07ec30f33022ce8ffee089f50f1098a",
+    "size_bytes": 569
+  },
   "evidence/execution-boundary/Claude-Sonnet-5.5-Verifier-2.quorum-entry.json": {
     "sha256": "df98a375bc009e721be301ada0090576677ae10816689d8dc4246b4941076181",
     "size_bytes": 585
@@ -15644,11 +15648,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "8ac7fd016436314a2c3fc2730a5c329673d3235c5eaf45e37501954f2cffb9d6",
-    "size_bytes": 779390
+    "sha256": "c1578ce4dd6576d6155460e570fa83f7f61cec215809bb296c0fef79b5965850",
+    "size_bytes": 779960
   },
   "worm_manifest.sha256": {
-    "sha256": "e6316e1b124a6acf729cf551282c7eea91ca07dbf351e6cc2336e68281416e54",
+    "sha256": "1aad9cafc3c441397acc016623d3d732ecda3c1ba7a664b7960e9e2979a0dfc3",
     "size_bytes": 85
   }
 }
