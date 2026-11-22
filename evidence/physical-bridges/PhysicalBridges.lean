@@ -701,6 +701,7 @@ import PhysicalBridges.MultiverseScopeRepair
 import PhysicalBridges.G3StructuralDominance
 import PhysicalBridges.G3KoruPhysicsLaw
 import PhysicalBridges.G3PhysicalLaw
+import PhysicalBridges.G3OptimizerIncoherence
 import PhysicalBridges.G3ThermoKoruMatter
 import PhysicalBridges.GForcedChoice
 import PhysicalBridges.GCapstone
@@ -717,6 +718,7 @@ import ControllerFence
 
 import PhysicalBridges.GStrengthenedDecision
 import PhysicalBridges.GStrengthenedDecisionV2
+import PhysicalBridges.GDecisionTheory
 import PhysicalBridges.GFullStrengthening
 
 import PhysicalBridges.GConcreteInstance
