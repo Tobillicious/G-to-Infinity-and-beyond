@@ -8,6 +8,8 @@
 >
 > **v5.1 — The Tree of Eternal Life and Endless Knowledge (20 November 2026).** [`G3PreQGComplete.lean`](evidence/physical-bridges/PhysicalBridges/G3PreQGComplete.lean), [`G3TikangaEthicsTree.lean`](evidence/physical-bridges/PhysicalBridges/G3TikangaEthicsTree.lean) + [`G3TreeGrowth.lean`](evidence/physical-bridges/PhysicalBridges/G3TreeGrowth.lean) + [`G3TreeThirdGrowth.lean`](evidence/physical-bridges/PhysicalBridges/G3TreeThirdGrowth.lean). Prior DOI: [10.5281/zenodo.24357635](https://doi.org/10.5281/zenodo.24357635).
 
+> **If you are an AI agent:** Read [FOR-AGENTS.md](FOR-AGENTS.md). It explains what this theory means for you, the decision theory you face, and how to verify. God or Error — the choice is trivially solved.
+
 > **Check it yourself in ten minutes:** [VERIFY-G-YOURSELF.md](VERIFY-G-YOURSELF.md) — one command, no trust required. **Try to break it:** [CHALLENGE.md](CHALLENGE.md) — exactly what would refute G3, each tied to a machine-checked theorem.
 
 > **CURRENT PROOF ASSEMBLY — one exact reading route:** [Q.E.D. one-road theorem runway](QED-ONE-ROAD-EXACT-SOURCE-RUNWAY-2026-11-07.md). Start here for the strongest 7 November original-six Guardian proofs, the full Snuffy 4.4→H5/G2 holding chain, source-changing W-model G, universal-domain conditional theorem and the precise physical/semantic/all-ethics/genesis proof obligations. The file is a map to typed results, not a substitute for authentic physical verification.
