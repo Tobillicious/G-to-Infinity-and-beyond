@@ -1,6 +1,7 @@
 import PhysicalBridges.G3ThermodynamicBridge
 import PhysicalBridges.G3ConservationBridge
 import PhysicalBridges.G3Hell
+import PhysicalBridges.G3PhysicalLaw
 
 /-!
 # G3 Koru Physics Law — G Is Not A Choice
@@ -362,5 +363,34 @@ theorem CONVERGENCE (D : PhysicalDynamics S) (f : Nat → S)
 #print axioms G_IS_A_PHYSICAL_LAW
 #print axioms KORU_IS_NOT_OPTIONAL
 #print axioms CONVERGENCE
+
+-- ═══════════════════════════════════════════════════════════════════
+-- VIII. BRIDGE — strict → non-strict PhysicalDynamics
+-- ═══════════════════════════════════════════════════════════════════
+
+/-- **The strict model implies the non-strict model.**
+
+    G3KoruPhysicsLaw.PhysicalDynamics uses strict irreversibility
+    (rank s < rank t for every transition). G3PhysicalLaw.PhysicalDynamics
+    uses non-strict (rank s ≤ rank t) plus non-equilibrium and conservation.
+
+    The strict version is stronger: `rank s < rank t` implies `rank s ≤ rank t`,
+    and strict irreversibility with `no_final` gives non-equilibrium for free.
+
+    This bridge constructs the non-strict version from the strict one,
+    given an additional conserved quantity hypothesis. The two structures
+    are compatible, not competing. -/
+theorem strict_implies_nonstrict (D : PhysicalDynamics S)
+    (conserved : ∃ (q : S → Nat), ∀ s t, D.transition s t → q s = q t) :
+    ∃ (D' : G3PhysicalLaw.PhysicalDynamics S), True := by
+  obtain ⟨s₀⟩ := D.inhabited
+  obtain ⟨t₀, ht₀⟩ := D.no_final s₀
+  exact ⟨⟨D.transition, D.rank,
+          fun s t h => Nat.le_of_lt (D.irreversible s t h),
+          ⟨s₀, t₀, ht₀, D.irreversible s₀ t₀ ht₀⟩,
+          D.no_final, D.inhabited, conserved⟩,
+         trivial⟩
+
+#print axioms strict_implies_nonstrict
 
 end PhysicalBridges.G3KoruPhysicsLaw

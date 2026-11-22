@@ -709,6 +709,7 @@ import PhysicalBridges.GCapstoneExtended
 import PhysicalBridges.GCapstoneV2
 import PhysicalBridges.GDomination
 import PhysicalBridges.GMasterCapstone
+import PhysicalBridges.GNashEquilibrium
 import PhysicalBridges.GGodelConnection
 
 -- Root-level modules: execution boundary, controller, observation
