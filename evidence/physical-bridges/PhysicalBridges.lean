@@ -691,3 +691,15 @@ import PhysicalBridges.G3MatterspacetimeBridge
 
 -- Conservation Bridge: Noether's theorem IS G
 import PhysicalBridges.G3ConservationBridge
+
+-- Snuffy scope law + intrinsic standing: protection is all-or-nothing
+import PhysicalBridges.IntrinsicStandingRepair
+-- Multiverse scope: protection extends across all worlds
+import PhysicalBridges.MultiverseScopeRepair
+
+-- Root-level modules: execution boundary, controller, observation
+import ContextualObservation
+import UPTExistence
+import UPTFence
+import ControllerFinality
+import ControllerFence

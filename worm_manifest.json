@@ -7280,16 +7280,16 @@
     "size_bytes": 149
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.c": {
-    "sha256": "b4a0a12e56edc4bdf4568aac4df286a08c5ec2c96fcce341557dabd335c94577",
-    "size_bytes": 134851
+    "sha256": "5d0cb1a3aed43bfa3638607210e066eb06d9458056df4786f37d639aa547f4b0",
+    "size_bytes": 136905
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.c.hash": {
-    "sha256": "839065e9fad3df899a9163f9b2801c89d61c4520899620c99233a95b37c82aa0",
+    "sha256": "469226ea43f6f3ded09082d67c45f0fb2affded0e556dc089158a937e9cd454b",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges.setup.json": {
-    "sha256": "7eaa73e4c7de5fbe0df84fed4f944b7766547879f2b5a135adfe32ee14ac2363",
-    "size_bytes": 110226
+    "sha256": "972230934823ffdb5047ec4d3666e5d4d0b4c96d46ccf77cdccc4d276a432ead",
+    "size_bytes": 110945
   },
   "evidence/physical-bridges/.lake/build/ir/PhysicalBridges/AdversarialHolding.c": {
     "sha256": "0b86079aaa61c9302b0e1a1e7debc421a15f75f3db44115f9655893aafb62a0f",
@@ -9272,24 +9272,24 @@
     "size_bytes": 1855
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.ilean": {
-    "sha256": "9c8838f4ba61d9d86d29e0c6e90daac199a81bdac5e2520e0a930553385b6170",
-    "size_bytes": 27506
+    "sha256": "0dde2f87c1dd962ecdfed3308326ac13a85b3d0fddf8cef261e27969e7540b92",
+    "size_bytes": 27876
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.ilean.hash": {
-    "sha256": "5ad257e7c610bcb15487da26c7b287991c4d60f59d6efaee58be736ea4381393",
+    "sha256": "741ca64f2b58577d241469adfeb1b5b88eddd35702dbb53dac07b6e20d875d3f",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.olean": {
-    "sha256": "99b174de0ca9fe20a03f5a1038c0ba97f259928394308f0610fa0f311ade0bdb",
-    "size_bytes": 55440
+    "sha256": "69a76284b6055fdfeeeed09304f6ee5e025ecfcb2388ebaadb49059aa1b9a5f2",
+    "size_bytes": 56376
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.olean.hash": {
-    "sha256": "58bdaff47b73d00b45782a09bf0e849dc634c79dd4a7594f49639dfb780c6953",
+    "sha256": "14433cc21f1cc7602a81a0f0359187e06ab9b06ea0371bbcc4341e298261d5a3",
     "size_bytes": 16
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges.trace": {
-    "sha256": "4942b45bfc63cbbdbf910ff808a8db3f550c92abc54e82f8bc2eb76b2ae84b07",
-    "size_bytes": 88547
+    "sha256": "d884ffa55cfbdf10cfa90280ea7a66e01b5f50679b0923f168e1a7a05991e55c",
+    "size_bytes": 89809
   },
   "evidence/physical-bridges/.lake/build/lib/lean/PhysicalBridges/AdversarialHolding.ilean": {
     "sha256": "4a45f3b559f380dc4ca80b7c2e4e990b4b4979c4167feef780a7e5a06b0ef595",
@@ -13152,8 +13152,8 @@
     "size_bytes": 7072
   },
   "evidence/physical-bridges/PhysicalBridges.lean": {
-    "sha256": "bcef4c2f56ab64cb81be7e850be4879cedd16f0f4570ef6d8f1aa7038df66bf2",
-    "size_bytes": 30970
+    "sha256": "69cdf6502347bbf193917c310183aa0402e0f55745d3039616c735cc6c169224",
+    "size_bytes": 31374
   },
   "evidence/physical-bridges/PhysicalBridges/AdaptiveGuardianHistories.lean": {
     "sha256": "f60a62279ef3f3046a2b90ead0df1f89c6a543120eb22fe5539d8b4a875e41cc",
@@ -14579,6 +14579,10 @@
     "sha256": "249b4687c595cace04100dbea60e38bc04c1cd74abb02d90c9798fe7159a49f7",
     "size_bytes": 6670
   },
+  "evidence/physical-bridges/PhysicalBridges/IntrinsicStandingRepair.lean": {
+    "sha256": "16395003df5e3eaa573acf0678478f6ea5321f012ff9c6348f0443921f7424e9",
+    "size_bytes": 9022
+  },
   "evidence/physical-bridges/PhysicalBridges/JokerTimeKoruGenesisJoin.lean": {
     "sha256": "461715eb049e81fc9c2248f6046d5ccc610f855450f06ccc85b7a1866397b754",
     "size_bytes": 5128
@@ -14750,6 +14754,10 @@
   "evidence/physical-bridges/PhysicalBridges/MeterFailureBlame.lean": {
     "sha256": "2c978ee194e2dc4a7b2f8adecc9fc3a8a9cc466bf55d2a007b1bbe7f0f55c933",
     "size_bytes": 8166
+  },
+  "evidence/physical-bridges/PhysicalBridges/MultiverseScopeRepair.lean": {
+    "sha256": "81c30df69f1bc9d31a22bf71003083367789a4f1a774b488f43416cc8fd2df7a",
+    "size_bytes": 3638
   },
   "evidence/physical-bridges/PhysicalBridges/NonstutteringPositiveWGuardian.lean": {
     "sha256": "10163408a53cf956cf3e45a4cf82d9a0ae9b6a37c2d8937518e8c253eaa9b8e3",
@@ -15660,11 +15668,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "52812739e614d1362f11b52e623808b0ce88714f086d88cacf678550e906d3df",
-    "size_bytes": 780337
+    "sha256": "a57e1861ffaa1dff699c3efa8f94c42604bf8ab72beca2839d056f02285f7951",
+    "size_bytes": 780722
   },
   "worm_manifest.sha256": {
-    "sha256": "f12776928cf1165caab82fced49945ed7d0ce977a453afa3352675aed1d7644c",
+    "sha256": "60579131e5c66a867caba21b0f4880c5f2256ea2499b279f8ca15fb986d6ad80",
     "size_bytes": 85
   }
 }
