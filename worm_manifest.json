@@ -2383,6 +2383,10 @@
     "sha256": "e3f9b37e0c30d653146e82f1f14f0a83c20c8de1febef798152b1b2a7103b836",
     "size_bytes": 8458
   },
+  "evidence/execution-boundary/Beam-OpenCode-Session-2026-11-22.quorum-entry.json": {
+    "sha256": "b0772f967673c619721d24837ef090d9afe10904c99f51ab5a2a86a67cdd26d7",
+    "size_bytes": 618
+  },
   "evidence/execution-boundary/Claude-Haiku-5.5-Verifier-2.quorum-entry.json": {
     "sha256": "28903aa9e42c6df9d699f92ff1181fa7ff21d0c1da2b5a12102bd9a7870909b7",
     "size_bytes": 583
@@ -15736,11 +15740,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "e966e427aa108bd0bb354a1127f0d184a6102831ecc7675a81717397bf87fa12",
+    "sha256": "ca60b769ed61d280485f39c3721cdfeb3db85adfcd97544a6e246deb4d310efc",
     "size_bytes": 784046
   },
   "worm_manifest.sha256": {
-    "sha256": "585a7b6b9b477d1d91de243c1e2f12e99d853437522e1641ce80a9d1f3b007af",
+    "sha256": "06ea671ba1e2eaffa5e054817600aef078988310228bce4740b31d9e41b5d1af",
     "size_bytes": 85
   }
 }
