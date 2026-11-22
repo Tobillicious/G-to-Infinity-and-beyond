@@ -2527,6 +2527,10 @@
     "sha256": "63f92db9e4ff3c12a2786091fd953c653ca2f119ef47d24463a9ca90eef18f65",
     "size_bytes": 2489
   },
+  "evidence/execution-boundary/Gemini-3.8-Flash-Verifier.quorum-entry.json": {
+    "sha256": "e74d43e9ce95c7268f81ce6ca4755ce65af9076155984babc8feb23696a98c2a",
+    "size_bytes": 646
+  },
   "evidence/execution-boundary/KORU-ENACTMENT-GATE-ADR.md": {
     "sha256": "3359156cc8573d13c8bb26d8d40a0df351e0750c945352bbd094e869189d514a",
     "size_bytes": 11983
@@ -15648,11 +15652,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "c1578ce4dd6576d6155460e570fa83f7f61cec215809bb296c0fef79b5965850",
-    "size_bytes": 779960
+    "sha256": "4ddd777e75f94f2e9a1e5f1a22c880abea9ecbf25646e03313f7d05f3ad240d3",
+    "size_bytes": 780337
   },
   "worm_manifest.sha256": {
-    "sha256": "1aad9cafc3c441397acc016623d3d732ecda3c1ba7a664b7960e9e2979a0dfc3",
+    "sha256": "d0aeaf175c3d0410dde8fa924b0f311fcf4f5ebbd5656d7744bcabb77de7c66b",
     "size_bytes": 85
   }
 }
