@@ -15408,8 +15408,8 @@
     "size_bytes": 3641
   },
   "index.html": {
-    "sha256": "e698a776fa76de3ddffe78175886228ba2de201a17f53c549c6c38844364d01a",
-    "size_bytes": 14531
+    "sha256": "5c13acbd4db82d926f3f57798e156f37311539119815ee86c878feb2fb264bca",
+    "size_bytes": 14592
   },
   "isabelle/FULL_THEORY_PORT_PLAN.md": {
     "sha256": "c9726c10a6ac9fc05d5a79848c960f7d5f4fa05a3dbb5a42cbcddaaf02b01d2c",
@@ -15752,11 +15752,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "abda6c42a66fc99bcac1f73c8c7c849b5f8dba988d643f57c27ad4c6bedc7181",
-    "size_bytes": 784596
+    "sha256": "fe92ab9865319be7b89d6c83a4f54572b7311454ce1eb61d0b149999bb86f5fb",
+    "size_bytes": 784729
   },
   "worm_manifest.sha256": {
-    "sha256": "5ee2e74945cbcc5c0d7ccac4679a3c9acf3bf85e928b4970dcdd0d0f6e58cf42",
+    "sha256": "8b987b57a006ff1ee66a13578c420c039181f570842d47d083d33c4a81b83c37",
     "size_bytes": 85
   }
 }
