@@ -676,3 +676,15 @@ import PhysicalBridges.G3Firmament
 
 -- Koru Bridge: non-trivial X3, infinity, Hume, Gödel, the Koru
 import PhysicalBridges.G3KoruBridge
+
+-- Information Bridge: Shannon, Landauer, information preservation
+import PhysicalBridges.G3InformationBridge
+
+-- Quantum Bridge: superposition, entanglement, unitarity IS G
+import PhysicalBridges.G3QuantumBridge
+
+-- Geodesic Bridge: GR, geodesic completeness IS the Koru
+import PhysicalBridges.G3GeodesicBridge
+
+-- Matterspacetime Bridge: matter-space-time are one Koru
+import PhysicalBridges.G3MatterspacetimeBridge
