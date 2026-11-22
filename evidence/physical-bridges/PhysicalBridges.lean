@@ -727,4 +727,6 @@ import PhysicalBridges.GCountermodel
 import PhysicalBridges.GPremiseRegistry
 
 import PhysicalBridges.GSixDutiesInvariant
+import PhysicalBridges.GSixDutiesViability
+import PhysicalBridges.G3QuantumNoDeleting
 
