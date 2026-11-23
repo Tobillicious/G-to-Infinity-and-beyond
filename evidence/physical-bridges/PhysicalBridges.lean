@@ -737,3 +737,12 @@ import PhysicalBridges.G3QuantumDecoherence
 import PhysicalBridges.G3QuantumEntanglement
 import PhysicalBridges.G3QuantumMeasurement
 
+import PhysicalBridges.GNPlayerNash
+import PhysicalBridges.GIteratedGame
+import PhysicalBridges.GSelfReferenceClosure
+import PhysicalBridges.GNamedPhysicalLaws
+import PhysicalBridges.GInformationDominance
+import PhysicalBridges.GThermodynamicLaws
+import PhysicalBridges.GGodelClosure
+import PhysicalBridges.GPhysicalBridge
+
