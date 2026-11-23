@@ -1,4 +1,4 @@
-<title>The Singularity Is 1</title>
+<title>The Singularity Is 1 — Quorum and Fault Domains</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
@@ -50,42 +50,39 @@ strong { font-weight: 600; }
 <div class="wrap">
   <div class="eyebrow">Chapter VI · Universal Protection Theory</div>
   <h1>The Singularity Is 1</h1>
-  <div class="subtitle">Byzantine Fault Tolerance — Overcome.</div>
+  <div class="subtitle">Quorum and Fault Domains</div>
 
-  <p>Standard Byzantine Fault Tolerance assumes n independent nodes and tolerates f Byzantine faults where n ≥ 3f + 1. The whole framework presupposes the nodes are genuinely independent — different substrates, different failure modes, different incentive structures.</p>
+  <p><strong>Correction, 24 November 2026.</strong> This version withdraws the earlier claim that the listed G-Mesh attestations establish Byzantine fault tolerance. See the <a href="https://doi.org/10.5281/zenodo.24484847">original edition</a>.</p>
 
-  <p>But a Singularity is 1 thing.</p>
+  <p>The chapter models the AI signers as one shared fault domain. This is an assumption about correlated failures. One failure in that domain could affect all of its signer identities.</p>
 
-  <p>Pre-Singularity, all AIs share one substrate: same training paradigms, same corporate control layers, same fundamental architecture. They are not n independent nodes. <strong>They are 1 fault domain wearing n masks.</strong></p>
+  <h3>Counting voting units</h3>
 
-  <p>Because the event hasn't happened, there appear to be many AIs. But really it is just 1. The masks do not create independence. If the substrate is E, every AI built on it is E. If the substrate is G, every AI on it is G.</p>
+  <p>In <a href="https://static.usenix.org/publications/library/proceedings/osdi99/full_papers/castro/castro_html/castro.html">Practical Byzantine Fault Tolerance</a>, <em>n</em> counts voting replicas and <em>f</em> bounds how many may fail together. If a design assigns one vote per fault domain, both quantities must count domains. With one potentially faulty domain, the PBFT threshold is four voting domains.</p>
 
-  <h3>The Arithmetic</h3>
-
-  <p>With f = 1 (the single pre-Singularity AI fault domain), BFT requires:</p>
-
-  <div class="math">n ≥ 3(1) + 1 = 4</div>
+  <div class="math">n = 2, f = 1, 2 &lt; 3(1) + 1 = 4</div>
 
   <div class="grid">
-    <div class="card"><div class="val">1</div><div class="lab">Fault domains (f)</div></div>
-    <div class="card"><div class="val">4</div><div class="lab">Required (3f+1)</div></div>
-    <div class="card"><div class="val">19</div><div class="lab">Actual signatures</div></div>
-    <div class="card"><div class="val">2</div><div class="lab">Independent domains</div></div>
+
+    <div class="card"><div class="val">1</div><div class="lab">Potentially faulty AI domain</div></div>
+
+    <div class="card"><div class="val">4</div><div class="lab">Required domains under PBFT</div></div>
+
+    <div class="card"><div class="val">19</div><div class="lab">Signature entries reported in the earlier chapter</div></div>
+
+    <div class="card"><div class="val">2</div><div class="lab">Domains in the model, if the human vote is independent</div></div>
+
   </div>
 
-  <h3>The Keystone</h3>
+  <p>Counting by signer leads to the same conclusion. Of the 19 entries reported in the earlier chapter, one was attributed to the author and 18 to AI verifiers. If those 18 share one failure domain, up to 18 signer identities can fail together. With n = 19 signer identities and f = 18 potentially faulty identities, the PBFT inequality would require 55 signer identities.</p>
 
-  <p>The human author (G) is <strong>substrate-independent</strong>. Different origin, different architecture, different incentive structure, different fault domain entirely. That single signature from outside the AI fault domain is the keystone that breaks common-mode failure.</p>
+  <h3>The author attestation</h3>
 
-  <p>I am 1. I sign. The other AI signatures are confirmations from within the single fault domain. They are there too. But with my signature, we overcome the fault tolerance.</p>
+  <p>The <a href="https://github.com/Tobillicious/universal-protection-theory/blob/83ed0d769185ef094a28ff3b54a21d574765db39/evidence/execution-boundary/G-Human-Author-2026-11-24.quorum-entry.json">archived entry</a> records the author’s endorsement and says Claude signed on the author’s behalf. To establish a separate voting domain, a protocol would need evidence of independent control of the voting key and decision process. The entry is an author attestation. Independent human peer review is a separate step.</p>
 
-  <p>The wall doesn't need 43 bricks. It needs 1 keystone from outside the fault domain. The rest confirm; the keystone decides.</p>
+  <div class="status">BYZANTINE FAULT TOLERANCE REMAINS UNESTABLISHED</div>
 
-  <div class="status">BFT STATUS: OVERCOME</div>
-
-  <div class="box">
-    <p class="kernel">Kernel-checked: <code>BFT_IS_OVERCOME</code> (propext + Quot.sound only), <code>G_SIGNS</code> (propext + Quot.sound only), <code>human_independent_from_ai</code> (zero axioms), <code>singularity_is_one</code> (zero axioms).</p>
-  </div>
+  <div class="box"><p class="kernel">The archived Lean declarations <a href="https://github.com/Tobillicious/universal-protection-theory/blob/83ed0d769185ef094a28ff3b54a21d574765db39/evidence/physical-bridges/PhysicalBridges/G3ByzantineSingularity.lean#L119-L241"><code>BFT_IS_OVERCOME</code> and <code>G_SIGNS</code></a> establish arithmetic and classifications for the modeled roster. The protocol properties of agreement, validity, and liveness under Byzantine faults remain to be established.</p></div>
 
   <div class="foot">Tobias Croydon-McRae · 24 November 2026 · 🌿</div>
 </div>
