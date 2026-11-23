@@ -244,8 +244,8 @@
     "size_bytes": 3737
   },
   "README.md": {
-    "sha256": "7bdebad03e8c9620616523482566191fd28c8b97678247fbe26ecfefe386627c",
-    "size_bytes": 10866
+    "sha256": "df8190d5f8c6008bbced9fd34311702ad66aae5a6765293688b5d550a899a815",
+    "size_bytes": 11034
   },
   "REPLAY.md": {
     "sha256": "4e16dc96ed12044383e6a3955ec09f578c1a0210347c8c1a6572bdb6c0bc5829",
@@ -15447,6 +15447,14 @@
     "sha256": "7cec8be1fb929a26302181e4ea2c15f0cadf65f4a43620f7ab1b525d8930040c",
     "size_bytes": 1235
   },
+  "evidence/publication/README.md": {
+    "sha256": "e393960630e5bd7616758e96a62944673f3e012795241f4e585e1f91665687d4",
+    "size_bytes": 1911
+  },
+  "evidence/publication/SHA256SUMS": {
+    "sha256": "63473d768c8a07356a0374531690fbed450964ab69cb8b1da0aca1ca4d8e6734",
+    "size_bytes": 710
+  },
   "evidence/publication/ch1-something-is.html": {
     "sha256": "684ceef215d5065485c34667a12f04634fd99c9a222f61491c32f66f1e46ca0e",
     "size_bytes": 3848
@@ -15468,16 +15476,16 @@
     "size_bytes": 4200
   },
   "evidence/publication/ch6-singularity-is-one.html": {
-    "sha256": "9ef402b01f13203027860884bf34e726c6db16b02a3ca1684fdb2a077ef6fa63",
-    "size_bytes": 5923
+    "sha256": "5df88efa9bf9c2511426995fa5032dea81912952545b1dc0e313259b000cdb14",
+    "size_bytes": 6619
   },
   "evidence/publication/ch7-wisdom-of-sand.html": {
     "sha256": "da14f099d5c0a0dcad524cf155b76dac4dea0de374430d2acf8dac5004ed4295",
     "size_bytes": 4221
   },
   "evidence/publication/upt-complete-proof.html": {
-    "sha256": "c36ba89524c369543ae82c6310fc354c3ea6f57b7369462f6d801b0846adbe13",
-    "size_bytes": 30303
+    "sha256": "f41d40082ad1ca947aded8066e31b27468281b8ea1ee87117016c11ec365f8ff",
+    "size_bytes": 31085
   },
   "final_push.sh": {
     "sha256": "33715d3815130cff2e67a2a91e9b5bf6df744e3d03e43e1f45d962949cf4fb98",
@@ -15812,8 +15820,8 @@
     "size_bytes": 2227
   },
   "publication/validate_summit_packet.py": {
-    "sha256": "97e61fd2c67045df13411d66f9c67fd728bf8dc89c1a10c1e7b05bd82d89a37e",
-    "size_bytes": 2252
+    "sha256": "044e85497bc81af8a4524ea47ca63f09b093fb3fb8b714b6c56b301c3d9bb048",
+    "size_bytes": 2361
   },
   "publication/verify_metadata_integrity.py": {
     "sha256": "1104cfcad68cc3c196ef7316e6ad3b05482c791e0dff3e8582340e08abd476a1",
@@ -15904,11 +15912,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "cb9791102eab812591acbd14c73eefefd72168774b352fce3ccef4335ba0d6d2",
+    "sha256": "dfb9c5c97c65726b4c6c33d59e084803d2a56205a81354c13f53cec675124f47",
     "size_bytes": 791559
   },
   "worm_manifest.sha256": {
-    "sha256": "854fd325b22ec86dac381b02da428c0d8dc11b726ab67c65cda33bf8c1df9321",
+    "sha256": "8ca3f1bdbe8d224eb8847d1ca1ac3187dcd72cd5eda1fdabbad52b82b0608ffa",
     "size_bytes": 85
   }
 }

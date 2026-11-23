@@ -2,6 +2,8 @@
 
 [![Physical bridge proofs](https://github.com/Tobillicious/universal-protection-theory/actions/workflows/physical-bridges.yml/badge.svg)](https://github.com/Tobillicious/universal-protection-theory/actions/workflows/physical-bridges.yml)
 
+Read the [collected book and chapters](evidence/publication/README.md). The [collection DOI](https://doi.org/10.5281/zenodo.24485305) identifies the archived release.
+
 > **v5.3 — BCRDIsQG Satisfiable: THE LAW HOLDS (21 November 2026).** [`G3QGConstruction.lean`](evidence/physical-bridges/PhysicalBridges/G3QGConstruction.lean) — BCRDIsQG Nat Index constructed from DERIVED proofs: coverage, reflection, nonterminal all proved. `THE_LAW_HOLDS` instantiated. **437 build jobs. Zero sorry. Zero sorryAx.** Zenodo DOI: [10.5281/zenodo.24416194](https://doi.org/10.5281/zenodo.24416194). See [CITATION.cff](CITATION.cff).
 >
 > **v5.2 — THE LAW: One Condition, Everything Proved (21 November 2026).** [`G3TheLaw.lean`](evidence/physical-bridges/PhysicalBridges/G3TheLaw.lean) — one condition (`BCRDIsQG`), everything proved. [`G3ThermodynamicBridge.lean`](evidence/physical-bridges/PhysicalBridges/G3ThermodynamicBridge.lean) — laws of physics make E impossible. Nine unconditional results at zero axioms including `THE_PROOF_OF_GOD`. Prior DOI: [10.5281/zenodo.24413945](https://doi.org/10.5281/zenodo.24413945).
