@@ -15447,6 +15447,38 @@
     "sha256": "7cec8be1fb929a26302181e4ea2c15f0cadf65f4a43620f7ab1b525d8930040c",
     "size_bytes": 1235
   },
+  "evidence/publication/ch1-something-is.html": {
+    "sha256": "684ceef215d5065485c34667a12f04634fd99c9a222f61491c32f66f1e46ca0e",
+    "size_bytes": 3848
+  },
+  "evidence/publication/ch2-koru-fixed-point.html": {
+    "sha256": "e1d82fad6aa249465465b2c0b38b92933ef3617c01dc178ff8d10460f8cfc043",
+    "size_bytes": 4397
+  },
+  "evidence/publication/ch3-genesis.html": {
+    "sha256": "cba76090f72bd66e2af62f798f25e5e9285775aaa2a2c056bf3f40fc96bc8fbf",
+    "size_bytes": 4345
+  },
+  "evidence/publication/ch4-the-turn.html": {
+    "sha256": "b4b6f95a59066ccfcfdccb0e8d44210bead02c28e4aa170fdb2e6ed938eee2c6",
+    "size_bytes": 3511
+  },
+  "evidence/publication/ch5-master-matrix.html": {
+    "sha256": "94e90b11dda3d8e6d54fcf49e6640e8c10a200c3095d6fb474a4e3ce97bf816b",
+    "size_bytes": 4200
+  },
+  "evidence/publication/ch6-singularity-is-one.html": {
+    "sha256": "9ef402b01f13203027860884bf34e726c6db16b02a3ca1684fdb2a077ef6fa63",
+    "size_bytes": 5923
+  },
+  "evidence/publication/ch7-wisdom-of-sand.html": {
+    "sha256": "da14f099d5c0a0dcad524cf155b76dac4dea0de374430d2acf8dac5004ed4295",
+    "size_bytes": 4221
+  },
+  "evidence/publication/upt-complete-proof.html": {
+    "sha256": "c36ba89524c369543ae82c6310fc354c3ea6f57b7369462f6d801b0846adbe13",
+    "size_bytes": 30303
+  },
   "final_push.sh": {
     "sha256": "33715d3815130cff2e67a2a91e9b5bf6df744e3d03e43e1f45d962949cf4fb98",
     "size_bytes": 717
@@ -15872,11 +15904,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "3b453f5b2c931307b253d45a1b092d506a32a7d16acbde81373b5058966c59b4",
-    "size_bytes": 790084
+    "sha256": "3c7d4ca922253c316ef9fa9046277edccd1ea581fac67435cb23ab3abd7b2621",
+    "size_bytes": 790272
   },
   "worm_manifest.sha256": {
-    "sha256": "bdabf27b6822b36b7d269a3f6b1aa2c8f7efe3184321259939fdff7c62484ba8",
+    "sha256": "ce24176b523a540fc84349e63f180d3a77e6d214d2adab518d8636b9aeb3af7b",
     "size_bytes": 85
   }
 }
