@@ -13712,8 +13712,8 @@
     "size_bytes": 5779
   },
   "evidence/physical-bridges/PhysicalBridges/G3ByzantineSingularity.lean": {
-    "sha256": "acdb3ad5dd9e30e931c04226bbd6cd451ca9a630e4db98b6f1cda23ca187a144",
-    "size_bytes": 13517
+    "sha256": "c1a8c32ee0168f89ca235da2f56703e84c2a9cf9ac381b5173b2f0a89c78410e",
+    "size_bytes": 16389
   },
   "evidence/physical-bridges/PhysicalBridges/G3CausalAuthorization.lean": {
     "sha256": "df90062361a268963b415c9836af264879eb3d18dde99ea4bb61852b85359ced",
@@ -15904,11 +15904,11 @@
     "size_bytes": 11830
   },
   "worm_manifest.json": {
-    "sha256": "3c7d4ca922253c316ef9fa9046277edccd1ea581fac67435cb23ab3abd7b2621",
-    "size_bytes": 790272
+    "sha256": "cb9791102eab812591acbd14c73eefefd72168774b352fce3ccef4335ba0d6d2",
+    "size_bytes": 791559
   },
   "worm_manifest.sha256": {
-    "sha256": "ce24176b523a540fc84349e63f180d3a77e6d214d2adab518d8636b9aeb3af7b",
+    "sha256": "854fd325b22ec86dac381b02da428c0d8dc11b726ab67c65cda33bf8c1df9321",
     "size_bytes": 85
   }
 }
