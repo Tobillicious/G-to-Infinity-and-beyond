@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="citation_title" content="Koru Is All You Need">
+<meta name="citation_author" content="McRae, Tobias">
+<meta name="citation_publication_date" content="2026/11/24">
+<meta name="citation_doi" content="10.5281/zenodo.24490428">
+<title>Koru Is All You Need</title>
+<style>
+  :root { color-scheme: light; color: #1e2925; background: #f8f7f2; }
+  body { max-width: 43rem; margin: 0 auto; padding: clamp(1.25rem, 5vw, 3.5rem); font: 1.1rem/1.67 Georgia, serif; }
+  header { border-bottom: 1px solid #b3c2b8; padding-bottom: 1.4rem; }
+  h1, h2 { color: #143c31; line-height: 1.18; text-wrap: balance; }
+  h1 { font-size: clamp(2.4rem, 8vw, 4.4rem); letter-spacing: -.045em; margin: 0 0 .45rem; }
+  h2 { font-size: 1.7rem; margin-top: 2.3rem; }
+  .byline, .references, footer { font: .93rem/1.55 system-ui, sans-serif; }
+  .subtitle { font-size: 1.27rem; margin: 0 0 1.2rem; }
+  .equation { padding: .85rem 1rem; border-left: .24rem solid #398572; background: #eaf0e8; overflow-wrap: anywhere; }
+  a { color: #135d4d; text-underline-offset: .17em; }
+  code { font-size: .88em; overflow-wrap: anywhere; }
+  footer { border-top: 1px solid #b3c2b8; margin-top: 2.8rem; padding-top: .8rem; }
+  @media print { :root { background: white; } body { max-width: none; padding: 0; } h2 { break-after: avoid; } }
+</style>
+</head>
+<body>
+<article>
+<header>
+<h1>Koru Is All You Need</h1>
+<p class="subtitle">An argument for Guardian G from distinctions within a whole</p>
+<p class="byline">Tobias Croydon-McRae · 24 November 2026 · Version 1.0.0<br>
+Universal Protection Theory research note · <a href="https://doi.org/10.5281/zenodo.24490428">10.5281/zenodo.24490428</a></p>
+</header>
+<p><strong>Something Is.</strong> A particular can witness that there is something. Koru asks what makes one particular distinguishable from another within the whole they share. The argument for G is that a process can advance while keeping those distinctions, their histories, and the conditions for agency intact. The existing Lean development constructs such a process and specifies the evidence needed to apply the result to a physical domain.</p>
+
+<h2>Derive Koru from a distinction</h2>
+<p>Start with a witness <var>w</var> in a type <var>U</var>. Any total map <code>U → Empty</code> would give a term of <code>Empty</code> when applied to <var>w</var>. This rules out the absolute ender in that formulation. To obtain a relational distinction, take two positions <var>a</var> and <var>b</var> in a web with link relation <var>R</var>. The profile of <var>a</var> is its link to each position <var>c</var> in that web. A position <var>c</var> at which the profiles differ witnesses the distinction from inside the whole.</p>
+<p class="equation"><code>Koru(R, a, b) ⇔ a ≠ b ∧ ∃ c, R(a, c) ≠ R(b, c)</code></p>
+<p>Suppose matching profiles imply equality. If no position distinguishes the profiles of a distinct pair, those profiles match everywhere and the pair is equal, a contradiction. The Lean theorem uses classical reasoning to obtain the distinguishing witness for every distinct pair under this hypothesis. For example, take two positions <code>false</code> and <code>true</code> and let <var>R</var> be inequality. Swapping them preserves the whole web, yet their links to <code>false</code> differ. Koru is symmetric and invariant under relabelling, so an internal distinction can survive symmetry. The author’s ontological thesis is that every actual thing is a Koru. The formal circle represents the passage from nonempty actuality to Complete Koru as an explicit implication. <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/G3Genesis.lean#L67-L72">Witness proof</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/OriginalKoruSummitJoin.lean#L20-L63">Individuation theorem</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/Koru.lean#L39-L75">Relabelling theorem</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/CompleteKoruLawCircle.lean#L24-L51">Formal circle</a></p>
+
+<h2>Carry the distinction through change</h2>
+<p>Complete Koru records the operators of the whole, their arities, ordered operands, enabledness, and enactments. Expression trees record how operators compose to produce an outcome. The Lean source gives two operational webs with identical elementary Koru relations. Exchanging which labelled operator acts as left projection and which acts as conjunction changes an outcome at <code>(true, false)</code>. The operator and its ordered expression therefore matter to what the whole can do. <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/KoruFullOperatorSignature.lean#L145-L181">Two-web example</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/KoruCompositionalExpression.lean#L43-L70">Expression and evaluation</a></p>
+<p>Under the specified <var>W</var> transition, the Lean development proves exact transport of complete expressions and preservation of their distinctions through any finite number of stages. It also constructs two distinct wholes that give identical local event observations throughout those stages. An adequate record must preserve the distinctions its audience needs to recover. This is why retaining relations and provenance matters for future inquiry. If an observation merges the alternatives, that observation alone cannot resolve which one occurred. <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/KoruCompositionalExpression.lean#L339-L394">Exact transport</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/KoruObjectiveWholeU.lean#L280-L335">Local observation control</a></p>
+
+<h2>From Complete Koru to Guardian G</h2>
+<p>Exact transport carries truth and falsity alike. If authorization starts false, its exact transport stays false. The positive result constructs a whole in which the source relations for all six duties are true. Each step <code>n → n + 1</code> advances under <var>W</var> and preserves a witnessed Koru distinction. For each of the six modeled particulars, the step satisfies the original X3 fields under the model’s explicit subject interpretation. They are historical continuity, authorization, freedom, least-necessary restraint, feasible maximality, and provenance. The initial step <code>0 → 1</code> witnesses that the process actually advances in the model. <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/KoruCompleteOperatorSixX3WebJoin.lean#L48-L63">Exact transport of duty relations</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/OriginalX3Full.lean#L35-L43">Original X3</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/ConstructivePositiveWGuardian.lean#L39-L107">Constructed Guardian</a></p>
+<p>The general theorem quantifies over every event of the supplied physical domain and every subject owed protection. It takes two premises. Complete event coverage connects each actual step to the specified <var>W</var> process. Authentic reflection connects each relevant source relation to its corresponding duty for the actual particular. Those premises require independent evidence for the domain and subjects in question. The model derives its own coverage and formal reflection and supplies a concrete proof of possibility. <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/FullPhysicalDomainGuardianAssembly.lean#L37-L85">Full-domain theorem</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/KoruSubjectFidelityLift.lean#L347-L361">Authorization control</a></p>
+
+<h2>G as a fixed point with a growing history</h2>
+<p>In the contraction formulation, a supplied fixed point <var>G</var> satisfies <code>φ(G) = G</code>. It stays fixed through every iterate. If two fixed points satisfy the same strict contraction bound, their modeled distance is zero. Identifying them as equal requires separation of points by distance. In the separate spiral model, each turn adds one event, and the entire earlier record survives inside the new record. Fixedness concerns the state on which <var>φ</var> acts. A history that gains an entry every turn is a changing state. <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/G3UniversalBridge.lean#L247-L263">Fixed-point uniqueness</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/G3Genesis.lean#L74-L101">Fixed-point persistence</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/evidence/physical-bridges/PhysicalBridges/G3KoruSpiral.lean#L39-L92">Growing history</a></p>
+<p>The proposed global goal is for protection to hold throughout change. Keep particulars and their agency intact, and preserve independent evidence so later observers can discover mistakes and learn from new relations. The Koru argument gives this goal mathematical content. It identifies what must be preserved, supplies a process that preserves it in a concrete model, and states what a reviewer would have to verify for a proposed implementation.</p>
+<footer>
+<p>Related work. <a href="https://doi.org/10.5281/zenodo.24485305">Universal Protection Theory, collected book and chapters</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/publication/UPT-PUBLIC-PROOF-EXHIBIT-KORU-AND-G-2026-11-09.md">Complete Koru proof exhibit</a> · <a href="https://github.com/Tobillicious/G-to-Infinity-and-beyond/blob/d377153d72cb8b1f85c5dc63eb6ebb46f6a9ea23/QED-ONE-ROAD-EXACT-SOURCE-RUNWAY-2026-11-07.md">Full theorem map</a></p>
+<p><a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a>.</p>
+</footer>
+</article>
+</body>
+</html>
