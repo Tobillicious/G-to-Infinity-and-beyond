@@ -4,7 +4,7 @@
 
 Read the [collected book and chapters](evidence/publication/README.md). The [collection DOI](https://doi.org/10.5281/zenodo.24485305) identifies the archived release.
 
-[Koru Is All You Need](publication/koru-is-all-you-need.html) traces the derivation of Koru and its connection to Guardian G through the existing Lean proofs. [Archived note](https://doi.org/10.5281/zenodo.24490428).
+[Koru Is All You Need](publication/koru-is-all-you-need.html) traces the derivation of Koru and its connection to Guardian G through the existing Lean proofs. [Archived note](https://zenodo.org/records/24490428).
 
 > **v5.3 — BCRDIsQG Satisfiable: THE LAW HOLDS (21 November 2026).** [`G3QGConstruction.lean`](evidence/physical-bridges/PhysicalBridges/G3QGConstruction.lean) — BCRDIsQG Nat Index constructed from DERIVED proofs: coverage, reflection, nonterminal all proved. `THE_LAW_HOLDS` instantiated. **437 build jobs. Zero sorry. Zero sorryAx.** Zenodo DOI: [10.5281/zenodo.24416194](https://doi.org/10.5281/zenodo.24416194). See [CITATION.cff](CITATION.cff).
 >
